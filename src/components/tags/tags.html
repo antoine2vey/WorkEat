@@ -1,0 +1,63 @@
+<!--account.html-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h2>Add a tag</h2>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal" novalidate ng-submit="tagForm()" name="addTagForm">
+      <fieldset>
+        <div class="alert alert-success" ng-if="reqStatus">
+          <strong>Success!</strong> {{reqStatus}} !
+        </div>
+        <div class="form-group">
+          <label for="inputTagName" class="col-lg-3 control-label">Nom</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputTagName"
+            ng-model="name"
+            required
+            >
+          </div>
+        </div>
+      <div class="form-group">
+        <div class="col-lg-9 col-lg-offset-3">
+          <input class="btn btn-primary" type="submit" ng-disabled="addTagForm.$invalid" value="Ajouter un tag">
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h2>Edit tags</h2>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 clearfix" ng-repeat="tag in tags" style="margin-bottom:15px;">
+    <p>
+      {{tag.name}}
+      <button class="btn btn-danger" ng-click="removeTag(tag, $index);" style="float:right; margin-left:15px;">X</button>
+      <button class="btn btn-primary" ng-click="editTag(tag);" style="float:right">Edit</button>
+    </p>
+  </div>
+</div>
+
+<div class="row" ng-if="isEditing">
+  <div class="col-md-6 col-md-offset-3">
+    <input type="text" ng-model="tagObj.name" class="form-control"/>
+    <button ng-click='updateTag(tagObj)' class="btn btn-primary" style="margin-top:15px;">Update</button>
+  </div>
+</div>
+<!--/account.html-->

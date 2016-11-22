@@ -1,0 +1,8 @@
+yarn.lock
+node_modules/
+npm-debug.*
+.DS_Store
+public/*
+!public/uploads/*.png
+!public/index.html
+.env

@@ -1,0 +1,109 @@
+<!--create_account.html-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h2>Create An Account</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form class="form-horizontal" novalidate ng-submit="submitForm()" name="createAccountForm">
+            <fieldset>
+                <div class="form-group">
+                    <label for="inputName" class="col-lg-3 control-label">Nom</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputName"
+                               ng-model="newUser.name"
+                               required placeholder="Nom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputSurname" class="col-lg-3 control-label">Prénom</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputSurname"
+                               ng-model="newUser.surname"
+                               required placeholder="Prénom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+                    <div class="col-lg-9">
+                        <input type="email"
+                               class="form-control"
+                               id="inputEmail"
+                               ng-model="newUser.username"
+                               required placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-lg-3 control-label">Mot de passe</label>
+                    <div class="col-lg-9">
+                        <input type="password"
+                               class="form-control"
+                               id="inputPassword"
+                               ng-model="newUser.password"
+                               required
+                               placeholder="Mot de passe">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCodePostal" class="col-lg-3 control-label">Code postal</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputCodePostal"
+                               ng-model="newUser.codePostal"
+                               required
+                               placeholder="Code postal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputTown" class="col-lg-3 control-label">Ville</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputTown"
+                               ng-model="newUser.town"
+                               required
+                               placeholder="Ville">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress" class="col-lg-3 control-label">Adresse</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputAddress"
+                               ng-model="newUser.address"
+                               required
+                               placeholder="Adresse">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhoneNumber" class="col-lg-3 control-label">Numéro de téléphone</label>
+                    <div class="col-lg-9">
+                        <input type="text"
+                               class="form-control"
+                               id="inputPhoneNumber"
+                               ng-model="newUser.phoneNumber"
+                               required
+                               placeholder="Telephone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-3">
+                        <input class="btn btn-primary" type="submit" ng-disabled="createAccountForm.$invalid" value="Create Account">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<!--/create_account.html-->

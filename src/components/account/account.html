@@ -1,0 +1,131 @@
+<!--account.html-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h2>Your Account</h2>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal" novalidate ng-submit="updateAccount()" name="editAccountForm">
+      <fieldset>
+        <div class="alert alert-success" ng-if="status">
+          <strong>Success!</strong> {{status}} !
+        </div>
+        <div class="alert alert-danger" ng-if="error">
+          <strong>Arf !</strong> {{error.error}} !
+        </div>
+        <div class="alert alert-danger" ng-if="doNotMatch">
+          <strong>Check it out !</strong> {{doNotMatch}}
+        </div>
+        <div class="form-group">
+          <label for="inputName" class="col-lg-3 control-label">Nom</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputName"
+            ng-model="formData.name"
+            required
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSurname" class="col-lg-3 control-label">Prénom</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputSurname"
+            ng-model="formData.surname"
+            required
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputEmail"
+            ng-model="formData.newUsername"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCodePostal" class="col-lg-3 control-label">Code postal</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputCodePostal"
+            ng-model="formData.codePostal"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress" class="col-lg-3 control-label">Adresse</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputAddress"
+            ng-model="formData.address"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPhoneNumber" class="col-lg-3 control-label">Numéro de téléphone</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputPhoneNumber"
+            ng-model="formData.phoneNumber"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputTown" class="col-lg-3 control-label">Ville</label>
+          <div class="col-lg-9">
+            <input type="text"
+            class="form-control"
+            id="inputTown"
+            ng-model="formData.town"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-lg-3 control-label">Password</label>
+          <div class="col-lg-9">
+            <input type="password"
+            class="form-control"
+            id="inputPassword"
+            ng-model="password"
+            required
+            placeholder="Change Password Here">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputPasswordVerification" class="col-lg-3 control-label">Verifier le mot de passe</label>
+          <div class="col-lg-9">
+            <input type="password"
+            class="form-control"
+            id="inputPasswordVerification"
+            ng-model="passwordVerification"
+            required
+            placeholder="Change Password Here">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-9 col-lg-offset-3">
+            <input class="btn btn-primary" type="submit" ng-disabled="editAccountForm.$invalid" value="Update Account">
+            <br/><br/>
+            <button class="btn btn-danger" type="button" ng-click="deleteAccount()">Delete Account</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<!--/account.html-->
