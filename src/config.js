@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import 'ngstorage';
+import 'ngmap';
 import todoFactory from 'factories/todo-factory';
 import homeTemplate from 'components/home/home.html';
 import homeController from 'components/home';
@@ -19,8 +20,10 @@ import productsController from 'components/products';
 import adminTemplate from 'components/admin/admin.html';
 import headerTemplate from 'components/header/header.html';
 import headerController from 'components/header';
+import livraisonTemplate from 'components/livraison/livraison.html';
+import livraisonController from 'components/livraison';
 
-const app = angular.module('workEat', [uiRouter, todoFactory.name, 'ngStorage']);
+const app = angular.module('workEat', [uiRouter, todoFactory.name, 'ngStorage', 'ngMap']);
 
 app.directive('fileread', [function () {
     return {
@@ -47,6 +50,10 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   const header = {
     templateUrl: headerTemplate,
     controller: headerController
+  };
+
+  const vm = {
+    controllerAs: 'vm'
   };
 
   $stateProvider
@@ -104,7 +111,7 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   .state('app.admin', {
     url: '/admin',
     views: {
-      '@': {        
+      '@': {
         templateUrl: adminTemplate
       }
     }
@@ -124,6 +131,16 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
       '@': {
         templateUrl: productsTemplate,
         controller: productsController
+      }
+    }
+  })
+  .state('app.admin.livraison', {
+    url: '/map',
+    views: {
+      '@': {
+        templateUrl: livraisonTemplate,
+        controller: livraisonController,
+        controllerAs: 'vm'
       }
     }
   });

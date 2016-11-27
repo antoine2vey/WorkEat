@@ -25,6 +25,11 @@
                 Ajouter un tag
               </a>
             </li>
+            <li ng-if="user.user.isAdmin">
+              <a ui-sref="app.admin.livraison">
+                Points de livraison
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

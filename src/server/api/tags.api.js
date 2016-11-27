@@ -25,7 +25,6 @@ exports.listOne = (req, res) => {
   });
 };
 exports.create = function(req, res){
-  console.log(req.body);
   req.checkBody('name', 'Name is required').notEmpty();
 
   var errors = req.validationErrors();

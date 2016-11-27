@@ -63,7 +63,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limite: '50mb', extended:true}));
-app.use(expressValidator());
+app.use(expressValidator({
+  customValidators: {
+    isArray: function(value) {
+        return Array.isArray(value);
+    }
+ }
+}));
 app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -80,6 +86,8 @@ app.use(passport.session());
 const userRoute = require('./src/server/api/users.api');
 const productsApi = require('./src/server/api/products.api');
 const tagApi = require('./src/server/api/tags.api');
+const placeApi = require('./src/server/api/places.api');
+
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
@@ -136,6 +144,10 @@ app.post('/api/tags/create', isAdmin, tagApi.create);
 app.delete('/api/tags/:id', isAdmin, tagApi.delete);
 app.put('/api/tags/:id', isAdmin, tagApi.update);
 
+//LIVRAISON API
+app.get('/api/livraison/places', isAdmin, placeApi.list);
+app.post('/api/livraison/places', isAdmin, placeApi.create);
+app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 
 app.all('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
