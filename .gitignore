@@ -6,3 +6,4 @@ public/*
 !public/uploads/*.png
 !public/index.html
 .env
+.ftpconfig

@@ -127,7 +127,7 @@ app.post('/account/create', userRoute.create);
 app.post('/account/delete', authorizeRequest, userRoute.delete);
 app.post('/account/update', authorizeRequest, userRoute.update);
 
-app.get('/protected', authorizeRequest, function(req, res){
+app.get('/protected', authorizeRequest, (req, res) => {
   res.send('This is a protected route only visible to authenticated users.');
 });
 
@@ -149,10 +149,10 @@ app.get('/api/livraison/places', isAdmin, placeApi.list);
 app.post('/api/livraison/places', isAdmin, placeApi.create);
 app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 
-app.all('/*', function(req, res) {
+app.all('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
     console.log('Server running on ' + PORT);
 });

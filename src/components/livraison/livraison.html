@@ -9,20 +9,20 @@
       disable-scroll="true"
       options="map.options"
       center="current-location"
+      geo-fallback-center="49.8741275, 2.5389784"
+      zoom="8"
       >
-      <marker
-        ng-repeat="marker in vm.markers" id='{{marker._id}}'
-        position="{{marker.geolocation}}"
-        on-click="map.showInfoWindow(marker._id)"
+      <marker ng-repeat="pin in vm.markers"
+        id='{{pin._id}}'
+        position="{{pin.geolocation}}"
+        on-click="map.showInfoWindow(pin._id)"
         ></marker>
 
-      <info-window
-        ng-repeat="info in vm.markers"
-        id="{{info._id}}">
-        <div>
-          {{info.description}}
-        </div>
-      </info-window>
+        <info-window id="{{info._id}}" ng-repeat="info in vm.markers">
+          <div>
+            {{info.description}}
+          </div>
+        </info-window>
     </ng-map>
     <p style="margin-top: 15px; font-weight: 300; font-size: 1.3em" ng-if="address">Vous avez cliqué au {{address}}</p>
   </div>
@@ -92,7 +92,6 @@
       <p>
         {{marker.name}}
         <button class="btn btn-danger" ng-click="vm.removeMarker(marker, $index);" style="float:right; margin-left:15px;">X</button>
-        <!-- <button class="btn btn-primary" ng-click="editTag(tag);" style="float:right">Edit</button> -->
       </p>
     </div>
   </div>

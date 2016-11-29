@@ -2,7 +2,6 @@
 export default function(NgMap, $http, $scope) {
   const vm = this;
   let tmpMarkers = [];
-  let currentMarkers = [];
   let latLng = [];
   vm.googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD7t9PNgiBnEJ8ne3pVXoRg4U94MZwWy5I';
 
