@@ -17,7 +17,7 @@ export default function(NgMap, $http, $scope) {
     if(array.length > 1) {
       array[0].setMap(null);
       array.shift();
-      latLng.shift();
+      latLng.splice(0,2);
     }
   };
 
