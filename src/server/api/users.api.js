@@ -22,10 +22,9 @@ exports.login = (req,res) => {
 
   const errors = req.validationErrors();
   if (errors) {
-    res.status(401).send({
-      error:'Username or password was left empty. Please complete both fields and re-submit.'
-    });
-    return;
+    return res.status(401).send(
+      'Username or password was left empty. Please complete both fields and re-submit.'
+    );
   }
   passport.authenticate('local', (err, user, next) => {
     if (err) {
@@ -59,7 +58,7 @@ exports.create = (req,res) => {
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('surname', 'Surname is required').notEmpty();
-  req.checkBody('codePostal', 'Code postal is required').notEmpty();
+  req.checkBody('codePostal', 'Code postal is required').notEmpty().isInt();
   req.checkBody('town', 'Town is required').notEmpty();
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('phoneNumber', 'Phone number is required').notEmpty();
@@ -119,27 +118,31 @@ exports.create = (req,res) => {
   });
 };
 exports.delete = (req, res) => {
-  User.remove({ username: req.body.username }, function(err) {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error deleting account.');
-      return;
-    }
-    req.session.destroy(err => {
-      if(err){
+  //Security : if session email == sent email
+  //We delete, else, throw error;
+  if(req.body.username === req.user.username) {
+    User.remove({ username: req.body.username }, function(err) {
+      if (err) {
+        console.log(err);
         res.status(500).send('Error deleting account.');
-        console.log('Error deleting session: ' + err);
         return;
       }
-      res.status(200).send('Account successfully deleted.');
+      req.session.destroy(err => {
+        if(err){
+          res.status(500).send('Error deleting account.');
+          console.log('Error deleting session: ' + err);
+          return;
+        }
+        res.status(200).send('Account successfully deleted.');
+      });
     });
-  });
-
+  } else {
+    return res.status(500).send('Stop trying to delete another account');
+  }
 };
 exports.update = (req,res) => {
 
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
-  req.checkBody('newUsername', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('surname', 'Surname is required').notEmpty();
@@ -157,8 +160,12 @@ exports.update = (req,res) => {
   var salt = bcrypt.genSaltSync(10),
   hash = bcrypt.hashSync(req.body.password, salt);
 
+  console.log(req.body);
+  console.log(req.user);
+
+  //We do pass the session userId
   User.findByIdAndUpdate(req.user._id, {
-    username: req.body.newUsername,
+    username: req.body.username,
     password: hash,
     name: req.body.name,
     surname: req.body.surname,
@@ -173,7 +180,10 @@ exports.update = (req,res) => {
       });
     }
 
-    res.status(200).send('Account updated');
+    res.status(200).send({
+      user: doc,
+      status: 'Account updated'
+    });
   });
 };
 exports.logout = (req,res) => {

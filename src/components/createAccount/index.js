@@ -1,23 +1,21 @@
 export default function($scope, $http, $state) {
-  $scope.submitForm = function(){
-    $http({
-      method: 'POST',
-      url: '/account/create',
-      data: {
-        'username': $scope.newUser.username,
-        'password': $scope.newUser.password,
-        'name' : $scope.newUser.name,
-        'surname': $scope.newUser.surname,
-        'codePostal': $scope.newUser.codePostal,
-        'town': $scope.newUser.town,
-        'address': $scope.newUser.address,
-        'phoneNumber': $scope.newUser.phoneNumber
-      }
+  const vm = this;
+
+  vm.createAccount = () => {
+    $http.post('/account/create', {
+      'username': vm.username,
+      'password': vm.password,
+      'name' : vm.name,
+      'surname': vm.surname,
+      'codePostal': vm.codePostal,
+      'town': vm.town,
+      'address': vm.address,
+      'phoneNumber': vm.phoneNumber
     })
     .success(res => {
       $state.go('app.account');
     })
-    .error(function(err){
+    .error(err => {
       console.log(err);
     });
   };

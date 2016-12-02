@@ -49,10 +49,7 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 
   const header = {
     templateUrl: headerTemplate,
-    controller: headerController
-  };
-
-  const vm = {
+    controller: headerController,
     controllerAs: 'vm'
   };
 
@@ -68,7 +65,8 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views: {
       '@': {
         templateUrl: homeTemplate,
-        controller: homeController
+        controller: homeController,
+        controllerAs: 'vm'
       }
     }
   })
@@ -77,7 +75,8 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views : {
       '@': {
         templateUrl: accountTemplate,
-        controller: accountController
+        controller: accountController,
+        controllerAs: 'vm'
       }
     }
   })
@@ -86,7 +85,8 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views: {
       '@': {
         templateUrl: loginTemplate,
-        controller: loginController
+        controller: loginController,
+        controllerAs: 'vm'
       }
     }
   })
@@ -95,16 +95,18 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views: {
       '@': {
         templateUrl: createAccountTemplate,
-        controller: createAccountController
+        controller: createAccountController,
+        controllerAs: 'vm'
       }
     }
   })
   .state('app.user', {
-    url: '/user',
+    url: '/user/:name',
     views: {
       '@': {
         templateUrl: userTemplate,
-        controller: userController
+        controller: userController,
+        controllerAs: 'vm'
       }
     }
   })
@@ -121,7 +123,8 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views: {
       '@': {
         templateUrl: tagsTemplate,
-        controller: tagsController
+        controller: tagsController,
+        controllerAs: 'vm'
       }
     }
   })
@@ -130,7 +133,8 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     views: {
       '@': {
         templateUrl: productsTemplate,
-        controller: productsController
+        controller: productsController,
+        controllerAs: 'vm'
       }
     }
   })

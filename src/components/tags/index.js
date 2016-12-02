@@ -1,66 +1,58 @@
-export default function($scope, $http) {
-  function getTags(){
+export default function($http) {
+  const vm = this;
+
+  const getTags = () => {
     $http.get('/api/tags')
-      .success(function(res) {
-        $scope.tags = res;
-        console.log(res);
+      .success(res => {
+        vm.tags = res;
       })
-      .error(function(err) {
+      .error(err => {
         console.log(err);
       });
-  }
+  };
 
   getTags();
 
 
-  $scope.tagForm = function(){
-    $http({
-      method: 'POST',
-      url: '/api/tags/create',
-      data : {
-        'name': $scope.name
-      }
+  vm.tagForm = () => {
+    $http.post('/api/tags/create', {
+      'name': vm.name
     })
-    .success(function(res) {
-      $scope.reqStatus = res;
+    .success(res => {
+      vm.reqStatus = res;
       getTags();
     })
-    .error(function(err) {
-      $scope.reqStatus = err;
+    .error(err => {
+      vm.reqStatus = err;
     });
   };
 
-  $scope.editTag = function(tag) {
-    $scope.isEditing = true;
-    $scope.tagObj = tag;
+  vm.editTag = (tag) => {
+    vm.isEditing = true;
+    vm.tagObj = tag;
   };
 
-  $scope.removeTag = function(tag, index) {
-    $http({
-      method: 'DELETE',
-      url: '/api/tags/'+tag._id,
+  vm.removeTag = (tag, index) => {
+    $http.delete(`/api/tags/${tag._id}`)
+    .success(() => {
+      vm.tags.splice(index, 1);
     })
-    .success(function() {
-      $scope.tags.splice(index, 1);
-    })
-    .error(function(err) {
+    .error(err => {
       console.log(err);
     });
   };
 
-  $scope.updateTag = function(tag) {
-    $http({
-      method: 'PUT',
-      url: '/api/tags/'+tag._id,
-      data : {
-        name: tag.name
-      }
+  vm.updateTag = (tag) => {
+    const { name } = tag;
+
+    $http.put(`/api/tags/${tag._id}`, {
+      name: name
     })
-    .success(function(res) {
-      console.log(res);
+    .success(res => {
+      vm.reqStatus = res;
     })
-    .error(function(err) {
-      console.log(err);
+    .error(err => {
+      vm.reqStatus = err;
     });
   };
 }

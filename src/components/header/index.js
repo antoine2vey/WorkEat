@@ -1,10 +1,9 @@
-export default function($localStorage, $scope, $state, $http) {
-  $scope.user = $localStorage;
-  $scope.logout = function(){
-    $http({
-      method: 'GET',
-      url: '/account/logout'
-    })
+export default function($localStorage, $state, $http) {
+  const vm = this;
+  vm.user = $localStorage;
+
+  vm.logout = function(){
+    $http.get('/account/logout')
     .success(() => {
       $localStorage.$reset();
       $state.go('app.home');

@@ -10,10 +10,10 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <form class="form-horizontal" novalidate ng-submit="productForm(tags)" name="addProductForm" enctype="multipart/form-data">
+    <form class="form-horizontal" novalidate ng-submit="vm.productForm()" name="addProductForm" enctype="multipart/form-data">
       <fieldset>
-        <div class="alert alert-success" ng-if="reqStatus">
-          <strong>Success!</strong> {{reqStatus}} !
+        <div class="alert alert-success" ng-if="vm.reqStatus">
+          <strong>Success!</strong> {{vm.reqStatus}} !
         </div>
         <div class="form-group">
           <label for="inputImage" class="col-lg-3 control-label">Image</label>
@@ -21,7 +21,7 @@
             <input type="file"
             class="form-control"
             id="inputImage"
-            fileread="file"
+            fileread="vm.file"
             >
           </div>
         </div>
@@ -31,7 +31,7 @@
             <input type="text"
             class="form-control"
             id="inputTitle"
-            ng-model="addProduct.title"
+            ng-model="vm.title"
             required
             >
           </div>
@@ -42,7 +42,7 @@
             <input type="text"
             class="form-control"
             id="inputDescription"
-            ng-model="addProduct.description"
+            ng-model="vm.description"
             required
             >
           </div>
@@ -53,7 +53,7 @@
             <input type="text"
             class="form-control"
             id="inputPreparation"
-            ng-model="addProduct.preparation"
+            ng-model="vm.preparation"
             >
           </div>
         </div>
@@ -63,7 +63,7 @@
             <input type="text"
             class="form-control"
             id="inputIngredients"
-            ng-model="addProduct.ingredients"
+            ng-model="vm.ingredients"
             >
           </div>
         </div>
@@ -73,7 +73,8 @@
             <input type="text"
             class="form-control"
             id="inputAllergics"
-            ng-model="addProduct.allergics"
+            ng-model="vm.allergics"
+            placeholder="item1, item2, item3"
             >
           </div>
         </div>
@@ -84,7 +85,7 @@
             min="0"
             class="form-control"
             id="inputPrice"
-            ng-model="addProduct.price"
+            ng-model="vm.price"
             required>
           </div>
         </div>
@@ -94,8 +95,8 @@
             <select
             class="form-control"
             multiple='true'
-            ng-model='addProduct.tag'
-            ng-options='tag.name for tag in tags'
+            ng-model='vm.tag'
+            ng-options='tag.name for tag in vm.tags'
             id="inputTag">
             </select>
           </div>
@@ -107,7 +108,7 @@
             class="form-control"
             multiple='true'
             id="inputType"
-            ng-model='addProduct.type'
+            ng-model='vm.type'
             required>
               <option value="entree">Entrée</option>
               <option value="plat">Plat</option>
@@ -117,7 +118,7 @@
         </div>
       <div class="form-group">
         <div class="col-lg-9 col-lg-offset-3">
-          <input class="btn btn-primary" type="submit" ng-disabled="editAccountForm.$invalid" value="Ajouter un produit">
+          <input class="btn btn-primary" type="submit" ng-disabled="addProductForm.$invalid" value="Ajouter un produit">
         </div>
       </div>
     </fieldset>
@@ -135,17 +136,17 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="alert alert-danger col-md-offset-3 col-md-6" ng-if="!products.length">
+    <div class="alert alert-danger col-md-offset-3 col-md-6" ng-if="!vm.products.length">
       <strong>No products</strong> !
     </div>
-    <div class="media" ng-repeat="product in products">
+    <div class="media" ng-repeat="product in vm.products">
       <div class="media-left">
       <img ng-src="{{product.file}}" alt="..." style="width:300px;height:auto;">
       </div>
       <div class="media-body">
         <h4 class="media-heading">
           {{product.title}} -- {{product.price}}€
-          <button style='float:right' class="btn btn-danger" ng-click="removeProduct(product, $index)">X</button>
+          <button style='float:right' class="btn btn-danger" ng-click="vm.removeProduct(product, $index)">X</button>
         </h4>
         <p>
           Ingredients : {{product.ingredients}}

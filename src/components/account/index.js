@@ -1,39 +1,45 @@
 import $ from 'jquery';
 
-export default function($scope, $http, $localStorage) {
-  $scope.formData = $.extend(true,{},$localStorage.user);
-  var hiddenUsername = $scope.formData.username;
-  $scope.formData.newUsername = $scope.formData.username;
+export default function($http, $localStorage, $state) {
+  const vm = this;
+  vm.formData = $.extend(true,{},$localStorage.user);
 
-  $scope.updateAccount = function(){
-    if($scope.password !== $scope.passwordVerification){
-      $scope.doNotMatch = 'Passwords do not match :-(';
+  vm.updateAccount = () => {
+    if(vm.password !== vm.passwordVerification){
+      vm.doNotMatch = 'Passwords do not match :-(';
       return;
     }
 
-    $http({
-      method: 'POST',
-      url: '/account/update',
-      data: {
-        'newUsername': $scope.formData.newUsername,
-        'username': hiddenUsername,
-        'password': $scope.password,
-        'name': $scope.formData.name,
-        'surname': $scope.formData.surname,
-        'codePostal': $scope.formData.codePostal,
-        'phoneNumber': $scope.formData.phoneNumber,
-        'address': $scope.formData.address,
-        'town': $scope.formData.town
-      }
+    $http.put('/account/update', {
+      'username': vm.formData.username,
+      'password': vm.password,
+      'name': vm.formData.name,
+      'surname': vm.formData.surname,
+      'codePostal': vm.formData.codePostal,
+      'phoneNumber': vm.formData.phoneNumber,
+      'address': vm.formData.address,
+      'town': vm.formData.town
     })
-    .success(function(res){
-      $localStorage.user = $scope.formData;
-      hiddenUsername = $scope.formData.newUsername;
-      $scope.formData.newUsername = hiddenUsername;
-      $scope.status = res;
+    .success(res => {
+      $localStorage.user = vm.formData;
+      vm.status = res.status;
     })
-    .error(function(res){
-      $scope.error = res;
+    .error(err => {
+      vm.error = err;
+    });
+  };
+
+
+  vm.deleteAccount = () => {
+    $http.delete('/account/delete', {
+      username: vm.formData.username
+    })
+    .success(() => {
+      $state.go('app.home');
+      $localStorage.$reset();
+    })
+    .error(err => {
+      vm.doNotMatch = err;
     });
   };
 }

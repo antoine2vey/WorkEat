@@ -1,20 +1,18 @@
-export default function($scope, $localStorage, $state, $http) {
-  $scope.submitLogin = function(){
-    $http({
-      method: 'POST',
-      url: '/account/login',
-      data: {
-        'username': $scope.loginForm.username,
-        'password': $scope.loginForm.password
-      }
+export default function($localStorage, $state, $http) {
+  const vm = this;
+
+  vm.submitLogin = () => {
+    $http.post('/account/login', {
+      'username': vm.username,
+      'password': vm.password
     })
-    .success(function(response){
+    .success(user => {
       $localStorage.status = true;
-      $localStorage.user = response;
+      $localStorage.user = user;
       $state.go('app.account');
     })
-    .error(function(res){
-      $scope.error = res;
+    .error(res => {
+      vm.error = res;
     });
   };
 }

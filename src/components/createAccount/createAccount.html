@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form class="form-horizontal" novalidate ng-submit="submitForm()" name="createAccountForm">
+        <form class="form-horizontal" novalidate ng-submit="vm.createAccount()" name="createAccountForm">
             <fieldset>
                 <div class="form-group">
                     <label for="inputName" class="col-lg-3 control-label">Nom</label>
@@ -17,7 +17,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputName"
-                               ng-model="newUser.name"
+                               ng-model="vm.name"
                                required placeholder="Nom">
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputSurname"
-                               ng-model="newUser.surname"
+                               ng-model="vm.surname"
                                required placeholder="Prénom">
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <input type="email"
                                class="form-control"
                                id="inputEmail"
-                               ng-model="newUser.username"
+                               ng-model="vm.username"
                                required placeholder="Email">
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <input type="password"
                                class="form-control"
                                id="inputPassword"
-                               ng-model="newUser.password"
+                               ng-model="vm.password"
                                required
                                placeholder="Mot de passe">
                     </div>
@@ -58,7 +58,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputCodePostal"
-                               ng-model="newUser.codePostal"
+                               ng-model="vm.codePostal"
                                required
                                placeholder="Code postal">
                     </div>
@@ -69,7 +69,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputTown"
-                               ng-model="newUser.town"
+                               ng-model="vm.town"
                                required
                                placeholder="Ville">
                     </div>
@@ -80,7 +80,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputAddress"
-                               ng-model="newUser.address"
+                               ng-model="vm.address"
                                required
                                placeholder="Adresse">
                     </div>
@@ -91,7 +91,7 @@
                         <input type="text"
                                class="form-control"
                                id="inputPhoneNumber"
-                               ng-model="newUser.phoneNumber"
+                               ng-model="vm.phoneNumber"
                                required
                                placeholder="Telephone">
                     </div>

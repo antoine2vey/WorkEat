@@ -1,3 +1,7 @@
+require('pmx').init({
+  http : true
+});
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -14,7 +18,6 @@ const mongoose = require('mongoose');
 const User = require('./src/server/models/user.model');
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 const env = require('dotenv');
-
 /**
  * ENV CONFIG
  */
@@ -124,11 +127,14 @@ app.get('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);
-app.post('/account/delete', authorizeRequest, userRoute.delete);
-app.post('/account/update', authorizeRequest, userRoute.update);
+app.delete('/account/delete', authorizeRequest, userRoute.delete);
+app.put('/account/update', authorizeRequest, userRoute.update);
 
 app.get('/protected', authorizeRequest, (req, res) => {
-  res.send('This is a protected route only visible to authenticated users.');
+  res.send({
+    message: 'This is a protected route only visible to authenticated users.',
+    name: req.user.surname
+  });
 });
 
 // PRODUCT API

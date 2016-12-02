@@ -10,10 +10,10 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <form class="form-horizontal" novalidate ng-submit="tagForm()" name="addTagForm">
+    <form class="form-horizontal" novalidate ng-submit="vm.tagForm()" name="addTagForm">
       <fieldset>
-        <div class="alert alert-success" ng-if="reqStatus">
-          <strong>Success!</strong> {{reqStatus}} !
+        <div class="alert alert-success" ng-if="vm.reqStatus">
+          <strong>Success!</strong> {{vm.reqStatus}} !
         </div>
         <div class="form-group">
           <label for="inputTagName" class="col-lg-3 control-label">Nom</label>
@@ -21,7 +21,7 @@
             <input type="text"
             class="form-control"
             id="inputTagName"
-            ng-model="name"
+            ng-model="vm.name"
             required
             >
           </div>
@@ -45,19 +45,19 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3 clearfix" ng-repeat="tag in tags" style="margin-bottom:15px;">
+  <div class="col-md-6 col-md-offset-3 clearfix" ng-repeat="tag in vm.tags" style="margin-bottom:15px;">
     <p>
       {{tag.name}}
-      <button class="btn btn-danger" ng-click="removeTag(tag, $index);" style="float:right; margin-left:15px;">X</button>
-      <button class="btn btn-primary" ng-click="editTag(tag);" style="float:right">Edit</button>
+      <button class="btn btn-danger" ng-click="vm.removeTag(tag, $index);" style="float:right; margin-left:15px;">X</button>
+      <button class="btn btn-primary" ng-click="vm.editTag(tag);" style="float:right">Edit</button>
     </p>
   </div>
 </div>
 
-<div class="row" ng-if="isEditing">
+<div class="row" ng-if="vm.isEditing">
   <div class="col-md-6 col-md-offset-3">
-    <input type="text" ng-model="tagObj.name" class="form-control"/>
-    <button ng-click='updateTag(tagObj)' class="btn btn-primary" style="margin-top:15px;">Update</button>
+    <input type="text" ng-model="vm.tagObj.name" class="form-control"/>
+    <button ng-click='vm.updateTag(vm.tagObj)' class="btn btn-primary" style="margin-top:15px;">Update</button>
   </div>
 </div>
 <!--/account.html-->

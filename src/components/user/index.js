@@ -1,10 +1,9 @@
-export default function($http, $scope, $state) {
-  $http({
-    method: 'GET',
-    url: '/protected'
-  })
+export default function($http, $state) {
+  const vm = this;
+
+  $http.get('/protected')
   .success(res => {
-    $scope.message = res;
+    vm.user = res;
   })
   .error(() => {
     $state.go('login');

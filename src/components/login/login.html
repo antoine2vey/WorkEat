@@ -8,9 +8,9 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form class="form-horizontal" novalidate ng-submit="submitLogin()" name="loginForm">
-            <div class="alert alert-danger" ng-if="error">
-              <strong>Danger!</strong> {{error}}
+        <form class="form-horizontal" novalidate ng-submit="vm.submitLogin()" name="loginForm">
+            <div class="alert alert-danger" ng-if="vm.error">
+              <strong>Danger!</strong> {{vm.error}}
             </div>
             <fieldset>
                 <legend>Local Account</legend>
@@ -20,7 +20,7 @@
                         <input type="email"
                                class="form-control"
                                id="inputUsername"
-                               ng-model="loginForm.username"
+                               ng-model="vm.username"
                                required placeholder="Email">
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <input type="password"
                                class="form-control"
                                id="inputPassword"
-                               ng-model="loginForm.password"
+                               ng-model="vm.password"
                                required
                                placeholder="Password">
                     </div>

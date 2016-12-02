@@ -13,19 +13,19 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a ui-sref="app.home">Home</a></li>
-        <li><a ui-sref="app.user" ng-show="user.status">User Content</a></li>
-        <li ng-if="user.user.isAdmin">
+        <li><a ui-sref="app.user" ng-show="vm.user.status">User Content</a></li>
+        <li ng-if="vm.user.user.isAdmin">
           <a ui-sref="app.admin" class="dropdown-toggle" data-toggle="dropdown">Admin part</a>
           <ul class="dropdown-menu">
-            <li ng-if="user.user.isAdmin">
+            <li ng-if="vm.user.user.isAdmin">
               <a ui-sref="app.admin.product">Ajouter un produit</a>
             </li>
-            <li ng-if="user.user.isAdmin">
+            <li ng-if="vm.user.user.isAdmin">
               <a ui-sref="app.admin.tag">
                 Ajouter un tag
               </a>
             </li>
-            <li ng-if="user.user.isAdmin">
+            <li ng-if="vm.user.user.isAdmin">
               <a ui-sref="app.admin.livraison">
                 Points de livraison
               </a>
@@ -34,9 +34,9 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ui-sref="app.account" ng-show="user.status">Account</a></li>
-        <li><a ui-sref="app.login" ng-hide="user.status">Login</a></li>
-        <li><a href='' ng-click="logout()" ng-show="user.status">Logout</a></li>
+        <li><a ui-sref="app.account" ng-show="vm.user.status">Account</a></li>
+        <li><a ui-sref="app.login" ng-hide="vm.user.status">Login</a></li>
+        <li><a href='' ng-click="vm.logout()" ng-show="vm.user.status">Logout</a></li>
       </ul>
     </div>
   </div>
