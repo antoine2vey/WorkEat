@@ -1,5 +1,6 @@
 //jshint maxlen: false, undef:false, unused: false, camelcase: false
-export default function(NgMap, $http, $scope) {
+
+export default function(NgMap, $http) {
   const vm = this;
   let tmpMarkers = [];
   let latLng = [];
@@ -40,14 +41,11 @@ export default function(NgMap, $http, $scope) {
     let lat = e.latLng.lat();
     let lng = e.latLng.lng();
 
-    vm.geolocation = {
-      lat: lat,
-      lng: lng
-    };
+    vm.geolocation = {lat, lng};
 
     $http.get(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}`)
     .then(address => {
-      $scope.address = address.data.results[0].formatted_address;
+      vm.address = address.data.results[0].formatted_address;
     });
   };
 

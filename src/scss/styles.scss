@@ -1,9 +1,12 @@
-@import "custom.css";
-@import 'todos.scss';
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "_variables";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "_bootswatch";
 
 .myMap {
   height: 85vh;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: flex;
 }
 
 .nav-link {

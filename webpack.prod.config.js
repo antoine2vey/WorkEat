@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: [
@@ -33,13 +34,13 @@ module.exports = {
         loaders: [
           'style',
           'css',
-          'autoprefixer?browsers=last 3 versions',
+          'postcss-loader',
           'sass?outputStyle=expanded'
         ]
       },
       {
         test: /\.(woff2?|ttf|eot|svg)$/,
-        loader: 'url?limit=10000'
+        loader: 'url-loader?limit=10000'
       },
       {
         test: /bootstrap-sass\/assets\/javascripts\//,
@@ -47,6 +48,7 @@ module.exports = {
       }
     ]
   },
+  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({

@@ -1,7 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
+
 module.exports = {
-    devtool: 'eval',
+    devtool: 'source-map',
     entry: [
         'webpack-dev-server/client?http://127.0.0.1:8080/',
         'webpack/hot/only-dev-server',
@@ -34,14 +36,14 @@ module.exports = {
             test: /\.scss$/,
             loaders: [
                 'style',
-                'css',
-                'autoprefixer?browsers=last 3 versions',
+                'css-loader?sourceMap',
+                'postcss-loader',
                 'sass?outputStyle=expanded'
             ]
         },
         {
             test: /\.(woff2?|ttf|eot|svg)$/,
-            loader: 'url?limit=10000'
+            loader: 'url-loader?limit=10000'
         },
         {
             test: /bootstrap-sass\/assets\/javascripts\//,
@@ -49,6 +51,7 @@ module.exports = {
         }
         ]
     },
+    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
