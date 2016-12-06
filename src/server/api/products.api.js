@@ -39,17 +39,16 @@ exports.create = (req, res) => {
   const id = genId.generate();
   const fileName = `public/uploads/${id}-${Date.now()}.png`;
 
-  let tagObjectIds = [];
-  const tags = req.body.tag;
-  //Generator for updated product Id's
-  //We destructure the req.body.tag Object
+  /**
+   * Format tag to ObjectId() so they are accessible
+   * to relations!
+   *
+   * For every tag, we set each id to a MongoDB formatted
+   * id !
+   */
+  const tags = req.body.tags;
   tags.map(tag => {
-    //For each tag, we push to a new array the updated names
-    //id from the `req.body.tag`
-    tagObjectIds.push({
-      '_id': mongoose.Types.ObjectId(tag._id),
-      'name': tag.name
-    });
+    tag._id = mongoose.Types.ObjectId(tag._id);
   });
 
   const product = new Product({
@@ -60,7 +59,7 @@ exports.create = (req, res) => {
     ingredients: req.body.ingredients,
     allergics: req.body.allergics,
     price: req.body.price,
-    tag: tagObjectIds,
+    tag: tags,
     type: req.body.type
   });
 
