@@ -6,3 +6,4 @@ public/*
 !public/index.html
 .env
 .ftpconfig
+!public/favicon.ico
