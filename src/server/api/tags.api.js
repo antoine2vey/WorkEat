@@ -112,7 +112,6 @@ exports.update = (req, res) => {
       return res.status(400).send('Database error');
     }
 
-    //YEAH ITS WORKS!!!
     //This should do a POST request to update new product
     //found when they have tag._id equals to req.params.id
     //

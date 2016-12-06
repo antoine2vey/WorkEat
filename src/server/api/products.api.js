@@ -39,7 +39,6 @@ exports.create = (req, res) => {
   const id = genId.generate();
   const fileName = `public/uploads/${id}-${Date.now()}.png`;
 
-
   let tagObjectIds = [];
   const tags = req.body.tag;
   //Generator for updated product Id's
