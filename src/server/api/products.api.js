@@ -46,7 +46,7 @@ exports.create = (req, res) => {
    * For every tag, we set each id to a MongoDB formatted
    * id !
    */
-  const tags = req.body.tags;
+  const tags = req.body.tag;
   tags.map(tag => {
     tag._id = mongoose.Types.ObjectId(tag._id);
   });
