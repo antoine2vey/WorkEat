@@ -1,7 +1,3 @@
-require('pmx').init({
-  http : true
-});
-
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -18,10 +14,17 @@ const mongoose = require('mongoose');
 const User = require('./src/server/models/user.model');
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 const env = require('dotenv');
+const __DEV__ = process.env.NODE_ENV === 'development';
 /**
  * ENV CONFIG
  */
 env.config();
+
+if(__DEV__) {
+  require('pmx').init({
+    http : true
+  });
+}
 process.setMaxListeners(0);
 mongoose.connect(sessionDB);
 
