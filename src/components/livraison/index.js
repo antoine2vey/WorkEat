@@ -1,6 +1,6 @@
 //jshint maxlen: false, undef:false, unused: false, camelcase: false
 
-export default ['ngMap', '$http', function(NgMap, $http) {
+export default ['NgMap', '$http', function(NgMap, $http) {
   const vm = this;
   let tmpMarkers = [];
   let latLng = [];

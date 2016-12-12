@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+
 
 module.exports = {
   entry: [
@@ -51,6 +53,9 @@ module.exports = {
   postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
   plugins: [
     new webpack.optimize.DedupePlugin(),
+    new ngAnnotatePlugin({
+      add: true
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
