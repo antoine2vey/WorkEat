@@ -1,4 +1,4 @@
-export default function($http, $state) {
+export default ['$http', '$state', function($http, $state) {
   const vm = this;
 
   $http.get('/protected')
@@ -8,4 +8,4 @@ export default function($http, $state) {
   .error(() => {
     $state.go('login');
   });
-}
+}];

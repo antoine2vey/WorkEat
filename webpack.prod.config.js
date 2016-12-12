@@ -53,9 +53,9 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: true
+        warnings: false
       },
-      mangle: false,
+      mangle: true,
       output: {
         comments: false
       }

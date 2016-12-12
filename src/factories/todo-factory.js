@@ -3,7 +3,7 @@ import angular from 'angular';
 
 const todoFactory = angular.module('app.todoFactory', [])
 
-.factory('todoFactory', ($http) => {
+.factory('todoFactory', ['$http', ($http) => {
     function getTasks($scope) {
         $http.get('/todos').success(response => {
             $scope.todos = response.todos;
@@ -65,6 +65,6 @@ const todoFactory = angular.module('app.todoFactory', [])
         deleteTask,
         watchCreateTaskInput
     };
-});
+}]);
 
 export default todoFactory;
