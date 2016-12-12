@@ -14,6 +14,8 @@ exports.list = (req, res) => {
   });
 };
 exports.create = (req, res) => {
+  const {file, title, description, preparation, ingredients, allergics, price, tag, type}= req.body;
+
   req.checkBody('file', 'Image is required').notEmpty();
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
@@ -30,11 +32,11 @@ exports.create = (req, res) => {
   }
 
   //If input price is `hacked`
-  if(req.body.price < 0) {
+  if(price < 0) {
     return res.status(500).send('Stop hacking the fucking input thank you');
   }
 
-  let image = req.body.file;
+  let image = file;
   const base64data = image.replace(/^data:image\/\w+;base64,/, '');
   const id = genId.generate();
   const fileName = `public/uploads/${id}-${Date.now()}.png`;
@@ -46,25 +48,25 @@ exports.create = (req, res) => {
    * For every tag, we set each id to a MongoDB formatted
    * id !
    */
-  const tags = req.body.tag;
+  const tags = tag;
   tags.map(tag => {
     tag._id = mongoose.Types.ObjectId(tag._id);
   });
 
   const product = new Product({
     file: fileName,
-    title: req.body.title,
-    description: req.body.description,
-    preparation: req.body.preparation,
-    ingredients: req.body.ingredients,
-    allergics: req.body.allergics,
-    price: req.body.price,
+    title: title,
+    description: description,
+    preparation: preparation,
+    ingredients: ingredients,
+    allergics: allergics,
+    price: price,
     tag: tags,
-    type: req.body.type
+    type: type
   });
 
 
-  Product.findOne({title: req.body.title}, (err, existProduct) => {
+  Product.findOne({title}, (err, existProduct) => {
     if(existProduct){
       return res.status(500).send('This product already exists...');
     }
@@ -85,7 +87,8 @@ exports.create = (req, res) => {
   });
 };
 exports.delete = (req, res) => {
-  Product.findByIdAndRemove(req.params.id, (err, product) => {
+  const { id } = req.params;
+  Product.findByIdAndRemove(id, (err, product) => {
     if(err) {
       res.status(500).send('Database error, cannot delete product');
     }

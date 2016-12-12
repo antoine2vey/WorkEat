@@ -15,16 +15,17 @@ exports.list = function(req, res){
   });
 };
 exports.listOne = (req, res) => {
-  Tag.findById(req.params.id, (err, tag) => {
+  const { id } = req.params;
+  Tag.findById(id, (err, tag) => {
     if(err) {
       return res.status(400).send('Error fetching database');
     }
-    console.log(tag);
 
     return res.status(200).send(tag);
   });
 };
 exports.create = function(req, res){
+  const { name } = req.body;
   req.checkBody('name', 'Name is required').notEmpty();
 
   var errors = req.validationErrors();
@@ -33,10 +34,10 @@ exports.create = function(req, res){
   }
 
   var tag = new Tag({
-    name: req.body.name
+    name
   });
 
-  Tag.findOne({name: req.body.name}, function(err, existingTag){
+  Tag.findOne({name}, function(err, existingTag){
     if(existingTag){
       return res.status(500).send('This tag already exists...');
     }
@@ -52,7 +53,7 @@ exports.create = function(req, res){
   });
 };
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   Tag.findByIdAndRemove(id, (err, tag) => {
     if(err) {
       return res.status(400).send('Database error');
@@ -95,7 +96,8 @@ exports.delete = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-
+  const { id } = req.params;
+  const { name } = req.body;
   req.checkBody('name', 'Name is required').notEmpty();
 
   var errors = req.validationErrors();
@@ -104,25 +106,18 @@ exports.update = (req, res) => {
   }
 
   const query = {
-    name: req.body.name
+    name
   };
 
-  Tag.findByIdAndUpdate(req.params.id, query, (err, tag) => {
+  Tag.findByIdAndUpdate(id, query, (err, tag) => {
     if(err) {
       return res.status(400).send('Database error');
     }
 
     //This should do a POST request to update new product
     //found when they have tag._id equals to req.params.id
-    //
-    //So from the other side, we generate a new Array containing
-    //new name but with the same Id (with req.params.id)
-    Product.update(
-      //Get all the products that have tags with req.params.id
-      {'tag._id': mongoose.Types.ObjectId(req.params.id)},
-      //Set the name to req.body.name (aka the field in front-end)
-      {$set: {'tag.$.name': req.body.name}},
-      //Set it to `multi` in case the tag is used more than once
+    Product.update({'tag._id': mongoose.Types.ObjectId(id)},
+      {$set: {'tag.$.name': name}},
       {multi: true},
       (err, products) => {
         if(err) {
