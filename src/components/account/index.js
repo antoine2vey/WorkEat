@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export default function($http, $localStorage, $state) {
+export default ['$http', '$localStorage', '$state', function($http, $localStorage, $state) {
   const vm = this;
   vm.formData = $.extend(true,{},$localStorage.user);
 
@@ -42,4 +42,4 @@ export default function($http, $localStorage, $state) {
       vm.doNotMatch = err;
     });
   };
-}
+}];

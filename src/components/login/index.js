@@ -1,4 +1,4 @@
-export default function($localStorage, $state, $http) {
+export default ['$localStorage', '$state', '$http', function($localStorage, $state, $http) {
   const vm = this;
 
   vm.submitLogin = () => {
@@ -15,4 +15,4 @@ export default function($localStorage, $state, $http) {
       vm.error = res;
     });
   };
-}
+}];

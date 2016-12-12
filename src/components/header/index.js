@@ -1,4 +1,4 @@
-export default function($localStorage, $state, $http) {
+export default ['$localStorage', '$state', '$http', function($localStorage, $state, $http) {
   const vm = this;
   vm.user = $localStorage;
 
@@ -12,4 +12,4 @@ export default function($localStorage, $state, $http) {
       $state.go('app.login');
     });
   };
-}
+}];

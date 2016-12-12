@@ -1,6 +1,6 @@
 //jshint maxlen: false, undef:false, unused: false, camelcase: false
 
-export default function(NgMap, $http) {
+export default ['ngMap', '$http', function(NgMap, $http) {
   const vm = this;
   let tmpMarkers = [];
   let latLng = [];
@@ -15,17 +15,28 @@ export default function(NgMap, $http) {
     array.push(marker);
     latLng.push(event.latLng.lat(), event.latLng.lng());
 
+    //If already a marker
     if(array.length > 1) {
+      //Delete the first one
       array[0].setMap(null);
+      //Shift from array
       array.shift();
       latLng.splice(0,2);
     }
   };
 
-  $http.get('/api/livraison/places').then(res => {
-    vm.markers = res.data;
-  });
+  /**
+   * Get all places
+   * @return {[array]} return all places
+   */
+  function getPlaces() {
+    $http.get('/api/livraison/places').then(res => {
+      vm.markers = res.data;
+      console.log(vm.markers);
+    });
+  }
 
+  getPlaces();
   NgMap.getMap().then(map => {
     vm.map = map;
   });
@@ -56,6 +67,7 @@ export default function(NgMap, $http) {
       description: vm.description
     }).success(res => {
       vm.success = res;
+      getPlaces();
     }).error(err => {
       vm.error = err;
     });
@@ -72,4 +84,4 @@ export default function(NgMap, $http) {
       vm.error = err;
     });
   };
-}
+}];

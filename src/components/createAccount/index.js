@@ -1,4 +1,4 @@
-export default function($scope, $http, $state) {
+export default ['$http', '$localStorage', '$state', function($scope, $http, $state) {
   const vm = this;
 
   vm.createAccount = () => {
@@ -19,4 +19,4 @@ export default function($scope, $http, $state) {
       console.log(err);
     });
   };
-}
+}];

@@ -1,4 +1,4 @@
-export default function($http) {
+export default ['$http', function($http) {
   const vm = this;
 
   const getTags = () => {
@@ -55,4 +55,4 @@ export default function($http) {
       vm.reqStatus = err;
     });
   };
-}
+}];

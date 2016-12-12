@@ -1,4 +1,4 @@
-export default function($http) {
+export default ['$http', function($http) {
   const vm = this;
 
   const getProducts = () => {
@@ -50,4 +50,4 @@ export default function($http) {
       console.log(err);
     });
   };
-}
+}];
