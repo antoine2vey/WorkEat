@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const nodemailer = require('nodemailer');
+
 mongoose.Promise = Promise;
 
 
-//temp
+// temp
 exports.list = (req, res) => {
   User.find({}, (err, users) => {
     if(err) {
@@ -16,7 +17,7 @@ exports.list = (req, res) => {
     res.send(users);
   });
 };
-exports.login = (req,res) => {
+exports.login = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
 
@@ -33,27 +34,27 @@ exports.login = (req,res) => {
     if (!user) {
       return res.status(401).send('User not found. Please check your entry and try again.');
     }
-    req.logIn(user, err => {
+    req.logIn(user, (err) => {
       if (err) {
         return res.status(500).send('Error saving session.');
       }
-      var userInfo = {
+      const userInfo = {
         username: user.username,
-        name : user.name,
-        surname : user.surname,
+        name: user.name,
+        surname: user.surname,
         codePostal: user.codePostal,
         address: user.address,
         phoneNumber: user.phoneNumber,
         town: user.town,
         isAdmin: user.isAdmin,
         isLivreur: user.isLivreur,
-        isPrestataire: user.isPrestataire
+        isPrestataire: user.isPrestataire,
       };
       return res.json(userInfo);
     });
   })(req, res);
 };
-exports.create = (req,res) => {
+exports.create = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -69,8 +70,8 @@ exports.create = (req,res) => {
     return;
   }
 
-  let salt = bcrypt.genSaltSync(10),
-  hash = bcrypt.hashSync(req.body.password, salt);
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
 
   const user = new User({
     username: req.body.username,
@@ -80,27 +81,27 @@ exports.create = (req,res) => {
     codePostal: req.body.codePostal,
     town: req.body.town,
     address: req.body.address,
-    phoneNumber: req.body.phoneNumber
+    phoneNumber: req.body.phoneNumber,
   });
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (existingUser) {
       return res.status(400).send('That username already exists. Please try a different username.');
     }
-    user.save(function(err) {
+    user.save((err) => {
       if (err) {
         console.log(err);
         res.status(500).send('Error saving new account (database error). Please try again.');
         return;
       }
-      var transporter = nodemailer.createTransport({
+      const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
           user: process.env.GMAIL_ADDRESS,
-          pass: process.env.GMAIL_PWD
-        }
+          pass: process.env.GMAIL_PWD,
+        },
       });
-      var mailOptions = {
+      const mailOptions = {
         from: 'WorkEat', // sender address
         to: req.body.username, // list of receivers
         subject: 'WorkEat - Votre compte à été crée !', // Subject line
@@ -108,7 +109,7 @@ exports.create = (req,res) => {
         html: 'Hello <b>' + req.body.surname+'</b> ! ton compte à bien été crée !<br/><br/><p>Tu peux donc te connecter avec l\'email '+req.body.username+' ! ;)</p>'
       };
       transporter.sendMail(mailOptions, (error, info) => {
-        if(error){
+        if (error) {
           return console.log(error);
         }
         console.log('Message sent: ' + info.response);
@@ -118,17 +119,17 @@ exports.create = (req,res) => {
   });
 };
 exports.delete = (req, res) => {
-  //Security : if session email == sent email
-  //We delete, else, throw error;
-  if(req.body.username === req.user.username) {
-    User.remove({ username: req.body.username }, function(err) {
+  // Security : if session email == sent email
+  // We delete, else, throw error;
+  if (req.body.username === req.user.username) {
+    User.remove({ username: req.body.username }, (err) => {
       if (err) {
         console.log(err);
         res.status(500).send('Error deleting account.');
         return;
       }
-      req.session.destroy(err => {
-        if(err){
+      req.session.destroy((err) => {
+        if (err) {
           res.status(500).send('Error deleting account.');
           console.log('Error deleting session: ' + err);
           return;
@@ -140,8 +141,7 @@ exports.delete = (req, res) => {
     return res.status(500).send('Stop trying to delete another account');
   }
 };
-exports.update = (req,res) => {
-
+exports.update = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -151,19 +151,16 @@ exports.update = (req,res) => {
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('town', 'Town is required').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     res.status(400).send(errors);
     return;
   }
 
-  var salt = bcrypt.genSaltSync(10),
-  hash = bcrypt.hashSync(req.body.password, salt);
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
 
-  console.log(req.body);
-  console.log(req.user);
-
-  //We do pass the session userId
+  // We do pass the session userId
   User.findByIdAndUpdate(req.user._id, {
     username: req.body.username,
     password: hash,
@@ -172,30 +169,31 @@ exports.update = (req,res) => {
     codePostal: req.body.codePostal,
     phoneNumber: req.body.phoneNumber,
     address: req.body.address,
-    town: req.body.town
+    town: req.body.town,
   }, (err, doc) => {
-    if(err){
+    if (err) {
       return res.status(500).send({
-        error:'Email already exists'
+        error: 'Email already exists',
       });
     }
 
     res.status(200).send({
       user: doc,
-      status: 'Account updated'
+      status: 'Account updated',
     });
   });
 };
 exports.logout = (req,res) => {
-  if (!req.user)
-  res.status(400).send('User not logged in.');
-  else {
-    req.session.destroy(function(err) {
-      if(err){
+  if (!req.user) {
+    res.status(400).send('User not logged in.');
+  } else {
+    req.session.destroy((err) => {
+      if (err) {
         res.status(500).send('Sorry. Server error in logout process.');
         console.log('Error destroying session: ' + err);
         return;
       }
+
       res.status(200).send('Success logging user out!');
     });
   }

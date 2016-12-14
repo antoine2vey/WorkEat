@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Place = require('../models/places.model');
+
 mongoose.Promise = Promise;
 
 exports.list = (req, res) => {
   Place.find({}, (err, places) => {
-    if(err) {
+    if (err) {
       return res.status(500).send('Database error !');
     }
 
@@ -16,23 +17,23 @@ exports.create = (req, res) => {
   req.checkBody('geolocation', 'Geolocation required').notEmpty().isArray();
   req.checkBody('description', 'Description is required').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).send(errors);
   }
 
-  var place = new Place({
+  const place = new Place({
     name: req.body.name,
     geolocation: req.body.geolocation,
-    description: req.body.description
+    description: req.body.description,
   });
 
-  Place.findOne({name: req.body.name}, (err, existingPlace) => {
-    if(existingPlace){
+  Place.findOne({ name: req.body.name }, (err, existingPlace) => {
+    if (existingPlace) {
       return res.status(500).send('This place already exists...');
     }
 
-    place.save(err => {
+    place.save((err) => {
       if(err) {
         console.log(err);
         return res.status(500).send('Database error, please try again!');
@@ -45,7 +46,7 @@ exports.create = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
   Place.findByIdAndRemove(id, (err, place) => {
-    if(err) {
+    if (err) {
       res.status(500).send('Database error, cannot delete place');
     }
 

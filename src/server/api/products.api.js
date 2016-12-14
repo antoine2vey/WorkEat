@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const fs = require('fs');
 const genId = require('shortid');
+
 mongoose.Promise = Promise;
 
 exports.list = (req, res) => {
   Product.find({}, (err, products) => {
-    if(err) {
+    if (err) {
       return res.status(500).send('Database error dsl fdp');
     }
 
@@ -14,7 +15,17 @@ exports.list = (req, res) => {
   });
 };
 exports.create = (req, res) => {
-  const {file, title, description, preparation, ingredients, allergics, price, tag, type}= req.body;
+  const {
+    file,
+    title,
+    description,
+    preparation,
+    ingredients,
+    allergics,
+    price,
+    tag,
+    type,
+  } = req.body;
 
   req.checkBody('file', 'Image is required').notEmpty();
   req.checkBody('title', 'Title is required').notEmpty();
@@ -31,12 +42,12 @@ exports.create = (req, res) => {
     return res.status(400).send(errors);
   }
 
-  //If input price is `hacked`
-  if(price < 0) {
+  // If input price is `hacked`
+  if (price < 0) {
     return res.status(500).send('Stop hacking the fucking input thank you');
   }
 
-  let image = file;
+  const image = file;
   const base64data = image.replace(/^data:image\/\w+;base64,/, '');
   const id = genId.generate();
   const fileName = `public/uploads/${id}-${Date.now()}.png`;
@@ -49,35 +60,35 @@ exports.create = (req, res) => {
    * id !
    */
   const tags = tag;
-  tags.map(tag => {
+  tags.map((tag) => {
     tag._id = mongoose.Types.ObjectId(tag._id);
   });
 
   const product = new Product({
     file: fileName,
-    title: title,
-    description: description,
-    preparation: preparation,
-    ingredients: ingredients,
-    allergics: allergics,
-    price: price,
+    title,
+    description,
+    preparation,
+    ingredients,
+    allergics,
+    price,
     tag: tags,
-    type: type
+    type,
   });
 
 
-  Product.findOne({title}, (err, existProduct) => {
-    if(existProduct){
+  Product.findOne({ title }, (err, existProduct) => {
+    if (existProduct) {
       return res.status(500).send('This product already exists...');
     }
 
-    product.save(err => {
-      if(err) {
+    product.save((err) => {
+      if (err) {
         return res.status(500).send('Database error, please try again!');
       }
 
-      fs.writeFile(fileName, base64data, {encoding: 'base64'}, (err) => {
-        if(err) {
+      fs.writeFile(fileName, base64data, { encoding: 'base64' }, (err) => {
+        if (err) {
           console.log(err);
         }
       });
@@ -89,13 +100,13 @@ exports.create = (req, res) => {
 exports.delete = (req, res) => {
   const { id } = req.params;
   Product.findByIdAndRemove(id, (err, product) => {
-    if(err) {
+    if (err) {
       res.status(500).send('Database error, cannot delete product');
     }
 
-    //delete image if successful request
-    fs.unlink(product.file, err => {
-      if(err) {
+    // delete image if successful request
+    fs.unlink(product.file, (err) => {
+      if (err) {
         console.log(err);
       }
     });

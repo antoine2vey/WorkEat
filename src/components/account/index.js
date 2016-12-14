@@ -1,30 +1,30 @@
 import $ from 'jquery';
 
-export default ['$http', '$localStorage', '$state', function($http, $localStorage, $state) {
+export default ['$http', '$localStorage', '$state', function ($http, $localStorage, $state) {
   const vm = this;
-  vm.formData = $.extend(true,{},$localStorage.user);
+  vm.formData = $.extend(true, {}, $localStorage.user);
 
   vm.updateAccount = () => {
-    if(vm.password !== vm.passwordVerification){
+    if (vm.password !== vm.passwordVerification) {
       vm.doNotMatch = 'Passwords do not match :-(';
       return;
     }
 
     $http.put('/account/update', {
-      'username': vm.formData.username,
-      'password': vm.password,
-      'name': vm.formData.name,
-      'surname': vm.formData.surname,
-      'codePostal': vm.formData.codePostal,
-      'phoneNumber': vm.formData.phoneNumber,
-      'address': vm.formData.address,
-      'town': vm.formData.town
+      username: vm.formData.username,
+      password: vm.password,
+      name: vm.formData.name,
+      surname: vm.formData.surname,
+      codePostal: vm.formData.codePostal,
+      phoneNumber: vm.formData.phoneNumber,
+      address: vm.formData.address,
+      town: vm.formData.town,
     })
-    .success(res => {
+    .success((res) => {
       $localStorage.user = vm.formData;
       vm.status = res.status;
     })
-    .error(err => {
+    .error((err) => {
       vm.error = err;
     });
   };
@@ -32,13 +32,13 @@ export default ['$http', '$localStorage', '$state', function($http, $localStorag
 
   vm.deleteAccount = () => {
     $http.delete('/account/delete', {
-      username: vm.formData.username
+      username: vm.formData.username,
     })
     .success(() => {
       $state.go('app.home');
       $localStorage.$reset();
     })
-    .error(err => {
+    .error((err) => {
       vm.doNotMatch = err;
     });
   };

@@ -93,6 +93,7 @@ const userRoute = require('./src/server/api/users.api');
 const productsApi = require('./src/server/api/products.api');
 const tagApi = require('./src/server/api/tags.api');
 const placeApi = require('./src/server/api/places.api');
+const payment = require('./src/server/api/payment.api');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -157,6 +158,9 @@ app.put('/api/tags/:id', isAdmin, tagApi.update);
 app.get('/api/livraison/places', isAdmin, placeApi.list);
 app.post('/api/livraison/places', isAdmin, placeApi.create);
 app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
+
+//STRIPE
+app.post('/payment/:id', authorizeRequest, payment.send);
 
 app.all('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));

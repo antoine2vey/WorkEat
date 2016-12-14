@@ -1,8 +1,10 @@
-export default ['$http', function($http) {
+export default ['$http', function ($http) {
   const vm = this;
 
-  $http.get('/protected')
-  .success(res => {
-    vm.info = res;
+  $http.get('/api/products').success((res) => {
+    vm.products = res;
+    console.log(res);
+  }).error((err) => {
+    console.log(err);
   });
 }];

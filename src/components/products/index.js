@@ -1,21 +1,21 @@
-export default ['$http', function($http) {
+export default ['$http', function ($http) {
   const vm = this;
 
   const getProducts = () => {
     $http.get('/api/products')
-    .success(res => {
+    .success((res) => {
       vm.products = res;
     })
-    .error(err => {
+    .error((err) => {
       console.log(err);
     });
   };
 
   $http.get('/api/tags')
-  .success(res => {
+  .success((res) => {
     vm.tags = res;
   })
-  .error(err => {
+  .error((err) => {
     console.log(err);
   });
 
@@ -23,20 +23,20 @@ export default ['$http', function($http) {
 
   vm.productForm = () => {
     $http.post('/api/products/create', {
-      'file': vm.file,
-      'title': vm.title,
-      'description': vm.description,
-      'preparation': vm.preparation,
-      'ingredients': vm.ingredients,
-      'allergics': vm.allergics,
-      'price': vm.price,
-      'tag': vm.tag,
-      'type': vm.type
+      file: vm.file,
+      title: vm.title,
+      description: vm.description,
+      preparation: vm.preparation,
+      ingredients: vm.ingredients,
+      allergics: vm.allergics,
+      price: vm.price,
+      tag: vm.tag,
+      type: vm.type,
     })
     .success(() => {
       getProducts();
     })
-    .error(err => {
+    .error((err) => {
       console.log(err);
     });
   };
@@ -46,7 +46,7 @@ export default ['$http', function($http) {
     .success(() => {
       vm.products.splice(index, 1);
     })
-    .error(err => {
+    .error((err) => {
       console.log(err);
     });
   };

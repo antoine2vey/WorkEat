@@ -3,10 +3,10 @@ export default ['$http', function($http) {
 
   const getTags = () => {
     $http.get('/api/tags')
-      .success(res => {
+      .success((res) => {
         vm.tags = res;
       })
-      .error(err => {
+      .error((err) => {
         console.log(err);
       });
   };
@@ -16,13 +16,13 @@ export default ['$http', function($http) {
 
   vm.tagForm = () => {
     $http.post('/api/tags/create', {
-      'name': vm.name
+      name: vm.name,
     })
-    .success(res => {
+    .success((res) => {
       vm.reqStatus = res;
       getTags();
     })
-    .error(err => {
+    .error((err) => {
       vm.reqStatus = err;
     });
   };
@@ -37,7 +37,7 @@ export default ['$http', function($http) {
     .success(() => {
       vm.tags.splice(index, 1);
     })
-    .error(err => {
+    .error((err) => {
       console.log(err);
     });
   };
@@ -46,12 +46,12 @@ export default ['$http', function($http) {
     const { name } = tag;
 
     $http.put(`/api/tags/${tag._id}`, {
-      name: name
+      name,
     })
-    .success(res => {
+    .success((res) => {
       vm.reqStatus = res;
     })
-    .error(err => {
+    .error((err) => {
       vm.reqStatus = err;
     });
   };
