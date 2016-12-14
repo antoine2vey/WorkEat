@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -8,21 +7,24 @@ const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const PORT = process.env.PORT || 3000;
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const User = require('./src/server/models/user.model');
-const sessionDB = 'mongodb://localhost:27017/WorkEat';
 const env = require('dotenv');
-const __DEV__ = process.env.NODE_ENV === 'development';
+
+const app = express();
+const DEV = process.env.NODE_ENV === 'development';
+const PORT = process.env.PORT || 3000;
+const sessionDB = 'mongodb://localhost:27017/WorkEat';
+
 /**
  * ENV CONFIG
  */
 env.config();
 
-if(__DEV__) {
+if (DEV) {
   require('pmx').init({
-    http : true
+    http: true,
   });
 }
 process.setMaxListeners(0);
@@ -39,16 +41,16 @@ mongoose.connect(sessionDB);
  * validators, parsers, session
  */
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function (err, user) {
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
     done(err, user);
   });
 });
-passport.use(new LocalStrategy(function(username, password, done) {
-  User.findOne({ username: username }, function (err, user) {
+passport.use(new LocalStrategy((username, password, done) => {
+  User.findOne({ username }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -66,15 +68,15 @@ passport.use(new LocalStrategy(function(username, password, done) {
 app.use(logger('dev'));
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limite: '50mb', extended:true}));
+app.use('/public/uploads', express.static(path.join(__dirname, '/public/uploads')));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(expressValidator({
   customValidators: {
-    isArray: function(value) {
-        return Array.isArray(value);
-    }
- }
+    isArray(value) {
+      return Array.isArray(value);
+    },
+  },
 }));
 app.use(cookieParser());
 app.use(session({
@@ -82,9 +84,9 @@ app.use(session({
   resave: true,
   store: new MongoStore({
     url: sessionDB,
-    autoReconnect: true
+    autoReconnect: true,
   }),
-  saveUninitialized : false
+  saveUninitialized: false,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -103,11 +105,11 @@ const authorizeRequest = (req, res, next) => {
   }
 };
 const isAdmin = (req, res, next) => {
-  if(req.user.isAdmin && req.isAuthenticated()) {
+  if (req.user.isAdmin && req.isAuthenticated()) {
     next();
   } else {
     res.status(401).send({
-      error:'Unauthorized. Adminstrator only.'
+      error: 'Unauthorized. Adminstrator only.',
     });
   }
 };
@@ -137,7 +139,7 @@ app.put('/account/update', authorizeRequest, userRoute.update);
 app.get('/protected', authorizeRequest, (req, res) => {
   res.send({
     message: 'This is a protected route only visible to authenticated users.',
-    name: req.user.surname
+    name: req.user.surname,
   });
 });
 
@@ -154,18 +156,18 @@ app.post('/api/tags/create', isAdmin, tagApi.create);
 app.delete('/api/tags/:id', isAdmin, tagApi.delete);
 app.put('/api/tags/:id', isAdmin, tagApi.update);
 
-//LIVRAISON API
+// LIVRAISON API
 app.get('/api/livraison/places', isAdmin, placeApi.list);
 app.post('/api/livraison/places', isAdmin, placeApi.create);
 app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 
-//STRIPE
+// STRIPE
 app.post('/payment/:id', authorizeRequest, payment.send);
 
 app.all('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(PORT, () => {
-    console.log('Server running on ' + PORT);
+  console.log(`🚀 C'EST PARTI SUR LE PORT ${PORT} 🚀`);
 });
