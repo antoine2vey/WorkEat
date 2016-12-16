@@ -13,20 +13,37 @@ function updatePrice(array) {
   if (!Array.isArray(array)) {
     return false;
   }
-  return array.reduce((a, b) => {
+  const value = array.reduce((a, b) => {
     return a + b;
   }, 0);
+
+  return value;
 }
 
 export default ['$http', '$localStorage', function ($http, $localStorage) {
   const vm = this;
   vm.items = $localStorage.cart;
-  const prices = getTotal(vm.items) || [0];
-  vm.total = updatePrice(prices);
+  vm.total = updatePrice(getTotal(vm.items) || [0]);
+
+  vm.updateTotal = (item, amount) => {
+    if (isNaN(amount) || amount < 0 || amount !== '') {
+      return;
+    }
+
+    item.amount = amount;
+    vm.total = updatePrice(getTotal(vm.items || [0]));
+  };
+
+  vm.blurInput = (item) => {
+    let { amount } = item;
+    if (amount === null || amount < 0 || isNaN(amount)) {
+      amount = 0;
+    }
+  };
 
   vm.removeFromCart = (item, index) => {
     vm.items.splice(index, 1);
-    vm.total -= (item.amount * item.price);
+    vm.total = updatePrice(getTotal(vm.items || [0]));
   };
 }];
 

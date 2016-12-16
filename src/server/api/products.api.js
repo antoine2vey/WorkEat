@@ -34,7 +34,7 @@ exports.create = (req, res) => {
   req.checkBody('ingredients', 'Ingredients are required').notEmpty();
   req.checkBody('allergics', 'Allergics are required').notEmpty();
   req.checkBody('price', 'Price is required and/or must be a number').notEmpty().isInt();
-  // req.checkBody('tag', 'Tags are required').notEmpty();
+  req.checkBody('tag', 'Tags are required').notEmpty();
   req.checkBody('type', 'Types are required').notEmpty();
 
   const errors = req.validationErrors();
@@ -60,8 +60,8 @@ exports.create = (req, res) => {
    * id !
    */
   const tags = tag;
-  tags.map((tag) => {
-    tag._id = mongoose.Types.ObjectId(tag._id);
+  tags.map((_tag) => {
+    _tag._id = mongoose.Types.ObjectId(_tag._id);
   });
 
   const product = new Product({

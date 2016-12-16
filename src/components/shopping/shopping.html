@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-xs-2" style="background: url({{item.file}}) no-repeat; background-size:cover; width:100px; height:70px; margin-left:15px;"></div>
 							<div class="col-xs-4">
-								<h4 class="product-name"><strong>{{item.title}}</strong></h4>
+								<h4 class="product-name"><strong>{{item.title}} - x{{item.amount}}</strong></h4>
 								<h4><small>{{item.description}}</small></h4>
 							</div>
 							<div class="col-xs-6">
@@ -29,18 +29,23 @@
 									<h6><strong>{{item.price}}€<span class="text-muted">x</span></strong></h6>
 								</div>
 								<div class="col-xs-4">
-									<input type="text" class="form-control input-sm"
-									value="{{item.amount}}"
-									ng-model='item.amount' />
+									<input type="number" min="0" class="form-control input-sm"
+									ng-value="{{item.amount}}"
+									ng-model='item.amount'
+									ng-change='vm.updateTotal(item, item.amount)'
+									ng-blur='vm.blurInput(item)' />
 								</div>
 								<div class="col-xs-2">
-									<button type="button" class="btn btn-link btn-xs" ng-click="vm.removeFromCart(item, $index)">
+									<button type="button" class="btn btn-link btn-xs" ng-click="vm.removeFromCart(item, $index, item.amount)">
 										<span class="glyphicon glyphicon-trash"> </span>
 									</button>
 								</div>
 							</div>
 						</div>
 						<hr ng-if="!$last">
+					</div>
+					<div ng-if="!vm.items.length">
+						<h2><span>Your cart is empty</span></h2>
 					</div>
 				</div>
 				<div class="panel-footer">
