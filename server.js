@@ -22,7 +22,7 @@ const sessionDB = 'mongodb://localhost:27017/WorkEat';
  */
 env.config();
 
-if (DEV) {
+if (!DEV) {
   require('pmx').init({
     http: true,
   });

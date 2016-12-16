@@ -1,6 +1,6 @@
 // jshint maxlen: false, undef:false, unused: false, camelcase: false
 
-export default ['NgMap', '$http', (NgMap, $http) => {
+export default ['NgMap', '$http', function (NgMap, $http) {
   const vm = this;
   const tmpMarkers = [];
   const latLng = [];
@@ -32,7 +32,6 @@ export default ['NgMap', '$http', (NgMap, $http) => {
   function getPlaces() {
     $http.get('/api/livraison/places').success((res) => {
       vm.markers = res.data;
-      console.log(vm.markers);
     });
   }
 

@@ -2,7 +2,6 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import 'ngstorage';
 import 'ngmap';
-import todoFactory from './factories/todo-factory';
 import homeTemplate from './components/home/home.html';
 import homeController from './components/home';
 import accountTemplate from './components/account/account.html';
@@ -24,10 +23,12 @@ import livraisonTemplate from './components/livraison/livraison.html';
 import livraisonController from './components/livraison';
 import paymentController from './components/payment';
 import paymentTemplate from './components/payment/payment.html';
+import shoppingController from './components/shopping';
+import shoppingTemplate from './components/shopping/shopping.html';
 
 import starDirective from './components/products/stars.directive';
 
-const app = angular.module('workEat', [uiRouter, todoFactory.name, 'ngStorage', 'ngMap', starDirective.name]);
+const app = angular.module('workEat', [uiRouter, 'ngStorage', 'ngMap', starDirective.name]);
 
 app.directive('fileread', [function () {
   return {
@@ -158,6 +159,16 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
       '@': {
         templateUrl: paymentTemplate,
         controller: paymentController,
+        controllerAs: 'vm',
+      },
+    },
+  })
+  .state('app.shopping', {
+    url: '/shopping',
+    views: {
+      '@': {
+        templateUrl: shoppingTemplate,
+        controller: shoppingController,
         controllerAs: 'vm',
       },
     },
