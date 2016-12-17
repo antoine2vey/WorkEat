@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-xs-2" style="background: url({{item.file}}) no-repeat; background-size:cover; width:100px; height:70px; margin-left:15px;"></div>
 							<div class="col-xs-4">
-								<h4 class="product-name"><strong>{{item.title}} - x{{item.amount}}</strong></h4>
+								<h4 class="product-name"><strong>{{item.title}}</strong></h4>
 								<h4><small>{{item.description}}</small></h4>
 							</div>
 							<div class="col-xs-6">
@@ -33,7 +33,8 @@
 									ng-value="{{item.amount}}"
 									ng-model='item.amount'
 									ng-change='vm.updateTotal(item, item.amount)'
-									ng-blur='vm.blurInput(item)' />
+									ng-blur='vm.blurInput(item)'
+                  step="1" />
 								</div>
 								<div class="col-xs-2">
 									<button type="button" class="btn btn-link btn-xs" ng-click="vm.removeFromCart(item, $index, item.amount)">
@@ -59,6 +60,11 @@
 							</button>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+          <div class="col-md-12">
+            <code>{{vm.checkData}}</code>
+          </div>
 				</div>
 			</div>
 		</div>

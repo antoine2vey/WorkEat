@@ -17,7 +17,7 @@ function updatePrice(array) {
     return a + b;
   }, 0);
 
-  return value;
+  return value || 0;
 }
 
 export default ['$http', '$localStorage', function ($http, $localStorage) {
@@ -26,7 +26,7 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
   vm.total = updatePrice(getTotal(vm.items) || [0]);
 
   vm.updateTotal = (item, amount) => {
-    if (isNaN(amount) || amount < 0 || amount !== '') {
+    if (isNaN(amount) || amount < 0 || amount === '') {
       return;
     }
 
@@ -36,8 +36,8 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
 
   vm.blurInput = (item) => {
     let { amount } = item;
-    if (amount === null || amount < 0 || isNaN(amount)) {
-      amount = 0;
+    if (amount === null || isNaN(amount)) {
+      item.amount = 0;
     }
   };
 
@@ -45,5 +45,7 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
     vm.items.splice(index, 1);
     vm.total = updatePrice(getTotal(vm.items || [0]));
   };
+
+  vm.checkData = $localStorage.cart;
 }];
 
