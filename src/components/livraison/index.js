@@ -31,11 +31,12 @@ export default ['NgMap', '$http', function (NgMap, $http) {
    */
   function getPlaces() {
     $http.get('/api/livraison/places').success((res) => {
-      vm.markers = res.data;
+      vm.markers = res;
     });
   }
 
   getPlaces();
+
   NgMap.getMap().then((map) => {
     vm.map = map;
   });
