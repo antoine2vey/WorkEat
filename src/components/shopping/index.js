@@ -47,5 +47,20 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
   };
 
   vm.checkData = $localStorage.cart;
+
+  vm.order = () => {
+    const idArray = [];
+    if (vm.total === 0) {
+      return;
+    }
+
+    $http.post('/api/orders', {
+      items: vm.items,
+    }).success((res) => {
+      console.log(res);
+    }).error((err) => {
+      console.error(err);
+    })
+  };
 }];
 

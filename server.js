@@ -96,6 +96,7 @@ const productsApi = require('./src/server/api/products.api');
 const tagApi = require('./src/server/api/tags.api');
 const placeApi = require('./src/server/api/places.api');
 const payment = require('./src/server/api/payment.api');
+const order = require('./src/server/api/order.api');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -163,6 +164,9 @@ app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 
 // STRIPE
 app.post('/payment/:id', authorizeRequest, payment.send);
+
+// ORDERS
+app.post('/api/orders', authorizeRequest, order.create);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
