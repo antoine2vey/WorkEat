@@ -1,4 +1,4 @@
-export default ['$http', '$stateParams', function ($http, $stateParams) {
+export default ['$http', '$stateParams', '$localStorage', function ($http, $stateParams, $localStorage) {
   Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
   const vm = this;
   const { id } = $stateParams;
@@ -27,6 +27,8 @@ export default ['$http', '$stateParams', function ($http, $stateParams) {
       const token = res.id;
 
       return $http.post(`/payment/${id}`, { token }).success((_res) => {
+        // On vide le cart si la commande est passée
+        $localStorage.cart = [];
         vm.success = _res;
       }).error((err) => {
         console.error(err);

@@ -1,6 +1,4 @@
-//jshint camelcase: false
-const mongoose = require('mongoose');
-const Product = require('../models/product.model');
+const Order = require('../models/order.model');
 const User = require('../models/user.model');
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -15,60 +13,49 @@ exports.send = (req, res) => {
 
   if (!id || !token) return;
 
-  Product.findById(id, (err, product) => {
+  Order.findById(id).populate('articlesId', 'title -_id').exec((err, order) => {
     if (err) {
       return res.send({
-        error: 'Product doesn\'t exist',
+        error: 'Product does not exists',
       });
     }
 
-    User.findById(_id, (err, user) => {
-      if (err) {
-        throw new Error('Database error');
+    User.findById(order.orderedBy, (error, user) => {
+      if (error) {
+        throw new Error('Database error.');
       }
 
-
-      const amount = getStripeAmount(product.price);
-      // If user has no stripe token
+      const price = getStripeAmount(order.amount);
       if (!user.tokens.stripe) {
-        user.tokens.stripe = token;
-        user.save((err) => {
-          if(err) {
-            throw new Error('Can\'t update current token');
-          }
-
-          Stripe.charges.create({
-            amount: amount,
+        Stripe.customers.create({
+          source: token,
+          description: `${req.user.surname} ${req.user.name}`,
+        }).then((customer) => {
+          return Stripe.charges.create({
+            amount: price,
             currency: 'eur',
-            customer: user.tokens.stripe,
-          }, (err, charge) => {
-            if (err) {
-              throw new Error('Cant charge ... aborted', err);
+            customer: customer.id,
+          });
+        }).then((charge) => {
+          user.tokens.stripe = charge.customer;
+          user.save((_err) => {
+            if (_err) {
+              throw new Error('Cannot create token for customer');
             }
 
-            console.log(charge);
+            return res.status(200).send(`Merci pour votre paiement de ${charge.amount / 100}€`);
           });
         });
       } else {
-
+        Stripe.charges.create({
+          amount: price,
+          currency: 'eur',
+          customer: user.tokens.stripe,
+        }).then((charge) => {
+          console.log(order.articlesId);
+          return res.status(200).send(`Merci pour votre paiement de ${charge.amount / 100}€`);
+        });
       }
     });
-
-    const price = getStripeAmount(product.price);
-    Stripe.customers.create({
-      source: token,
-      description: `${req.user.name} ${req.user.surname}`,
-    }).then((customer) => {
-      console.log(customer.id);
-      return Stripe.charges.create({
-        amount: price,
-        currency: 'eur',
-        customer: customer.id,
-      });
-    }).then((charge) => {
-      // YOUR CODE: Save the customer ID and other info in a database for later!
-    });
-
-    res.send(`Thanks for buying ${product.title}`);
   });
 };

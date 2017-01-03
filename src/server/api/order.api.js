@@ -7,10 +7,12 @@ function mongoId(id) {
 }
 
 exports.create = (req, res) => {
+  let prices = [];
   const ids = [];
-  const { items } = req.body;
+  const { items, place } = req.body;
 
   req.checkBody('items', 'You pushed empty cart ...').notEmpty().isArray();
+  req.checkBody('place', 'No place to ship...').notEmpty();
   const errors = req.validationErrors();
   if (errors) {
     return res.status(400).send(errors);
@@ -18,16 +20,19 @@ exports.create = (req, res) => {
 
   items.forEach((item) => {
     ids.push(mongoId(item._id));
+    prices.push(item.price * item.amount);
   });
+
+  const amount = prices.reduce((a, b) => {
+    return a + b;
+  }, 0);
 
   const product = new Order({
     orderedBy: mongoId(req.user._id),
     articlesId: ids,
-    // temp price
-    amount: 200,
+    amount,
     orderedAt: new Date(),
-    // temp place: Amiens
-    placeToShip: mongoId('584c93cb7844cecfae9d61c1'),
+    placeToShip: mongoId(place),
   });
 
   product.save((err) => {
@@ -35,6 +40,9 @@ exports.create = (req, res) => {
       return res.status(500).send('Database error');
     }
 
-    return res.send('Product well ordered!');
+    return res.send({
+      PAYMENT_ID: product._id,
+      data: 'Produit crée, nous procédons au payment',
+    });
   });
 };

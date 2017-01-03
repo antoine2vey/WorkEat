@@ -43,8 +43,22 @@
 								</div>
 							</div>
 						</div>
-						<hr ng-if="!$last">
+						<hr>
 					</div>
+          <div class="row" ng-if="vm.items.length">
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="inputPlaces" class="col-lg-2 control-label">Livraison à:</label>
+                    <div class="col-lg-10">
+                        <select 
+                        class="form-control"
+                        ng-model='vm.place'
+                        ng-options='place.name for place in vm.places'
+                        id="inputPlaces"></select>
+                    </div>
+                </div>
+              </div>
+						</div>
 					<div ng-if="!vm.items.length">
 						<h2><span>Your cart is empty</span></h2>
 					</div>

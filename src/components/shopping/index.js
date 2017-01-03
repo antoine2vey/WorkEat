@@ -20,7 +20,7 @@ function updatePrice(array) {
   return value || 0;
 }
 
-export default ['$http', '$localStorage', function ($http, $localStorage) {
+export default ['$http', '$localStorage', '$state', function ($http, $localStorage, $state) {
   const vm = this;
   vm.items = $localStorage.cart;
   vm.total = updatePrice(getTotal(vm.items) || [0]);
@@ -46,16 +46,27 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
     vm.total = updatePrice(getTotal(vm.items || [0]));
   };
 
+  $http.get('/api/livraison/places').success((res) => {
+    vm.places = res;
+  }).error((err) => {
+    console.log(err);
+  });
+
   vm.order = () => {
     const idArray = [];
-    if (vm.total === 0) {
+    if (vm.total === 0 || !vm.place) {
       return;
     }
 
     $http.post('/api/orders', {
       items: vm.items,
+      place: vm.place._id,
     }).success((res) => {
-      console.log(res);
+      const { PAYMENT_ID, data } = res;
+      console.log(data);
+      $state.go('app.payment', {
+        id: PAYMENT_ID,
+      });
     }).error((err) => {
       console.error(err);
     })
