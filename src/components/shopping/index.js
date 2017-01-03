@@ -46,8 +46,6 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
     vm.total = updatePrice(getTotal(vm.items || [0]));
   };
 
-  vm.checkData = $localStorage.cart;
-
   vm.order = () => {
     const idArray = [];
     if (vm.total === 0) {

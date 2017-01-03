@@ -168,6 +168,13 @@ app.post('/payment/:id', authorizeRequest, payment.send);
 // ORDERS
 app.post('/api/orders', authorizeRequest, order.create);
 
+app.all('*', (req, res) => {
+  return res.status(404).send({
+    type: 'WRONG_ROUTE',
+    content: 'Route does not exists.',
+  });
+});
+
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
