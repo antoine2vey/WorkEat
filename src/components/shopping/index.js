@@ -53,7 +53,6 @@ export default ['$http', '$localStorage', '$state', function ($http, $localStora
   });
 
   vm.order = () => {
-    const idArray = [];
     if (vm.total === 0 || !vm.place) {
       return;
     }
@@ -69,7 +68,7 @@ export default ['$http', '$localStorage', '$state', function ($http, $localStora
       });
     }).error((err) => {
       console.error(err);
-    })
+    });
   };
 }];
 

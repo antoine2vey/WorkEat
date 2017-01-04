@@ -14,7 +14,10 @@ exports.send = (req, res) => {
 
   if (!id || !token) return;
 
-  Order.findById(id).populate('articlesId orderedBy placeToShip').exec((err, order) => {
+  Order.findById(id)
+  .populate('articlesId', 'title price -_id')
+  .populate('placeToShip', 'name -_id')
+  .exec((err, order) => {
     if (err) {
       return res.send({
         error: 'Product does not exists',
@@ -44,8 +47,6 @@ exports.send = (req, res) => {
             if (_err) {
               throw new Error('Cannot create token for customer');
             }
-
-            return res.status(200).send(`Merci pour votre paiement de ${charge.amount / 100}€`);
           });
         });
       } else {
@@ -53,9 +54,6 @@ exports.send = (req, res) => {
           amount: price,
           currency: 'eur',
           customer: user.tokens.stripe,
-        }).then((charge) => {
-          console.log(order.articlesId);
-          return res.status(200).send(`Merci pour votre paiement de ${charge.amount / 100}€`);
         });
       }
     });
@@ -64,8 +62,9 @@ exports.send = (req, res) => {
      * Apres le paiement, je récupère mon panier avec les id via populate et je crée sur le serveur
      * smtp  (proxy)
      */
-    const { orderedBy, articlesId, placeToShip, amount } = order;
-    const { surname, name } = orderedBy;
+
+    const { name, surname } = req.user;
+    const { articlesId, placeToShip, amount, itemsNumber } = order;
 
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -76,27 +75,25 @@ exports.send = (req, res) => {
     });
     const mailOptions = {
       from: 'WorkEat',
-      to: orderedBy.username,
+      to: req.user.username,
       subject: 'WorkEat - Facture!', // Subject line
       text: `
       Merci pour votre commande ${surname} ${name} !
       
       Votre commande se constitue de :
 
-      test
-      test
-      liste
-
+        ${articlesId.map((article, idx) => `- ${article.title} | ${itemsNumber[idx]} x ${article.price}€ = ${itemsNumber[idx] * article.price}€
+        `).join('')}
       Votre commande sera livré à l'endroit suivant : ${placeToShip.name}
 
-      Pour un total de ${amount}
+      Pour un total de ${amount}€
       `,
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log(error);
       }
-      console.log('Message sent: ' + info);
+      return res.status(200).send(`Merci pour votre paiement de ${amount}€. Un mail de récapitulatif vous à été envoyé à l'addresse ${req.user.username}`);
     });
   });
 };

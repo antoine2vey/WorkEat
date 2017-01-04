@@ -6,7 +6,8 @@ function mongoId(id) {
 }
 
 exports.create = (req, res) => {
-  let prices = [];
+  const prices = [];
+  const amounts = [];
   const ids = [];
   const { items, place } = req.body;
 
@@ -20,6 +21,7 @@ exports.create = (req, res) => {
   items.forEach((item) => {
     ids.push(mongoId(item._id));
     prices.push(item.price * item.amount);
+    amounts.push(item.amount);
   });
 
   const amount = prices.reduce((a, b) => {
@@ -29,6 +31,7 @@ exports.create = (req, res) => {
   const product = new Order({
     orderedBy: mongoId(req.user._id),
     articlesId: ids,
+    itemsNumber: amounts,
     amount,
     orderedAt: new Date(),
     placeToShip: mongoId(place),

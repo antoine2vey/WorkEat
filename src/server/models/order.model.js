@@ -11,6 +11,10 @@ const orderSchema = new mongoose.Schema({
       ref: 'Product',
     },
   ],
+  itemsNumber: {
+    type: Array,
+    required: true,
+  },
   amount: Number,
   orderedAt: Date,
   placeToShip: {
