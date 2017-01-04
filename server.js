@@ -114,6 +114,24 @@ const isAdmin = (req, res, next) => {
     });
   }
 };
+const canOrder = (req, res, next) => {
+  const date = new Date();
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  if ((hour < 11) || (hour === 11 && minutes < 30) || !DEV) {
+    next();
+  } else {
+    res.send({
+      error: 'Too late to order :(',
+    });
+  }
+};
+
+app.get('/canOrder', authorizeRequest, canOrder, (req, res) => {
+  res.send({
+    STATUS: 'You can order!',
+  });
+});
 
 /**
  * APP API
@@ -163,7 +181,7 @@ app.post('/api/livraison/places', isAdmin, placeApi.create);
 app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 
 // STRIPE
-app.post('/payment/:id', authorizeRequest, payment.send);
+app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
 
 // ORDERS
 app.post('/api/orders', authorizeRequest, order.create);

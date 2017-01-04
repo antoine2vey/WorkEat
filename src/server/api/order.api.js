@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Product = require('../models/product.model');
 const Order = require('../models/order.model');
 
 function mongoId(id) {
