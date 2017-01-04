@@ -8,3 +8,4 @@ public/*
 .ftpconfig
 !public/favicon.ico
 .vscode
+.idea
