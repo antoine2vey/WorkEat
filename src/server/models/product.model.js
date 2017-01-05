@@ -23,7 +23,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  tag: Array,
+  tag: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tag',
+    },
+  ],
   type: {
     type: Array,
     required: true,

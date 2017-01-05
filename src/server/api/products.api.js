@@ -6,7 +6,7 @@ const genId = require('shortid');
 mongoose.Promise = Promise;
 
 exports.list = (req, res) => {
-  Product.find({}, (err, products) => {
+  Product.find({}).populate('tag').exec((err, products) => {
     if (err) {
       return res.status(500).send('Database error dsl fdp');
     }
@@ -52,18 +52,6 @@ exports.create = (req, res) => {
   const id = genId.generate();
   const fileName = `public/uploads/${id}-${Date.now()}.png`;
 
-  /**
-   * Format tag to ObjectId() so they are accessible
-   * to relations!
-   *
-   * For every tag, we set each id to a MongoDB formatted
-   * id !
-   */
-  const tags = tag;
-  tags.map((_tag) => {
-    _tag._id = mongoose.Types.ObjectId(_tag._id);
-  });
-
   const product = new Product({
     file: fileName,
     title,
@@ -72,15 +60,17 @@ exports.create = (req, res) => {
     ingredients,
     allergics,
     price,
-    tag: tags,
     type,
   });
-
 
   Product.findOne({ title }, (err, existProduct) => {
     if (existProduct) {
       return res.status(500).send('This product already exists...');
     }
+
+    tag.forEach((oneTag) => {
+      product.tag.push(oneTag._id);
+    });
 
     product.save((err) => {
       if (err) {
