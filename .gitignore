@@ -9,3 +9,4 @@ public/*
 !public/favicon.ico
 .vscode
 .idea
+src/scss/_*.scss
