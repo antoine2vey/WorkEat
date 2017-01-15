@@ -1,28 +1,22 @@
-export default ['$http', function ($http) {
+export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
   const vm = this;
+  const { getProducts, createProduct, deleteProduct } = Products;
+  const { getTags, createTag, updateTag, deleteTag } = Tags;
 
-  const getProducts = () => {
-    $http.get('/api/products')
-    .success((res) => {
+  getTags().success((res) => {
+    vm.tags = res;
+  });
+
+  const displayProducts = () => {
+    getProducts().success((res) => {
       vm.products = res;
-    })
-    .error((err) => {
-      console.log(err);
     });
   };
 
-  $http.get('/api/tags')
-  .success((res) => {
-    vm.tags = res;
-  })
-  .error((err) => {
-    console.log(err);
-  });
-
-  getProducts();
+  displayProducts();
 
   vm.productForm = () => {
-    $http.post('/api/products/create', {
+    createProduct({
       file: vm.file,
       title: vm.title,
       description: vm.description,
@@ -32,22 +26,20 @@ export default ['$http', function ($http) {
       price: vm.price,
       tag: vm.tag,
       type: vm.type,
-    })
-    .success(() => {
-      getProducts();
-    })
-    .error((err) => {
-      console.log(err);
+    }).success((res) => {
+      displayProducts();
+    }).error((err) => {
+      vm.reqStatus = err;
     });
   };
 
   vm.removeProduct = (product, index) => {
-    $http.delete(`/api/products/${product._id}`)
-    .success(() => {
+    deleteProduct(product._id)
+    .success((res) => {
       vm.products.splice(index, 1);
     })
     .error((err) => {
-      console.log(err);
+      vm.reqStatus = err;
     });
   };
 }];
