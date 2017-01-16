@@ -28,9 +28,12 @@ import shoppingTemplate from './components/shopping/shopping.html';
 import createArticleController from './components/createArticle';
 import createArticleTemplate from './components/createArticle/createArticle.html';
 
+import Products from './factories/product.factory';
+import Tags from './factories/tag.factory';
+
 import starDirective from './components/products/stars.directive';
 
-const app = angular.module('workEat', [uiRouter, 'ngStorage', 'ngMap', starDirective.name]);
+const app = angular.module('workEat', [uiRouter, 'ngStorage', 'ngMap', starDirective.name, Products.name, Tags.name]);
 
 app.directive('fileread', [function() {
     return {

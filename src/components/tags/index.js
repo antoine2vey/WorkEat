@@ -1,26 +1,27 @@
-export default ['$http', function($http) {
+export default ['$http', 'Tags', function($http, Tags) {
   const vm = this;
+  const { getTags, createTag, updateTag, deleteTag } = Tags;
 
-  const getTags = () => {
-    $http.get('/api/tags')
-      .success((res) => {
-        vm.tags = res;
-      })
-      .error((err) => {
-        console.log(err);
-      });
-  };
+  const displayTags = () => {
+    getTags()
+    .success((res) => {
+      vm.tags = res;
+    })
+    .error((err) => {
+      console.error(err);
+    });
+  }
 
-  getTags();
+  displayTags();
 
 
   vm.tagForm = () => {
-    $http.post('/api/tags/create', {
+    createTag({
       name: vm.name,
     })
     .success((res) => {
       vm.reqStatus = res;
-      getTags();
+      displayTags();
     })
     .error((err) => {
       vm.reqStatus = err;
@@ -33,7 +34,7 @@ export default ['$http', function($http) {
   };
 
   vm.removeTag = (tag, index) => {
-    $http.delete(`/api/tags/${tag._id}`)
+    deleteTag(tag._id)
     .success(() => {
       vm.tags.splice(index, 1);
     })
@@ -45,7 +46,7 @@ export default ['$http', function($http) {
   vm.updateTag = (tag) => {
     const { name } = tag;
 
-    $http.put(`/api/tags/${tag._id}`, {
+    updateTag(tag._id, {
       name,
     })
     .success((res) => {
