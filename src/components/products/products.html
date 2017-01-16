@@ -58,16 +58,6 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputIngredients" class="col-lg-3 control-label">Ingredients</label>
-          <div class="col-lg-9">
-            <input type="text"
-            class="form-control"
-            id="inputIngredients"
-            ng-model="vm.ingredients"
-            >
-          </div>
-        </div>
-        <div class="form-group">
           <label for="inputAllergics" class="col-lg-3 control-label">Allergics</label>
           <div class="col-lg-9">
             <input type="text"
@@ -149,17 +139,17 @@
           <button style='float:right' class="btn btn-danger" ng-click="vm.removeProduct(product, $index)">X</button>
         </h4>
         <p>
-          Ingredients : {{product.ingredients}}
-        </p>
-        <p>
           Preparation : {{product.preparation}}
         </p>
         <p>
-          description : {{product.description}}
+          Description : {{product.description}}
         </p>
-        <p>
-          allergics : {{product.allergics}}
-        </p>
+        <ul>
+          <li style="list-style-type:none;">
+            <strong>Allergics</strong>
+          </li>
+          <li ng-repeat="allergic in product.allergics">{{allergic}}</li>
+        </ul>
         <ul ng-if="product.tag">
           <li ng-repeat="tag in product.tag">{{tag.name}}</li>
         </ul>

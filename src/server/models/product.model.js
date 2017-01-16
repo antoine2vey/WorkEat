@@ -14,11 +14,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   preparation: String,
-  ingredients: {
-    type: String,
+  allergics: {
+    type: Array,
     required: true,
   },
-  allergics: Array,
   price: {
     type: Number,
     required: true,
@@ -27,6 +26,7 @@ const productSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Tag',
+      required: true,
     },
   ],
   type: {

@@ -9,6 +9,7 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
 
   const displayProducts = () => {
     getProducts().success((res) => {
+      console.log(res);
       vm.products = res;
     });
   };
@@ -21,7 +22,6 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
       title: vm.title,
       description: vm.description,
       preparation: vm.preparation,
-      ingredients: vm.ingredients,
       allergics: vm.allergics,
       price: vm.price,
       tag: vm.tag,

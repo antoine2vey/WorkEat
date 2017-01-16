@@ -5,10 +5,14 @@ const genId = require('shortid');
 
 mongoose.Promise = Promise;
 
+function trimArray(arr, splitter = ',') {
+  return arr.split(splitter).map(item => item.trim());
+}
+
 exports.list = (req, res) => {
   Product.find({}).populate('tag').exec((err, products) => {
     if (err) {
-      return res.status(500).send('Database error dsl fdp');
+      return res.status(500).send('Database error.');
     }
 
     return res.status(200).send(products);
@@ -20,7 +24,6 @@ exports.create = (req, res) => {
     title,
     description,
     preparation,
-    ingredients,
     allergics,
     price,
     tag,
@@ -31,7 +34,6 @@ exports.create = (req, res) => {
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
   // req.checkBody('preparation', 'Preparation is required').notEmpty();
-  req.checkBody('ingredients', 'Ingredients are required').notEmpty();
   req.checkBody('allergics', 'Allergics are required').notEmpty();
   req.checkBody('price', 'Price is required and/or must be a number').notEmpty().isInt();
   req.checkBody('tag', 'Tags are required').notEmpty();
@@ -57,8 +59,7 @@ exports.create = (req, res) => {
     title,
     description,
     preparation,
-    ingredients,
-    allergics,
+    allergics: trimArray(allergics),
     price,
     type,
   });
