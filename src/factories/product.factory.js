@@ -17,11 +17,53 @@ const Products = angular.module('Products', [])
     return $http.delete(`/api/products/${productId}`);
   }
 
+  function _getEntree(products) {
+    let arr = [];
+    products.filter(product => {
+      product.type.filter(_type => {
+        if(_type === 'entree') {
+          arr.push(product);
+        }
+      })
+    });
+
+    return arr;
+  }
+
+  function _getPlat(products) {
+    let arr = [];
+    products.filter(product => {
+      product.type.filter(_type => {
+        if(_type === 'plat') {
+          arr.push(product);
+        }
+      })
+    });
+
+    return arr;
+  }
+
+  function _getDessert(products) {
+    let arr = [];
+    products.filter(product => {
+      product.type.filter(_type => {
+        if(_type === 'dessert') {
+          arr.push(product);
+        }
+      })
+    });
+
+    return arr;
+  }
+
   return {
     getProducts,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    _getEntree,
+    _getPlat,
+    _getDessert,
   };
 });
 

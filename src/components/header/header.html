@@ -30,6 +30,11 @@
                 Points de livraison
               </a>
             </li>
+            <li ng-if="vm.user.user.isAdmin">
+              <a ui-sref="app.admin.bundle">
+                Créer un bundle
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

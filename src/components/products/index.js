@@ -18,10 +18,9 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
   vm.productForm = () => {
     createProduct({
       file: vm.file,
-      title: vm.title,
+      name: vm.name,
       description: vm.description,
       preparation: vm.preparation,
-      ingredients: vm.ingredients,
       allergics: vm.allergics,
       price: vm.price,
       tag: vm.tag,
