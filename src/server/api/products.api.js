@@ -21,7 +21,7 @@ exports.list = (req, res) => {
 exports.create = (req, res) => {
   const {
     file,
-    title,
+    name,
     description,
     preparation,
     allergics,
@@ -31,7 +31,7 @@ exports.create = (req, res) => {
   } = req.body;
 
   req.checkBody('file', 'Image is required').notEmpty();
-  req.checkBody('title', 'Title is required').notEmpty();
+  req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
   // req.checkBody('preparation', 'Preparation is required').notEmpty();
   req.checkBody('allergics', 'Allergics are required').notEmpty();
@@ -56,7 +56,7 @@ exports.create = (req, res) => {
 
   const product = new Product({
     file: fileName,
-    title,
+    name,
     description,
     preparation,
     allergics: trimArray(allergics),
@@ -64,7 +64,7 @@ exports.create = (req, res) => {
     type,
   });
 
-  Product.findOne({ title }, (err, existProduct) => {
+  Product.findOne({ name }, (err, existProduct) => {
     if (existProduct) {
       return res.status(500).send('This product already exists...');
     }

@@ -8,7 +8,6 @@ function getTotal(array, total = []) {
 
   return total;
 }
-
 function updatePrice(array) {
   if (!Array.isArray(array)) {
     return false;
@@ -71,4 +70,3 @@ export default ['$http', '$localStorage', '$state', function ($http, $localStora
     });
   };
 }];
-

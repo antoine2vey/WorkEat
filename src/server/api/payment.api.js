@@ -79,10 +79,10 @@ exports.send = (req, res) => {
       subject: 'WorkEat - Facture!', // Subject line
       text: `
       Merci pour votre commande ${surname} ${name} !
-      
+
       Votre commande se constitue de :
 
-        ${articlesId.map((article, idx) => `- ${article.title} | ${itemsNumber[idx]} x ${article.price}€ = ${itemsNumber[idx] * article.price}€
+        ${articlesId.map((article, idx) => `- ${article.name} | ${itemsNumber[idx]} x ${article.price}€ = ${itemsNumber[idx] * article.price}€
         `).join('')}
       Votre commande sera livré à l'endroit suivant : ${placeToShip.name}
 

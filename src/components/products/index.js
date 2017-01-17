@@ -9,7 +9,6 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
 
   const displayProducts = () => {
     getProducts().success((res) => {
-      console.log(res);
       vm.products = res;
     });
   };
@@ -19,7 +18,7 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
   vm.productForm = () => {
     createProduct({
       file: vm.file,
-      title: vm.title,
+      name: vm.name,
       description: vm.description,
       preparation: vm.preparation,
       allergics: vm.allergics,

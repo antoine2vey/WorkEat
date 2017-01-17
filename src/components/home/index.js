@@ -7,11 +7,17 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
     console.log(err);
   });
 
+  $http.get('/api/bundles').success(res => {
+    vm.bundles = res;
+  }).error(err => {
+    console.log(err);
+  })
+
   vm.addToCart = (product) => {
-    const { _id, title, price, description, file } = product;
+    const { _id, name, price, description, file } = product;
     const obj = {
       _id,
-      title,
+      name,
       price,
       description,
       file,

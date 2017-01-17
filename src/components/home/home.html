@@ -11,7 +11,7 @@
         <div class="info">
           <div class="row">
             <div class="price col-md-6">
-              <h5>{{product.title}}</h5>
+              <h5>{{product.name}}</h5>
               <h5 class="price-text-color">{{product.price | currency}}</h5>
             </div>
             <input-stars max="5" ng-model="YourCtrl.property"></input-stars>
@@ -29,4 +29,34 @@
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <div class="row bundles">
+    <div class="col-sm-3" ng-repeat="bundle in vm.bundles">
+      <div class="col-item">
+        <div class="photo" style="background: url({{bundle.file}}) center center no-repeat; height:260px; width:100%; background-size:cover;">
+        </div>
+        <div class="info">
+          <div class="row">
+            <div class="price col-md-6">
+              <h5>{{bundle.name}}</h5>
+              <h5 class="price-text-color">{{bundle.price | currency}}</h5>
+            </div>
+            <input-stars max="5" ng-model="YourCtrl.property"></input-stars>
+          </div>
+          <div class="separator clear-left">
+            <p class="btn-add">
+              <i class="fa fa-shopping-cart"></i><a href="#" ng-click="vm.addToCart(bundle)" class="hidden-sm">Add to cart</a>
+            </p>
+            <p class="btn-details">
+              <i class="fa fa-list"></i><a href="#" class="hidden-sm">More details</a>
+            </p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
 </div>

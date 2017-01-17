@@ -19,9 +19,14 @@
 				<div class="panel-body">
 					<div class="item" ng-repeat="item in vm.items">
 						<div class="row">
-							<div class="col-xs-2" style="background: url({{item.file}}) no-repeat; background-size:cover; width:100px; height:70px; margin-left:15px;"></div>
+							<div ng-if="item.file">
+								<div class="col-xs-2" style="background: url({{item.file}}) no-repeat; background-size:cover; width:100px; height:70px; margin-left:15px;"></div>
+							</div>
+							<div ng-if="!item.file">
+								<div></div>
+							</div>
 							<div class="col-xs-4">
-								<h4 class="product-name"><strong>{{item.title}}</strong></h4>
+								<h4 class="product-name"><strong>{{item.name}}</strong></h4>
 								<h4><small>{{item.description}}</small></h4>
 							</div>
 							<div class="col-xs-6">
@@ -50,7 +55,7 @@
                 <div class="form-group">
                     <label for="inputPlaces" class="col-lg-2 control-label">Livraison à:</label>
                     <div class="col-lg-10">
-                        <select 
+                        <select
                         class="form-control"
                         ng-model='vm.place'
                         ng-options='place.name for place in vm.places'

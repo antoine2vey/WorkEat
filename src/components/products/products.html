@@ -26,12 +26,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputTitle" class="col-lg-3 control-label">Titre</label>
+          <label for="inputName" class="col-lg-3 control-label">Nom</label>
           <div class="col-lg-9">
             <input type="text"
             class="form-control"
-            id="inputTitle"
-            ng-model="vm.title"
+            id="inputName"
+            ng-model="vm.name"
             required
             >
           </div>
@@ -135,7 +135,7 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading">
-          {{product.title}} -- {{product.price}}€
+          {{product.name}} -- {{product.price}}€
           <button style='float:right' class="btn btn-danger" ng-click="vm.removeProduct(product, $index)">X</button>
         </h4>
         <p>
