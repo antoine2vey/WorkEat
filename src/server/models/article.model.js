@@ -13,10 +13,10 @@ const articleSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  }
+  },
   writtenAt: {
     type: Date,
-    default: Date.now;
+    default: Date.now,
   }
 });
 
