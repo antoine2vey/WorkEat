@@ -48,5 +48,13 @@ exports.create = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+  const { id } = req.params;
 
+  Bundle.findByIdAndRemove(id, (err, bundle) => {
+    if (err) {
+      res.status(500).send('Database error, cannot delete bundle');
+    }
+
+    return res.status(200).send(`Bundle ${bundle.name} deleted!`);
+  });
 };

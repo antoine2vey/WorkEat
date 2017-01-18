@@ -11,17 +11,17 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const User = require('./src/server/models/user.model');
 const env = require('dotenv');
-const redis = require('redis');
+// const redis = require('redis');
 
 const app = express();
-const client = redis.createClient();
+// const client = redis.createClient();
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3000;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 
-client.on('connect', () => {
-  console.log('Connected to Redis!');
-});
+// client.on('connect', () => {
+//   console.log('Connected to Redis!');
+// });
 
 /**
  * ENV CONFIG
@@ -104,6 +104,7 @@ const placeApi = require('./src/server/api/places.api');
 const payment = require('./src/server/api/payment.api');
 const order = require('./src/server/api/order.api');
 const bundle = require('./src/server/api/bundle.api');
+const article = require('./src/server/api/article.api');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -196,6 +197,12 @@ app.post('/api/orders', authorizeRequest, order.create);
 // BUNDLES
 app.get('/api/bundles', bundle.list);
 app.post('/api/bundles', isAdmin, bundle.create);
+app.delete('/api/bundles/:id', isAdmin, bundle.delete);
+
+// ARTICLES
+app.post('/api/articles', isAdmin, article.create);
+app.get('/api/articles', article.list);
+app.delete('/api/articles/:id', isAdmin, article.delete);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

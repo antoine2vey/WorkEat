@@ -8,64 +8,47 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form class="form-horizontal" novalidate ng-submit="vm.createAccount()" name="createAccountForm">
-            <fieldset>
-                <div class="form-group">
-                    <label for="nom" class="col-lg-3 control-label">Titre</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="nom" ng-model="vm.name" required placeholder="Nom">
-                    </div>
+  <div class="col-md-6 col-md-offset-3">
+    <form class="form-horizontal" novalidate ng-submit="vm.createArticle()" name="createArticleForm" enctype="multipart/form-data">
+      <fieldset>
+        <div class="form-group">
+          <label for="title" class="col-lg-3 control-label">Titre</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="title" ng-model="vm.title" required placeholder="Titre de l'article">
+            </div>
                 </div>
                 <div class="form-group">
-                    <label for="prenom" class="col-lg-3 control-label">Prénom</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="prenom" ng-model="vm.surname" required placeholder="Prénom">
-                    </div>
+                  <label for="inputImage" class="col-lg-3 control-label">Image</label>
+                  <div class="col-lg-9">
+                    <input type="file"
+                    class="form-control"
+                    id="inputImage"
+                    fileread="vm.file"
+                    >
+                  </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+                    <label for="content" class="col-lg-3 control-label">Contenu</label>
                     <div class="col-lg-9">
-                        <input type="email" class="form-control" id="inputEmail" ng-model="vm.username" required placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-lg-3 control-label">Mot de passe</label>
-                    <div class="col-lg-9">
-                        <input type="password" class="form-control" id="inputPassword" ng-model="vm.password" required placeholder="Mot de passe">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputCodePostal" class="col-lg-3 control-label">Code postal</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="inputCodePostal" ng-model="vm.codePostal" required placeholder="Code postal">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputTown" class="col-lg-3 control-label">Ville</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="inputTown" ng-model="vm.town" required placeholder="Ville">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress" class="col-lg-3 control-label">Adresse</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="inputAddress" ng-model="vm.address" required placeholder="Adresse">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPhoneNumber" class="col-lg-3 control-label">Numéro de téléphone</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="inputPhoneNumber" ng-model="vm.phoneNumber" required placeholder="Telephone">
+                        <textarea class="form-control" rows="8" id="content" ng-model="vm.content" required placeholder="Contenu"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
-                        <input class="btn btn-primary" type="submit" ng-disabled="createAccountForm.$invalid" value="Create Account">
+                        <input class="btn btn-primary" type="submit" ng-disabled="createArticleForm.$invalid" value="Create Article">
                     </div>
                 </div>
             </fieldset>
         </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4" ng-repeat="article in vm.articles">
+        <button ng-click="vm.deleteArticle(article, $index)">delete moi</button>
+        <img class="img-responsive" ng-src="{{article.thumbnail}}"/>
+        <h2>{{article.title}}</h2>
+        <p>{{article.text}}</p>
     </div>
 </div>
 

@@ -1,4 +1,6 @@
 const Order = require('../models/order.model');
+const Product = require('../models/product.model');
+const Bundle = require('../models/order.model');
 const User = require('../models/user.model');
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require('nodemailer');
@@ -15,7 +17,8 @@ exports.send = (req, res) => {
   if (!id || !token) return;
 
   Order.findById(id)
-  .populate('articlesId', 'title price -_id')
+  .populate('articlesId', 'name price -_id')
+  .populate('bundlesId', 'name price -_id')
   .populate('placeToShip', 'name -_id')
   .exec((err, order) => {
     if (err) {
@@ -64,7 +67,7 @@ exports.send = (req, res) => {
      */
 
     const { name, surname } = req.user;
-    const { articlesId, placeToShip, amount, itemsNumber } = order;
+    const { articlesId, articlesNumber, bundlesId, bundlesNumber, placeToShip, amount } = order;
 
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -82,8 +85,14 @@ exports.send = (req, res) => {
 
       Votre commande se constitue de :
 
-        ${articlesId.map((article, idx) => `- ${article.name} | ${itemsNumber[idx]} x ${article.price}€ = ${itemsNumber[idx] * article.price}€
+        ${articlesId.map((article, idx) => `- ${article.name} | ${articlesNumber[idx]} x ${article.price}€ = ${articlesNumber[idx] * article.price}€
         `).join('')}
+
+        ----
+
+        ${bundlesId.map((bundle, idx) => `- ${bundle.name} | ${bundlesNumber[idx]} x ${bundle.price}€ = ${bundlesNumber[idx] * bundle.price}€
+        `).join('')}
+
       Votre commande sera livré à l'endroit suivant : ${placeToShip.name}
 
       Pour un total de ${amount}€

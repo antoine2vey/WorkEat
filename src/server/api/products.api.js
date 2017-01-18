@@ -52,7 +52,7 @@ exports.create = (req, res) => {
   const image = file;
   const base64data = image.replace(/^data:image\/\w+;base64,/, '');
   const id = genId.generate();
-  const fileName = `public/uploads/${id}-${Date.now()}.png`;
+  const fileName = `public/uploads/products/${id}-${Date.now()}.png`;
 
   const product = new Product({
     file: fileName,

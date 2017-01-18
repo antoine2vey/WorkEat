@@ -8,15 +8,22 @@ const orderSchema = new mongoose.Schema({
   articlesId: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
+      ref: 'Product'
     },
   ],
-  itemsNumber: {
-    type: Array,
-    required: true,
-  },
+  bundlesId: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Bundle'
+    }
+  ],
+  articlesNumber: Array,
+  bundlesNumber: Array,
   amount: Number,
-  orderedAt: Date,
+  orderedAt: {
+    type: Date,
+    default: Date.now
+  },
   placeToShip: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Place',
