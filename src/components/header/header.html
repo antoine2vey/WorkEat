@@ -35,6 +35,11 @@
                 Créer un bundle
               </a>
             </li>
+            <li ng-if="vm.user.user.isAdmin">
+              <a ui-sref="app.admin.article">
+                Créer un article
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
