@@ -197,11 +197,12 @@ app.post('/api/orders', authorizeRequest, order.create);
 // BUNDLES
 app.get('/api/bundles', bundle.list);
 app.post('/api/bundles', isAdmin, bundle.create);
+app.delete('/api/bundles/:id', isAdmin, bundle.delete);
 
 // ARTICLES
 app.post('/api/articles', isAdmin, article.create);
 app.get('/api/articles', article.list);
-app.delete('/api/articles/:id', isAdmin, article.delete)
+app.delete('/api/articles/:id', isAdmin, article.delete);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -11,7 +11,6 @@ const bundleSchema = new mongoose.Schema({
   },
   itemsId: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
     required: true,
   }],
   description: String,
@@ -21,6 +20,10 @@ const bundleSchema = new mongoose.Schema({
     default: 0,
     max: 100,
   },
+  isBundle: {
+    type: Boolean,
+    default: true,
+  }
 });
 
 module.exports = mongoose.model('Bundle', bundleSchema);

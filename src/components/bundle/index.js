@@ -12,6 +12,18 @@ export default ['$http', 'Products', function($http, Products) {
   const vm = this;
   const { getProducts, _getPlat, _getEntree, _getDessert } = Products;
 
+  function getBundles() {
+    $http.get('/api/bundles')
+    .success(bundles => {
+      vm.bundles = bundles;
+    })
+    .error(err => {
+      console.log(err);
+    })
+  }
+
+  getBundles();
+
   getProducts()
   .success((products) => {
     vm.plat = _getPlat(products);
@@ -32,8 +44,20 @@ export default ['$http', 'Products', function($http, Products) {
       ]),
     }).success(res => {
       vm.reqStatus = res;
+      getBundles();
     }).error(err => {
       vm.reqStatus = res;
     });
-  }
+  };
+
+  vm.removeBundle = (bundle, index) => {
+    $http.delete(`/api/bundles/${bundle._id}`)
+    .success(res => {
+      vm.reqStatus = res;
+      vm.bundles.splice(index, 1);
+    })
+    .error(err => {
+      vm.reqStatus = err;
+    })
+  };
 }];

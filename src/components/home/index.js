@@ -23,6 +23,14 @@ export default ['$http', '$localStorage', function ($http, $localStorage) {
       file,
       amount: 1,
     };
+
+    /**
+     * Si le produit est un bundle, on lui rajoute le champ
+     */
+    if(product.isBundle) {
+      obj.isBundle = true
+    }
+
     let found = false;
 
     /**

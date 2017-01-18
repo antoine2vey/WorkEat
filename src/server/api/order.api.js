@@ -6,9 +6,11 @@ function mongoId(id) {
 }
 
 exports.create = (req, res) => {
-  const prices = [];
-  const amounts = [];
-  const ids = [];
+  const articlesAmounts = [];
+  const bundlesAmounts = [];
+  const articlesId = [];
+  let amount = 0;
+  const bundlesId = [];
   const { items, place } = req.body;
 
   req.checkBody('items', 'You pushed empty cart ...').notEmpty().isArray();
@@ -19,22 +21,24 @@ exports.create = (req, res) => {
   }
 
   items.forEach((item) => {
-    ids.push(mongoId(item._id));
-    prices.push(item.price * item.amount);
-    amounts.push(item.amount);
+    if(item.isBundle) {
+      bundlesId.push(item._id);
+      bundlesAmounts.push(item.amount);
+    } else {
+      articlesId.push(item._id);
+      articlesAmounts.push(item.amount);
+    }
+    amount += item.amount * item.price
   });
 
-  const amount = prices.reduce((a, b) => {
-    return a + b;
-  }, 0);
-
   const product = new Order({
-    orderedBy: mongoId(req.user._id),
-    articlesId: ids,
-    itemsNumber: amounts,
+    orderedBy: req.user._id,
+    articlesId,
+    bundlesId,
+    articlesNumber: articlesAmounts,
+    bundlesNumber: bundlesAmounts,
     amount,
-    orderedAt: new Date(),
-    placeToShip: mongoId(place),
+    placeToShip: place,
   });
 
   product.save((err) => {
