@@ -1,3 +1,5 @@
+import { getProducts, _getPlat, _getEntree, _getDessert } from '../../utils/product.js';
+
 function filterId(items) {
   items.forEach((item, idx) => {
     if(item == null) {
@@ -8,9 +10,8 @@ function filterId(items) {
   return items.map(item => item._id);
 }
 
-export default ['$http', 'Products', function($http, Products) {
+export default ['$http', function($http) {
   const vm = this;
-  const { getProducts, _getPlat, _getEntree, _getDessert } = Products;
 
   function getBundles() {
     $http.get('/api/bundles')
@@ -24,7 +25,7 @@ export default ['$http', 'Products', function($http, Products) {
 
   getBundles();
 
-  getProducts()
+  getProducts($http)
   .success((products) => {
     vm.plat = _getPlat(products);
     vm.entree = _getEntree(products);
@@ -60,4 +61,16 @@ export default ['$http', 'Products', function($http, Products) {
       vm.reqStatus = err;
     })
   };
+
+  vm.checkDuplicates = {
+    entree: (entree) => {
+      vm.plat.filter(el => el.name === entree.name);
+    },
+    plat: (plat) => {
+      console.log(plat);
+    },
+    dessert: (dessert) => {
+      console.log(dessert);
+    }
+  }
 }];

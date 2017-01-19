@@ -30,12 +30,9 @@ import createArticleTemplate from './components/createArticle/createArticle.html
 import bundleController from './components/bundle';
 import bundleTemplate from './components/bundle/bundle.html';
 
-import Products from './factories/product.factory';
-import Tags from './factories/tag.factory';
-
 import starDirective from './components/products/stars.directive';
 
-const app = angular.module('workEat', [uiRouter, 'ngStorage', 'ngMap', starDirective.name, Products.name, Tags.name]);
+const app = angular.module('workEat', [uiRouter, 'ngStorage', 'ngMap', starDirective.name]);
 
 app.directive('fileread', [function() {
   return {

@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Tag = require('../models/tag.model');
-const redis = require('redis');
 const flatten = require('flat');
-
-const client = redis.createClient();
 
 mongoose.Promise = Promise;
 

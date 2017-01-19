@@ -46,9 +46,9 @@
 <div class="row">
     <div class="col-md-4" ng-repeat="article in vm.articles">
         <button ng-click="vm.deleteArticle(article, $index)">delete moi</button>
-        <img class="img-responsive" ng-src="{{article.thumbnail}}"/>
+        <img class="img-responsive" ng-src="{{article.thumbnail}}" style="width:100vw"/>
         <h2>{{article.title}}</h2>
-        <p>{{article.text}}</p>
+        <div ng-bind-html="article.text"></div>
     </div>
 </div>
 

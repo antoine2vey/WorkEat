@@ -48,7 +48,7 @@ exports.send = (req, res) => {
           user.tokens.stripe = charge.customer;
           user.save((_err) => {
             if (_err) {
-              throw new Error('Cannot create token for customer');
+              console.log('FUCKING ERROR RIGHT THERE:', _err)
             }
           });
         });
@@ -88,7 +88,7 @@ exports.send = (req, res) => {
         ${articlesId.map((article, idx) => `- ${article.name} | ${articlesNumber[idx]} x ${article.price}€ = ${articlesNumber[idx] * article.price}€
         `).join('')}
 
-        ----
+        ${bundlesId.length ? '____' : ''}
 
         ${bundlesId.map((bundle, idx) => `- ${bundle.name} | ${bundlesNumber[idx]} x ${bundle.price}€ = ${bundlesNumber[idx] * bundle.price}€
         `).join('')}
@@ -100,7 +100,7 @@ exports.send = (req, res) => {
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        return console.log(error);
+        return res.status(500).send('Vous avez été débité mais l\'email n\'est pas parti!')
       }
       return res.status(200).send(`Merci pour votre paiement de ${amount}€. Un mail de récapitulatif vous à été envoyé à l'addresse ${req.user.username}`);
     });

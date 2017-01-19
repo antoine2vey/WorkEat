@@ -1,10 +1,8 @@
-// jshint maxlen: false, undef:false, unused: false, camelcase: false
-
 export default ['NgMap', '$http', function (NgMap, $http) {
   const vm = this;
   const tmpMarkers = [];
   const latLng = [];
-  vm.googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD7t9PNgiBnEJ8ne3pVXoRg4U94MZwWy5I';
+  vm.googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDjuB1ZL7AReWzNv1ZaEw1nTMR4s74vd_E';
 
   /**
    * Set and remove a marker

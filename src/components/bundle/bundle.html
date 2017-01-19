@@ -43,6 +43,7 @@
             class="form-control"
             ng-model='vm.selectedEntree'
             ng-options='entree.name for entree in vm.entree'
+            ng-change='vm.checkDuplicates.entree(vm.selectedEntree)'
             id="inputEntree">
             </select>
           </div>
@@ -54,6 +55,7 @@
             class="form-control"
             ng-model='vm.selectedPlat'
             ng-options='plat.name for plat in vm.plat'
+            ng-change='vm.checkDuplicates.plat(vm.selectedPlat)'
             id="inputPlat">
             </select>
           </div>
@@ -65,6 +67,7 @@
             class="form-control"
             ng-model='vm.selectedDessert'
             ng-options='dessert.name for dessert in vm.dessert'
+            ng-change='vm.checkDuplicates.dessert(vm.selectedDessert)'
             id="inputDessert">
             </select>
           </div>

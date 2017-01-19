@@ -1,14 +1,15 @@
-export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
-  const vm = this;
-  const { getProducts, createProduct, deleteProduct } = Products;
-  const { getTags, createTag, updateTag, deleteTag } = Tags;
+import { getProducts, deleteProduct, createProduct } from '../../utils/product.js';
+import { getTags } from '../../utils/tag.js';
 
-  getTags().success((res) => {
+export default ['$http', function ($http) {
+  const vm = this;
+
+  getTags($http).success((res) => {
     vm.tags = res;
   });
 
   const displayProducts = () => {
-    getProducts().success((res) => {
+    getProducts($http).success((res) => {
       vm.products = res;
     });
   };
@@ -16,7 +17,7 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
   displayProducts();
 
   vm.productForm = () => {
-    createProduct({
+    createProduct($http, {
       file: vm.file,
       name: vm.name,
       description: vm.description,
@@ -33,7 +34,7 @@ export default ['$http', 'Products', 'Tags', function ($http, Products, Tags) {
   };
 
   vm.removeProduct = (product, index) => {
-    deleteProduct(product._id)
+    deleteProduct($http, product._id)
     .success((res) => {
       vm.products.splice(index, 1);
     })

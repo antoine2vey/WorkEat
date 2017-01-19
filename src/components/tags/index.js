@@ -1,9 +1,10 @@
-export default ['$http', 'Tags', function($http, Tags) {
+import { getTags, deleteTag, updateTag, createTag } from '../../utils/tag.js';
+
+export default ['$http', function($http) {
   const vm = this;
-  const { getTags, createTag, updateTag, deleteTag } = Tags;
 
   const displayTags = () => {
-    getTags()
+    getTags($http)
     .success((res) => {
       vm.tags = res;
     })
@@ -16,7 +17,7 @@ export default ['$http', 'Tags', function($http, Tags) {
 
 
   vm.tagForm = () => {
-    createTag({
+    createTag($http, {
       name: vm.name,
     })
     .success((res) => {
@@ -34,7 +35,7 @@ export default ['$http', 'Tags', function($http, Tags) {
   };
 
   vm.removeTag = (tag, index) => {
-    deleteTag(tag._id)
+    deleteTag($http, tag._id)
     .success(() => {
       vm.tags.splice(index, 1);
     })
@@ -46,7 +47,7 @@ export default ['$http', 'Tags', function($http, Tags) {
   vm.updateTag = (tag) => {
     const { name } = tag;
 
-    updateTag(tag._id, {
+    updateTag($http, tag._id, {
       name,
     })
     .success((res) => {
