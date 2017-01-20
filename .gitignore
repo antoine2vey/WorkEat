@@ -10,3 +10,4 @@ public/*
 .vscode
 .idea
 src/scss/_*.scss
+*.csv

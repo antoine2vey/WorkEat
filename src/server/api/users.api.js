@@ -119,27 +119,21 @@ exports.create = (req, res) => {
   });
 };
 exports.delete = (req, res) => {
-  // Security : if session email == sent email
-  // We delete, else, throw error;
-  if (req.body.username === req.user.username) {
-    User.remove({ username: req.body.username }, (err) => {
+  User.remove({ username: req.body.username }, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error deleting account.');
+      return;
+    }
+    req.session.destroy((err) => {
       if (err) {
-        console.log(err);
         res.status(500).send('Error deleting account.');
+        console.log('Error deleting session: ' + err);
         return;
       }
-      req.session.destroy((err) => {
-        if (err) {
-          res.status(500).send('Error deleting account.');
-          console.log('Error deleting session: ' + err);
-          return;
-        }
-        res.status(200).send('Account successfully deleted.');
-      });
+      res.status(200).send('Account successfully deleted.');
     });
-  } else {
-    return res.status(500).send('Stop trying to delete another account');
-  }
+  });
 };
 exports.update = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
