@@ -105,6 +105,7 @@ const payment = require('./src/server/api/payment.api');
 const order = require('./src/server/api/order.api');
 const bundle = require('./src/server/api/bundle.api');
 const article = require('./src/server/api/article.api');
+const csv = require('./src/server/api/csv.api');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -119,6 +120,15 @@ const isAdmin = (req, res, next) => {
   } else {
     res.status(401).send({
       error: 'Unauthorized. Adminstrator only.',
+    });
+  }
+};
+const isPresta = (req, res, next) => {
+  if (req.user.isPrestataire && req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(401).send({
+      error: 'Unauthorized. Prestataire only.',
     });
   }
 };
@@ -203,6 +213,10 @@ app.delete('/api/bundles/:id', isAdmin, bundle.delete);
 app.post('/api/articles', isAdmin, article.create);
 app.get('/api/articles', article.list);
 app.delete('/api/articles/:id', isAdmin, article.delete);
+
+// EXPORT CSV
+app.post('/api/csv', isPresta, csv.createFile);
+app.get('/api/csv', isPresta, csv.download);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
