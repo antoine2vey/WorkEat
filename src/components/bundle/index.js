@@ -70,18 +70,18 @@ export default ['$http', function($http) {
     vm.checkDuplicates = {
         value: {},
         entree: (entree) => {
-          let found = false;
-          vm.dessert.forEach((item, index) => {
-            if(entree.name === item.name) {
-              vm.checkDuplicates.value = item;
-              vm.dessert.splice(index, 1);
-              found = true;
+            let found = false;
+            vm.dessert.forEach((item, index) => {
+                if (entree.name === item.name) {
+                    vm.checkDuplicates.value = item;
+                    vm.dessert.splice(index, 1);
+                    found = true;
+                }
+            });
+            if (!found) {
+                vm.dessert.push(vm.checkDuplicates.value);
             }
-          });
-          if(!found) {
-            vm.dessert.push(vm.checkDuplicates.value);
-          }
-          console.log(vm.checkDuplicates.value);
+            console.log(vm.checkDuplicates.value);
         },
         plat: (plat) => {
             console.log(plat);
