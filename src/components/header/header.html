@@ -42,6 +42,14 @@
             </li>
           </ul>
         </li>
+        <li ng-if="vm.user.user.isPrestataire">
+          <a class="dropdown-toggle" data-toggle="dropdown">Presta part</a>
+          <ul class="dropdown-menu">
+            <li ng-if="vm.user.user.isPrestataire">
+              <a ui-sref="app.prestataire.csv">CSV export</a>
+            </li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ui-sref="app.shopping" ng-show="vm.user.status"><i class="fa fa-shopping-cart"></i></a>

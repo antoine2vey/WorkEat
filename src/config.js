@@ -29,6 +29,9 @@ import createArticleController from './components/createArticle';
 import createArticleTemplate from './components/createArticle/createArticle.html';
 import bundleController from './components/bundle';
 import bundleTemplate from './components/bundle/bundle.html';
+import prestataireTemplate from './components/prestataire/prestataire.html';
+import csvController from './components/prestataire/csv';
+import csvTemplate from './components/prestataire/csv/csv.html';
 
 import starDirective from './components/products/stars.directive';
 
@@ -176,6 +179,24 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
         controllerAs: 'vm',
       }
     }
+  })
+  .state('app.prestataire', {
+    url: '/prestataire',
+    views: {
+      '@': {
+        templateUrl: prestataireTemplate,
+      },
+    },
+  })
+  .state('app.prestataire.csv', {
+    url: '/csv',
+    views: {
+      '@': {
+        templateUrl: csvTemplate,
+        controller: csvController,
+        controllerAs: 'vm',
+      },
+    },
   })
   .state('app.payment', {
     url: '/payment/:id',
