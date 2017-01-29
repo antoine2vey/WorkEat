@@ -51,6 +51,8 @@
     "passport-local": "^1.0.0",
     "pmx": "^0.6.8",
     "postcss-loader": "^1.1.1",
+    "prerender-node": "^2.7.0",
+    "quill": "^1.2.0",
     "raw-loader": "^0.5.1",
     "redis": "^2.6.5",
     "resolve-url": "^0.2.1",

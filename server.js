@@ -11,17 +11,17 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const User = require('./src/server/models/user.model');
 const env = require('dotenv');
-// const redis = require('redis');
+const redis = require('redis');
 
 const app = express();
-// const client = redis.createClient();
+const client = redis.createClient();
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3000;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 
-// client.on('connect', () => {
-//   console.log('Connected to Redis!');
-// });
+client.on('connect', () => {
+  console.log('Connected to Redis!');
+});
 
 /**
 * ENV CONFIG
@@ -95,7 +95,7 @@ app.use(expressValidator({
     },
   },
 }));
-app.use(cookieParser());
+app.use(cookieParser('secretKey!'));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -107,6 +107,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require('prerender-node'));
 
 const userRoute = require('./src/server/api/users.api');
 const productsApi = require('./src/server/api/products.api');
