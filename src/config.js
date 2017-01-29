@@ -56,6 +56,8 @@ app.directive('fileread', [function() {
   };
 }]);
 
+app.filter('pasteHTML', $sce => $sce.trustAsHtml);
+
 app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   $urlRouterProvider.otherwise('/');
 

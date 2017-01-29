@@ -1,14 +1,21 @@
-function nl2br(str, is_xhtml = false) {
-  const breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>';
-  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-}
+import Quill from 'quill';
 
-export default ['$http', function($http) {
+export default ['$http', '$sce', function($http, $sce) {
   const vm = this;
+  const editor = new Quill('#editor', {
+    modules: {
+      'history': {          // Enable with custom configurations
+        'delay': 2500,
+        'userOnly': true
+      }
+    },
+    theme: 'snow'
+  })
+
 
   $http.get('/api/articles')
   .success(articles => {
-    vm.articles = articles;
+    vm.articles = articles
   })
   .error(err => {
     console.log(err);
@@ -18,7 +25,7 @@ export default ['$http', function($http) {
     $http.post('/api/articles', {
       title: vm.title,
       thumbnail: vm.file,
-      text: nl2br(vm.content),
+      text: document.querySelector(".ql-editor").innerHTML,
     })
     .success(() => {
       console.log('Article created !');
