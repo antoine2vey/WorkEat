@@ -45,6 +45,13 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  availableAt: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Place',
+      required: true
+    }
+  ]
 });
 
 module.exports = mongoose.model('Product', productSchema);

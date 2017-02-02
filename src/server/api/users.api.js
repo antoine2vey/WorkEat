@@ -49,7 +49,9 @@ exports.login = (req, res) => {
         isAdmin: user.isAdmin,
         isLivreur: user.isLivreur,
         isPrestataire: user.isPrestataire,
+        position: user.position
       };
+      console.log(userInfo);
       return res.json(userInfo);
     });
   })(req, res);
@@ -82,6 +84,7 @@ exports.create = (req, res) => {
     town: req.body.town,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
+    position: req.body.position
   });
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
@@ -136,35 +139,27 @@ exports.delete = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-  req.checkBody('username', 'Email is required').notEmpty().isEmail();
-  req.checkBody('password', 'Password is required').notEmpty();
-  req.checkBody('name', 'Name is required').notEmpty();
-  req.checkBody('surname', 'Surname is required').notEmpty();
-  req.checkBody('codePostal', 'Code postal is required').notEmpty();
-  req.checkBody('phoneNumber', 'Téléphone is required').notEmpty();
-  req.checkBody('address', 'Address is required').notEmpty();
-  req.checkBody('town', 'Town is required').notEmpty();
-
-  const errors = req.validationErrors();
-  if (errors) {
-    res.status(400).send(errors);
-    return;
+  if(req.body.position) {
+    query = {
+      position: req.body.position
+    }
+  } else {    
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    query = {
+      username: req.body.username,
+      password: hash,
+      name: req.body.name,
+      surname: req.body.surname,
+      codePostal: req.body.codePostal,
+      phoneNumber: req.body.phoneNumber,
+      address: req.body.address,
+      town: req.body.town,
+    }
   }
 
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.password, salt);
-
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user._id, {
-    username: req.body.username,
-    password: hash,
-    name: req.body.name,
-    surname: req.body.surname,
-    codePostal: req.body.codePostal,
-    phoneNumber: req.body.phoneNumber,
-    address: req.body.address,
-    town: req.body.town,
-  }, (err, doc) => {
+  User.findByIdAndUpdate(req.user._id, query, (err, doc) => {
     if (err) {
       return res.status(500).send({
         error: 'Email already exists',

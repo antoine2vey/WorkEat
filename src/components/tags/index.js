@@ -11,7 +11,7 @@ export default ['$http', function($http) {
     .error((err) => {
       console.error(err);
     });
-  }
+  };
 
   displayTags();
 

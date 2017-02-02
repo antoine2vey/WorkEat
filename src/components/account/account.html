@@ -1,15 +1,16 @@
 <!--account.html-->
 <div class="row">
   <div class="col-md-12">
-    <div class="page-header">
-      <h2>Your Account</h2>
+    <div class="page-header row">
+      <h2 class="col-md-6">Your Account</h2>
+      <h2 class="col-md-6">Favorite location</h2>
     </div>
   </div>
 </div>
 
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-6">
     <form class="form-horizontal" novalidate ng-submit="vm.updateAccount()" name="editAccountForm">
       <fieldset>
         <div class="alert alert-success" ng-if="vm.status">
@@ -125,6 +126,46 @@
           </div>
         </div>
       </fieldset>
+    </form>
+  </div>
+  <div map-lazy-load='{{vm.googleMapUrl}}'
+       class="col-md-6">
+    <ng-map
+      center="current-location"
+      geo-fallback-center="49.8741275, 2.5389784"
+      zoom="15"
+      >
+      <shape
+        name="polyline"
+        path="{{vm.path}}"
+        geodesic="true"
+        stroke-color="#FF0000"
+        stroke-opacity="1.0"
+        stroke-weight="3">
+      </shape>
+      <marker position="{{vm.formData.position}}" animation="BOUNCE"></marker>
+        <marker ng-repeat="pin in vm.places"
+          id='{{pin._id}}'
+          position="{{pin.geolocation}}"
+          on-click="map.showInfoWindow(pin._id)"
+          ></marker>
+    </ng-map>
+    <br>
+    <p>Votre point de livraison le plus proche est '{{vm.closestMarker.name}}'</p>
+    <br>
+    <form class="form-horizontal col-sm-12" novalidate ng-submit="vm.updateLivraison()" name="updateLivraisonForm">
+      <div class="form-group">
+        <label for="inputPlace">Choisir un nouveau point de livraison</label>
+        <select
+          class="form-control"
+          ng-model='vm.selectedPlace'
+          ng-options='place.name for place in vm.places'
+          id="inputPlace">
+        </select>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-primary" type="submit" ng-disabled="updateLivraisonForm.$invalid" value="Modifier mon point">
+      </div>
     </form>
   </div>
 </div>

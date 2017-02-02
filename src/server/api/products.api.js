@@ -28,6 +28,7 @@ exports.create = (req, res) => {
     price,
     tag,
     type,
+    places
   } = req.body;
 
   req.checkBody('file', 'Image is required').notEmpty();
@@ -38,6 +39,7 @@ exports.create = (req, res) => {
   req.checkBody('price', 'Price is required and/or must be a number').notEmpty().isInt();
   req.checkBody('tag', 'Tags are required').notEmpty();
   req.checkBody('type', 'Types are required').notEmpty();
+  req.checkBody('places', 'Places are required').notEmpty().isArray();
 
   const errors = req.validationErrors();
   if (errors) {
@@ -71,6 +73,9 @@ exports.create = (req, res) => {
 
     tag.forEach((oneTag) => {
       product.tag.push(oneTag._id);
+    });
+    places.forEach(place => {
+      product.availableAt.push(place._id);
     });
 
     product.save((err) => {

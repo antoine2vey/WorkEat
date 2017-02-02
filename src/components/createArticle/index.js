@@ -10,16 +10,16 @@ export default ['$http', '$sce', function($http, $sce) {
       }
     },
     theme: 'snow'
-  })
+  });
 
 
   $http.get('/api/articles')
   .success(articles => {
-    vm.articles = articles
+    vm.articles = articles;
   })
   .error(err => {
     console.log(err);
-  })
+  });
 
   vm.createArticle = () => {
     $http.post('/api/articles', {
@@ -32,13 +32,13 @@ export default ['$http', '$sce', function($http, $sce) {
     })
     .error((err) => {
       console.log(err);
-    })
+    });
   };
 
   vm.deleteArticle = (article, index) => {
     $http.delete(`/api/articles/${article._id}`)
     .success(res => {
       vm.articles.splice(index, 1);
-    })
-  }
+    });
+  };
 }];

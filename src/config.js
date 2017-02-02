@@ -57,6 +57,7 @@ app.directive('fileread', [function() {
 }]);
 
 app.filter('pasteHTML', $sce => $sce.trustAsHtml);
+// app.filter('km', () => (input) => `${input.toFixed(2)}m`)
 
 app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   $urlRouterProvider.otherwise('/');

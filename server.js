@@ -206,7 +206,7 @@ app.delete('/api/tags/:id', isAdmin, tagApi.delete);
 app.put('/api/tags/:id', isAdmin, tagApi.update);
 
 // LIVRAISON API
-app.get('/api/livraison/places', isAdmin, placeApi.list);
+app.get('/api/livraison/places', placeApi.list);
 app.post('/api/livraison/places', isAdmin, placeApi.create);
 app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
 

@@ -7,7 +7,7 @@ import {
 
 function filterId(items) {
   items.forEach((item, idx) => {
-    if (item == null) {
+    if (item === null) {
       items.splice(idx, 1);
     }
   });
@@ -25,7 +25,7 @@ export default ['$http', function($http) {
     })
     .error(err => {
       console.log(err);
-    })
+    });
   }
 
   getBundles();
@@ -64,7 +64,7 @@ export default ['$http', function($http) {
     })
     .error(err => {
       vm.reqStatus = err;
-    })
+    });
   };
 
   /**
@@ -88,7 +88,7 @@ export default ['$http', function($http) {
         // On supprime donc l'entrée choisi des plats (car dupliqué)
         compareTo.splice(i, 1);
       }
-    })
+    });
     // Hors boucle, on vérifie que le nom choisi est différent du tmp
     // Si on a matché et que l'origin est la même alors :
     if(object.name !== tmp.name && matched && (constant === origin)) {
@@ -122,5 +122,5 @@ export default ['$http', function($http) {
       magicDelete(isDessert, vm.entree, dessert);
       magicDelete(isDessert, vm.plat, dessert);
     }
-  }
+  };
 }];

@@ -6,14 +6,15 @@ export default ['$http', '$location', function($http, $location) {
     $http.post(`/api/csv`, {
       date: ISODate
     })
-    .success(res =>{
-      $http.get('/api/csv')
-      .success(res => {
-        $location.url('/api/csv');
-      });
+    .success(res => {
+      console.log(res);
+      // $http.get('/api/csv')
+      // .success(res => {
+      //   $location.url('/api/csv');
+      // });
     })
     .error(err => {
       console.log(err);
-    })
-  }
+    });
+  };
 }];

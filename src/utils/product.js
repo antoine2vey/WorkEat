@@ -21,7 +21,7 @@ function _getEntree(products) {
       if(_type === 'entree') {
         arr.push(product);
       }
-    })
+    });
   });
 
   return arr;
@@ -34,7 +34,7 @@ function _getPlat(products) {
       if(_type === 'plat') {
         arr.push(product);
       }
-    })
+    });
   });
 
   return arr;
@@ -47,7 +47,7 @@ function _getDessert(products) {
       if(_type === 'dessert') {
         arr.push(product);
       }
-    })
+    });
   });
 
   return arr;

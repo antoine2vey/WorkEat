@@ -47,6 +47,7 @@ const accountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  position: Array,
   tokens: {
     stripe: String,
   },

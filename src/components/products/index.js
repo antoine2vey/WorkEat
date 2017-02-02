@@ -16,6 +16,14 @@ export default ['$http', function ($http) {
 
   displayProducts();
 
+  $http.get('/api/livraison/places')
+  .success(places => {
+    vm.places = places;
+  })
+  .error(err => {
+    console.log(err);
+  });
+
   vm.productForm = () => {
     createProduct($http, {
       file: vm.file,
@@ -26,6 +34,7 @@ export default ['$http', function ($http) {
       price: vm.price,
       tag: vm.tag,
       type: vm.type,
+      places: vm.selectedPlaces
     }).success((res) => {
       displayProducts();
     }).error((err) => {

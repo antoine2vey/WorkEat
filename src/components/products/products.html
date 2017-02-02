@@ -106,6 +106,18 @@
             </select>
           </div>
         </div>
+        <div class="form-group">
+          <label for="inputCity" class="col-lg-3 control-label">Disponible a</label>
+          <div class="col-lg-9">
+            <select
+            class="form-control"
+            multiple='true'
+            ng-model='vm.selectedPlaces'
+            ng-options='place.name for place in vm.places'
+            id="inputCity">
+            </select>
+          </div>
+        </div>
       <div class="form-group">
         <div class="col-lg-9 col-lg-offset-3">
           <input class="btn btn-primary" type="submit" ng-disabled="addProductForm.$invalid" value="Ajouter un produit">

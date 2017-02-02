@@ -15,7 +15,7 @@ exports.createFile = (req, res) => {
     $lte: limit
   }})
   .populate('articlesId', 'name -_id')
-  // Moyen cleen pour faire une deep populate (Bundle qui a des items qui ont des articles)
+  // Moyen clean pour faire une deep populate (Bundle qui a des items qui ont des articles)
   .populate({
     path: 'bundlesId',
     model: 'Bundle',
@@ -49,9 +49,6 @@ exports.createFile = (req, res) => {
         // Bundles
         order.bundlesId.forEach(bundle => {
           bundle.itemsId.forEach((item, i) => {
-            console.log(item)
-            // On ajoute 1 seul item car on ne peut mettre que 1 seul item dans
-            // un bundle
             data.push({
               name: item.name,
               amount: 1
@@ -63,7 +60,6 @@ exports.createFile = (req, res) => {
       const csv = json2csv({ data, fields });
       fs.writeFile('file.csv', csv, function(err) {
         if (err) throw err;
-        console.log('csv done');
         res.send('Created file');
       });
     } else {
