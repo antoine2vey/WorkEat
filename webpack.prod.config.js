@@ -6,6 +6,7 @@ var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   entry: [
+    'bootstrap-loader',
     './src'
   ],
   output: {
