@@ -182,7 +182,7 @@ app.get('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);
-app.delete('/account/delete', authorizeRequest, userRoute.delete);
+app.delete('/account/delete/:email', authorizeRequest, userRoute.delete);
 app.put('/account/update', authorizeRequest, userRoute.update);
 
 app.get('/protected', authorizeRequest, (req, res) => {

@@ -55,9 +55,7 @@ export default ['$http', '$localStorage', '$state', 'NgMap', function ($http, $l
 
 
   vm.deleteAccount = () => {
-    $http.delete('/account/delete', {
-      username: vm.formData.username,
-    })
+    $http.delete(`/account/delete/${vm.formData.username}`)
     .success(() => {
       $state.go('app.home');
       $localStorage.$reset();
