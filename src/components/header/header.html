@@ -50,6 +50,11 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="javascript:void 0">
+            {{vm.clock | date:"HH'h'mm'm'ss's'"}}
+          </a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ui-sref="app.shopping" ng-show="vm.user.status"><i class="fa fa-shopping-cart"></i></a>
