@@ -6,6 +6,7 @@ var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   entry: [
+    'bootstrap-loader',
     './src'
   ],
   output: {
@@ -39,10 +40,6 @@ module.exports = {
       {
         test: /\.(woff2?|ttf|eot|svg)$/,
         loader: 'url-loader?limit=10000'
-      },
-      {
-        test: /bootstrap-sass\/assets\/javascripts\//,
-        loader: 'imports?jQuery=jquery'
       }
     ]
   },
