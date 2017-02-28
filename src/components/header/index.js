@@ -1,6 +1,5 @@
 export default ['$localStorage', '$state', '$http', '$timeout', '$rootScope', function ($localStorage, $state, $http, $timeout, $rootScope) {
   const vm = this;
-  console.log($rootScope)
   vm.user = $localStorage;
 
   vm.clock = "loading clock...";

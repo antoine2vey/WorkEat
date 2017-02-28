@@ -6,7 +6,6 @@ var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   entry: [
-    'bootstrap-loader',
     './src'
   ],
   output: {
@@ -22,7 +21,11 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader?presets[]=es2015'
+        loader: 'babel',
+        query: {
+            plugins: ['lodash'],
+            presets: ['es2015']
+        }
       },
       {
         test: /\.html$/,
