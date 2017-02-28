@@ -148,7 +148,7 @@ const canOrder = (req, res, next) => {
   const date = new Date();
   const hour = date.getHours();
   const minutes = date.getMinutes();
-  if ((hour < 11) || (hour === 11 && minutes < 30) || !DEV) {
+  if ((hour < 11) || (hour === 11 && minutes < 30)) {
     next();
   } else {
     res.send({
@@ -157,7 +157,7 @@ const canOrder = (req, res, next) => {
   }
 };
 
-app.get('/canOrder', authorizeRequest, canOrder, (req, res) => {
+app.get('**/canOrder', authorizeRequest, canOrder, (req, res) => {
   res.send({
     STATUS: 'You can order!',
   });
@@ -235,5 +235,5 @@ app.all('/*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 C'EST PARTI SUR LE PORT ${PORT} 🚀`);
+  console.log(`\n\n🚀 C'EST PARTI SUR LE PORT ${PORT} 🚀\n\n`);
 });

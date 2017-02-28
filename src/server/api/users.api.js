@@ -51,7 +51,7 @@ exports.login = (req, res) => {
         isPrestataire: user.isPrestataire,
         position: user.position
       };
-      console.log(userInfo);
+
       return res.json(userInfo);
     });
   })(req, res);
@@ -122,7 +122,7 @@ exports.create = (req, res) => {
   });
 };
 exports.delete = (req, res) => {
-  User.remove({ username: req.body.username }, (err) => {
+  User.findByIdAndRemove(req.user._id, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error deleting account.');
@@ -143,7 +143,7 @@ exports.update = (req, res) => {
     query = {
       position: req.body.position
     }
-  } else {    
+  } else {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     query = {

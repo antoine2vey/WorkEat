@@ -12,14 +12,17 @@ export default ['$http', '$sce', function($http, $sce) {
     theme: 'snow'
   });
 
+  function getArticles() {
+    $http.get('/api/articles')
+    .success(articles => {
+      vm.articles = articles;
+    })
+    .error(err => {
+      console.log(err);
+    });
+  }
 
-  $http.get('/api/articles')
-  .success(articles => {
-    vm.articles = articles;
-  })
-  .error(err => {
-    console.log(err);
-  });
+  getArticles();
 
   vm.createArticle = () => {
     $http.post('/api/articles', {
@@ -27,12 +30,11 @@ export default ['$http', '$sce', function($http, $sce) {
       thumbnail: vm.file,
       text: document.querySelector(".ql-editor").innerHTML,
     })
-    .success(() => {
-      console.log('Article created !');
+    .success((res) => {
+      console.log(res);
+      getArticles();
     })
-    .error((err) => {
-      console.log(err);
-    });
+    .error(err => console.log(err));
   };
 
   vm.deleteArticle = (article, index) => {

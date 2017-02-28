@@ -12,7 +12,7 @@ exports.createFile = (req, res) => {
   Order
   .find({ orderedAt: {
     $gt: req.body.date,
-    $lte: limit
+    //$lte: limit
   }})
   .populate('articlesId', 'name -_id')
   // Moyen clean pour faire une deep populate (Bundle qui a des items qui ont des articles)
@@ -29,21 +29,20 @@ exports.createFile = (req, res) => {
   .select('bundlesNumber bundlesId articlesNumber articlesId -_id')
   .exec((err, orders) => {
     if (err) {
-      return console.log('ERR %s', err)
+      return console.log('ERR %s', err);
     }
 
     if (orders.length) {
-      console.log(orders);
       const fields = ['name', 'amount'];
       let data = [];
-
+      console.log(orders);
       orders.forEach((order) => {
         // Articles
         order.articlesId.forEach((article, i) => {
           data.push({
             name: article.name,
             amount: order.articlesNumber[i]
-          })
+          });
         });
 
         // Bundles
@@ -52,7 +51,7 @@ exports.createFile = (req, res) => {
             data.push({
               name: item.name,
               amount: 1
-            })
+            });
           });
         });
       });
@@ -63,16 +62,16 @@ exports.createFile = (req, res) => {
         res.send('Created file');
       });
     } else {
-      res.status(200).send('Pas de commandes aujourd\'hui');
+      console.log('nothing..');
+      res.status(400).send('Pas de commandes aujourd\'hui');
     }
   });
 };
 exports.download = (req, res, next) => {
   res.download('file.csv', 'file.csv', err => {
-    if(err) {
-      console.log(err);
-    } else {
-      console.log('Yeah?')
-    }
+    if(err)
+      throw new Error(err);
+
+    res.end();
   });
-}
+};
