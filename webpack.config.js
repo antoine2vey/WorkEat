@@ -7,7 +7,6 @@ module.exports = {
     entry: [
         'webpack-dev-server/client?http://127.0.0.1:8080/',
         'webpack/hot/only-dev-server',
-        'bootstrap-loader',
         './src'
     ],
     output: {
