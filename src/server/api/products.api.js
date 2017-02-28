@@ -54,7 +54,7 @@ exports.create = (req, res) => {
   const image = file;
   const base64data = image.replace(/^data:image\/\w+;base64,/, '');
   const id = genId.generate();
-  const fileName = `public/uploads/products/${id}-${Date.now()}.png`;
+  const fileName = `uploads/${id}-${Date.now()}.png`;
 
   const product = new Product({
     file: fileName,
@@ -83,7 +83,7 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error, please try again!');
       }
 
-      fs.writeFile(fileName, base64data, { encoding: 'base64' }, (err) => {
+      fs.writeFile('public/'+fileName, base64data, { encoding: 'base64' }, (err) => {
         if (err) {
           console.log(err);
         }

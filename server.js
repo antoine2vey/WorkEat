@@ -80,13 +80,13 @@ passport.use(new LocalStrategy((username, password, done) => {
 app.use(logger('dev'));
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public/uploads', express.static(path.join(__dirname, '/public/uploads')));
-app.use(bodyParser.json({
-  limit: '50mb'
-}));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
-  extended: true
+  extended: false
+}));
+app.use(bodyParser.json({
+  limit: '50mb'
 }));
 app.use(expressValidator({
   customValidators: {
