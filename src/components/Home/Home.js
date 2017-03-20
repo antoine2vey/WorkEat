@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RenderLoginBox from './RenderLoginBox';
+import './Home.scss';
 
 class Home extends Component {
   constructor(props) {
