@@ -1,10 +1,6 @@
 language: node_js
 node_js:
-  - 4
-  - 6
+  - 6.9.x
 cache:
   directories:
     - node_modules
-script:
-  - npm test
-  - npm run build
