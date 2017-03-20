@@ -9,14 +9,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const User = require('./src/server/models/user.model');
+const User = require('./server/models/user.model');
 const env = require('dotenv');
 const redis = require('redis');
 
 const app = express();
 const client = redis.createClient();
 const DEV = process.env.NODE_ENV === 'development';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 
 client.on('connect', () => {
@@ -109,15 +109,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('prerender-node'));
 
-const userRoute = require('./src/server/api/users.api');
-const productsApi = require('./src/server/api/products.api');
-const tagApi = require('./src/server/api/tags.api');
-const placeApi = require('./src/server/api/places.api');
-const payment = require('./src/server/api/payment.api');
-const order = require('./src/server/api/order.api');
-const bundle = require('./src/server/api/bundle.api');
-const article = require('./src/server/api/article.api');
-const csv = require('./src/server/api/csv.api');
+const userRoute = require('./server/api/users.api');
+const productsApi = require('./server/api/products.api');
+const tagApi = require('./server/api/tags.api');
+const placeApi = require('./server/api/places.api');
+const payment = require('./server/api/payment.api');
+const order = require('./server/api/order.api');
+const bundle = require('./server/api/bundle.api');
+const article = require('./server/api/article.api');
+const csv = require('./server/api/csv.api');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -231,7 +231,11 @@ app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
 
 app.all('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  console.log('SESSION INFO');
+  console.log(req.user);
+  console.log();
+  console.log();
+  res.sendFile(path.join(__dirname, 'public/index.html'));  
 });
 
 app.listen(PORT, () => {
