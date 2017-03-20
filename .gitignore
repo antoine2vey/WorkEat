@@ -1,13 +1,16 @@
-node_modules/
-npm-debug.*
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+src/components/**/*.css
+
+# misc
 .DS_Store
-public/*
-!public/uploads/*.png
-!public/index.html
 .env
-.ftpconfig
-!public/favicon.ico
-.vscode
-.idea
-src/scss/_*.scss
-*.csv
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
