@@ -1,9 +1,7 @@
 #!/bin/bash
 path='src/components'
 mkdir $path/$1 && cd $path/$1
-touch $1.scss
 echo "import React, { Component } from 'react';
-import './$1.css';
 
 class $1 extends Component {
   render() {
