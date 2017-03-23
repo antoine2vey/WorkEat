@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 
 mongoose.Promise = Promise;
 
@@ -27,7 +28,56 @@ exports.login = (req, res) => {
       'Username or password was left empty. Please complete both fields and re-submit.'
     );
   }
-  passport.authenticate('local', (err, user, next) => {
+
+  User.findOne({username: req.body.username}, (err, user) => {    
+    if(err) {
+      throw new Error(err);
+    }
+
+    if(!user) {
+      return res.status(401).send('User not found. Please check your entry and try again.');
+    }
+
+    console.log(req.body.password+'\n');
+    console.log(user.password);
+
+    bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+      if(isMatch) {
+        req.logIn(user, (err) => {
+          if (err) {
+            return res.status(500).send('Error saving session.');
+          }
+          const payload = {
+            id: user._id,
+            isAdmin: user.isAdmin,
+            isLivreur: user.isLivreur,
+            isPrestataire: user.isPrestataire
+          }
+          const token = jwt.sign(payload, process.env.JWT_SECRET);
+          return res.status(200).json({
+            success: true,
+            token: token,
+            user: {
+              username: user.username,
+              name: user.name,
+              surname: user.surname,
+              codePostal: user.codePostal,
+              address: user.address,
+              phoneNumber: user.phoneNumber,
+              town: user.town,
+              isAdmin: user.isAdmin,
+              isLivreur: user.isLivreur,
+              isPrestataire: user.isPrestataire,
+              position: user.position
+            }
+          });
+        });
+      } else {
+        res.status(401).send({success: false, message: 'Auth fail'});
+      }
+    });
+  });
+  /*passport.authenticate('jwt', (err, user, next) => {
     if (err) {
       return next(err);
     }
@@ -54,7 +104,7 @@ exports.login = (req, res) => {
 
       return res.json(userInfo);
     });
-  })(req, res);
+  })(req, res);*/
 };
 exports.create = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();

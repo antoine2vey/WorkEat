@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import './Header.scss';
+import { Link } from 'react-router-dom';
+import './Header.css';
 
 class Header extends Component {
   render() {
     return (
-      <div></div>
+      <div>
+        <Link to="/account">ACCOUNT PAGE</Link>
+        <Link to="/products">PRODUCT PAGE</Link>
+      </div>
     );
   }
 }

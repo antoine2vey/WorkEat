@@ -1,8 +1,14 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
+const passportJWT = require("passport-jwt");
+const jwtExpress = require('express-jwt');
+const ExtractJwt = passportJWT.ExtractJwt;
+const JwtStrategy = passportJWT.Strategy;
+
 const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -55,7 +61,13 @@ passport.deserializeUser((id, done) => {
     done(err, user);
   });
 });
-passport.use(new LocalStrategy((username, password, done) => {
+
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  secretOrKey: process.env.JWT_SECRET || 'ChangeThisKeyPlease'
+}
+passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
+  console.log(payload);
   User.findOne({
     username
   }, (err, user) => {
@@ -135,6 +147,9 @@ const isAdmin = (req, res, next) => {
     });
   }
 };
+const checkJwt = (req, res, next) => {
+   
+}
 const isPresta = (req, res, next) => {
   if (req.user.isPrestataire && req.isAuthenticated()) {
     next();
@@ -194,21 +209,21 @@ app.get('/protected', authorizeRequest, (req, res) => {
 
 // PRODUCT API
 app.get('/api/products', productsApi.list);
-app.post('/api/products/create', isAdmin, productsApi.create);
+app.post('/api/products/create', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.create);
 // app.post('/api/products/update/:id', productsApi.update);
-app.delete('/api/products/:id', isAdmin, productsApi.delete);
+app.delete('/api/products/:id', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.delete);
 
 // TAG API
 app.get('/api/tags', tagApi.list);
 app.get('/api/tags/:id', tagApi.listOne);
-app.post('/api/tags/create', isAdmin, tagApi.create);
-app.delete('/api/tags/:id', isAdmin, tagApi.delete);
-app.put('/api/tags/:id', isAdmin, tagApi.update);
+app.post('/api/tags/create', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.create);
+app.delete('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.delete);
+app.put('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.update);
 
 // LIVRAISON API
 app.get('/api/livraison/places', placeApi.list);
-app.post('/api/livraison/places', isAdmin, placeApi.create);
-app.delete('/api/livraison/places/:id', isAdmin, placeApi.delete);
+app.post('/api/livraison/places', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.create);
+app.delete('/api/livraison/places/:id', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.delete);
 
 // STRIPE
 app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
@@ -218,13 +233,13 @@ app.post('/api/orders', authorizeRequest, order.create);
 
 // BUNDLES
 app.get('/api/bundles', bundle.list);
-app.post('/api/bundles', isAdmin, bundle.create);
-app.delete('/api/bundles/:id', isAdmin, bundle.delete);
+app.post('/api/bundles', jwtExpress({secret: process.env.JWT_SECRET}), bundle.create);
+app.delete('/api/bundles/:id', jwtExpress({secret: process.env.JWT_SECRET}), bundle.delete);
 
 // ARTICLES
-app.post('/api/articles', isAdmin, article.create);
+app.post('/api/articles', jwtExpress({secret: process.env.JWT_SECRET}), article.create);
 app.get('/api/articles', article.list);
-app.delete('/api/articles/:id', isAdmin, article.delete);
+app.delete('/api/articles/:id', jwtExpress({secret: process.env.JWT_SECRET}), article.delete);
 
 // EXPORT CSV
 app.post('/api/csv', isPresta, csv.createFile);

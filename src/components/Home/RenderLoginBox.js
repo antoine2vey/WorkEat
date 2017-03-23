@@ -1,22 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { LoginBox, ConnectionBox } from './Boxes';
 
-const RenderLoginBox = (props) => {
-  const { isLoggingIn } = props;
+class RenderLoginBox extends Component {  
+  render() {
+    const { isLoggingIn } = this.props;
   
-  return (
-    <div>      
-      {isLoggingIn ? null 
-      : 
-      <form>
-        <div className="field">
-          <label className="label">Name</label>
-          <p className="control">
-            <input className="input" type="text" placeholder="Text input" />
-          </p>
-        </div>
-      </form>}      
-    </div>
-  );
+    return (
+      <div>      
+        { isLoggingIn ? <LoginBox /> : <ConnectionBox /> }      
+      </div>
+    );
+  }
 };
 
 export default RenderLoginBox;
