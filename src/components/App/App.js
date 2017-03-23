@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch, Router } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import './App.css';
 
 class App extends Component {
@@ -13,9 +14,7 @@ class App extends Component {
             <Route path="/products" />
             <Route render={() => <h1>default?</h1>}/>
           </Switch>
-        <div>
-          footer
-        </div>
+        <Footer />
       </div>
     );
   }

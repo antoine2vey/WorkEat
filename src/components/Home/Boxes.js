@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Auth from '../../modules/Auth';
-import { Redirect } from 'react-router';
 import axios from 'axios';
 
 class LoginBox extends Component {
