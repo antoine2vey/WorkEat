@@ -10,8 +10,17 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_41e16542647c_key -iv $encrypted_41e16542647c_iv
     -in deploy-key.enc -out deploy-key -d
   - npm rebuild node-sass
+before_deploy:
+  - openssl aes-256-cbc -K encrypted_41e16542647c_key -iv encrypted_41e16542647c_iv -in deploy-key.enc -out deploy-key.pem -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/deploy-key
+  - ssh-add /tmp/deploy-key
 script:
   - npm test
   - npm run build
-after_success:
-  - bash bin/deploy.sh
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/* $HOST@$DEPLOY_HOST:/var/www/dev.antoinedeveyrac.io/
+  on:
+    branch: master
