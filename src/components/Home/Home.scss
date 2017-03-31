@@ -1,1 +1,15 @@
-@import 'node_modules/bulma/bulma';
+@import '../../scss/skeleton';
+
+/* home */
+@import "../../scss/partials/variables";
+@import "../../scss/partials/mixins";
+@import "../../scss/partials/general";
+@import "../../scss/partials/hp/headerHome";
+@import "../../scss/partials/hp/concept";
+@import "../../scss/partials/hp/menu";
+@import "../../scss/partials/hp/livraison";
+@import "../../scss/partials/hp/footer";
+
+
+@import '../../scss/partials/about/header';
+@import '../../scss/partials/about/content';

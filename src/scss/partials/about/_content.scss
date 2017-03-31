@@ -1,0 +1,70 @@
+.explain {
+  @include flex;
+  position: relative;
+  height: 433px;
+  @include screenMd {
+    height: 300px;
+  };
+  @include screenSm {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 0;
+  };
+
+  &-image {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &--concept {
+      background-image: url('../../assets/burger.jpg');
+    }
+
+    &--produits {
+      background-image: url('../../assets/vegetable.jpg');
+    }
+
+    &--gastronomie {
+      background-image: url('../../assets/gastro-eco.jpg');
+    }
+
+    &--livraison {
+      background-image: url('../../assets/livreur.jpg');
+    }
+
+    &-item {
+      min-height: 100%;
+      width: 100%;
+      @include screenSm {
+        width: 100%;
+      }
+    }
+  }
+
+  &-content {
+    @include flex(center, center, column);
+    flex: 1;
+    position: relative;
+    height: 100%;
+
+    &-title {
+      margin: 0;
+      font-family: $accent-font;
+      @include screenMd {
+        font-size: 32px;
+      };
+    }
+
+    &-text {
+      margin: 0;
+      font-family: $primary-font;
+      padding: 0 75px;
+      @include screenMd {
+        padding: 0 10px;
+      };
+    }
+    text-align: center;
+  }
+}

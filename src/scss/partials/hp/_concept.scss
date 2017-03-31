@@ -1,0 +1,33 @@
+.concept {
+  @include container(1200px);
+  @include flex;
+  padding: 50px 0;
+  @include screenMd {
+    flex-direction: column;
+    margin: 0;
+    padding-top: 60px;
+  }
+
+  &-container {
+    @include flex(center, center, column);
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    @include screenMd {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  &-title {
+    margin: 0;
+    font-family: $accent-font;
+  }
+
+  &-images {
+    max-width: 600px;
+    width: 100%;
+    @include material-shadow(2);
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Product from './Product';
+import _ from 'lodash';
 
 class Products extends Component {
   constructor() {
@@ -22,15 +23,21 @@ class Products extends Component {
   
   render() {
     const { products } = this.state;
+    const rows = _.chunk(products, 4);
+    
     return (
       <div>
-        <div className="columns" style={{margin: 15}}>
-          { products.map(product => (
-            <div className="column is-3" key={product._id}>
-              <Product data={product}/>
-            </div>
-          )) }
-        </div>
+        { rows.map((row, i) => (
+          <div className="columns" key={i} style={{
+            marginLeft: i !== 0 ? 0 : 'auto'
+          }}>
+            { row.map(product => (
+              <div className="column is-3" key={product._id} style={{margin: 0}}>
+                <Product data={product} />
+              </div>
+            )) }
+          </div>
+        )) }        
       </div>
     );
   }

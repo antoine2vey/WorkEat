@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class Product extends Component {  
   render() {
     console.log(this.props.data);
-    const { description, price, tag, type, name } = this.props.data;
+    const { file, description, price, tag, type, name } = this.props.data;
     return (
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src="http://bulma.io/images/placeholders/1280x960.png" alt="Images" />
+            <img src={file ? file : "http://bulma.io/images/placeholders/1280x960.png"} alt="Images" />
           </figure>
         </div>
         <div className="card-content">

@@ -16,7 +16,7 @@ class App extends Component {
             <Route path="/account" render={() => <h1>acc page</h1> }/>
             <Route render={() => <Products />}/>
           </Switch>
-        <Footer />
+        <Footer />        
       </div>
     );
   }

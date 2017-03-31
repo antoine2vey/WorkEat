@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { LoginBox, ConnectionBox } from './Boxes';
+import { Route } from 'react-router-dom';
 
 class RenderLoginBox extends Component {  
   render() {
@@ -7,7 +8,9 @@ class RenderLoginBox extends Component {
   
     return (
       <div>      
-        { isLoggingIn ? <LoginBox /> : <ConnectionBox /> }      
+        <Route render={({ history }) => (
+          isLoggingIn ? <LoginBox history={history} /> : <ConnectionBox history={history} />
+        )} />
       </div>
     );
   }

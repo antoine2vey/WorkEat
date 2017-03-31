@@ -1,0 +1,128 @@
+.footer {
+  @include flex(center, flex-start, row);
+  background-color: $write;
+  padding: 50px;
+  @include screenXs {
+    padding: 20px 10px;
+  };
+
+  &-logo {
+    flex: 1;
+    @include screenXs {
+      margin-bottom: 20px;
+    };
+
+    &-item {
+      width: 300px;
+    }
+  }
+
+  &-list {
+    &-mentions,
+    &-social {
+      @include flex(flex-end, center, row);
+      margin-bottom: 0;
+      list-style: none;
+      color: $gold;
+    }
+
+    &-social {
+      font-size: 25px;
+      list-style: none;
+
+      &-item {
+        margin-left: 10px;
+
+        &-link {
+          text-decoration: none;
+          color: $gold;
+
+          &:hover {
+            color: inherit;
+          }
+
+          &-icon {
+            @include screenXs {
+              font-size: 50px;
+            };
+          }
+        }
+      }
+    }
+
+    &-mentions {
+      &-item {
+        margin-left: 3px;
+
+        &-link {
+          padding-bottom: 2px;
+          text-decoration: none;
+          font-size: 10px;
+          color: $gold;
+          border-bottom: 1px solid transparent;
+          @include screenXs {
+            font-size: 16px;
+          };
+
+          &:hover {
+            color: inherit;
+            border-bottom: 1px solid $gold;
+          }
+        }
+      }
+    }
+  }
+  @include screenMd {
+    display: block;
+  }
+}
+/* icon */
+@font-face {
+  font-family: "untitled-font-1";
+  src: url("../../assets/icons/untitled-font-1.eot");
+  src: url("../../assets/icons/untitled-font-1.eot?#iefix") format("embedded-opentype"), url("../../assets/icons/untitled-font-1.woff") format("woff"), url("../../assets/icons/untitled-font-1.ttf") format("truetype"), url("../../assets/icons/untitled-font-1.svg#untitled-font-1") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "untitled-font-1" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*=" icon-"]:before,
+[class^="icon-"]:before {
+  font-family: "untitled-font-1" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pinterest-square:before {
+  content: "\62";
+}
+
+.icon-facebook-square:before {
+  content: "\63";
+}
+
+.icon-twitter-square:before {
+  content: "\64";
+}
+
+.icon-instagrem:before {
+  content: "\61";
+}

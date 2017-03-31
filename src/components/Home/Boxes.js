@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Auth from '../../modules/Auth';
+import * as images from '../../images';
 import axios from 'axios';
 
 class LoginBox extends Component {
@@ -23,13 +25,21 @@ class LoginBox extends Component {
       password
     })
     .then(res => {
+      this.setState({
+        successfulLogin: true
+      })
+
       const { token } = res.data;
       let instance = axios.create();
-      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    
-      Auth.authenticateUser(res.data);
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;   
+            
+      Auth.authenticateUser(res.data, () => {
+        this.props.history.push('/');
+      });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   handleChange(event) {
@@ -38,24 +48,43 @@ class LoginBox extends Component {
   }
 
   render() {
-    return (
+    return (      
       <div>
-        { Auth.isUserAuthenticated() ? 'Déjà connecté' : 'Non connecté' }
-        <form onSubmit={this.handleLogin}>
-          <div className="field">
-            <label className="label">Email</label>
-            <p className="control">
-              <input className="input" type="email" name="email" placeholder="Text input" onChange={this.handleChange}/>
-            </p>
+        <div className="header-home-form-container">
+          <p className="header-home-form-title">Connexion</p>
+          <div className="header-home-form-step" style={{opacity:0}}>
+            <p className="header-home-form-step-phase">Etape 1 sur 4</p>
+            <div className="header-home-form-step-puce active"></div>
+            <div className="header-home-form-step-puce"></div>
+            <div className="header-home-form-step-puce"></div>
+            <div className="header-home-form-step-puce"></div>
           </div>
-          <div className="field">
-            <label className="label">Password</label>
-            <p className="control">
-              <input className="input" type="password" name="password" placeholder="Text input" onChange={this.handleChange}/>
-            </p>
-          </div> 
-          <input type="submit" value="login"/>
-        </form>
+          <form onSubmit={this.handleLogin} className="header-home-form-content">
+            <div className="row">
+              <div className="six columns header-home-form-content-input">
+                <input type="email" 
+                  name="email" 
+                  placeholder="Email *" 
+                  autoComplete="off"
+                  required className="header-home-form-content-input-item"
+                  onChange={this.handleChange} />
+                <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+              </div>
+              <div className="six columns header-home-form-content-input">
+                <input type="password" 
+                  name="password" 
+                  placeholder="Mot de passe *" 
+                  autoComplete="off"
+                  required className="header-home-form-content-input-item" 
+                  onChange={this.handleChange} />
+                <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+              </div>
+              <div className="twelve columns">
+                <button type="submit" className="header-home-form-content-btn">Connexion</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
@@ -114,7 +143,7 @@ class ConnectionBox extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleLogin}>
+      /*<form onSubmit={this.handleLogin}>
           <div className="field">
             <label className="label">Nom</label>
             <p className="control">
@@ -164,7 +193,44 @@ class ConnectionBox extends Component {
             </p>
           </div>  
           <input type="submit" value="create"/>
-        </form>
+        </form>*/
+        <div>
+          <div className="header-home-form-container">
+            <p className="header-home-form-title">Inscription</p>
+            <div className="header-home-form-step">
+              <p className="header-home-form-step-phase">Etape 1 sur 4</p>
+              <div className="header-home-form-step-puce active"></div>
+              <div className="header-home-form-step-puce"></div>
+              <div className="header-home-form-step-puce"></div>
+              <div className="header-home-form-step-puce"></div>
+            </div>
+            <form onSubmit={this.handleLogin} className="header-home-form-content">
+              <div className="row">
+                <div className="six columns header-home-form-content-input">
+                  <input type="email" 
+                    name="email" 
+                    placeholder="Email *" 
+                    autoComplete="off"
+                    required className="header-home-form-content-input-item"
+                    onChange={this.handleChange} />
+                  <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+                </div>
+                <div className="six columns header-home-form-content-input">
+                  <input type="password" 
+                    name="password" 
+                    placeholder="Mot de passe *" 
+                    autoComplete="off"
+                    required className="header-home-form-content-input-item" 
+                    onChange={this.handleChange} />
+                  <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+                </div>
+                <div className="twelve columns">
+                  <button type="submit" className="header-home-form-content-btn">Suivant</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
     );
   }
 }

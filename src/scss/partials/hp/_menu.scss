@@ -1,0 +1,46 @@
+.menu {
+  @include container(1200px);
+  @include flex;
+  padding: 50px 0;
+  @include screenMd {
+    flex-direction: column;
+    margin: 0;
+    padding-top: 60px;
+  }
+
+  &-bg {
+    background-color: $write;
+  }
+
+  &-container {
+    @include flex(center, center, row);
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+
+    &:last-child {
+      flex-direction: column;
+    }
+
+    &-row {
+      width: 100%;
+      padding: 10px;
+
+      &-images {
+        width: 100%;
+        @include material-shadow(2);
+      }
+    }
+
+    &-title {
+      margin: 0;
+      color: $gold;
+      font-family: $accent-font;
+    }
+
+    &-text {
+      color: $white;
+      font-family: $primary-font;
+    }
+  }
+}
