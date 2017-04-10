@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 class Product extends Component {  
   render() {
     console.log(this.props.data);
-    const { file, description, price, tag, type, name } = this.props.data;
+    const { file, description, price, tags, types, name } = this.props.data;
+    console.log(this.props);
     return (
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={file ? file : "http://bulma.io/images/placeholders/1280x960.png"} alt="Images" />
+            <img src={file ? file : "http://bulma.io/images/placeholders/1280x960.png"} alt="Images" style={{objectFit: 'cover'}}/>
           </figure>
         </div>
         <div className="card-content">
@@ -21,9 +22,9 @@ class Product extends Component {
 
           <div className="content">
             {description} <br />
-            { tag.map(t => (<a href="#" key={t._id}>#{t.name} </a>)) }
+            { tags.map(tag => (<a href="#" key={tag._id}>#{tag.name} </a>)) }
             <br />
-            { type.map((t, i) => (<small key={i}>{t}{t.length - 1 === i ? '' : ' - '}</small>)) }
+            { types.map((type, i) => (<small key={i}>{type}{type.length - 1 === i ? '' : ' - '}</small>)) }
           </div>
         </div>
       </div>

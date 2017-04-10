@@ -10,10 +10,6 @@ mongoose.Promise = Promise;
 
 const PRODUCT_HASH = 'products';
 
-function trimArray(arr, splitter = ',') {
-  return arr.split(splitter).map(item => item.trim());
-}
-
 exports.list = (req, res) => {
   /**
    * In case we enable caching on product,
@@ -42,7 +38,7 @@ exports.list = (req, res) => {
     }
   })
   **/
-  Product.find({}).populate('tag').exec((err, products) => {
+  Product.find({}).populate('tags').exec((err, products) => {
     if (err) {
       return res.status(500).send('Database error.');
     }
@@ -59,10 +55,13 @@ exports.create = (req, res) => {
     preparation,
     allergics,
     price,
-    tag,
-    type,
+    tags,
+    types,
     places
   } = req.body;
+
+  console.log(req.body);
+    
 
   req.checkBody('file', 'Image is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -70,9 +69,9 @@ exports.create = (req, res) => {
   // req.checkBody('preparation', 'Preparation is required').notEmpty();
   req.checkBody('allergics', 'Allergics are required').notEmpty();
   req.checkBody('price', 'Price is required and/or must be a number').notEmpty().isInt();
-  req.checkBody('tag', 'Tags are required').notEmpty();
-  req.checkBody('type', 'Types are required').notEmpty();
-  req.checkBody('places', 'Places are required').notEmpty().isArray();
+  req.checkBody('tags', 'Tags are required').notEmpty().isArray();
+  req.checkBody('types', 'Types are required').notEmpty().isArray();
+  req.checkBody('places', 'Places are required').notEmpty().isArray().isArray();
 
   const errors = req.validationErrors();
   if (errors) {
@@ -87,16 +86,18 @@ exports.create = (req, res) => {
   const image = file;
   const base64data = image.replace(/^data:image\/\w+;base64,/, '');
   const id = genId.generate();
-  const fileName = `uploads/${id}-${Date.now()}.png`;
+  const fileName = `uploads/${id}.${Date.now()}.png`;
 
   const product = new Product({
     file: fileName,
     name,
     description,
     preparation,
-    allergics: trimArray(allergics),
-    price,
-    type,
+    allergics: allergics.split(',').map(t => t.trim()),
+    price,    
+    tags,
+    types,
+    availableAt: places
   });
 
 
@@ -104,13 +105,6 @@ exports.create = (req, res) => {
     if (existProduct) {
       return res.status(500).send('This product already exists...');
     }
-
-    tag.forEach((oneTag) => {
-      product.tag.push(oneTag._id);
-    });
-    places.forEach(place => {
-      product.availableAt.push(place._id);
-    });
 
     product.save({ validateBeforeSave: false }, (err) => {
       if (err) {

@@ -15,4 +15,6 @@ src/components/*/*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.idea/
 bower_components/
+public/uploads/*

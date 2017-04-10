@@ -11,7 +11,7 @@ import Auth from './modules/Auth';
 const history = createBrowserHistory();
 console.log(Auth.isUserAuthenticated() ? 'User connected' : 'Not connected!');
 
-const PrivateRoute = ({ component, ...rest }) => {  
+const PrivateRoute = ({ component, ...rest }) => {
   return (
     <Route {...rest} render={props => (
       Auth.isUserAuthenticated()
@@ -25,26 +25,26 @@ const PrivateRoute = ({ component, ...rest }) => {
 
 ReactDOM.render(
   <Router history={history}>
-    <Route render={({ location }) => (      
-        
+    <Route render={({ location }) => (
+
           Auth.isUserAuthenticated() ? (
             <Switch>
               <Route exact path="/home" component={Home} />
               <PrivateRoute path="/" component={App} />
-              <Route path="/about" component={About}></Route>
-              <Route path="*" render={() => <h1>404</h1>}></Route>
-              
+              <Route path="/about" component={About} />
+              <Route path="*" render={() => <h1>404</h1> } />
+
             </Switch>
           ) : (
             <Switch>
               <Route exact path="/" component={Home} />
               <PrivateRoute path="/app" component={App} />
-              <Route path="/about" component={About}></Route>
-              <Route path="*" render={() => <h1>404</h1>}></Route>
+              <Route path="/about" component={About} />
+              <Route path="*" render={() => <h1>404</h1>} />
             </Switch>
         )
-       
-    )} />    
+
+    )} />
   </Router>,
   document.getElementById('root')
 )

@@ -209,21 +209,21 @@ app.get('/protected', authorizeRequest, (req, res) => {
 
 // PRODUCT API
 app.get('/api/products', productsApi.list);
-app.post('/api/products/create', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.create);
-// app.post('/api/products/update/:id', productsApi.update);
+app.post('/api/products', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.create);
+// app.post('/api/products/:id', productsApi.update);
 app.delete('/api/products/:id', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.delete);
 
 // TAG API
 app.get('/api/tags', tagApi.list);
 app.get('/api/tags/:id', tagApi.listOne);
-app.post('/api/tags/create', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.create);
+app.post('/api/tags', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.create);
 app.delete('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.delete);
 app.put('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.update);
 
 // LIVRAISON API
-app.get('/api/livraison/places', placeApi.list);
-app.post('/api/livraison/places', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.create);
-app.delete('/api/livraison/places/:id', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.delete);
+app.get('/api/places', placeApi.list);
+app.post('/api/places', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.create);
+app.delete('/api/places/:id', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.delete);
 
 // STRIPE
 app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
@@ -246,10 +246,6 @@ app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
 
 app.all('/*', (req, res) => {
-  console.log('SESSION INFO');
-  console.log(req.user);
-  console.log();
-  console.log();
   res.sendFile(path.join(__dirname, 'public/index.html'));  
 });
 

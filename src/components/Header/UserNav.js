@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class UserNav extends Component {
   render() {
@@ -9,10 +9,7 @@ class UserNav extends Component {
       <nav className="nav has-shadow">
         <div className="container">
           <div className="nav-left">
-            <Link to={connected ? '/home' : '/'} className="nav-item">
-              <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" />
-            </Link>
-            <Link to="/produits" className="nav-item is-tab is-hidden-mobile is-active">Home</Link>
+            <NavLink to="/" className="nav-item is-tab is-hidden-mobile is-active">Home</NavLink>
           </div>
           <span className="nav-toggle">
             <span></span>
@@ -20,13 +17,10 @@ class UserNav extends Component {
             <span></span>
           </span>
           <div className="nav-right nav-menu">
-            <Link to="/produits" className="nav-item is-tab is-hidden-tablet is-active">Home</Link>            
-            <Link to="/account" className="nav-item is-tab">
-              <figure className="image is-16x16" style={{marginRight: 8}}>
-                <img src="http://bulma.io/images/jgthms.png" alt="" />
-              </figure>
+            <NavLink to="/" className="nav-item is-tab is-hidden-tablet is-active">Home</NavLink>
+            <NavLink to="/account" className="nav-item is-tab">
               Profile
-            </Link>
+            </NavLink>
             <a className="nav-item is-tab">Log out</a>
           </div>
         </div>

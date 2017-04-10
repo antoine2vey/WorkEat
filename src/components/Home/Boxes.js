@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import Auth from '../../modules/Auth';
 import * as images from '../../images';
 import axios from 'axios';
@@ -31,8 +30,8 @@ class LoginBox extends Component {
 
       const { token } = res.data;
       let instance = axios.create();
-      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;   
-            
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       Auth.authenticateUser(res.data, () => {
         this.props.history.push('/');
       });
@@ -48,7 +47,7 @@ class LoginBox extends Component {
   }
 
   render() {
-    return (      
+    return (
       <div>
         <div className="header-home-form-container">
           <p className="header-home-form-title">Connexion</p>
@@ -62,20 +61,20 @@ class LoginBox extends Component {
           <form onSubmit={this.handleLogin} className="header-home-form-content">
             <div className="row">
               <div className="six columns header-home-form-content-input">
-                <input type="email" 
-                  name="email" 
-                  placeholder="Email *" 
+                <input type="email"
+                  name="email"
+                  placeholder="Email *"
                   autoComplete="off"
                   required className="header-home-form-content-input-item"
                   onChange={this.handleChange} />
                 <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
               </div>
               <div className="six columns header-home-form-content-input">
-                <input type="password" 
-                  name="password" 
-                  placeholder="Mot de passe *" 
+                <input type="password"
+                  name="password"
+                  placeholder="Mot de passe *"
                   autoComplete="off"
-                  required className="header-home-form-content-input-item" 
+                  required className="header-home-form-content-input-item"
                   onChange={this.handleChange} />
                 <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
               </div>
@@ -107,12 +106,12 @@ class ConnectionBox extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   handleChange(event) {
     const { name, value } = event.target;
     this.setState({[name]: value});
   }
-  
+
   handleLogin(e) {
     const {
       name,
@@ -125,7 +124,7 @@ class ConnectionBox extends Component {
       phoneNumber
     } = this.state;
     e.preventDefault();
-    
+
     axios.post('/account/create', {
       username: email,
       password,
@@ -134,10 +133,10 @@ class ConnectionBox extends Component {
       codePostal: zipCode,
       town,
       address,
-      phoneNumber      
+      phoneNumber
     })
     .then(res => {
-      
+
     })
     .catch(err => console.error(err));
   }
@@ -173,25 +172,25 @@ class ConnectionBox extends Component {
             <p className="control">
               <input className="input" name="zipCode" type="text" placeholder="Text input" onChange={this.handleChange}/>
             </p>
-          </div> 
+          </div>
           <div className="field">
             <label className="label">Ville</label>
             <p className="control">
               <input className="input" name="town" type="text" placeholder="Text input" onChange={this.handleChange}/>
             </p>
-          </div> 
+          </div>
           <div className="field">
             <label className="label">Adresse</label>
             <p className="control">
               <input className="input" name="address" type="text" placeholder="Text input" onChange={this.handleChange}/>
             </p>
-          </div>  
+          </div>
           <div className="field">
             <label className="label">Numéro de téléphone</label>
             <p className="control">
               <input className="input" name="phoneNumber" type="text" placeholder="Text input" onChange={this.handleChange}/>
             </p>
-          </div>  
+          </div>
           <input type="submit" value="create"/>
         </form>*/
         <div>
@@ -207,20 +206,20 @@ class ConnectionBox extends Component {
             <form onSubmit={this.handleLogin} className="header-home-form-content">
               <div className="row">
                 <div className="six columns header-home-form-content-input">
-                  <input type="email" 
-                    name="email" 
-                    placeholder="Email *" 
+                  <input type="email"
+                    name="email"
+                    placeholder="Email *"
                     autoComplete="off"
                     required className="header-home-form-content-input-item"
                     onChange={this.handleChange} />
                   <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
                 </div>
                 <div className="six columns header-home-form-content-input">
-                  <input type="password" 
-                    name="password" 
-                    placeholder="Mot de passe *" 
+                  <input type="password"
+                    name="password"
+                    placeholder="Mot de passe *"
                     autoComplete="off"
-                    required className="header-home-form-content-input-item" 
+                    required className="header-home-form-content-input-item"
                     onChange={this.handleChange} />
                   <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
                 </div>

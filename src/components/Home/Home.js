@@ -22,7 +22,7 @@ class Home extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-  }  
+  }
 
   render() {
     const { isLoggingIn } = this.state;
@@ -130,7 +130,7 @@ class Home extends Component {
               <button className="btn-gold">Commander</button>
             </div>
             <div className="livraison-container">
-              <img src={images.livraison} alt="Image Livraison" className="livraison-images" />
+              <img src={images.livraison} alt="Livraison" className="livraison-images" />
             </div>
           </div>
         </div>
@@ -162,4 +162,3 @@ class Home extends Component {
 }
 
 export default Home;
-

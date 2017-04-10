@@ -22,14 +22,14 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  tag: [
+  tags: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Tag',
       required: true,
     },
   ],
-  type: {
+  types: {  
     type: Array,
     required: true,
   },
