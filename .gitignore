@@ -8,6 +8,7 @@ node_modules/
 
 # production
 src/components/*/*.css
+build/
 
 # misc
 .DS_Store
