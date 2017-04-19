@@ -3,12 +3,11 @@ const Product = require('../models/product.model');
 const fs = require('fs');
 const genId = require('shortid');
 
-const redis = require('redis'),
-      client = redis.createClient();
+const redis = require('redis');
+const client = redis.createClient();
+const PRODUCT_HASH = 'products';
 
 mongoose.Promise = Promise;
-
-const PRODUCT_HASH = 'products';
 
 exports.list = (req, res) => {
   /**
@@ -57,11 +56,8 @@ exports.create = (req, res) => {
     price,
     tags,
     types,
-    places
+    places,
   } = req.body;
-
-  console.log(req.body);
-    
 
   req.checkBody('file', 'Image is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -94,10 +90,10 @@ exports.create = (req, res) => {
     description,
     preparation,
     allergics: allergics.split(',').map(t => t.trim()),
-    price,    
+    price,
     tags,
     types,
-    availableAt: places
+    availableAt: places,
   });
 
 
@@ -112,13 +108,13 @@ exports.create = (req, res) => {
       }
 
 
-      fs.writeFile('public/'+fileName, base64data, { encoding: 'base64' }, (err) => {
+      fs.writeFile(`public/${fileName}`, base64data, { encoding: 'base64' }, (err) => {
         if (err) {
           console.log(err);
         }
       });
 
-      return res.status(200).send('Product created !');
+      return res.status(200).send({ product });
     });
   });
 };

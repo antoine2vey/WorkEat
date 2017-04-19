@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Tag = require('../models/tag.model');
-const flatten = require('flat');
 
 mongoose.Promise = Promise;
 
@@ -106,6 +105,6 @@ exports.update = (req, res) => {
       return res.status(400).send('Database error');
     }
 
-    return res.status(200).send('Tag updated!');
+    return res.status(200).send({ tag });
   });
 };

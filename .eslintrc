@@ -1,3 +1,17 @@
 {
-  "extends": "airbnb"
+  "extends": "airbnb",
+  "rules": {
+    "consistent-return": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": "off",
+    "max-len": "off",
+    "react/jsx-filename-extension": "off",
+    "no-console": "off"
+  },
+  "globals": {
+    "document": true,
+    "localStorage": true,
+    "window": true,
+    "FileReader": true
+  }
 }

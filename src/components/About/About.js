@@ -1,11 +1,13 @@
+/* eslint jsx-a11y/href-no-hash: "off" */
+
 import React, { Component } from 'react';
 import { logoBlanc } from '../../images';
 
 class About extends Component {
-  componentDidMount(prevProps) {
-    window.scrollTo(0, 0)
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
-  
+
   render() {
     return (
       <div>
@@ -22,16 +24,12 @@ class About extends Component {
               <p className="explain-content-text">Etiam efficitur nunc a diam dignissim pulvinar. Donec mollis enim nunc, vitae consectetur turpis pharetra sed. Maecenas a tellus nec urna ornare molestie in ut justo. Donec congue odio ut velit pellentesque ullamcorper. Curabitur gravida suscipit
                 eleifend. Duis ac malesuada nunc, eleifend maximus ipsum. Maecenas dictum varius dolor eu lobortis.</p>
             </div>
-            <div className="explain-image explain-image--concept">
-              
-            </div>
+            <div className="explain-image explain-image--concept" />
           </div>
         </div>
         <div className="container-fluid">
           <div className="explain">
-            <div className="explain-image explain-image--produits">
-              
-            </div>
+            <div className="explain-image explain-image--produits" />
             <div className="explain-content">
               <h1 className="explain-content-title">Des produits de qualité</h1>
               <hr className="divider" />
@@ -48,16 +46,12 @@ class About extends Component {
               <p className="explain-content-text">Etiam efficitur nunc a diam dignissim pulvinar. Donec mollis enim nunc, vitae consectetur turpis pharetra sed. Maecenas a tellus nec urna ornare molestie in ut justo. Donec congue odio ut velit pellentesque ullamcorper. Curabitur gravida suscipit
                 eleifend. Duis ac malesuada nunc, eleifend maximus ipsum. Maecenas dictum varius dolor eu lobortis.</p>
             </div>
-            <div className="explain-image explain-image--gastronomie">
-              
-            </div>
+            <div className="explain-image explain-image--gastronomie" />
           </div>
         </div>
         <div className="container-fluid">
           <div className="explain">
-            <div className="explain-image explain-image--livraison">
-              
-            </div>
+            <div className="explain-image explain-image--livraison" />
             <div className="explain-content">
               <h1 className="explain-content-title">Livré où vous voulez</h1>
               <hr className="divider" />
@@ -73,10 +67,10 @@ class About extends Component {
             </div>
             <div className="footer-list">
               <ul className="footer-list-social">
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-facebook-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-twitter-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-pinterest-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon"></i></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-facebook-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-twitter-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-pinterest-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon" /></a></li>
               </ul>
               <ul className="footer-list-mentions">
                 <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Mentions légales</a></li>

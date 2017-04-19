@@ -1,4 +1,3 @@
-const passport = require('passport');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
@@ -7,11 +6,10 @@ const jwt = require('jsonwebtoken');
 
 mongoose.Promise = Promise;
 
-
 // temp
 exports.list = (req, res) => {
   User.find({}, (err, users) => {
-    if(err) {
+    if (err) {
       return;
     }
 
@@ -25,24 +23,21 @@ exports.login = (req, res) => {
   const errors = req.validationErrors();
   if (errors) {
     return res.status(401).send(
-      'Username or password was left empty. Please complete both fields and re-submit.'
+      'Username or password was left empty. Please complete both fields and re-submit.',
     );
   }
 
-  User.findOne({username: req.body.username}, (err, user) => {    
-    if(err) {
+  User.findOne({ username: req.body.username }, (err, user) => {
+    if (err) {
       throw new Error(err);
     }
 
-    if(!user) {
+    if (!user) {
       return res.status(401).send('User not found. Please check your entry and try again.');
     }
 
-    console.log(req.body.password+'\n');
-    console.log(user.password);
-
     bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-      if(isMatch) {
+      if (isMatch) {
         req.logIn(user, (err) => {
           if (err) {
             return res.status(500).send('Error saving session.');
@@ -51,12 +46,12 @@ exports.login = (req, res) => {
             id: user._id,
             isAdmin: user.isAdmin,
             isLivreur: user.isLivreur,
-            isPrestataire: user.isPrestataire
-          }
+            isPrestataire: user.isPrestataire,
+          };
           const token = jwt.sign(payload, process.env.JWT_SECRET);
           return res.status(200).json({
             success: true,
-            token: token,
+            token,
             user: {
               username: user.username,
               name: user.name,
@@ -68,43 +63,15 @@ exports.login = (req, res) => {
               isAdmin: user.isAdmin,
               isLivreur: user.isLivreur,
               isPrestataire: user.isPrestataire,
-              position: user.position
-            }
+              position: user.position,
+            },
           });
         });
       } else {
-        res.status(401).send({success: false, message: 'Auth fail'});
+        res.status(401).send({ success: false, message: 'Auth fail' });
       }
     });
   });
-  /*passport.authenticate('jwt', (err, user, next) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(401).send('User not found. Please check your entry and try again.');
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return res.status(500).send('Error saving session.');
-      }
-      const userInfo = {
-        username: user.username,
-        name: user.name,
-        surname: user.surname,
-        codePostal: user.codePostal,
-        address: user.address,
-        phoneNumber: user.phoneNumber,
-        town: user.town,
-        isAdmin: user.isAdmin,
-        isLivreur: user.isLivreur,
-        isPrestataire: user.isPrestataire,
-        position: user.position
-      };
-
-      return res.json(userInfo);
-    });
-  })(req, res);*/
 };
 exports.create = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
@@ -134,7 +101,7 @@ exports.create = (req, res) => {
     town: req.body.town,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
-    position: req.body.position
+    position: req.body.position,
   });
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
@@ -158,14 +125,14 @@ exports.create = (req, res) => {
         from: 'WorkEat', // sender address
         to: req.body.username, // list of receivers
         subject: 'WorkEat - Votre compte à été crée !', // Subject line
-        text: 'Hello '+ req.body.surname+ ' ! ton compte à bien été crée ! (login avec l\'email '+ req.body.username+ ')',
-        html: 'Hello <b>' + req.body.surname+'</b> ! ton compte à bien été crée !<br/><br/><p>Tu peux donc te connecter avec l\'email '+req.body.username+' ! ;)</p>'
+        text: `Hello ${req.body.surname}! Ton compte à bien été crée ! (login avec l'email ${req.body.username})`,
+        html: `Hello <b>${req.body.surname}</b> ! ton compte à bien été crée !<br/><br/><p>Tu peux donc te connecter avec l'email ${req.body.username} ! ;)</p>`,
       };
-      transporter.sendMail(mailOptions, (error, info) => {
+      transporter.sendMail(mailOptions, (error) => {
         if (error) {
           return console.log(error);
         }
-        console.log('Message sent: ' + info.response);
+        console.log('Message sent!');
       });
       res.status(200).send('Account created! Please login with your new account.');
     });
@@ -181,7 +148,7 @@ exports.delete = (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         res.status(500).send('Error deleting account.');
-        console.log('Error deleting session: ' + err);
+        console.log('Error deleting session: ', err);
         return;
       }
       res.status(200).send('Account successfully deleted.');
@@ -189,10 +156,11 @@ exports.delete = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-  if(req.body.position) {
+  let query;
+  if (req.body.position) {
     query = {
-      position: req.body.position
-    }
+      position: req.body.position,
+    };
   } else {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -205,7 +173,7 @@ exports.update = (req, res) => {
       phoneNumber: req.body.phoneNumber,
       address: req.body.address,
       town: req.body.town,
-    }
+    };
   }
 
   // We do pass the session userId
@@ -222,14 +190,14 @@ exports.update = (req, res) => {
     });
   });
 };
-exports.logout = (req,res) => {
+exports.logout = (req, res) => {
   if (!req.user) {
     res.status(400).send('User not logged in.');
   } else {
     req.session.destroy((err) => {
       if (err) {
         res.status(500).send('Sorry. Server error in logout process.');
-        console.log('Error destroying session: ' + err);
+        console.log('Error destroying session: ', err);
         return;
       }
 

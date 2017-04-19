@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const mandatory = {
-  required: true
+  required: true,
 };
 
 const placeSchema = new mongoose.Schema({

@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import AdminNav from './AdminNav';
 import UserNav from './UserNav';
-import jwtDecode from 'jwt-decode';
 import Auth from '../../modules/Auth';
 
 class Header extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      isConnected: Auth.isUserAuthenticated(),
-      isAdminNavbarDisplayed: false,
-      roles: []
-    }
-  }
-
-  setRoles(token, roles = []) {
+  static setRoles(token, roles = []) {
     const { isAdmin, isLivreur, isPrestataire } = token;
     roles.push(
       isAdmin ? 'admin' : null,
@@ -25,22 +15,24 @@ class Header extends Component {
     return roles.filter(role => role !== null);
   }
 
-  componentDidMount() {
-    const token = jwtDecode(Auth.getToken());    
+  constructor() {
+    super();
+    const token = jwtDecode(Auth.getToken());
 
-    this.setState({
-      isAdminNavbarDisplayed: token.isAdmin || token.isLivreur || token.isPrestataire,
-      roles: this.setRoles(token)
-    });
+    this.state = {
+      isConnected: Auth.isUserAuthenticated(),
+      isAdminNavbarDisplayed: token.isAdmin || token.isLivreur || token.isPrestataire,
+      roles: this.setRoles(token),
+    };
   }
-  
+
   render() {
-    const { roles, isConnected, isAdminNavbarDisplayed } = this.state; 
+    const { roles, isConnected, isAdminNavbarDisplayed } = this.state;
 
     return (
       <div>
         { isAdminNavbarDisplayed && <AdminNav roles={roles} /> }
-        <UserNav connected={isConnected}/>
+        <UserNav connected={isConnected} />
       </div>
     );
   }

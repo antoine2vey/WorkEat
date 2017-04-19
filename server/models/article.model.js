@@ -17,7 +17,7 @@ const articleSchema = new mongoose.Schema({
   writtenAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 module.exports = mongoose.model('Article', articleSchema);

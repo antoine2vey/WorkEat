@@ -53,8 +53,6 @@ const accountSchema = new mongoose.Schema({
   },
 });
 
-accountSchema.methods.validatePassword = (password, hash) => {
-  return bcrypt.compareSync(password, hash); // boolean return
-};
+accountSchema.methods.validatePassword = (password, hash) => bcrypt.compareSync(password, hash);
 
 module.exports = mongoose.model('User', accountSchema);

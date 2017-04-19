@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  types: {  
+  types: {
     type: Array,
     required: true,
   },
@@ -49,9 +49,9 @@ const productSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Place',
-      required: true
-    }
-  ]
+      required: true,
+    },
+  ],
 });
 
 module.exports = mongoose.model('Product', productSchema);

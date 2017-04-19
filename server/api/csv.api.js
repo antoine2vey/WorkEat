@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
 const fs = require('fs');
 const json2csv = require('json2csv');
 const Order = require('../models/order.model');
-const Bundle = require('../models/bundle.model');
 
 exports.createFile = (req, res) => {
   const { date } = req.body;
@@ -13,7 +11,7 @@ exports.createFile = (req, res) => {
   .find({ orderedAt: {
     $gt: req.body.date,
     //$lte: limit
-  }})
+  } })
   .populate('articlesId', 'name -_id')
   // Moyen clean pour faire une deep populate (Bundle qui a des items qui ont des articles)
   .populate({
@@ -23,8 +21,8 @@ exports.createFile = (req, res) => {
     populate: {
       path: 'itemsId',
       model: 'Product',
-      select: 'name -_id'
-    }
+      select: 'name -_id',
+    },
   })
   .select('bundlesNumber bundlesId articlesNumber articlesId -_id')
   .exec((err, orders) => {
@@ -34,30 +32,30 @@ exports.createFile = (req, res) => {
 
     if (orders.length) {
       const fields = ['name', 'amount'];
-      let data = [];
+      const data = [];
       console.log(orders);
       orders.forEach((order) => {
         // Articles
         order.articlesId.forEach((article, i) => {
           data.push({
             name: article.name,
-            amount: order.articlesNumber[i]
+            amount: order.articlesNumber[i],
           });
         });
 
         // Bundles
-        order.bundlesId.forEach(bundle => {
-          bundle.itemsId.forEach((item, i) => {
+        order.bundlesId.forEach((bundle) => {
+          bundle.itemsId.forEach((item) => {
             data.push({
               name: item.name,
-              amount: 1
+              amount: 1,
             });
           });
         });
       });
 
       const csv = json2csv({ data, fields });
-      fs.writeFile('file.csv', csv, function(err) {
+      fs.writeFile('file.csv', csv, (err) => {
         if (err) throw err;
         res.send('Created file');
       });
@@ -67,10 +65,12 @@ exports.createFile = (req, res) => {
     }
   });
 };
-exports.download = (req, res, next) => {
-  res.download('file.csv', 'file.csv', err => {
-    if(err)
+
+exports.download = (req, res) => {
+  res.download('file.csv', 'file.csv', (err) => {
+    if (err) {
       throw new Error(err);
+    }
 
     res.end();
   });

@@ -13,12 +13,12 @@ import truck from './assets/icons/truck.svg';
 import concept from './assets/concept.jpg';
 import livraison from './assets/img-livraison.jpg';
 
-import brochette from './assets/brochette-home.jpg'
-import sushi from './assets/sushi-home.jpg'
-import burger from './assets/burger-home.jpg'
-import crevette from './assets/crevette-home.jpg'
+import brochette from './assets/brochette-home.jpg';
+import sushi from './assets/sushi-home.jpg';
+import burger from './assets/burger-home.jpg';
+import crevette from './assets/crevette-home.jpg';
 
-export { 
+export {
   videoMP4,
   videoWebm,
   videoOgv,
@@ -34,5 +34,5 @@ export {
   brochette,
   burger,
   crevette,
-  livraison
-}
+  livraison,
+};

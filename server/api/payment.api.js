@@ -1,6 +1,4 @@
 const Order = require('../models/order.model');
-const Product = require('../models/product.model');
-const Bundle = require('../models/order.model');
 const User = require('../models/user.model');
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require('nodemailer');
@@ -38,17 +36,17 @@ exports.send = (req, res) => {
           source: token,
           description: `${req.user.surname} ${req.user.name}`,
           email: username,
-        }).then((customer) => {
-          return Stripe.charges.create({
+        }).then(customer => (
+          Stripe.charges.create({
             amount: price,
             currency: 'eur',
             customer: customer.id,
-          });
-        }).then((charge) => {
+          })
+        )).then((charge) => {
           user.tokens.stripe = charge.customer;
           user.save((_err) => {
             if (_err) {
-              console.log('FUCKING ERROR RIGHT THERE:', _err)
+              console.log('FUCKING ERROR RIGHT THERE:', _err);
             }
           });
         });
@@ -98,9 +96,9 @@ exports.send = (req, res) => {
       Pour un total de ${amount}€
       `,
     };
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        return res.status(500).send('Vous avez été débité mais l\'email n\'est pas parti!')
+        return res.status(500).send('Vous avez été débité mais l\'email n\'est pas parti!');
       }
       return res.status(200).send(`Merci pour votre paiement de ${amount}€. Un mail de récapitulatif vous à été envoyé à l'addresse ${req.user.username}`);
     });

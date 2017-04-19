@@ -1,9 +1,4 @@
-const mongoose = require('mongoose');
 const Order = require('../models/order.model');
-
-function mongoId(id) {
-  return mongoose.Types.ObjectId(id);
-}
 
 exports.create = (req, res) => {
   const articlesAmounts = [];
@@ -21,14 +16,14 @@ exports.create = (req, res) => {
   }
 
   items.forEach((item) => {
-    if(item.isBundle) {
+    if (item.isBundle) {
       bundlesId.push(item._id);
       bundlesAmounts.push(item.amount);
     } else {
       articlesId.push(item._id);
       articlesAmounts.push(item.amount);
     }
-    amount += item.amount * item.price
+    amount += item.amount * item.price;
   });
 
   const product = new Order({

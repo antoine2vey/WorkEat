@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch } from 'react-router';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -13,13 +13,13 @@ class App extends Component {
     return (
       <div>
         <Header />
-          <Route>
-            <Switch>
-              <Route path="/account" render={() => <h1>acc page</h1> }/>
-              <Route path="/admin" component={Admin} />
-              <Route path="/" component={GlobalProducts}/>
-            </Switch>
-          </Route>
+        <Route>
+          <Switch>
+            <Route path="/account" render={() => <h1>acc page</h1>} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/" component={GlobalProducts} />
+          </Switch>
+        </Route>
         <Footer />
       </div>
     );

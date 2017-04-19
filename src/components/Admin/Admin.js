@@ -38,11 +38,11 @@ class Admin extends Component {
 
 
         <Switch>
-          <Route path="/admin/produits" component={Product}/>
-          <Route path="/admin/tags" component={Tag}/>
-          <Route path="/admin/livraisons" component={Livraison}/>
-          <Route path="/admin/articles" component={Article}/>
-          <Route path="/admin/formules" component={Formule}/>
+          <Route path="/admin/produits" component={Product} />
+          <Route path="/admin/tags" component={Tag} />
+          <Route path="/admin/livraisons" component={Livraison} />
+          <Route path="/admin/articles" component={Article} />
+          <Route path="/admin/formules" component={Formule} />
 
           <Redirect from="/admin" to="/admin/produits" />
         </Switch>

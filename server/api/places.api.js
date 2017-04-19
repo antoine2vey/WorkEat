@@ -34,7 +34,7 @@ exports.create = (req, res) => {
     }
 
     place.save((err) => {
-      if(err) {
+      if (err) {
         console.log(err);
         return res.status(500).send('Database error, please try again!');
       }

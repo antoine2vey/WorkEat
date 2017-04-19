@@ -1,14 +1,11 @@
+/* eslint no-undef: "off", no-unused-vars: "warn" */
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const passportJWT = require("passport-jwt");
+const passportJWT = require('passport-jwt');
 const jwtExpress = require('express-jwt');
-const ExtractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
-
 const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -18,7 +15,10 @@ const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
 const redis = require('redis');
+const pmx = require('pmx');
 
+const ExtractJwt = passportJWT.ExtractJwt;
+const JwtStrategy = passportJWT.Strategy;
 const app = express();
 const client = redis.createClient();
 const DEV = process.env.NODE_ENV === 'development';
@@ -35,10 +35,11 @@ client.on('connect', () => {
 env.config();
 
 if (!DEV) {
-  require('pmx').init({
+  pmx.init({
     http: true,
   });
 }
+
 process.setMaxListeners(0);
 mongoose.connect(sessionDB);
 
@@ -64,25 +65,23 @@ passport.deserializeUser((id, done) => {
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  secretOrKey: process.env.JWT_SECRET || 'ChangeThisKeyPlease'
-}
+  secretOrKey: process.env.JWT_SECRET || 'ChangeThisKeyPlease',
+};
 passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
   console.log(payload);
-  User.findOne({
-    username
-  }, (err, user) => {
+  User.findOne({ username }, (err, user) => {
     if (err) {
       return done(err);
     }
     if (!user) {
       return done(null, false, {
-        message: 'Incorrect username.'
+        message: 'Incorrect username.',
       });
     }
 
     if (!user.validatePassword(password, user.password)) {
       return done(null, false, {
-        message: 'Incorrect password.'
+        message: 'Incorrect password.',
       });
     }
 
@@ -95,10 +94,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
-  extended: false
+  extended: false,
 }));
 app.use(bodyParser.json({
-  limit: '50mb'
+  limit: '50mb',
 }));
 app.use(expressValidator({
   customValidators: {
@@ -147,9 +146,6 @@ const isAdmin = (req, res, next) => {
     });
   }
 };
-const checkJwt = (req, res, next) => {
-   
-}
 const isPresta = (req, res, next) => {
   if (req.user.isPrestataire && req.isAuthenticated()) {
     next();
@@ -209,21 +205,21 @@ app.get('/protected', authorizeRequest, (req, res) => {
 
 // PRODUCT API
 app.get('/api/products', productsApi.list);
-app.post('/api/products', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.create);
+app.post('/api/products', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.create);
 // app.post('/api/products/:id', productsApi.update);
-app.delete('/api/products/:id', jwtExpress({secret: process.env.JWT_SECRET}), productsApi.delete);
+app.delete('/api/products/:id', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.delete);
 
 // TAG API
 app.get('/api/tags', tagApi.list);
 app.get('/api/tags/:id', tagApi.listOne);
-app.post('/api/tags', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.create);
-app.delete('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.delete);
-app.put('/api/tags/:id', jwtExpress({secret: process.env.JWT_SECRET}), tagApi.update);
+app.post('/api/tags', jwtExpress({ secret: process.env.JWT_SECRET }), tagApi.create);
+app.delete('/api/tags/:id', jwtExpress({ secret: process.env.JWT_SECRET }), tagApi.delete);
+app.put('/api/tags/:id', jwtExpress({ secret: process.env.JWT_SECRET }), tagApi.update);
 
 // LIVRAISON API
 app.get('/api/places', placeApi.list);
-app.post('/api/places', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.create);
-app.delete('/api/places/:id', jwtExpress({secret: process.env.JWT_SECRET}), placeApi.delete);
+app.post('/api/places', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.create);
+app.delete('/api/places/:id', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.delete);
 
 // STRIPE
 app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
@@ -233,20 +229,20 @@ app.post('/api/orders', authorizeRequest, order.create);
 
 // BUNDLES
 app.get('/api/bundles', bundle.list);
-app.post('/api/bundles', jwtExpress({secret: process.env.JWT_SECRET}), bundle.create);
-app.delete('/api/bundles/:id', jwtExpress({secret: process.env.JWT_SECRET}), bundle.delete);
+app.post('/api/bundles', jwtExpress({ secret: process.env.JWT_SECRET }), bundle.create);
+app.delete('/api/bundles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), bundle.delete);
 
 // ARTICLES
-app.post('/api/articles', jwtExpress({secret: process.env.JWT_SECRET}), article.create);
+app.post('/api/articles', jwtExpress({ secret: process.env.JWT_SECRET }), article.create);
 app.get('/api/articles', article.list);
-app.delete('/api/articles/:id', jwtExpress({secret: process.env.JWT_SECRET}), article.delete);
+app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), article.delete);
 
 // EXPORT CSV
 app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
 
 app.all('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));  
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(PORT, () => {

@@ -6,16 +6,16 @@ const genId = require('shortid');
 mongoose.Promise = Promise;
 
 exports.list = (req, res) => {
-  Article.find({}).populate("author", "name surname -_id").exec((err, articles) => {
-    if(err) {
-      return res.status(400).send("Problem BDD");
+  Article.find({}).populate('author', 'name surname -_id').exec((err, articles) => {
+    if (err) {
+      return res.status(400).send('Problem BDD');
     }
     res.status(200).send(articles);
   });
 };
-exports.listOne = (req, res) => {
-  const { id } = req.params;
-}
+// exports.listOne = (req, res) => {
+//   const { id } = req.params;
+// }
 exports.create = (req, res) => {
   const { title, thumbnail, text } = req.body;
   req.checkBody('title', 'Title is required').notEmpty();
@@ -38,15 +38,13 @@ exports.create = (req, res) => {
     author: req.user._id,
   });
 
-
-
   Article.findOne({ title }, (err, existingArticle) => {
-    if(existingArticle) {
-      return res.status(500).send("Article déjà existant !");
+    if (existingArticle) {
+      return res.status(500).send('Article déjà existant !');
     }
 
-    article.save(err => {
-      if(err) {
+    article.save((err) => {
+      if (err) {
         console.log(err);
       }
       fs.writeFile(fileName, base64data, { encoding: 'base64' }, (err) => {
@@ -54,7 +52,7 @@ exports.create = (req, res) => {
           console.log(err);
         }
       });
-      res.status(200).send("Article créé");
+      res.status(200).send('Article créé');
     });
   });
 };

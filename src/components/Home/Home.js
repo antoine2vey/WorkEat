@@ -1,6 +1,8 @@
+/* eslint jsx-a11y/href-no-hash: "off" */
+
 import React, { Component } from 'react';
-import RenderLoginBox from './RenderLoginBox';
 import { Link } from 'react-router-dom';
+import RenderLoginBox from './RenderLoginBox';
 import * as images from '../../images';
 
 import './Home.css';
@@ -9,19 +11,17 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggingIn: false
-    }
+      isLoggingIn: false,
+    };
+
+    this.switchBox = this.switchBox.bind(this);
   }
 
   switchBox(event) {
     event.preventDefault();
     this.setState({
-      isLoggingIn: !this.state.isLoggingIn
-    })
-  }
-
-  handleLogin(e) {
-    e.preventDefault();
+      isLoggingIn: !this.state.isLoggingIn,
+    });
   }
 
   render() {
@@ -42,7 +42,7 @@ class Home extends Component {
                   <img src={images.logoBlanc} alt="WorkEat" className="header-home-top-logo-item" />
                 </div>
                 <div className="four columns">
-                  <p className="header-home-top-connexion">Déjà inscrit ? <a href="#" className="header-home-top-connexion-link" onClick={this.switchBox.bind(this)}>Connexion</a></p>
+                  <p className="header-home-top-connexion">Déjà inscrit ? <a href="#" className="header-home-top-connexion-link" onClick={this.switchBox}>Connexion</a></p>
                 </div>
               </div>
               <div className="row">
@@ -54,7 +54,7 @@ class Home extends Component {
             <div className="header-home-form">
               <div className="row">
                 <div className="twelve columns">
-                  <RenderLoginBox isLoggingIn={isLoggingIn}/>
+                  <RenderLoginBox isLoggingIn={isLoggingIn} />
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@ class Home extends Component {
             <div className="concept-container">
               <h1 className="concept-title">Le concept</h1>
               <hr className="divider" />
-              <p className="concept-content">Nous proposons différentes entrées, plats, desserts et boissons afin de satisfaire vos papilles. Apres avoir commandé ce que qu'il vous plait, nous vous livrons dans un rayon de cinq kilomètres autour de notre entrepot.</p>
+              <p className="concept-content">Nous proposons différentes entrées, plats, desserts et boissons afin de satisfaire vos papilles. Apres avoir commandé ce que qu&#39;il vous plait, nous vous livrons dans un rayon de cinq kilomètres autour de notre entrepot.</p>
               <Link to="/about" className="btn-gold">A propos</Link>
             </div>
             <div className="concept-container">
@@ -141,10 +141,10 @@ class Home extends Component {
             </div>
             <div className="footer-list">
               <ul className="footer-list-social">
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-facebook-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-twitter-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-pinterest-square footer-list-social-item-link-icon"></i></a></li>
-                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon"></i></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-facebook-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-twitter-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-pinterest-square footer-list-social-item-link-icon" /></a></li>
+                <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon" /></a></li>
               </ul>
               <ul className="footer-list-mentions">
                 <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Mentions légales</a></li>

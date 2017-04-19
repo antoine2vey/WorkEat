@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 class UserNav extends Component {
   render() {
-    const { connected } = this.props;
-
     return (
       <nav className="nav has-shadow">
         <div className="container">
@@ -12,9 +10,9 @@ class UserNav extends Component {
             <NavLink to="/" className="nav-item is-tab is-hidden-mobile is-active">Home</NavLink>
           </div>
           <span className="nav-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </span>
           <div className="nav-right nav-menu">
             <NavLink to="/" className="nav-item is-tab is-hidden-tablet is-active">Home</NavLink>
@@ -27,6 +25,6 @@ class UserNav extends Component {
       </nav>
     );
   }
-};
+}
 
 export default UserNav;

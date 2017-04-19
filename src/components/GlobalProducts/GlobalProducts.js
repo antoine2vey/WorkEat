@@ -22,9 +22,9 @@ class GlobalProducts extends Component {
         </div>
 
         <Switch>
-          <Route path="/formules" render={() => <h1>formule</h1>}/>
-          <Route path="/carte" component={Carte}/>
-          <Redirect from="/" to="/carte" />          
+          <Route path="/formules" render={() => <h1>formule</h1>} />
+          <Route path="/carte" component={Carte} />
+          <Redirect from="/" to="/carte" />
         </Switch>
       </div>
     );

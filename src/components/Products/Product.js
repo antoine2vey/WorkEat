@@ -1,15 +1,15 @@
+/* eslint jsx-a11y/href-no-hash: "off" */
+
 import React, { Component } from 'react';
 
-class Product extends Component {  
+class Product extends Component {
   render() {
-    console.log(this.props.data);
-    const { file, description, price, tags, types, name } = this.props.data;
-    console.log(this.props);
+    const { file, description, price, tags, types, name } = this.props.data;    
     return (
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={file ? file : "http://bulma.io/images/placeholders/1280x960.png"} alt="Images" style={{objectFit: 'cover'}}/>
+            <img src={file ? file : 'http://bulma.io/images/placeholders/1280x960.png'} alt="Images" style={{ objectFit: 'cover' }} />
           </figure>
         </div>
         <div className="card-content">
