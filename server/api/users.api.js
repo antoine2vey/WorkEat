@@ -22,9 +22,7 @@ exports.login = (req, res) => {
 
   const errors = req.validationErrors();
   if (errors) {
-    return res.status(401).send(
-      'Username or password was left empty. Please complete both fields and re-submit.',
-    );
+    return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
   User.findOne({ username: req.body.username }, (err, user) => {
