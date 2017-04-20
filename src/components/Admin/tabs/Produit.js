@@ -6,8 +6,7 @@ import ProductList from './ProductList';
 class Product extends Component {
   constructor() {
     super();
-    this.state = {
-      nextProduct: {},
+    this.state = {      
       selects: {
         tags: [],
         places: [],
@@ -24,6 +23,7 @@ class Product extends Component {
       places: [],
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -72,7 +72,11 @@ class Product extends Component {
   handleSubmit(event) {
     event.preventDefault();
     delete this.state.selects;
-    axios.post('/api/products', { ...this.state })
+    axios.post('/api/products', { ...this.state }, {
+      headers: {
+        Authorization: `Bearer ${localStorage._token}`,
+      },
+    })
     .then((res) => {
       this.setState({ nextProduct: res.data.product });
     })
@@ -80,11 +84,11 @@ class Product extends Component {
   }
 
   render() {
-    const { selects: { tags, places, types }, nextProduct } = this.state;
+    const { selects: { tags, places, types } } = this.state;
     return (
       <div className="columns" style={{ justifyContent: 'center' }}>
         <div className="column">
-          <ProductList nextProduct={nextProduct} />
+          <ProductList />
         </div>
         <div className="column">
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
