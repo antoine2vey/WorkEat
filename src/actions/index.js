@@ -1,31 +1,38 @@
 import axios from 'axios';
 
+// Action to receive products
 export function receiveProducts(products) {
   return {
     type: 'RECEIVE_PRODUCTS',
-    products: products.data,
+    products,
   };
 }
 
+// API call to fetch products
 export function fetchProducts() {
-  return dispatch => axios.get('/api/products')
-    .then(products => dispatch(receiveProducts(products)));
+  return dispatch => (
+    axios.get('/api/products')
+      .then(products => dispatch(receiveProducts(products.data)))
+  );
 }
 
+// If nothing in store, fetch products
 export function shouldFetchProducts(state) {
-  if (!state.products) {
-    console.info('We are fetching products!');
+  if (!state.products.length) {
     return true;
   }
 
-  console.info('We are not fecthing products');
   return false;
 }
 
 export function fetchProductsIfNeeded() {
   return (dispatch, getState) => {
-    if (shouldFetchProducts(getState)) {
+    if (shouldFetchProducts(getState())) {
+      // Dispatch action to store if we have products
       return dispatch(fetchProducts());
     }
+
+    // Else return a promise with current state for products
+    return Promise.resolve(getState());
   };
 }
