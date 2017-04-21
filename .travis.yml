@@ -4,6 +4,7 @@ node_js:
 addons:
   ssh_known_hosts: antoinedeveyrac.io
 before_install:
+  - npm install --save bcrypt-nodejs && npm uninstall --save bcrypt
   - npm install
   - npm rebuild node-sass
 before_deploy:
