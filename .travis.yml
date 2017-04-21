@@ -7,7 +7,7 @@ cache:
   directories:
   - node_modules
 before_install:
-  - npm rebuild
+  - npm rebuild node-sass
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_41e16542647c_key -iv $encrypted_41e16542647c_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
   - eval `ssh-agent -s`
