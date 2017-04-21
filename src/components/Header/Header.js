@@ -22,7 +22,7 @@ class Header extends Component {
     this.state = {
       isConnected: Auth.isUserAuthenticated(),
       isAdminNavbarDisplayed: token.isAdmin || token.isLivreur || token.isPrestataire,
-      roles: this.setRoles(token),
+      roles: Header.setRoles(token),
     };
   }
 

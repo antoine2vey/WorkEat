@@ -3,10 +3,9 @@ node_js:
 - 6
 addons:
   ssh_known_hosts: antoinedeveyrac.io
-cache:
-  directories:
-  - node_modules
 before_install:
+  - npm install --save bcrypt-nodejs && npm uninstall --save bcrypt
+  - npm install
   - npm rebuild node-sass
 before_deploy:
   - echo "Starting SSH session"
@@ -14,7 +13,7 @@ before_deploy:
   - eval `ssh-agent -s`
   - chmod 600 /tmp/deploy_rsa
   - ssh-add /tmp/deploy_rsa
-  - ssh -o StrictHostKeyChecking=no -l $HOST $DEPLOY_HOST "ls -lah /var/www/dev.antoinedeveyrac.io/"
+  - ssh -o StrictHostKeyChecking=no -l $HOST@$DEPLOY_HOST "ls -lah /var/www/dev.antoinedeveyrac.io/"
 script:
 - npm test
 - npm run build

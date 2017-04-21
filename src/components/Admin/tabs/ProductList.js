@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../../actions';
 
 class ProductList extends Component {
   constructor(props) {
@@ -10,8 +13,8 @@ class ProductList extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/products')
-      .then(products => this.setState({ products: this.state.products.concat(products.data) }))
+    this.props.fetchProductsIfNeeded()
+      .then(data => this.setState({ products: this.state.products.concat(data.products) }))
       .catch(err => console.error(err));
   }
 
@@ -58,4 +61,15 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+function mapStateToProps(state) {
+  return {
+    products: state.products,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
