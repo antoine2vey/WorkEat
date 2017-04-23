@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
-import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './components/Home/Home';
 import App from './components/App/App';
 import About from './components/About/About';
 import store from './store';
-
 import Auth from './modules/Auth';
+import history from './history';
 
-const history = createBrowserHistory();
 console.log(Auth.isUserAuthenticated() ? 'User connected' : 'Not connected!');
 
 const PrivateRoute = ({ component, ...rest }) => (
@@ -55,3 +53,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
+
+
+export default history;

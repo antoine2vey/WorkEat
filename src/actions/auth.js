@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from '../history';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,8 +11,8 @@ const loginUserRequest = () => ({
 });
 
 const loginUserSuccess = (token) => {
-  // TODO: Redirect to logged home!
   localStorage.setItem('_token', token);
+  history.push('/');
   axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
   return {
     type: LOGIN_SUCCESS,
@@ -25,7 +26,7 @@ const loginUserFailure = err => ({
 
 const logout = () => {
   localStorage.removeItem('_token');
-  // TODO: Redirect to not logged home;
+  history.push('/');
   return {
     type: USER_LOGOUT,
   };
