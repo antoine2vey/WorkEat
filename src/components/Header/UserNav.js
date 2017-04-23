@@ -1,8 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/auth';
 
 const UserNav = ({ logoutUser }) => (
   <nav className="nav has-shadow">
@@ -26,9 +23,4 @@ const UserNav = ({ logoutUser }) => (
   </nav>
 );
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
-
-// () => ({}) shorthand to skip this argument
-export default connect(() => ({}), mapDispatchToProps)(UserNav);
+export default UserNav;

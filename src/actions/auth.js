@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from '../history';
+import history from '../utils/history';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -16,13 +16,14 @@ const loginUserSuccess = (token) => {
   axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
   return {
     type: LOGIN_SUCCESS,
+    token,
   };
 };
 
 const loginUserFailure = err => ({
   type: LOGIN_FAILURE,
   err,
-}); 
+});
 
 const logout = () => {
   localStorage.removeItem('_token');

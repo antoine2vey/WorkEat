@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
+import throttle from 'lodash/throttle';
 import Home from './components/Home/Home';
 import App from './components/App/App';
 import About from './components/About/About';
 import store from './store';
-import Auth from './modules/Auth';
-import history from './history';
+import history from './utils/history';
+import { saveState } from './utils/persistState';
 
-console.log(Auth.isUserAuthenticated() ? 'User connected' : 'Not connected!');
-
+const isUserAuthenticated = () => localStorage.getItem('_token') !== null;
 const PrivateRoute = ({ component, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-    Auth.isUserAuthenticated()
+    isUserAuthenticated()
     ? React.createElement(component, props)
     : <Redirect
       to={{
@@ -26,12 +26,18 @@ const PrivateRoute = ({ component, ...rest }) => (
   />
 );
 
+store.subscribe(throttle(() => {
+  saveState({
+    auth: store.getState().auth,
+  });
+}));
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route
         render={({ location }) => (
-            Auth.isUserAuthenticated() ? (
+            isUserAuthenticated() ? (
               <Switch>
                 <Route exact path="/home" component={Home} />
                 <PrivateRoute path="/" component={App} />
@@ -53,6 +59,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
-
-
-export default history;

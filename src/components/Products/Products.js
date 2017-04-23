@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import chunk from 'lodash/chunk';
 import * as actions from '../../actions/products';
 import Product from './Product';
 
@@ -13,7 +13,7 @@ class Products extends Component {
 
   render() {
     const { products } = this.props;
-    const rows = _.chunk(products, 4);
+    const rows = chunk(products, 4);
 
     return (
       <div>
