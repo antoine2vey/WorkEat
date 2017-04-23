@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch, Redirect } from 'react-router';
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './components/Home/Home';
 import App from './components/App/App';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Auth from '../../modules/Auth';
 import * as images from '../../images';
 
 class LoginBox extends Component {
@@ -17,12 +16,7 @@ class LoginBox extends Component {
 
   handleLogin(event) {
     event.preventDefault();
-    const { email, password } = this.state;
-
-    Auth.authenticateUser({ email, password })
-    .then(() => {
-      this.props.history.push('/');
-    }).catch(err => console.log(err));
+    this.props.loginUser(this.state);
   }
 
   handleChange(event) {

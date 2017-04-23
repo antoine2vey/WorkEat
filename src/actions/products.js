@@ -33,13 +33,13 @@ const deleteProducts = productId => (dispatch) => {
       Authorization: `Bearer ${localStorage._token}`,
     },
   })
-    .then(() => dispatch(deleteProduct(productId)))
-    .catch(err => console.error(err));
+  .then(() => dispatch(deleteProduct(productId)))
+  .catch(err => console.error(err));
 };
 
 // If nothing in store, fetch products
 const shouldFetchProducts = (state) => {
-  if (!state.products.length) {
+  if (!state.products.products.length) {
     return true;
   }
 
@@ -49,13 +49,12 @@ const shouldFetchProducts = (state) => {
 const fetchProductsIfNeeded = () => (dispatch, getState) => {
   if (shouldFetchProducts(getState())) {
     // Dispatch action to store if we have products
-    console.log('Fetching products from API');
     return dispatch(fetchProducts());
   }
 
-  // Else return a promise with current state for products
-  console.log('Fetching from Redux <3');
-  return Promise.resolve(getState());
+  // Else return a promise so our view doesnt throw
+  // error
+  return Promise.resolve();
 };
 
 export { fetchProductsIfNeeded, deleteProducts };

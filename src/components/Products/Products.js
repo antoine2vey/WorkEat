@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import * as actions from '../../actions';
+import * as actions from '../../actions/products';
 import Product from './Product';
 
 
@@ -37,7 +37,7 @@ class Products extends Component {
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
+    products: state.products.products,
   };
 }
 

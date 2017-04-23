@@ -6,7 +6,7 @@ import ProductList from './ProductList';
 class Product extends Component {
   constructor() {
     super();
-    this.state = {      
+    this.state = {
       selects: {
         tags: [],
         places: [],
