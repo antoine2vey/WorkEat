@@ -1,25 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/auth';
 import { LoginBox, ConnectionBox } from './Boxes';
 
-class RenderLoginBox extends Component {
-  render() {
-    const { isLoggingIn } = this.props;
-
-    return (
-      <div>
-        <Route
-          render={({ history }) => (
-          isLoggingIn ? <LoginBox history={history} {...this.props} /> : <ConnectionBox history={history} />
-        )}
-        />
-      </div>
-    );
-  }
-}
+const RenderLoginBox = ({ isLoggingIn, loginUser }) => (
+  <div>
+    <Route
+      render={({ history }) => (
+        isLoggingIn ? <LoginBox history={history} loginUser={loginUser} /> : <ConnectionBox history={history} />
+      )}
+    />
+  </div>
+);
 
 function mapStateToProps(state) {
   return {
