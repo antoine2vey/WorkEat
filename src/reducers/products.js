@@ -1,15 +1,34 @@
-function products(state = [], action) {
-  console.log(state, action);
+import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT } from '../actions';
+
+const initialState = {
+  isFetching: false,
+  products: [],
+};
+
+const products = (state = initialState, action) => {
   switch (action.type) {
-    case 'RECEIVE_PRODUCTS': {
-      return [
+    case REQUEST_PRODUCTS: {
+      return {
         ...state,
-        ...action.products,
-      ];
+        isFetching: true,
+      };
+    }
+    case RECEIVE_PRODUCTS: {
+      return {
+        ...state,
+        isFetching: false,
+        products: action.products,
+      };
+    }
+    case DELETE_PRODUCT: {
+      return {
+        ...state,
+        products: [...state.products.filter(product => product._id !== action.productId)],
+      };
     }
     default:
       return state;
   }
-}
+};
 
 export default products;

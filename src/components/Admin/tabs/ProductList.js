@@ -1,36 +1,20 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions';
 
 class ProductList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-    };
-  }
-
   componentDidMount() {
-    this.props.fetchProductsIfNeeded()
-      .then(data => this.setState({ products: this.state.products.concat(data.products) }))
-      .catch(err => console.error(err));
+    this.props.fetchProductsIfNeeded();
   }
 
   deleteProduct(product) {
     const { _id } = product;
-    axios.delete(`/api/products/${_id}`)
-      .then(() => {
-        this.setState({
-          products: this.state.products.filter(product => product._id !== _id),
-        });
-      })
-      .catch(err => console.error(err));
+    this.props.deleteProducts(_id);
   }
 
   render() {
-    const { products } = this.state;
+    const { products } = this.props;
     return (
       <div>
         {
@@ -63,7 +47,8 @@ class ProductList extends Component {
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
+    products: state.products.products,
+    isFetching: state.products.isFetching,
   };
 }
 

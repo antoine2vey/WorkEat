@@ -37,7 +37,8 @@ exports.list = (req, res) => {
     }
   })
   **/
-  Product.find({}).populate('tags').exec((err, products) => {
+  Product.find({}).populate('tags', '-_id').populate('availableAt').exec((err, products) => {
+    console.log(products[0])
     if (err) {
       return res.status(500).send('Database error.');
     }
