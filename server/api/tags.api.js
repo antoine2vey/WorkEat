@@ -70,7 +70,7 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error, please try again!');
       }
 
-      res.status(200).send('Tag created');
+      res.status(200).send(tag);
     });
   });
 };

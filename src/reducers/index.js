@@ -3,10 +3,12 @@ import { combineReducers } from 'redux';
 // import { routerReducer } from 'react-router-redux';
 import products from './products';
 import auth from './auth';
+import tags from './tags';
 
 const rootReducer = combineReducers({
-  products,
   auth,
+  products,
+  tags,
   //routing: routerReducer,
 });
 
