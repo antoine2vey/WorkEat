@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import _ from 'lodash';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import chunk from 'lodash/chunk';
+import * as actions from '../../actions/products';
 import Product from './Product';
 
 
 class Products extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      products: [],
-    };
-  }
-
   componentDidMount() {
-    axios.get('/api/products').then((products) => {
-      this.setState({
-        products: products.data,
-      });
-    })
-    .catch(err => console.log(err));
+    this.props.fetchProductsIfNeeded();
   }
 
   render() {
-    const { products } = this.state;
-    const rows = _.chunk(products, 4);
+    const { products } = this.props;
+    const rows = chunk(products, 4);
 
     return (
       <div>
@@ -46,5 +35,16 @@ class Products extends Component {
   }
 }
 
-export default Products;
+function mapStateToProps(state) {
+  return {
+    products: state.products.products,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
 

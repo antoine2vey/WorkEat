@@ -13,13 +13,7 @@ exports.list = (req, res) => {
   });
 };
 exports.create = (req, res) => {
-  const {
-    name,
-    price,
-    description,
-    items,
-    reduction,
-  } = req.body;
+  const { name } = req.body;
 
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('price', 'Price is required').notEmpty();
@@ -29,13 +23,7 @@ exports.create = (req, res) => {
     return res.status(400).send(errors);
   }
 
-  const bundle = new Bundle({
-    name,
-    price,
-    items,
-    description,
-    reduction,
-  });
+  const bundle = new Bundle(req.body);
 
   Bundle.findOne({ name }, (err, bundleExists) => {
     if (bundleExists) {
@@ -48,7 +36,7 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error, please try again!');
       }
 
-      res.status(200).send('Bundle created!');
+      res.status(200).send(bundle);
     });
   });
 };

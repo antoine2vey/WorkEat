@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/auth';
 import AdminNav from './AdminNav';
 import UserNav from './UserNav';
-import Auth from '../../modules/Auth';
 
 class Header extends Component {
   static setRoles(token, roles = []) {
@@ -15,28 +17,38 @@ class Header extends Component {
     return roles.filter(role => role !== null);
   }
 
-  constructor() {
-    super();
-    const token = jwtDecode(Auth.getToken());
+  constructor(props) {
+    super(props);
+    const token = jwtDecode(props.token);
 
     this.state = {
-      isConnected: Auth.isUserAuthenticated(),
       isAdminNavbarDisplayed: token.isAdmin || token.isLivreur || token.isPrestataire,
       roles: Header.setRoles(token),
     };
   }
 
   render() {
-    const { roles, isConnected, isAdminNavbarDisplayed } = this.state;
+    const { roles, isAdminNavbarDisplayed } = this.state;
 
     return (
       <div>
-        { isAdminNavbarDisplayed && <AdminNav roles={roles} /> }
-        <UserNav connected={isConnected} />
+        {isAdminNavbarDisplayed && <AdminNav roles={roles} /> }
+        <UserNav {...this.props} />
       </div>
     );
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+  const { token } = state.auth;
+  return {
+    token,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 

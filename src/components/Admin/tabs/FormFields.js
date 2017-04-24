@@ -1,49 +1,54 @@
 /* eslint no-unneeded-ternary: "off", react/no-array-index-key: "off" */
+import React from 'react';
 
-import React, { Component } from 'react';
+const Input = ({ ...props }) => (
+  <div className="field">
+    <label htmlFor={props.name} className="label">{props.placeholder}</label>
+    <p className="control">
+      <input className="input" {...props} />
+    </p>
+  </div>
+);
 
-class Input extends Component {
-  render() {
-    const { props } = this;
-    return (
-      <div className="field">
-        <label htmlFor={props.name} className="label">{props.placeholder}</label>
-        <p className="control">
-          <input className="input" {...props} />
-        </p>
-      </div>
-    );
-  }
-}
+const Select = ({ ...props }) => (
+  <div className="field">
+    <label htmlFor={props.name} className="label">{props.label}</label>
+    <p className="control">
+      <select
+        type="select"
+        className="input"
+        style={{ height: 100 }}
+        name={props.name}
+        multiple={props.multiple ? true : false}
+        onChange={props.onChange}
+      >
+        { props.data.map((item, i) => (
+          props.flat ? (
+            <option value={item.toLowerCase()} key={i}>{item}</option>
+          ) : (
+            <option value={item._id} key={item._id}>{item.name}</option>
+          )
+        ))}
+      </select>
+    </p>
+  </div>
+);
 
-class Select extends Component {
-  render() {
-    const { props } = this;
-    return (
-      <div className="field">
-        <label htmlFor={props.name} className="label">{props.label}</label>
-        <p className="control">
-          <select
-            type="select"
-            className="input"
-            style={{ height: 100 }}
-            name={props.name}
-            multiple={props.multiple ? true : false}
-            onChange={props.onChange}
-          >
-            { props.data.map((item, i) => (
-              props.flat ? (
-                <option value={item.toLowerCase()} key={i}>{item}</option>
-              ) : (
-                <option value={item._id} key={item._id}>{item.name}</option>
-              )
-            ))}
-          </select>
-        </p>
-      </div>
-    );
-  }
-}
+const CheckBox = ({ ...props }) => (
+  <div className="field">
+    <p className="control">
+      <label htmlFor={props.name} className="checkbox">
+        <input
+          id={props.name}
+          name={props.name}
+          type="checkbox"
+          onChange={props.onChange}
+        />
+        {props.children}
+      </label>
+    </p>
+  </div>
+);
 
 
-export { Input, Select };
+export { Input, Select, CheckBox };

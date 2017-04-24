@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+// Until it get fixed
+// import { routerReducer } from 'react-router-redux';
 import products from './products';
+import auth from './auth';
+import tags from './tags';
+import places from './livraison';
+import bundles from './bundles';
 
 const rootReducer = combineReducers({
+  auth,
   products,
-  routing: routerReducer,
+  tags,
+  places,
+  bundles,
+  //routing: routerReducer,
 });
 
 export default rootReducer;
