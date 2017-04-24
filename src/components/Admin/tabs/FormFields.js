@@ -34,5 +34,21 @@ const Select = ({ ...props }) => (
   </div>
 );
 
+const CheckBox = ({ ...props }) => (
+  <div className="field">
+    <p className="control">
+      <label htmlFor={props.name} className="checkbox">
+        <input
+          id={props.name}
+          name={props.name}
+          type="checkbox"
+          onChange={props.onChange}
+        />
+        {props.children}
+      </label>
+    </p>
+  </div>
+);
 
-export { Input, Select };
+
+export { Input, Select, CheckBox };

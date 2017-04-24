@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const fs = require('fs');
 const genId = require('shortid');
-
 const redis = require('redis');
+
 const client = redis.createClient();
 const PRODUCT_HASH = 'products';
 
@@ -37,7 +37,7 @@ exports.list = (req, res) => {
     }
   })
   **/
-  Product.find({}).populate('tags').populate('availableAt').exec((err, products) => {    
+  Product.find({}).populate('tags').populate('availableAt').exec((err, products) => {
     if (err) {
       return res.status(500).send('Database error.');
     }
@@ -107,14 +107,13 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error, please try again!');
       }
 
-
       fs.writeFile(`public/${fileName}`, base64data, { encoding: 'base64' }, (err) => {
         if (err) {
           console.log(err);
         }
       });
 
-      return res.status(200).send({ product });
+      return res.status(200).send(product);
     });
   });
 };
@@ -126,7 +125,7 @@ exports.delete = (req, res) => {
     }
 
     // delete image if successful request
-    fs.unlink(product.file, (err) => {
+    fs.unlink(`public/${product.file}`, (err) => {
       if (err) {
         console.log(err);
       }

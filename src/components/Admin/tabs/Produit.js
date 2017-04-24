@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionsTags from '../../../actions/tags';
+import * as actionsPlaces from '../../../actions/livraison';
+import * as actionsProduct from '../../../actions/products';
 import { Input, Select } from './FormFields';
 import ProductList from './ProductList';
 
@@ -7,11 +11,6 @@ class Product extends Component {
   constructor() {
     super();
     this.state = {
-      selects: {
-        tags: [],
-        places: [],
-        types: [],
-      },
       file: '',
       name: '',
       description: '',
@@ -27,19 +26,9 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    const getTags = () => axios.get('/api/tags');
-    const getPlaces = () => axios.get('/api/places');
-
-    axios.all([getTags(), getPlaces()])
-      .then(axios.spread((tags, places) => {
-        this.setState({
-          selects: {
-            tags: tags.data,
-            places: places.data,
-            types: ['Entree', 'Plat', 'Dessert', 'Boisson'],
-          },
-        });
-      }));
+    const { fetchTagsIfNeeded, fetchPlacesIfNeeded } = this.props;
+    fetchTagsIfNeeded();
+    fetchPlacesIfNeeded();
   }
 
   handleChange(event) {
@@ -71,24 +60,15 @@ class Product extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    delete this.state.selects;
-    axios.post('/api/products', { ...this.state }, {
-      headers: {
-        Authorization: `Bearer ${localStorage._token}`,
-      },
-    })
-    .then((res) => {
-      this.setState({ nextProduct: res.data.product });
-    })
-    .then(err => console.log(err));
+    this.props.createProduct(this.state);
   }
 
   render() {
-    const { selects: { tags, places, types } } = this.state;
+    const { tags, places, types } = this.props;
     return (
       <div className="columns" style={{ justifyContent: 'center' }}>
         <div className="column">
-          <ProductList />
+          <ProductList {...this.props} />
         </div>
         <div className="column">
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
@@ -115,4 +95,18 @@ class Product extends Component {
   }
 }
 
-export default Product;
+function mapStateToProps(state) {
+  return {
+    products: state.products.products,
+    tags: state.tags.tags,
+    places: state.places.places,
+    isFetching: state.products.isFetching,
+    types: ['Entree', 'Plat', 'Dessert', 'Boisson'],
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ ...actionsTags, ...actionsPlaces, ...actionsProduct }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

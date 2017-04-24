@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actionCreators from '../../../actions/products';
 
 class ProductList extends Component {
   componentDidMount() {
@@ -45,16 +42,4 @@ class ProductList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    products: state.products.products,
-    isFetching: state.products.isFetching,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default ProductList;

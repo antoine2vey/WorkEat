@@ -1,4 +1,4 @@
-import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT } from '../actions/products';
+import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT } from '../actions/products';
 
 const initialState = {
   isFetching: false,
@@ -22,6 +22,14 @@ const products = (state = initialState, action) => {
       return {
         ...state,
         products: state.products.filter(product => product._id !== action.productId),
+      };
+    case CREATE_PRODUCT:
+      return {
+        ...state,
+        products: [
+          ...state.products,
+          action.product,
+        ],
       };
     default:
       return state;

@@ -5,12 +5,14 @@ import products from './products';
 import auth from './auth';
 import tags from './tags';
 import places from './livraison';
+import bundles from './bundles';
 
 const rootReducer = combineReducers({
   auth,
   products,
   tags,
   places,
+  bundles,
   //routing: routerReducer,
 });
 

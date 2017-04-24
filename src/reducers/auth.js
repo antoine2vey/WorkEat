@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT } from '../actions/auth';
 
 const initialState = {
   token: null,
@@ -27,6 +27,12 @@ const auth = (state = initialState, action) => {
         ...state,
         isAuthenticating: false,
         statusText: 'Mauvais mot de passe/nom de compte',
+      };
+    case USER_LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        statusText: null,
       };
     default:
       return state;
