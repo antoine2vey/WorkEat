@@ -26,7 +26,10 @@ const tags = (state = initialState, action) => {
     case CREATE_TAG:
       return {
         ...state,
-        tags: state.tags.concat([action.tag]),
+        tags: [
+          ...state.tags,
+          action.tag,
+        ],
       };
     default:
       return state;

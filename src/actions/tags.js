@@ -9,6 +9,7 @@ const receiveTags = tags => ({
   type: RECEIVE_TAGS,
   tags,
 });
+
 const requestTags = () => ({
   type: REQUEST_TAGS,
 });
@@ -59,7 +60,7 @@ const shouldFetchTags = (state) => {
 };
 
 const fetchTagsIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchTags(getState())) {    
+  if (shouldFetchTags(getState())) {
     return dispatch(fetchTags());
   }
 

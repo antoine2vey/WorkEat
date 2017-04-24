@@ -37,7 +37,7 @@ class Tag extends Component {
     return (
       <div className="columns" style={{ justifyContent: 'center' }}>
         <div className="column">
-          <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
+          <form method="POST" onSubmit={this.handleSubmit}>
             <div className="column">
               <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
               <Input type="submit" value="Créer" className="btn" />

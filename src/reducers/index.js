@@ -4,11 +4,13 @@ import { combineReducers } from 'redux';
 import products from './products';
 import auth from './auth';
 import tags from './tags';
+import places from './livraison';
 
 const rootReducer = combineReducers({
   auth,
   products,
   tags,
+  places,
   //routing: routerReducer,
 });
 
