@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/auth';
+import values from 'lodash/values';
+import { logoutUser } from '../../actions/auth';
 import AdminNav from './AdminNav';
 import UserNav from './UserNav';
 
@@ -29,11 +29,11 @@ class Header extends Component {
 
   render() {
     const { roles, isAdminNavbarDisplayed } = this.state;
-
+    const { logoutUser, itemsInCart } = this.props;
     return (
       <div>
         {isAdminNavbarDisplayed && <AdminNav roles={roles} /> }
-        <UserNav {...this.props} />
+        <UserNav logoutUser={logoutUser} itemsNumber={itemsInCart} />
       </div>
     );
   }
@@ -41,14 +41,19 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   const { token } = state.auth;
+  const { quantityById } = state.cart;
   return {
     token,
+    // Map object to array, reduce to calculate total items in the cart
+    itemsInCart: values(quantityById).reduce((a, b) => (a + b), 0),
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
+const mapDispatchToProps = dispatch => ({
+  logoutUser() {
+    dispatch(logoutUser());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
