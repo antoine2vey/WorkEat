@@ -82,7 +82,7 @@ class Formule extends Component {
                 </div>
                 <footer className="card-footer">
                   <a className="card-footer-item"><strong>{bundle.price}€</strong></a>
-                  <a className="card-footer-item"><strong>{bundle.reduction}</strong></a>
+                  <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : ''}</strong></a>
                   <a className="card-footer-item" onClick={() => this.props.deleteBundles(bundle._id)}>Delete</a>
                 </footer>
               </div>

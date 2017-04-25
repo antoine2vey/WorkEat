@@ -25,7 +25,7 @@ class Products extends Component {
           >
             { row.map(product => (
               <div className="column is-3" key={product._id} style={{ margin: 0 }}>
-                <Product data={product} />
+                {this.props.children}
               </div>
             )) }
           </div>

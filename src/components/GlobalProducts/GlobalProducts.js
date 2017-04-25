@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import Carte from '../Carte/Carte';
+import Bundles from '../Bundles/Bundles';
 
 const GlobalProducts = () => (
   <div>
-    <div className="tabs is-fullwidth is-medium">
+    <div className="tabs is-fullwidth is-medium" style={{ marginBottom: 0 }}>
       <ul>
         <li>
           <NavLink to="/formules" activeClassName="is-active">
@@ -20,7 +21,7 @@ const GlobalProducts = () => (
     </div>
 
     <Switch>
-      <Route path="/formules" render={() => <h1>formule</h1>} />
+      <Route path="/formules" component={Bundles} />
       <Route path="/carte" component={Carte} />
       <Redirect from="/" to="/carte" />
     </Switch>
