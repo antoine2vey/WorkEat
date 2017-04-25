@@ -6,6 +6,7 @@ import auth from './auth';
 import tags from './tags';
 import places from './livraison';
 import bundles from './bundles';
+import cart from './cart';
 
 const rootReducer = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   tags,
   places,
   bundles,
+  cart,
   //routing: routerReducer,
 });
 
