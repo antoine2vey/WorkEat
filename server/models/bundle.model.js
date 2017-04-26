@@ -15,24 +15,6 @@ const bundleSchema = new mongoose.Schema({
     hasDessert: Boolean,
     hasBoisson: Boolean,
   },
-  choosenItem: {
-    entree: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-    plat: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-    dessert: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-    boisson: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-    },
-  },
   description: String,
   reduction: {
     type: Number,

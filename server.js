@@ -129,6 +129,7 @@ const order = require('./server/api/order.api');
 const bundle = require('./server/api/bundle.api');
 const article = require('./server/api/article.api');
 const csv = require('./server/api/csv.api');
+const cart = require('./server/api/cart.api.js');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -226,6 +227,11 @@ app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
 
 // ORDERS
 app.post('/api/orders', authorizeRequest, order.create);
+
+// CART
+app.get('/api/cart', authorizeRequest, cart.get);
+app.put('/api/cart', authorizeRequest, cart.add);
+app.delete('/api/cart/:id', authorizeRequest, cart.delete);
 
 // BUNDLES
 app.get('/api/bundles', bundle.list);

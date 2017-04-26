@@ -17,7 +17,7 @@ const UserNav = ({ logoutUser, itemsNumber }) => (
         <NavLink to="/account" className="nav-item is-tab">
           Profile
         </NavLink>
-        <NavLink to="/cart" className="nav-item is-tab">
+        <NavLink to="/panier" className="nav-item is-tab">
           Panier -&nbsp;<strong>{itemsNumber} items</strong>
         </NavLink>
         <a className="nav-item is-tab" onClick={() => logoutUser()}>Log out</a>

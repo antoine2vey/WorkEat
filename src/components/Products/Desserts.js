@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import chunk from 'lodash/chunk';
+import { addToCart } from '../../actions/cart';
 
-const Dessert = ({ dessert: { file, description, price, tags, types, name } }) => (
+const Dessert = ({ dessert: { file, description, price, tags, types, name }, addToCart }) => (
   <div className="card">
     <div className="card-image">
       <figure className="image is-4by3">
@@ -11,7 +13,7 @@ const Dessert = ({ dessert: { file, description, price, tags, types, name } }) =
     <div className="card-content">
       <div className="media">
         <div className="media-content">
-          <p className="title is-4">{ name }</p>
+          <p className="title is-4">{ name } <a onClick={addToCart}>Ajouter au panier</a></p>
           <p className="subtitle is-6">{ price }€</p>
         </div>
       </div>
@@ -27,7 +29,7 @@ const Dessert = ({ dessert: { file, description, price, tags, types, name } }) =
 );
 
 const Desserts = ({ ...props }) => {
-  const { desserts } = props;
+  const { desserts, addToCart } = props;
   const rows = chunk(desserts, 4);
 
   return (
@@ -40,7 +42,7 @@ const Desserts = ({ ...props }) => {
         >
           { row.map(dessert => (
             <div className="column is-3" key={dessert._id} style={{ margin: 0 }}>
-              <Dessert dessert={dessert} />
+              <Dessert dessert={dessert} addToCart={() => addToCart(dessert._id)} />
             </div>
           )) }
         </div>
@@ -48,4 +50,11 @@ const Desserts = ({ ...props }) => {
     </div>
   );
 };
-export default Desserts;
+
+const mapDispatchToProps = dispatch => ({
+  addToCart(id) {
+    dispatch(addToCart(id));
+  },
+});
+
+export default connect(() => ({}), mapDispatchToProps)(Desserts);

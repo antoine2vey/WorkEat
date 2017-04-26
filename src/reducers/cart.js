@@ -1,4 +1,12 @@
-import { ADD_TO_CART, CHECKOUT_REQUEST, CHECKOUT_FAILURE } from '../actions/cart';
+import {
+  ADD_TO_CART,
+  CHECKOUT_REQUEST,
+  CHECKOUT_FAILURE,
+  INCREMENT_ITEM,
+  UNINCREMENT_ITEM,
+  DELETE_ITEM,
+  UPDATE_MAP_ITEM,
+} from '../actions/cart';
 
 const initialState = {
   addedIds: [],
@@ -20,8 +28,10 @@ const addedIds = (state = initialState.addedIds, action) => {
 const quantityById = (state = initialState.quantityById, action) => {
   switch (action.type) {
     case ADD_TO_CART:
+    case INCREMENT_ITEM:
       const { productId } = action;
-      return { ...state,
+      return {
+        ...state,
         [productId]: (state[productId] || 0) + 1,
       };
     default:
@@ -37,6 +47,11 @@ export const getAddedIds = state => state.addedIds;
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_MAP_ITEM:
+      return {
+        ...state,
+        _map: action.map,
+      };
     case CHECKOUT_REQUEST:
       return initialState;
     case CHECKOUT_FAILURE:
@@ -44,7 +59,7 @@ const cart = (state = initialState, action) => {
     default:
       return {
         addedIds: addedIds(state.addedIds, action),
-        quantityById: quantityById(state.quantityById, action)
+        quantityById: quantityById(state.quantityById, action),
       };
   }
 };

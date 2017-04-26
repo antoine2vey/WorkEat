@@ -7,6 +7,7 @@ import GlobalProducts from '../GlobalProducts/GlobalProducts';
 import Admin from '../Admin/Admin';
 import Prestataire from '../Prestataire/Prestataire';
 import Livreur from '../Livreur/Livreur';
+import Cart from '../Cart/Cart';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ const App = () => (
     <Header />
     <Route>
       <Switch>
+        <Route path="/panier" component={Cart} />
         <Route path="/account" render={() => <h1>acc page</h1>} />
         <Route path="/admin" component={Admin} />
         <Route path="/prestataire" component={Prestataire} />
