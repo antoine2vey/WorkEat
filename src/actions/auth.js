@@ -13,7 +13,6 @@ const loginUserRequest = () => ({
 const loginUserSuccess = (token) => {
   localStorage.setItem('_token', token);
   history.push('/');
-  axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
   return {
     type: LOGIN_SUCCESS,
     token,
@@ -38,8 +37,7 @@ export const logoutUser = () => (dispatch) => {
     .then(() => dispatch(logout()));
 };
 
-export const loginUser = ({ email, password }) => (dispatch) => {  
-  dispatch(loginUserRequest());
+export const loginUser = ({ email, password }) => (dispatch) => {
   axios.post('/account/login', {
     username: email,
     password,
