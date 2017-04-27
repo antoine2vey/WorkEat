@@ -966,9 +966,9 @@
 .header-home-form-container {
   display: block;
   margin: 0 auto;
-  max-width: 500px;
+  max-width: 600px;
   height: auto;
-  padding: 20px;
+  padding: 20px 0;
   background: rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -1007,10 +1007,20 @@
 .header-home-form-content {
   margin: 0; }
 
-.header-home-form-content-input {
-  position: relative; }
+.header-home-form-content-row {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center; }
 
-.header-home-form-content-input input[type="text"] {
+.header-home-form-content-input {
+  flex: 1;
+  position: relative;
+  margin: 0 10px; }
+
+.header-home-form-content-input input[type="text"],
+.header-home-form-content-input input[type="email"],
+.header-home-form-content-input input[type="password"] {
   width: 100%;
   padding: 0 10px 0 35px;
   color: #FFFFFF;
