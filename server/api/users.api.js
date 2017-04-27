@@ -56,6 +56,7 @@ exports.login = (req, res) => {
   });
 };
 exports.create = (req, res) => {
+  console.log(req.body);
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -83,7 +84,6 @@ exports.create = (req, res) => {
     town: req.body.town,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
-    position: req.body.position,
   });
 
   User.findOne({ username: req.body.username }, (err, existingUser) => {
