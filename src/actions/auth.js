@@ -38,6 +38,7 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const loginUser = ({ email, password }) => (dispatch) => {
+  dispatch(loginUserRequest());
   axios.post('/account/login', {
     username: email,
     password,

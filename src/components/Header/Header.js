@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'react-redux';
-import values from 'lodash/values';
 import { logoutUser } from '../../actions/auth';
+import { getTotal } from '../../reducers/cart';
 import AdminNav from './AdminNav';
 import UserNav from './UserNav';
 
 class Header extends Component {
-  static setRoles(token, roles = []) {
+  setRoles(token, roles = []) {
     const { isAdmin, isLivreur, isPrestataire } = token;
     roles.push(
       isAdmin ? 'admin' : null,
@@ -19,11 +19,12 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-    const token = jwtDecode(props.token);
+    // TODO: See why it crashes app sometimes
+    const token = jwtDecode(localStorage.getItem('_token'));
 
     this.state = {
-      isAdminNavbarDisplayed: token.isAdmin || token.isLivreur || token.isPrestataire,
-      roles: Header.setRoles(token),
+      isAdminNavbarDisplayed: (token.isAdmin || token.isLivreur || token.isPrestataire) || false,
+      roles: this.setRoles(token),
     };
   }
 
@@ -41,19 +42,11 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   const { token } = state.auth;
-  const { quantityById } = state.cart;
   return {
     token,
     // Map object to array, reduce to calculate total items in the cart
-    itemsInCart: values(quantityById).reduce((a, b) => (a + b), 0),
+    itemsInCart: getTotal(state.cart),
   };
 }
-
-const mapDispatchToProps = dispatch => ({
-  logoutUser() {
-    dispatch(logoutUser());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, { logoutUser })(Header);
 

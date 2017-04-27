@@ -15,7 +15,6 @@ const auth = (state = initialState, action) => {
         isAuthenticating: true,
       };
     case LOGIN_SUCCESS:
-      console.log('in reducer @ success', action);
       return {
         ...state,
         token: action.token,
@@ -24,7 +23,6 @@ const auth = (state = initialState, action) => {
         statusText: 'Connecté!',
       };
     case LOGIN_FAILURE:
-      console.log('in reducer @ failure', action);
       return {
         ...state,
         isAuthenticating: false,

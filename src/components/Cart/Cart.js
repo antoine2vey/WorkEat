@@ -1,31 +1,39 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
+import { getCartProducts, getTotalPrice } from '../../reducers/cart';
 
-class Cart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cart: []
-    };
-  }
+const Cart = ({ cart, total }) => (
+  <div>
+    {cart.map(item => (
+      <article className="media" key={item._id} style={{ paddingLeft: 15 }}>
+        <figure className="media-left">
+          <p className="image is-128x128">
+            <img src={`/${item.file}`} alt="product" />
+          </p>
+        </figure>
+        <div className="media-content">
+          <div className="content">
+            <p>
+              <strong>{item.name}</strong> <small>{item.price * item.quantity}€</small>
+            </p>
+          </div>
+        </div>
+        <div className="media-right">
+          <h1>{item.quantity}</h1>
+        </div>
+      </article>
+    )) }
+    <br />
+    <br />
+    <br />
+    {total}€
+  </div>
+);
 
-  componentDidMount() {
-    axios.get('/api/cart')
-      .then(data => {
-        this.setState({cart: data.data});
-      });
-  }
+const mapStateToProps = state => ({
+  cart: getCartProducts(state.cart),
+  total: getTotalPrice(state.cart),
+});
 
-  render() {
-    return (
-      <div>
-        <code>
-         {JSON.stringify(this.state.cart)}
-        </code>
-      </div>
-    );
-  }
-}
-
-export default Cart;
+export default connect(mapStateToProps)(Cart);
 
