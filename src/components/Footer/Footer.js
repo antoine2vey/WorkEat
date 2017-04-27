@@ -2,7 +2,7 @@ import React from 'react';
 import { logoBlanc } from '../../images';
 
 const Footer = () => (
-  <div className="container-fluid">
+  <div className="container-fluid footer--container">
     <div className="footer">
       <div className="footer-logo">
         <img className="footer-logo-item" src={logoBlanc} alt="Logo WorkEat" />
