@@ -227,6 +227,9 @@
   width: 25px;
   cursor: pointer; }
 
+a:hover {
+  color: inherit; }
+
 .divider {
   width: 100px;
   margin: 20px auto; }
@@ -2014,7 +2017,8 @@ hr {
   flex: 1;
   height: 50px;
   color: #BDBDBD;
-  transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1); }
+  transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1);
+  text-decoration: none; }
 
 .products__choise__type--active {
   color: #212121; }
@@ -2185,7 +2189,8 @@ hr {
   height: 50px;
   color: #BDBDBD;
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1); }
+  transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1);
+  text-decoration: none; }
 
 .products-carte__choise__type--active {
   color: #212121; }
