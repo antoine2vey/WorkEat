@@ -14,20 +14,14 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
-const redis = require('redis');
 const pmx = require('pmx');
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const app = express();
-const client = redis.createClient();
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
-
-client.on('connect', () => {
-  console.log('Connected to Redis!');
-});
 
 /**
 * ENV CONFIG

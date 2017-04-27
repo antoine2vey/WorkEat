@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const fs = require('fs');
 const genId = require('shortid');
-const redis = require('redis');
-
-const client = redis.createClient();
-const PRODUCT_HASH = 'products';
 
 mongoose.Promise = Promise;
 
