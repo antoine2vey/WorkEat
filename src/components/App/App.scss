@@ -1,6 +1,17 @@
+@import "../../scss/skeleton";
 @import "../../scss/partials/variables";
 @import "../../scss/partials/mixins";
 @import "../../scss/partials/fonts";
 @import "../../scss/partials/header";
 @import "../../scss/partials/general";
 @import "../../scss/partials/footer";
+
+/* Account */
+@import "../../scss/partials/account/infos";
+@import "../../scss/partials/account/command";
+@import "../../scss/partials/account/solde";
+
+
+
+
+@import "../../scss/partials/products/panel";

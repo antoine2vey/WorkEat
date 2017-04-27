@@ -1414,6 +1414,9 @@
 .compteCommand-tab-label {
   border: 0px; }
 
+.arrow {
+  margin-left: 2%; }
+
 .rkmd-checkbox {
   color: #818181;
   font-size: 15px;
