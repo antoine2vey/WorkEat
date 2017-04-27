@@ -205,6 +205,9 @@
 a:hover {
   color: inherit; }
 
+#root {
+  min-height: 100vh; }
+
 .divider {
   width: 100px;
   margin: 20px auto; }

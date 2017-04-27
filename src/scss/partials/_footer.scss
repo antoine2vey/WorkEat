@@ -10,6 +10,14 @@
   @include screenXs {
     padding: 20px 10px;
   };
+  
+  // &--container {
+  //   position: absolute;
+  //   bottom: 0;
+  //   width: 100%;
+  //   left: 0;
+  //   right: 0;
+  // }
 
   &-logo {
     flex: 1;
