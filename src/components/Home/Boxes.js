@@ -124,7 +124,7 @@ class ConnectionBox extends Component {
   }
   render() {
     return (
-      /* <form onSubmit={this.handleLogin}>
+      <form onSubmit={this.handleLogin}>
           <div className="field">
             <label className="label">Nom</label>
             <p className="control">
@@ -174,8 +174,15 @@ class ConnectionBox extends Component {
             </p>
           </div>
           <input type="submit" value="create"/>
-        </form>*/
-      <div>
+      </form>
+    );
+  }
+}
+
+export { LoginBox, ConnectionBox };
+
+
+/*<div>
         <div className="header-home-form-container">
           <p className="header-home-form-title">Inscription</p>
           <div className="header-home-form-step">
@@ -215,9 +222,4 @@ class ConnectionBox extends Component {
             </div>
           </form>
         </div>
-      </div>
-    );
-  }
-}
-
-export { LoginBox, ConnectionBox };
+      </div>*/
