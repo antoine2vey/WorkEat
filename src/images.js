@@ -24,6 +24,11 @@ import cart from './assets/images/icons/shopping-bag.svg';
 import arrowBottom from './assets/images/icons/angle-down-black.svg';
 import paypal from './assets/images/icons/paypal.svg';
 import creditCard from './assets/images/icons/credit-card.svg';
+import edit from './assets/images/icons/edit.svg';
+import trashBlanc from './assets/images/icons/trash-blanc.svg';
+import visa from './assets/images/icons/visa.svg';
+import mastercard from './assets/images/icons/mastercard.svg';
+
 
 export {
   videoMP4,
@@ -48,4 +53,8 @@ export {
   arrowBottom,
   paypal,
   creditCard,
+  edit,
+  trashBlanc,
+  visa,
+  mastercard,
 };

@@ -55,10 +55,10 @@ const Solde = () => (
               <div className="card visa-card">
                 <div className="card__top">
                   <div className="card__icons-container">
-                    <img src="images/icons/edit.svg" alt="Editer la cart" className="card__icons" />
-                    <img src="images/icons/trash-blanc.svg" alt="Supprimer la cart" className="card__icons" />
+                    <img src={images.edit} alt="Editer la cart" className="card__icons" />
+                    <img src={images.trashBlanc} alt="Supprimer la cart" className="card__icons" />
                   </div>
-                  <img src="images/icons/visa.svg" alt="Type de carte" className="card__type" />
+                  <img src={images.visa} alt="Type de carte" className="card__type" />
                 </div>
                 <div className="card__middle">
                   <p className="card__code">•••• •••• •••• 4356</p>
@@ -79,10 +79,10 @@ const Solde = () => (
               <div className="card master-card">
                 <div className="card__top">
                   <div className="card__icons-container">
-                    <img src="images/icons/edit.svg" alt="Editer la cart" className="card__icons" />
-                    <img src="images/icons/trash-blanc.svg" alt="Supprimer la cart" className="card__icons" />
+                    <img src={images.edit} alt="Editer la cart" className="card__icons" />
+                    <img src={images.trashBlanc} alt="Supprimer la cart" className="card__icons" />
                   </div>
-                  <img src="images/icons/mastercard.svg" alt="Type de carte" className="card__type" />
+                  <img src={images.mastercard} alt="Type de carte" className="card__type" />
                 </div>
                 <div className="card__middle">
                   <p className="card__code">•••• •••• •••• 6911</p>
@@ -103,10 +103,10 @@ const Solde = () => (
               <div className="card visa-card">
                 <div className="card__top">
                   <div className="card__icons-container">
-                    <img src="images/icons/edit.svg" alt="Editer la cart" className="card__icons" />
-                    <img src="images/icons/trash-blanc.svg" alt="Supprimer la cart" className="card__icons" />
+                    <img src={images.edit} alt="Editer la cart" className="card__icons" />
+                    <img src={images.trashBlanc} alt="Supprimer la cart" className="card__icons" />
                   </div>
-                  <img src="images/icons/visa.svg" alt="Type de carte" className="card__type" />
+                  <img src={images.visa} alt="Type de carte" className="card__type" />
                 </div>
                 <div className="card__middle">
                   <p className="card__code">•••• •••• •••• 0879</p>
@@ -127,10 +127,10 @@ const Solde = () => (
               <div className="card master-card">
                 <div className="card__top">
                   <div className="card__icons-container">
-                    <img src="images/icons/edit.svg" alt="Editer la cart" className="card__icons" />
-                    <img src="images/icons/trash-blanc.svg" alt="Supprimer la cart" className="card__icons" />
+                    <img src={images.edit} alt="Editer la cart" className="card__icons" />
+                    <img src={images.trashBlanc} alt="Supprimer la cart" className="card__icons" />
                   </div>
-                  <img src="images/icons/mastercard.svg" alt="Type de carte" className="card__type" />
+                  <img src={images.mastercard} alt="Type de carte" className="card__type" />
                 </div>
                 <div className="card__middle">
                   <p className="card__code">•••• •••• •••• 2876</p>
