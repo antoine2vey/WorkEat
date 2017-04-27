@@ -11,7 +11,7 @@ const Solde = () => (
         <p className="partTwo__type-title">Paypal</p>
       </div>
       <div className="partTwo__type select-tab select-tab--current" data-tab="card">
-        <img src="images/icons/credit-card.svg" alt="Solde du compte" className="partTwo__icon" />
+        <img src={images.creditCard} alt="Solde du compte" className="partTwo__icon" />
         <p className="partTwo__type-title">Carte bancaire</p>
       </div>
     </div>

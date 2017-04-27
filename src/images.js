@@ -23,6 +23,8 @@ import closeBlack from './assets/images/icons/close-black.svg';
 import cart from './assets/images/icons/shopping-bag.svg';
 import arrowBottom from './assets/images/icons/angle-down-black.svg';
 import paypal from './assets/images/icons/paypal.svg';
+import creditCard from './assets/images/icons/credit-card.svg';
+
 export {
   videoMP4,
   videoWebm,
@@ -45,4 +47,5 @@ export {
   cart,
   arrowBottom,
   paypal,
+  creditCard,
 };
