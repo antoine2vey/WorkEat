@@ -21,8 +21,8 @@ import crevette from './assets/images/crevette-home.jpg';
 import close from './assets/images/icons/close.svg';
 import closeBlack from './assets/images/icons/close-black.svg';
 import cart from './assets/images/icons/shopping-bag.svg';
-import arrowBottom from './assets/images/icons/angle-down-black.svg'
-
+import arrowBottom from './assets/images/icons/angle-down-black.svg';
+import paypal from './assets/images/icons/paypal.svg';
 export {
   videoMP4,
   videoWebm,
@@ -44,4 +44,5 @@ export {
   closeBlack,
   cart,
   arrowBottom,
+  paypal,
 };

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const fs = require('fs');
+const gm = require('gm').subClass({ imageMagick: true });
 const genId = require('shortid');
 
 mongoose.Promise = Promise;
@@ -104,11 +105,16 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error, please try again!');
       }
 
-      fs.writeFile(`public/${fileName}`, base64data, { encoding: 'base64' }, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
+      const img = new Buffer(base64data, 'base64');
+      gm(img, fileName)
+        .resize(300, 300)
+        .write(`public/${fileName}`, function (err) {
+          if (err) {
+            return console.log('image magick err', err);
+          }
+
+          console.log('Created an image from a Buffer!');
+        });
 
       return res.status(200).send(product);
     });

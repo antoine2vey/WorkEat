@@ -4,20 +4,14 @@ import Carte from '../Carte/Carte';
 import Bundles from '../Bundles/Bundles';
 
 const GlobalProducts = () => (
-  <div>
-    <div className="tabs is-fullwidth is-medium" style={{ marginBottom: 0 }}>
-      <ul>
-        <li>
-          <NavLink to="/formules" activeClassName="is-active">
-            <span>Formules</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/carte" activeClassName="is-active">
-            <span>Carte</span>
-          </NavLink>
-        </li>
-      </ul>
+  <div className="products">
+    <div className="products__choise">
+      <NavLink to="/formules" className="products__choise__type select-tab" activeClassName="select-tab--current">
+        <p className="products__choise__title">Formule</p>
+      </NavLink>
+      <NavLink to="/carte" className="products__choise__type select-tab" activeClassName="select-tab--current">
+        <p className="products__choise__title">A la carte</p>
+      </NavLink>
     </div>
 
     <Switch>

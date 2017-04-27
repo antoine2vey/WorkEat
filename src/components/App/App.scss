@@ -6,12 +6,17 @@
 @import "../../scss/partials/general";
 @import "../../scss/partials/footer";
 
-/* Account */
-@import "../../scss/partials/account/infos";
-@import "../../scss/partials/account/command";
-@import "../../scss/partials/account/solde";
+@import '../../scss/partials/account/command';
+@import '../../scss/partials/account/header';
+@import '../../scss/partials/account/infos';
+@import '../../scss/partials/account/solde';
 
+@import '../../scss/partials/contact/contact';
 
+@import '../../scss/partials/payment/partFive';
+@import '../../scss/partials/payment/partTwo';
+@import '../../scss/partials/payment/partOne';
 
-
-@import "../../scss/partials/products/panel";
+@import '../../scss/partials/products/carte';
+@import '../../scss/partials/products/_panel';
+@import '../../scss/partials/products/_products-general';

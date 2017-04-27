@@ -1,5 +1,5 @@
 import React from 'react';
-
+import * as images from '../../images';
 const Solde = () => (
   <div className="compteInfo-bloc">
 
@@ -7,7 +7,7 @@ const Solde = () => (
     <h2 className="partTwo__title">Solde actuel: <span className="bold">0,00€</span></h2>
     <div className="partTwo__select">
       <div className="partTwo__type select-tab" data-tab="paypal">
-        <img src="images/icons/paypal.svg" alt="Solde du compte" className="partTwo__icon" />
+        <img src={images.paypal} alt="Paypal" className="partTwo__icon" />
         <p className="partTwo__type-title">Paypal</p>
       </div>
       <div className="partTwo__type select-tab select-tab--current" data-tab="card">

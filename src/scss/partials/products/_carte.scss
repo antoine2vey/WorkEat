@@ -10,6 +10,7 @@
       color: $divider;
       text-align: center;
       transition: all 0.3s $transition;
+      text-decoration: none;
 
       &--active {
         color: $write;

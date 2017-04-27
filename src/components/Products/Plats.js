@@ -4,27 +4,19 @@ import chunk from 'lodash/chunk';
 import { addToCart } from '../../actions/cart';
 
 const Plat = ({ plat: { file, description, price, tags, types, name }, addToCart }) => (
-  <div className="card">
-    <div className="card-image">
-      <figure className="image is-4by3">
-        <img src={`/${file}` || 'http://bulma.io/images/placeholders/1280x960.png'} alt="Images" style={{ objectFit: 'cover' }} />
-      </figure>
+  <div className="products__product">
+    <div className="products__product__options">
+      <button className="products__product__option btn-gold">Voir</button>
+      <button className="products__product__option btn-gold" onClick={addToCart}>Ajouter</button>
     </div>
-    <div className="card-content">
-      <div className="media">
-        <div className="media-content">
-          <p className="title is-4">{ name } <a onClick={addToCart}>Ajouter au panier</a></p>
-          <p className="subtitle is-6">{ price }€</p>
-        </div>
-      </div>
-
-      <div className="content">
-        {description} <br />
-        { tags.map(tag => (<a href="#" key={tag._id}>#{tag.name} </a>)) }
-        <br />
-        { types.map((type, i) => (<small key={i}>{type}{type.length - 1 === i ? '' : ' - '}</small>)) }
-      </div>
-    </div>
+    <img src={`/${file}`} alt="Produit" className="products__product__image" />
+    <h2 className="products__product__title">{name}</h2>
+    <p className="products__product__tag">{
+      tags.map(tag => (
+        <span key={tag._id}>{tag.name}, </span>
+      ))
+    }</p>
+    <p className="products__product__price">{price}€</p>
   </div>
 );
 
@@ -36,14 +28,11 @@ const Plats = ({ ...props }) => {
     <div>
       { rows.map((row, i) => (
         <div
-          className="columns" key={i} style={{
-            marginLeft: i !== 0 ? 0 : 'auto',
-          }}
+          className="products__products-list"
+          key={i}
         >
           { row.map(plat => (
-            <div className="column is-3" key={plat._id} style={{ margin: 0 }}>
-              <Plat plat={plat} addToCart={() => addToCart(plat._id)} />
-            </div>
+            <Plat plat={plat} key={plat._id} addToCart={() => addToCart(plat._id)} />
           )) }
         </div>
       )) }
