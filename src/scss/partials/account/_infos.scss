@@ -1,0 +1,63 @@
+.compteInfo {
+  padding-top: 100px;
+  background-color: $grey;
+  height: 100%;
+&-maps{
+  float: right;
+  @include material-shadow(box, 2);
+width: 55%;
+height: 350px;
+}
+&-submit{
+  left: 80px;
+  top:10px;
+}
+&-btnSuppr{
+  margin-top: 20px;
+}
+  &-submenu {
+    @include flex;
+    text-align: center;
+    background-color: $white;
+    @include material-shadow(box, 2);
+    margin-bottom: 50px;
+
+    &-item {
+      flex: 1;
+      padding: 10px;
+      font-size: 18px;
+      color: $divider;
+      text-decoration: none;
+      border-bottom: 5px solid transparent;
+
+      &:hover{
+        color:$write;
+        border-bottom: 5px solid $gold;
+
+      }
+    }
+  }
+  &-bloc {
+    background-color: $white;
+    @include material-shadow(box, 2);
+    margin: 20px;
+    padding: 20px;
+    padding-bottom: 30px;
+  }
+  &-iframe{
+    @include material-shadow(box, 2);
+
+  }
+  &-field{
+    width: 18% !important;
+    margin-left: 1%;
+  }
+  &-rowForm{
+    margin-bottom: 50px;
+  }
+}
+
+.active {
+  border-bottom: 5px solid $gold;
+  color: $black;
+}

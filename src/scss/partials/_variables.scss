@@ -9,9 +9,13 @@ $black: #000000;
 $write: #212121;
 $white: #FFFFFF;
 $grey: #EEEEEE;
+$dark-grey: #757575;
 $gold: #ECD785;
+$red: #ef5350;
+$divider: #BDBDBD;
 /* fonts */
 $primary-font: 'Roboto', sans-serif;
+$secondary-font: 'Raleway', sans-serif;
 $accent-font: 'Parisienne', cursive;
 /* transition */
-$transition:cubic-bezier(1,0,.33,.72)
+$transition:cubic-bezier(.8,0,.4,1)

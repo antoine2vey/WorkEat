@@ -1,0 +1,160 @@
+.partFive {
+  padding-top: 150px;
+  background-color: $grey;
+  height: 100%;
+  &-title{
+    text-align: center;
+    padding: 50px 0;
+  }
+  &-final{
+    margin: 50px 0;
+  }
+  &-label{
+    &-name{
+      flex:  0.5;
+    }
+    &-qty{
+      flex: 0.3;
+    }
+    &-price{
+      flex: 0.1;
+    }
+  }
+  &-return{
+    float: right;
+  }
+  &-return:hover{
+    color:$gold;
+    border-color: $gold;
+     transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+  }
+  &-bloc{
+    background-color: $white;
+    padding: 20px;
+    margin-bottom: 50px;
+    @include material-shadow(box, 2) ;
+
+  }
+  &-total{
+    text-align: center;
+    float: right;
+  }
+  &-labels{
+    @include flex;
+  }
+  &__product {
+    @include flex;
+    height: 120px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    @include screenSm{
+      padding: 0px;
+    }
+    transition: all 0.3s $transition;
+
+    &-infos {
+      @include flex(flex-start, center, row);
+      flex: 1;
+    }
+
+    &-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+    }
+
+    &-text {
+      padding: 0 20px;
+    }
+
+    &-title,
+    &-type {
+      margin: 0;
+    }
+
+    &-type {
+      color: $dark-grey;
+    }
+
+    &-title {
+      font-size: 22px;
+      color: $gold;
+      font-weight: bold;
+    }
+  }
+
+  &__quantity {
+    flex: 0.5;
+    width: 50px;
+
+  }
+
+  &__price {
+    flex: 0.2;
+    margin: 0;
+    @include screenSm{
+    margin-top: auto;
+}
+  }
+
+
+}
+
+.partFive-commandInfo{
+  padding-bottom: 50px;
+&-list{
+@include  flex;
+background-color: $white;
+margin: 0;
+padding: 10px;
+list-style: none;
+@include material-shadow(box, 2) ;
+&-item{
+  padding: 0 95px;
+  text-align: center;
+  @include screenSm{
+    padding: 0px;
+    margin-bottom: 10px;
+  }
+}
+@include screenSm{
+  flex-direction: column;
+}
+}
+}
+.partFive-tabcommand{
+  background-color: $white;
+  padding: 20px;
+  @include material-shadow(box, 2);
+
+  &-part {
+    color: $divider;
+    font-style: italic;
+  }
+
+  &-label {
+    @include flex;
+    list-style: none;
+  }
+
+  &-list {
+    @include flex;
+    list-style: none;
+
+    &-item {
+      align-items: flex-start !important;
+      margin-right: 100px;
+    }
+  }
+}
+
+p {
+  margin-bottom: 0;
+}
+
+hr {
+  margin: 0;
+}
+.price-promo{
+  margin-top: inherit;
+}

@@ -25,9 +25,13 @@
     font-family: $accent-font;
   }
 
+  &-content {
+    font-family: $secondary-font;
+  }
+
   &-images {
     max-width: 600px;
     width: 100%;
-    @include material-shadow(2);
+    @include material-shadow(box, 2);
   }
 }

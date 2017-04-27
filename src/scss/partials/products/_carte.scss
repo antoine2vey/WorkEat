@@ -1,0 +1,24 @@
+.products-carte {
+  &__choise {
+    @include flex;
+    border-bottom: 1px solid $grey;
+
+    &__type {
+      @include flex;
+      flex: 1;
+      height: 50px;
+      color: $divider;
+      text-align: center;
+      transition: all 0.3s $transition;
+
+      &--active {
+        color: $write;
+      }
+    }
+
+    &__title {
+      text-transform: uppercase;
+      font-family: $primary-font;
+    }
+  }
+}

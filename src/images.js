@@ -1,22 +1,26 @@
-import videoMP4 from './assets/video-hp.mp4';
-import videoWebm from './assets/video-hp.webm';
-import videoOgv from './assets/video-hp.ogv';
+import videoMP4 from './assets/images/video-hp.mp4';
+import videoWebm from './assets/images/video-hp.webm';
+import videoOgv from './assets/images/video-hp.ogv';
 
-import logoBlanc from './assets/logo-blanc.svg';
-import user from './assets/icons/user.svg';
-import checkForm from './assets/icons/check-form.svg';
-import angleDown from './assets/icons/angle-down.svg';
-import angle from './assets/icons/angle.svg';
-import touch from './assets/icons/touch.svg';
-import truck from './assets/icons/truck.svg';
+import logoBlanc from './assets/images/logo-blanc.svg';
+import user from './assets/images/icons/user.svg';
+import checkForm from './assets/images/icons/check-form.svg';
+import angleDown from './assets/images/icons/angle-down.svg';
+import angle from './assets/images/icons/angle.svg';
+import touch from './assets/images/icons/touch.svg';
+import truck from './assets/images/icons/truck.svg';
 
-import concept from './assets/concept.jpg';
-import livraison from './assets/img-livraison.jpg';
+import concept from './assets/images/concept.jpg';
+import livraison from './assets/images/img-livraison.jpg';
 
-import brochette from './assets/brochette-home.jpg';
-import sushi from './assets/sushi-home.jpg';
-import burger from './assets/burger-home.jpg';
-import crevette from './assets/crevette-home.jpg';
+import brochette from './assets/images/brochette-home.jpg';
+import sushi from './assets/images/sushi-home.jpg';
+import burger from './assets/images/burger-home.jpg';
+import crevette from './assets/images/crevette-home.jpg';
+
+import close from './assets/images/icons/close.svg';
+import closeBlack from './assets/images/icons/close-black.svg';
+import cart from './assets/images/icons/shopping-bag.svg';
 
 export {
   videoMP4,
@@ -35,4 +39,7 @@ export {
   burger,
   crevette,
   livraison,
+  close,
+  closeBlack,
+  cart,
 };

@@ -19,19 +19,19 @@
     background-repeat: no-repeat;
 
     &--concept {
-      background-image: url('../../assets/burger.jpg');
+      background-image: url('../images/burger.jpg');
     }
 
     &--produits {
-      background-image: url('../../assets/vegetable.jpg');
+      background-image: url('../images/vegetable.jpg');
     }
 
     &--gastronomie {
-      background-image: url('../../assets/gastro-eco.jpg');
+      background-image: url('../images/gastro-eco.jpg');
     }
 
     &--livraison {
-      background-image: url('../../assets/livreur.jpg');
+      background-image: url('../images/livreur.jpg');
     }
 
     &-item {
@@ -59,7 +59,7 @@
 
     &-text {
       margin: 0;
-      font-family: $primary-font;
+      font-family: $secondary-font;
       padding: 0 75px;
       @include screenMd {
         padding: 0 10px;

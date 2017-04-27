@@ -28,7 +28,7 @@
 
       &-images {
         width: 100%;
-        @include material-shadow(2);
+        @include material-shadow(box, 2);
       }
     }
 
@@ -40,7 +40,7 @@
 
     &-text {
       color: $white;
-      font-family: $primary-font;
+      font-family: $secondary-font;
     }
   }
 }

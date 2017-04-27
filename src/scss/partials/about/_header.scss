@@ -2,12 +2,13 @@
   @include flex;
   width: 100%;
   height: 500px;
-  background-image: url('../../assets/about.jpg');
+  background-image: url('../images/about.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 60%;
   @include screenSm {
     height: 200px;
+    padding-top: 150px;
   };
 
   &-title {

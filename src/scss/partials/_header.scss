@@ -1,0 +1,175 @@
+.main {
+  &-header {
+    position: fixed;
+    z-index: 900;
+    @include flex;
+    width: 100%;
+    height: 100px;
+    background: $write;
+
+    &-menu {
+      width: 150px;
+      @include flex;
+      @include screenSm {
+        width: 100px;
+      };
+
+      &-item {
+        position: relative;
+        color: $white;
+        font-family: $primary-font;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        overflow: hidden;
+        cursor: pointer;
+
+        &:hover {
+          &:before {
+            width: 100%;
+          }
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 0;
+          height: 3px;
+          background: $gold;
+          @include material-shadow(box, 1);
+          transition: all 0.3s $transition;
+        }
+      }
+    }
+
+    &-timer {
+      flex: 1;
+
+      &-content {
+        margin: 0;
+        color: $white;
+        font-size: 19px;
+        font-family: $primary-font;
+        text-align: center;
+        line-height: 1.2;
+
+        &-time {
+          font-size: 30px;
+          @include screenSm {
+            font-size: 24px;
+          };
+        }
+      }
+    }
+
+    &-cart {
+      position: relative;
+      width: 150px;
+      text-align: center;
+      @include screenSm {
+        width: 100px;
+      };
+
+      &-number {
+        position: absolute;
+        top: 0;
+        left: 75px;
+        @include flex;
+        width: 15px;
+        height: 15px;
+        color: $white;
+        background: $gold;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 18px;
+        @include material-shadow(box, 2);
+        @include screenSm {
+          left: 50px;
+        };
+      }
+
+      &-item {
+        width: 40px;
+      }
+    }
+  }
+}
+
+.nav {
+  position: fixed;
+  z-index: 1100;
+  @include flex(flex-start, center, column);
+  width: 300px;
+  height: 100vh;
+  padding-top: 40px;
+  background: $write;
+  transform: translateX(-300px);
+  transition: all 0.3s $transition;
+
+  &--js-open {
+    transform: translateX(0);
+    @include material-shadow(box, 3);
+  }
+
+  &-logo {
+    width: 90%;
+    padding-top: 30px;
+  }
+
+  &-list {
+    padding: 100px 0 0;
+    margin: 0;
+    list-style-type: none;
+    text-align: center;
+
+    &-item {
+      &-link {
+        position: relative;
+        color: $gold;
+        font-family: $primary-font;
+        font-weight: 200;
+        font-size: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  &-social {
+    @include flex(center, center, row);
+    width: 100%;
+    padding: 50px 0 0;
+    margin: 0;
+
+    &-item {
+      width: 20%;
+      text-align: center;
+
+      &-link {
+        display: block;
+        color: $gold;
+        font-size: 26px;
+        text-decoration: none;
+        @include screenMd {
+          font-size: 40px;
+        };
+
+        &:hover {
+          color: $gold;
+        }
+      }
+    }
+  }
+
+  &-close {
+    width: 25px;
+    cursor: pointer;
+  }
+}

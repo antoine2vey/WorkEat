@@ -1,0 +1,63 @@
+.partTwo {
+  @include container(960px);
+  padding-top: 200px;
+  padding-bottom: 50px;
+
+  &__title {
+    padding-top: 20px;
+    text-align: center;
+    font-family: $primary-font;
+    @include screenSm {
+      font-size: 28px;
+    };
+  }
+
+  &__select {
+    @include flex(center, flex-start, row);
+    height: auto;
+    @include material-shadow(box, 2);
+  }
+
+  &__type {
+    flex: 1;
+    height: 150px;
+    padding: 40px 0 0;
+    text-align: center;
+
+    &-title {
+      font-family: $primary-font;
+      font-size: 20px;
+    }
+  }
+
+  &__icon {
+    width: 60px;
+  }
+
+  &__solde {
+    font-family: $primary-font;
+  }
+
+  &__selected {
+    @include flex(center, flex-start, row);
+    margin-top: 50px;
+    @include material-shadow(box, 2);
+
+    &__title {
+      font-size: 24px;
+      font-family: $primary-font;
+      font-weight: 500;
+    }
+  }
+
+  &__add-card,
+  &__cards-list {
+    flex: 1;
+    width: 50%;
+    padding: 30px;
+  }
+  /* add cart */
+  &__expiry-cvv {
+    @include flex;
+  }
+}

@@ -1,0 +1,30 @@
+.product-panel {
+  position: fixed;
+  z-index: 800;
+  top: 100px;
+  right: 0;
+  @include flex(flex-start, center, column);
+  width: 500px;
+  height: 100%;
+  position: fixed;
+  transform: translateX(500px);
+  padding: 40px 0;
+  background: $white;
+  @include material-shadow(box, 2);
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  @include screenSm {
+    width: 320px;
+  };
+
+  &__close {
+    width: 25px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__image {
+    width: 100%;
+    padding: 20px 0 0;
+  }
+}
