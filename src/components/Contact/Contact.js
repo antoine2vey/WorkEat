@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bannerContact } from '../../images';
 
 class Contact extends Component {
   render() {
@@ -45,9 +46,8 @@ class Contact extends Component {
   <input type="submit" value="Envoyer" className="btn-gold btn-full" />
             </form>
           </div>
-
-          <div className="five columns partContact-maps">
-          <iframe className="partContact-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d20247.24938208072!2d3.06215325!3d50.628859799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1493192625489" frameBorder="0" className={{border:0}} allowFullScreen></iframe>
+          <div className="five columns">
+          <iframe className="partContact-maps" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d20247.24938208072!2d3.06215325!3d50.628859799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1493192625489" frameBorder="0"  allowFullScreen></iframe>
           </div>
         </div>
       </div>

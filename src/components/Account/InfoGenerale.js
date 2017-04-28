@@ -17,7 +17,7 @@ const InfoGenerale = () => (
         <input type="text" id="name" className="material-field__input compteInfo-input"/>
       </div>
 
-      //<iframe className="compteInfo-maps" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d20247.24938208072!2d3.06215325!3d50.628859799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1493192625489" frameBorder="0" className={{border:0}} allowFullScreen></iframe>
+      <GMap />
       <div className="material-field compteInfo-field">
       <label className="material-field__label" htmlFor="email">Email</label>
       <input type="email" id="email" className="material-field__input compteInfo-input"/>
