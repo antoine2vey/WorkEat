@@ -128,13 +128,18 @@
       &-nav {
         @include flex;
       }
-      &-arrow, &-arrow-left {
+      &-arrow {
         width:35px;
         margin:10px;
         outline:none;
-      }
-      &-arrow-left {
-        transform: rotate(180deg);
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s $transition;
+
+        &--active {
+          visibility: visible;
+          opacity:1;
+        }
       }
     }
 
