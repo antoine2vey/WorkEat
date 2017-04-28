@@ -124,8 +124,6 @@
     }
 
     &__image {
-      flex: 0.3;
-      width: 450px;
       @include material-shadow(box, 5);
       border: 3px solid $white;
     }
@@ -168,6 +166,8 @@
     &__desc {
       color: $white;
       font-family: $primary-font;
+      display: block;
+      width: 100%;
     }
   }
 }

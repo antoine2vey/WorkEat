@@ -1,12 +1,26 @@
-import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT } from '../actions/products';
+import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL } from '../actions/products';
 
 const initialState = {
   isFetching: false,
   products: [],
+  isDetailVisible: false,
+  product: {},
 };
 
 const products = (state = initialState, action) => {
   switch (action.type) {
+    case SHOW_DETAIL:
+      return {
+        ...state,
+        isDetailVisible: true,
+        product: action.product,
+      };
+    case HIDE_DETAIL:
+      return {
+        ...state,
+        isDetailVisible: false,
+        product: {},
+      };
     case REQUEST_PRODUCTS:
       return {
         ...state,

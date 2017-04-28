@@ -4,6 +4,8 @@ export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+export const SHOW_DETAIL = 'SHOW_DETAIL';
+export const HIDE_DETAIL = 'HIDE_DETAIL';
 
 // Action to receive products
 const receiveProducts = products => ({
@@ -22,6 +24,15 @@ const deleteProduct = productId => ({
 const addProduct = product => ({
   type: CREATE_PRODUCT,
   product,
+});
+
+const showProductDetail = product => ({
+  type: SHOW_DETAIL,
+  product,
+});
+
+const hideProductDetail = () => ({
+  type: HIDE_DETAIL,
 });
 
 // API call to fetch products
@@ -73,4 +84,12 @@ const fetchProductsIfNeeded = () => (dispatch, getState) => {
   return Promise.resolve();
 };
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct };
+const showProduct = product => dispatch => (
+  dispatch(showProductDetail(product))
+);
+
+const hideProduct = () => dispatch => (
+  dispatch(hideProductDetail())
+);
+
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct };
