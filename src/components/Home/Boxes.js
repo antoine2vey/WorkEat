@@ -37,7 +37,6 @@ class LoginBox extends Component {
                   type="email"
                   name="email"
                   placeholder="Email *"
-                  autoComplete="off"
                   required className="header-home-form-content-input-item"
                   onChange={this.handleChange}
                 />
@@ -48,7 +47,6 @@ class LoginBox extends Component {
                   type="password"
                   name="password"
                   placeholder="Mot de passe *"
-                  autoComplete="off"
                   required className="header-home-form-content-input-item"
                   onChange={this.handleChange}
                 />

@@ -21,6 +21,7 @@
     &__title {
       text-transform: uppercase;
       font-family: $primary-font;
+      margin: 0;
     }
   }
 
@@ -55,12 +56,14 @@
     &__tag {
       color: $dark-grey;
       font-style: italic;
+      margin: 0;
     }
 
     &__price {
       color: $gold;
       font-size: 20px;
       font-family: $primary-font;
+      margin: 0;
     }
 
     &__options {
