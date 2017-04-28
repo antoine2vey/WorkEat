@@ -99,7 +99,6 @@ export const getCartProducts = state => (
 export const getTotalPrice = state => (
   getAddedIds(state)
     .reduce((total, id) => (total + getProduct(state, id).price) * state.quantityById[id], 0)
-    .toFixed(2)
 );
 
 export default cart;
