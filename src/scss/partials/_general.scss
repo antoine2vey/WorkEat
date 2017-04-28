@@ -622,3 +622,12 @@ a:hover {
 .icon-instagrem:before {
   content: "\61";
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill{
+  -webkit-text-fill-color: $gold;
+  background: transparent;
+  transition: background-color 5000s ease-in-out 0s;
+
+}

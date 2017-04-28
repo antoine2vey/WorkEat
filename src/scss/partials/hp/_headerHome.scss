@@ -157,6 +157,7 @@
         margin:0 10px;
         @include screenMd {
           flex-basis: 100%;
+          }
         };
         input[type="text"],
         input[type="email"],
@@ -168,7 +169,6 @@
           border: 1px solid $white;
           border-radius: 3px;
         }
-
         &-icon {
           position: absolute;
           bottom: 27px;
