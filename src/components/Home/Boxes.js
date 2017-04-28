@@ -3,6 +3,26 @@ import axios from 'axios';
 import * as images from '../../images';
 import Slider from 'react-slick';
 
+const RightNavButton = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="btn-gold"
+      onClick={onClick}
+    >Suivant</button>
+  );
+};
+
+const LeftNavButton = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="btn-gold"
+      onClick={onClick}
+    >Précedent</button>
+  );
+};
+
 class LoginBox extends Component {
   constructor() {
     super();
@@ -30,13 +50,6 @@ class LoginBox extends Component {
       <div>
         <div className="header-home-form-container">
           <p className="header-home-form-title">Connexion</p>
-          <div className="header-home-form-step" style={{ opacity: 0 }}>
-            <p className="header-home-form-step-phase">Etape 1 sur 4</p>
-            <div className="header-home-form-step-puce active" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
-          </div>
           <form onSubmit={this.handleLogin} className="header-home-form-content">
             <div className="row">
               <div className=" header-home-form-content-input">
@@ -126,7 +139,10 @@ class ConnectionBox extends Component {
   render() {
     const settings = {
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      infinite: false,
+      prevArrow: <LeftNavButton />,
+      nextArrow: <RightNavButton />,
     };
     return (
       <div>
@@ -140,6 +156,7 @@ class ConnectionBox extends Component {
             <div className="header-home-form-step-puce" />
           </div>
           <form onSubmit={this.handleLogin} className="header-home-form-content">
+            <Slider {...settings}>
               <div className="header-home-form-content-row">
                 <div className=" header-home-form-content-input">
                   <input id="name" className="header-home-form-content-input-item" type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
@@ -180,6 +197,7 @@ class ConnectionBox extends Component {
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
               </div>
+            </Slider>
             <input type="submit" value="create" />
           </form>
         </div>

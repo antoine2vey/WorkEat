@@ -14,8 +14,8 @@
   }
 }
 @mixin flex($justify:center, $align:center, $direction:null) {
-  display: flex;
-  display: -webkit-flex;
+  display: flex !important;
+  display: -webkit-flex !important;
   justify-content: $justify;
   align-items: $align;
   flex-direction: $direction;
