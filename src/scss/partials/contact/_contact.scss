@@ -1,3 +1,4 @@
+
 .partContact {
   padding-top: 100px;
   min-height: 100%;
@@ -15,7 +16,7 @@
   &-banner {
     position: fixed;
     height: 500px;
-    background: url('/images/contact-fond.jpg') center center;
+    background: url('../../../src/assets/images/contact-fond.jpg') center center;
     background-size: cover;
     margin-bottom: 100px;
     z-index: -10;
@@ -49,6 +50,9 @@
   &-maps {
     @include material-shadow(box, 2);
     margin-bottom: 30px;
+    border: 0px;
+    width: 100%;
+    height: 600px;
     @include screenXs{
       display: none;
     }
