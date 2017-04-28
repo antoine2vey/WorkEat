@@ -3,34 +3,33 @@ import { arrowBottom }  from "../../images";
 
 const Commandes = () => (
   <div className="container-fluid">
-      <div className="compteCommand">
+    <div className="compteCommand">
       <div className="compteInfo-bloc">
-    <h5>COMMANDES</h5>
-
-    <table className="compteCommand-tab">
-      <tr  className="compteCommand-tab-row">
-        <th className="compteCommand-tab-label">
-          Numéro de Commande
-<img src={arrowBottom}  alt="arrow" className="arrow" />
-        </th>
-        <th className="compteCommand-tab-label">
-          Date
-          <img src={arrowBottom}  alt="arrow" className="arrow" />
-        </th>
-        <th className="compteCommand-tab-label">
-          Etat
-          <img src={arrowBottom}  alt="arrow" className="arrow" />
-        </th>
-        <th className="compteCommand-tab-label">
-          Methode de paiement
-          <img src={arrowBottom}  alt="arrow" className="arrow" />
-        </th>
-        <th className="compteCommand-tab-label">
-          Total
-          <img src={arrowBottom}  alt="arrow" className="arrow" />
-        </th>
-      </tr>
-      <tr  className="compteCommand-tab-row">
+        <h5>COMMANDES</h5>
+        <table className="compteCommand-tab">
+          <tr className="compteCommand-tab-row">
+            <th className="compteCommand-tab-label">
+            Numéro de Commande
+            <img src={arrowBottom} alt="arrow" className="arrow" />
+            </th>
+            <th className="compteCommand-tab-label">
+            Date
+            <img src={arrowBottom} alt="arrow" className="arrow" />
+            </th>
+            <th className="compteCommand-tab-label">
+            Etat
+            <img src={arrowBottom} alt="arrow" className="arrow" />
+            </th>
+            <th className="compteCommand-tab-label">
+            Methode de paiement
+            <img src={arrowBottom} alt="arrow" className="arrow" />
+            </th>
+            <th className="compteCommand-tab-label">
+            Total
+            <img src={arrowBottom} alt="arrow" className="arrow" />
+            </th>
+          </tr>
+          <tr  className="compteCommand-tab-row">
         <td  className="compteCommand-tab-cellule">
           N°204
         </td>

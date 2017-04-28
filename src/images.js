@@ -28,7 +28,8 @@ import edit from './assets/images/icons/edit.svg';
 import trashBlanc from './assets/images/icons/trash-blanc.svg';
 import visa from './assets/images/icons/visa.svg';
 import mastercard from './assets/images/icons/mastercard.svg';
-import arrow from './assets/images/icons/arrow.svg';
+import arrowRight from './assets/images/icons/arrow-right.svg';
+import arrowLeft from './assets/images/icons/arrow-left.svg';
 
 export {
   videoMP4,
@@ -57,5 +58,6 @@ export {
   trashBlanc,
   visa,
   mastercard,
-  arrow,
+  arrowRight,
+  arrowLeft,
 };

@@ -289,6 +289,7 @@ a:hover {
   }
 
   &__code {
+    margin:0;
     color: $white;
     text-align: center;
     font-family: $primary-font;
@@ -306,6 +307,7 @@ a:hover {
 
   &__label-date,
   &__label-name {
+    margin:0;
     color: $white;
     font-size: 14px;
     font-family: $primary-font;
@@ -313,6 +315,7 @@ a:hover {
 
   &__date,
   &__name {
+    margin:0;
     color: $white;
     font-size: 20px;
     font-family: $primary-font;

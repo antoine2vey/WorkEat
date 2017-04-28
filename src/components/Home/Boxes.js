@@ -210,18 +210,16 @@ class ConnectionBox extends Component {
             </Slider>
             <div className="header-home-form-step-nav">
               <img
-                src={images.arrow}
+                src={images.arrowLeft}
                 alt="icon"
                 onClick={this.GotoPrevSlide}
-                className="header-home-form-step-arrow-left"
-                style={{ display: this.state.step === 0 ? 'none' : 'block' }}
+                className={'header-home-form-step-arrow ' + (this.state.step === 0 ? '' : 'header-home-form-step-arrow--active')}
               />
               <img
-                src={images.arrow}
+                src={images.arrowRight}
                 alt="icon"
                 onClick={this.GotoNextSlide}
-                className="header-home-form-step-arrow"
-                style={{ display: this.state.step === 3 ? 'none' : 'block' }}
+                className={'header-home-form-step-arrow ' + ((this.state.step === 3) || (this.state.step === 0 && (!this.state.name || !this.state.surname)) ? '' : 'header-home-form-step-arrow--active')}
               />
             </div>
             <input type="submit" value="create" style={{ display: this.state.town && this.state.phoneNumber ? 'inline-block' : 'none' }} />
