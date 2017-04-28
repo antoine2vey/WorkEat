@@ -121,6 +121,8 @@ class ConnectionBox extends Component {
     } = this.state;
     e.preventDefault();
 
+    console.log(this.state);
+
     axios.post('/account/create', {
       username: email,
       password,
@@ -132,7 +134,7 @@ class ConnectionBox extends Component {
       phoneNumber,
     })
     .then(() => {
-
+      console.log('compte crée');
     })
     .catch(err => console.error(err));
   }

@@ -8,6 +8,7 @@ import Admin from '../Admin/Admin';
 import Prestataire from '../Prestataire/Prestataire';
 import Livreur from '../Livreur/Livreur';
 import Cart from '../Cart/Cart';
+import Account from '../Account/Account';
 
 import './App.css';
 
@@ -17,7 +18,7 @@ const App = () => (
     <Route>
       <Switch>
         <Route path="/panier" component={Cart} />
-        <Route path="/account" render={() => <h1>acc page</h1>} />
+        <Route path="/compte" component={Account} />
         <Route path="/admin" component={Admin} />
         <Route path="/prestataire" component={Prestataire} />
         <Route path="/livreur" component={Livreur} />

@@ -202,6 +202,12 @@
     width: 25px;
     cursor: pointer; }
 
+a:hover {
+  color: inherit; }
+
+#root {
+  min-height: 100vh; }
+
 .divider {
   width: 100px;
   margin: 20px auto; }
@@ -1237,6 +1243,9 @@
     .compteCommand-tab-label {
       border: 0px; }
 
+.arrow {
+  margin-left: 2%; }
+
 .rkmd-checkbox {
   color: #818181;
   font-size: 15px;
@@ -1740,7 +1749,8 @@ hr {
       flex: 1;
       height: 50px;
       color: #BDBDBD;
-      transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1); }
+      transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1);
+      text-decoration: none; }
       .products__choise__type--active {
         color: #212121; }
     .products__choise__title {
@@ -1753,7 +1763,7 @@ hr {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 50px 0 0; }
+    padding: 25px 0 25px; }
   .products__product {
     position: relative;
     width: 250px;
@@ -1887,7 +1897,8 @@ hr {
     height: 50px;
     color: #BDBDBD;
     text-align: center;
-    transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1); }
+    transition: all 0.3s cubic-bezier(0.8, 0, 0.4, 1);
+    text-decoration: none; }
     .products-carte__choise__type--active {
       color: #212121; }
   .products-carte__choise__title {

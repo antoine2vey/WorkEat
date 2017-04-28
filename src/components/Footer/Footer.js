@@ -1,23 +1,28 @@
 import React from 'react';
+import { logoBlanc } from '../../images';
 
 const Footer = () => (
-  <div>
-    <footer className="footer">
-      <div className="container">
-        <div className="content has-text-centered">
-          <p>
-            <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
-          </p>
-          <p>
-            <a className="icon" href="https://github.com/jgthms/bulma">
-              <i className="fa fa-github" />
-            </a>
-          </p>
-        </div>
+  <div className="container-fluid footer--container">
+    <div className="footer">
+      <div className="footer-logo">
+        <img className="footer-logo-item" src={logoBlanc} alt="Logo WorkEat" />
       </div>
-    </footer>
+      <div className="footer-list">
+        <ul className="footer-list-social">
+          <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-facebook-square footer-list-social-item-link-icon"></i></a></li>
+          <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-twitter-square footer-list-social-item-link-icon"></i></a></li>
+          <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-pinterest-square footer-list-social-item-link-icon"></i></a></li>
+          <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon"></i></a></li>
+        </ul>
+        <ul className="footer-list-mentions">
+          <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Mentions légales</a></li>
+          <li className="footer-list-mentions-item">•</li>
+          <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">CGV</a></li>
+          <li className="footer-list-mentions-item">•</li>
+          <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Plan du site</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 );
 

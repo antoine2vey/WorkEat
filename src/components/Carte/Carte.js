@@ -15,30 +15,20 @@ class Carte extends Component {
   render() {
     const { entrees, plats, desserts, boissons } = this.props;
     return (
-      <div>
-        <div className="tabs is-fullwidth is-medium">
-          <ul>
-            <li>
-              <NavLink to="/carte/entrees" activeClassName="is-active">
-                <span>Entrées</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/carte/plats" activeClassName="is-active">
-                <span>Plats</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/carte/desserts" activeClassName="is-active">
-                <span>Desserts</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/carte/boissons" activeClassName="is-active">
-                <span>Boissons</span>
-              </NavLink>
-            </li>
-          </ul>
+      <div id="carte" className="products-carte tab tab--current">
+        <div className="products-carte__choise">
+          <NavLink to="/carte/entrees" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">
+            <p className="products-carte__choise__title">Entrées</p>
+          </NavLink>
+          <NavLink to="/carte/plats" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">
+            <p className="products-carte__choise__title">Plats</p>
+          </NavLink>
+          <NavLink to="/carte/desserts" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">
+            <p className="products-carte__choise__title">Desserts</p>
+          </NavLink>
+          <NavLink to="/carte/boissons" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">
+            <p className="products-carte__choise__title">Boissons</p>
+          </NavLink>
         </div>
 
         <Switch>

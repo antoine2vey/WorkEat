@@ -11,6 +11,7 @@
       height: 50px;
       color: $divider;
       transition: all 0.3s $transition;
+      text-decoration: none;
 
       &--active {
         color: $write;
@@ -26,7 +27,7 @@
   &__products-list {
     @include flex;
     @include container(1200px);
-    padding: 50px 0 0;
+    padding: 25px 0 25px;
   }
 
   &__product {
