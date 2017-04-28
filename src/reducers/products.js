@@ -19,7 +19,6 @@ const products = (state = initialState, action) => {
       return {
         ...state,
         isDetailVisible: false,
-        product: {},
       };
     case REQUEST_PRODUCTS:
       return {
