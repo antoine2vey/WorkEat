@@ -86,7 +86,10 @@ a:hover {
   transition: all 0.6s ease;
   overflow: hidden;
   @include reset($white, inherit, $gold);
+&:focus {
+  color:$gold;
 
+}
   &::before {
     content: '';
     position: absolute;
@@ -146,7 +149,10 @@ a:hover {
     transition: transform 0.3s, color 0.3s !important;
     transform-origin: 0 50% !important;
   }
-
+  &__checkbox{
+  background-color: $red;
+  margin-right: 3%;
+}
   &__input {
     position: relative !important;
     display: block !important;
@@ -203,6 +209,9 @@ a:hover {
   &--current {
     color: $write !important;
     border-color: $gold;
+  }
+  &:hover{
+    border-bottom: 5px solid $gold;
   }
 }
 

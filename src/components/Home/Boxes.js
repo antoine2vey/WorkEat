@@ -30,13 +30,6 @@ class LoginBox extends Component {
       <div>
         <div className="header-home-form-container">
           <p className="header-home-form-title">Connexion</p>
-          <div className="header-home-form-step" style={{ opacity: 0 }}>
-            <p className="header-home-form-step-phase">Etape 1 sur 4</p>
-            <div className="header-home-form-step-puce active" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
-          </div>
           <form onSubmit={this.handleLogin} className="header-home-form-content">
             <div className="row">
               <div className=" header-home-form-content-input">
@@ -73,8 +66,8 @@ class LoginBox extends Component {
 }
 
 class ConnectionBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
       surname: '',
@@ -84,10 +77,14 @@ class ConnectionBox extends Component {
       town: '',
       address: '',
       phoneNumber: '',
+      step: 0,
     };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.nextClick = this.nextClick.bind(this);
+    this.GotoNextSlide = this.GotoNextSlide.bind(this);
+    this.GotoPrevSlide = this.GotoPrevSlide.bind(this);
   }
 
   handleChange(event) {
@@ -125,23 +122,40 @@ class ConnectionBox extends Component {
     })
     .catch(err => console.error(err));
   }
+
+  nextClick(e) {
+    this.setState({ step: e });
+  }
+
+  GotoNextSlide() {
+    this.slider.slickNext();
+  }
+
+  GotoPrevSlide() {
+    this.slider.slickPrev();
+  }
+
   render() {
     const settings = {
+      // dots: true,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      infinite: false,
+      afterChange: this.nextClick,
     };
     return (
       <div>
         <div className="header-home-form-container">
           <p className="header-home-form-title">Inscription</p>
           <div className="header-home-form-step">
-            <p className="header-home-form-step-phase">Etape 1 sur 4</p>
+            <p className="header-home-form-step-phase">Etape {this.state.step + 1} sur 4</p>
             <div className="header-home-form-step-puce active" />
             <div className="header-home-form-step-puce" />
             <div className="header-home-form-step-puce" />
             <div className="header-home-form-step-puce" />
           </div>
           <form onSubmit={this.handleLogin} className="header-home-form-content">
+            <Slider ref={c => this.slider = c } {...settings}>
               <div className="header-home-form-content-row">
                 <div className=" header-home-form-content-input">
                   <input id="name" className="header-home-form-content-input-item" type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
@@ -182,6 +196,21 @@ class ConnectionBox extends Component {
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
               </div>
+            </Slider>
+            <div className="header-home-form-step-nav">
+              <img
+                src={images.arrow}
+                alt="icon"
+                onClick={this.GotoPrevSlide}
+                className="header-home-form-step-arrow-left"
+              />
+              <img
+                src={images.arrow}
+                alt="icon"
+                onClick={this.GotoNextSlide}
+                className="header-home-form-step-arrow"
+              />
+            </div>
             <input type="submit" value="create" />
           </form>
         </div>
