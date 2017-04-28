@@ -32,5 +32,8 @@
   &-images {
     height: 500px;
     @include material-shadow(box, 2);
+    @include screenSm {
+      height:300px;
+    };
   }
 }

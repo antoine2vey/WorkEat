@@ -75,6 +75,8 @@
 
       &-number {
         position: absolute;
+        font-family: $primary-font;
+        font-weight: 300;
         top: 0;
         left: 75px;
         @include flex;
@@ -84,7 +86,7 @@
         background: $gold;
         border-radius: 50%;
         padding: 5px;
-        font-size: 18px;
+        font-size: 14px;
         @include material-shadow(box, 2);
         @include screenSm {
           left: 50px;
@@ -93,6 +95,9 @@
 
       &-item {
         width: 40px;
+      }
+      &-link {
+        border: 0;
       }
     }
   }

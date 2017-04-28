@@ -128,7 +128,19 @@ class ConnectionBox extends Component {
   }
 
   GotoNextSlide() {
-    this.slider.slickNext();
+    if (this.state.step === 0) {
+      if (this.state.name && this.state.surname) {
+        this.slider.slickNext();
+      }
+    } else if (this.state.step === 1) {
+      if (this.state.email && this.state.password) {
+        this.slider.slickNext();
+      }
+    } else if (this.state.step === 2) {
+      if (this.state.zipCode && this.state.town) {
+        this.slider.slickNext();
+      }
+    }
   }
 
   GotoPrevSlide() {
@@ -149,10 +161,10 @@ class ConnectionBox extends Component {
           <p className="header-home-form-title">Inscription</p>
           <div className="header-home-form-step">
             <p className="header-home-form-step-phase">Etape {this.state.step + 1} sur 4</p>
-            <div className="header-home-form-step-puce active" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
-            <div className="header-home-form-step-puce" />
+            <div className={(this.state.step >= 0 ? 'header-home-form-step-puce--active' : 'header-home-form-step-puce')} />
+            <div className={(this.state.step >= 1 ? 'header-home-form-step-puce--active' : 'header-home-form-step-puce')} />
+            <div className={(this.state.step >= 2 ? 'header-home-form-step-puce--active' : 'header-home-form-step-puce')} />
+            <div className={(this.state.step >= 3 ? 'header-home-form-step-puce--active' : 'header-home-form-step-puce')} />
           </div>
           <form onSubmit={this.handleLogin} className="header-home-form-content">
             <Slider ref={c => this.slider = c } {...settings}>
@@ -162,37 +174,37 @@ class ConnectionBox extends Component {
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
                 <div className="header-home-form-content-input">
-                  <input id="surname" className="header-home-form-content-input-item" type="text" name="surname" placeholder="Text input" onChange={this.handleChange} />
+                  <input id="surname" className="header-home-form-content-input-item" type="text" name="surname" placeholder="Prénom" onChange={this.handleChange} />
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
               </div>
               <div className="header-home-form-content-row">
                 <div className="header-home-form-content-input">
-                  <input id="email" className="header-home-form-content-input-item" type="email" name="email" placeholder="Text input" onChange={this.handleChange} />
+                  <input id="email" className="header-home-form-content-input-item" type="email" name="email" placeholder="Email" onChange={this.handleChange} />
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
                 <div className="header-home-form-content-input">
-                  <input id="password" className="header-home-form-content-input-item" type="password" name="password" placeholder="Text input" onChange={this.handleChange} />
-                  <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
-                </div>
-              </div>
-              <div className="header-home-form-content-row">
-                <div className="header-home-form-content-input">
-                  <input className="header-home-form-content-input-item" name="zipCode" type="text" placeholder="Text input" onChange={this.handleChange} />
-                  <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
-                </div>
-                <div className="header-home-form-content-input">
-                  <input id="town" className="header-home-form-content-input-item" name="town" type="text" placeholder="Text input" onChange={this.handleChange} />
+                  <input id="password" className="header-home-form-content-input-item" type="password" name="password" placeholder="Mot de passe" onChange={this.handleChange} />
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
               </div>
               <div className="header-home-form-content-row">
                 <div className="header-home-form-content-input">
-                  <input id="address" className="header-home-form-content-input-item" name="address" type="text" placeholder="Text input" onChange={this.handleChange} />
+                  <input className="header-home-form-content-input-item" name="zipCode" type="text" placeholder="Code postal" onChange={this.handleChange} />
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
                 <div className="header-home-form-content-input">
-                  <input id="phoneNumber" className="header-home-form-content-input-item" name="phoneNumber" type="text" placeholder="Text input" onChange={this.handleChange} />
+                  <input id="town" className="header-home-form-content-input-item" name="town" type="text" placeholder="Ville" onChange={this.handleChange} />
+                  <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
+                </div>
+              </div>
+              <div className="header-home-form-content-row">
+                <div className="header-home-form-content-input">
+                  <input id="address" className="header-home-form-content-input-item" name="address" type="text" placeholder="Adresse" onChange={this.handleChange} />
+                  <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
+                </div>
+                <div className="header-home-form-content-input">
+                  <input id="phoneNumber" className="header-home-form-content-input-item" name="phoneNumber" type="text" placeholder="Téléphone" onChange={this.handleChange} />
                   <img src={images.user} alt="Icone" className="header-home-form-content-input-icon" />
                 </div>
               </div>
@@ -203,15 +215,17 @@ class ConnectionBox extends Component {
                 alt="icon"
                 onClick={this.GotoPrevSlide}
                 className="header-home-form-step-arrow-left"
+                style={{ display: this.state.step === 0 ? 'none' : 'block' }}
               />
               <img
                 src={images.arrow}
                 alt="icon"
                 onClick={this.GotoNextSlide}
                 className="header-home-form-step-arrow"
+                style={{ display: this.state.step === 3 ? 'none' : 'block' }}
               />
             </div>
-            <input type="submit" value="create" />
+            <input type="submit" value="create" style={{ display: this.state.town && this.state.phoneNumber ? 'inline-block' : 'none' }} />
           </form>
         </div>
       </div>

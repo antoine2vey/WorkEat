@@ -41,9 +41,12 @@
 
       &-item {
         display: block;
-        max-width: 300px;
+        width:600px;
         height: auto;
         margin: 0 auto;
+        @include screenSm {
+          width:400px;
+        };
       }
     }
 
@@ -91,7 +94,7 @@
 
     &-title {
       margin: 0 0 10px;
-      font-size: 18px;
+      font-size: 22px;
       font-family: $primary-font;
       font-weight: bold;
       color: $white;
@@ -108,23 +111,27 @@
         margin: 0;
       }
 
-      &-puce {
+      &-puce, &-puce--active {
         display: inline-block;
         width: 17px;
-        height: 3px;
+        height: 4px;
         margin: 1px;
         background: darken($gold, 50%);
         border-radius: 3px;
         transition: background 0.3s, box-shadow 0.3s ease;
 
-        &.active {
+        &--active {
           background: $gold;
           box-shadow: 0 0 3px $gold;
         }
       }
+      &-nav {
+        @include flex;
+      }
       &-arrow, &-arrow-left {
         width:35px;
         margin:10px;
+        outline:none;
       }
       &-arrow-left {
         transform: rotate(180deg);
@@ -136,13 +143,16 @@
 
       &-row {
         @include flex;
+        flex-wrap: wrap;
       }
 
       &-input {
         flex: 1;
         position: relative;
         margin:0 10px;
-
+        @include screenMd {
+          flex-basis: 100%;
+        };
         input[type="text"],
         input[type="email"],
         input[type="password"] {
@@ -177,11 +187,9 @@
 }
 
 .instructions {
-  @include flex;
   max-width: 100%;
-  min-height: 200px;
   height: auto;
-  padding: 10px 100px;
+  padding:20px 0;
   background: $write;
   box-shadow: inset 0 0 5px $black;
   @include screenSm {
@@ -189,7 +197,8 @@
   };
 
   &-container {
-    @include flex(flex-end, center, row);
+    @include container(900px);
+    @include flex(center, center, row);
     flex: 1;
     height: 100%;
     @include screenSm {
@@ -198,11 +207,11 @@
   }
 
   &-step {
-    @include flex(center,center, column);
+    @include flex(center, center, column);
     flex: 1;
 
     &-icon {
-      width: 50px;
+      width: 40px;
 
       &:nth-child(even) {
         width: 30px;
@@ -210,7 +219,7 @@
     }
 
     &-text {
-      margin: 15px 0;
+      margin: 15px 0 0;
       text-align: center;
       font-size: 18px;
       font-family: $primary-font;

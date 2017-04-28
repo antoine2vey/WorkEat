@@ -42,7 +42,8 @@ class Home extends Component {
                   <img src={images.logoBlanc} alt="WorkEat" className="header-home-top-logo-item" />
                 </div>
                 <div className="four columns">
-                  <p className="header-home-top-connexion">Déjà inscrit ? <a href="#" className="header-home-top-connexion-link" onClick={this.switchBox}>Connexion</a></p>
+                  <p className="header-home-top-connexion" style={{ display: this.state.isLoggingIn ? 'none' : 'block' }}>Déjà inscrit ? <a href="#" className="header-home-top-connexion-link" onClick={this.switchBox}>Connexion</a></p>
+                  <p className="header-home-top-connexion" style={{ display: this.state.isLoggingIn ? 'block' : 'none' }}>Pas encore inscrit ? <a href="#" className="header-home-top-connexion-link" onClick={this.switchBox}>Inscription</a></p>
                 </div>
               </div>
               <div className="row">
@@ -94,7 +95,11 @@ class Home extends Component {
               <h1 className="concept-title">Le concept</h1>
               <hr className="divider" />
               <p className="concept-content">Nous proposons différentes entrées, plats, desserts et boissons afin de satisfaire vos papilles. Apres avoir commandé ce que qu&#39;il vous plait, nous vous livrons dans un rayon de cinq kilomètres autour de notre entrepot.</p>
-              <Link to="/about" className="btn-gold">A propos</Link>
+              <Link to="/about">
+                <button className="btn-gold">
+                  A propos
+                </button>
+              </Link>
             </div>
             <div className="concept-container">
               <img src={images.concept} alt="Concept" className="concept-images" />
@@ -117,7 +122,9 @@ class Home extends Component {
               <h1 className="menu-container-title">Une semaine, un menu</h1>
               <hr className="divider" />
               <p className="menu-container-text">Chaque semaine nous changeons notre carte pour vous apporter toujours plus de plats différents</p>
-              <button className="btn-gold">Voir le menu</button>
+              <Link to="/carte/entrees">
+                <button className="btn-gold">Voir le menu</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -127,7 +134,9 @@ class Home extends Component {
               <h1 className="livraison-title">Livré près de votre travail</h1>
               <hr className="divider" />
               <p>Nous livrons dans quatre points différents, tous au maximum à 5km. Vous pourrez choisir votre point de livraison favori et ainsi venir récupérer votre commande juste après la livraison.</p>
-              <button className="btn-gold">Commander</button>
+              <Link to="/carte/entrees">
+                <button className="btn-gold">Commander</button>
+              </Link>
             </div>
             <div className="livraison-container">
               <img src={images.livraison} alt="Livraison" className="livraison-images" />

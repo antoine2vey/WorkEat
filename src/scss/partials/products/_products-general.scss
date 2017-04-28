@@ -25,9 +25,12 @@
   }
 
   &__products-list {
-    @include flex;
+    @include flex(flex-start);
     @include container(1200px);
-    padding: 25px 0 25px;
+    padding: 25px 0 0;
+    &:last-of-type {
+      padding-bottom: 25px;
+    }
   }
 
   &__product {
@@ -39,10 +42,6 @@
     text-align: center;
     @include material-shadow(box, 2);
     transition: all 0.3s $transition;
-
-    &__image {
-      width: 300px;
-    }
 
     &__title {
       margin: 5px 0;
