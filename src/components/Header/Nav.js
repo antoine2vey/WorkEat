@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { close, logoBlanc } from '../../images';
 
 const Nav = ({ shown, switcher }) => (
@@ -7,22 +8,22 @@ const Nav = ({ shown, switcher }) => (
     <img src={logoBlanc} alt="logo" className="nav-logo" />
     <ul className="nav-list">
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Liste des produits</a>
+        <Link to="/" className="nav-list-item-link">Liste des produits</Link>
       </li>
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Qui sommes nous</a>
+        <Link to="/about" className="nav-list-item-link">Qui sommes nous</Link>
       </li>
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Actualités</a>
+        <Link to="/blog" className="nav-list-item-link">Actualités</Link>
       </li>
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Mon compte</a>
+        <Link to="/compte" className="nav-list-item-link">Mon compte</Link>
       </li>
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Solde <strong>0,00 €</strong></a>
+        <Link to="/compte/solde" className="nav-list-item-link">Solde <strong>0,00 €</strong></Link>
       </li>
       <li className="nav-list-item">
-        <a href="#" className="nav-list-item-link">Contact</a>
+        <Link to="/contact" className="nav-list-item-link">Contact</Link>
       </li>
     </ul>
     <ul className="nav-social">
