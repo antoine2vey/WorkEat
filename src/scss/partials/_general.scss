@@ -86,7 +86,10 @@ a:hover {
   transition: all 0.6s ease;
   overflow: hidden;
   @include reset($white, inherit, $gold);
+&:focus {
+  color:$gold;
 
+}
   &::before {
     content: '';
     position: absolute;

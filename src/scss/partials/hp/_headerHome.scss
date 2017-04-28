@@ -1,3 +1,4 @@
+/* home */
 .header-home {
   position: relative;
   width: 100%;
@@ -120,6 +121,12 @@
           background: $gold;
           box-shadow: 0 0 3px $gold;
         }
+      }
+      &-arrow, &-arrow-left {
+        width:35px;
+      }
+      &-arrow-left {
+        transform: rotate(180deg);
       }
     }
 
