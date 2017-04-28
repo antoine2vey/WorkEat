@@ -1015,7 +1015,8 @@ a:hover {
   box-shadow: 0 0 3px #ECD785; }
 
 .header-home-form-step-arrow, .header-home-form-step-arrow-left {
-  width: 35px; }
+  width: 35px;
+  margin: 10px; }
 
 .header-home-form-step-arrow-left {
   transform: rotate(180deg); }

@@ -137,7 +137,7 @@ class ConnectionBox extends Component {
 
   render() {
     const settings = {
-      // dots: true,
+      arrows: false,
       slidesToShow: 1,
       slidesToScroll: 1,
       infinite: false,
