@@ -22,30 +22,26 @@ const Solde = () => (
         <div className="partTwo__add-card">
           <h3 className="partTwo__selected__title">Ajouter une carte</h3>
           <div className="material-field partTwo__owner">
-            <label for="name" className="material-field__label">Nom du propriétaire</label>
+            <label htmlFor="name" className="material-field__label">Nom du propriétaire</label>
             <input type="text" id="name" className="material-field__input" />
           </div>
           <div className="material-field partTwo__code">
-            <label for="code" className="material-field__label">Numéro de carte</label>
+            <label htmlFor="code" className="material-field__label">Numéro de carte</label>
             <input type="text" id="code" className="material-field__input" />
           </div>
           <div className="partTwo__expiry-cvv">
             <div className="material-field partTwo__expiry">
-              <label for="expiry" className="material-field__label">Expire le</label>
+              <label htmlFor="expiry" className="material-field__label">Expire le</label>
               <input type="text" id="expiry" className="material-field__input" />
             </div>
             <div className="material-field partTwo__cvv">
-              <label for="cvv" className="material-field__label">CVV</label>
+              <label htmlFor="cvv" className="material-field__label">CVV</label>
               <input type="text" id="cvv" className="material-field__input" />
             </div>
           </div>
-          <div className="rkmd-checkbox checkbox-ripple">
-                <label className="input-checkbox checkbox-red">
-                  <input type="checkbox" id="checkbox-1" checked />
-                  <span className="checkbox"></span>
-                </label>
-                <label for="checkbox-1" className="label">Checkbox</label>
-              </div>
+            <label htmlFor="checkbox" className="checkbox-label">
+          <input type="checkbox" className="material-field__checkbox" />
+               Enregistrer mes informations</label>
           <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>
         </div>
         <div className="partTwo__cards-list">
