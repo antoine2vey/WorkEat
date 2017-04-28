@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { close, logoBlanc } from '../../images';
 
-const Nav = ({ shown, switcher }) => (
+const Nav = ({ shown, switcher, logout }) => (
   <nav className={shown ? 'nav nav--js-open' : 'nav'}>
     <img src={close} alt="Fermer le menu" className="nav-close" onClick={switcher} />
     <img src={logoBlanc} alt="logo" className="nav-logo" />
@@ -24,6 +24,9 @@ const Nav = ({ shown, switcher }) => (
       </li>
       <li className="nav-list-item">
         <Link to="/contact" className="nav-list-item-link">Contact</Link>
+      </li>
+      <li className="nav-list-item">
+        <button className="nav-list-item-link" onClick={logout} style={{ border: 0 }}><strong>Déconnexion</strong></button>
       </li>
     </ul>
     <ul className="nav-social">

@@ -1,7 +1,6 @@
 /* eslint jsx-a11y/href-no-hash: "off" */
 
 import React, { Component } from 'react';
-import { logoBlanc } from '../../images';
 
 class About extends Component {
   componentDidMount() {
@@ -60,7 +59,7 @@ class About extends Component {
             </div>
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bannerContact } from '../../images';
 
 class Contact extends Component {
   render() {

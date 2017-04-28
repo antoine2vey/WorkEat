@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import * as images from '../../images';
@@ -29,7 +28,7 @@ class UserNav extends Component {
     const { isCartShown, isNavShown } = this.state;
     return (
       <div className="container-fluid">
-        <Nav shown={isNavShown} switcher={this.showNav} />
+        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
