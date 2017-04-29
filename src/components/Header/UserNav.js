@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
+//import io from 'socket.io-client';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import * as images from '../../images';
@@ -17,10 +17,7 @@ class UserNav extends Component {
   }
 
   componentDidMount() {
-    //const socket = io.connect('http://127.0.0.1:3001/');
-    // socket.on('test', (data) => {
-    //   console.log(data);
-    // });
+    //io.connect('http://127.0.0.1:3001/');
   }
 
   showCart() {

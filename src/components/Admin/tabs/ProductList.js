@@ -19,7 +19,7 @@ class ProductList extends Component {
             <article className="media" key={product._id} style={{ paddingLeft: 15 }}>
               <figure className="media-left">
                 <p className="image is-128x128">
-                  <img src={`/${product.file}`} alt="product" />
+                  <img src={product.file} alt="product" />
                 </p>
               </figure>
               <div className="media-content">

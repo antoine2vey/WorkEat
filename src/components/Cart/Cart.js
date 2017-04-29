@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCartProducts, getTotalPrice } from '../../reducers/cart';
+import { getTotalPrice } from '../../reducers/cart';
 import { closeBlack, trashBlanc } from '../../images';
 
 const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
@@ -17,18 +17,18 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         <p>A la carte</p>
         <hr />
       </div>
-      { cart.map(item => (
-        <div className="cart-panel__product" key={item._id}>
+      { cart.map((c, i) => (
+        <div className="cart-panel__product" key={c._id}>
           <div className="cart-panel__product-infos">
-            <img src={`/${item.file}`} alt="Canard laqué" className="cart-panel__product-image" />
+            <img src={c.file} alt="Canard laqué" className="cart-panel__product-image" />
             <div className="cart-panel__product-text">
-              <h3 className="cart-panel__product-title">{item.name}</h3>
-              <p className="cart-panel__price">{item.price}€</p>
+              <h3 className="cart-panel__product-title">{c.name}</h3>
+              <p className="cart-panel__price">{c.price}€</p>
             </div>
           </div>
           <div className="cart-panel__quantity">
             <div className="cart-panel__quantity-button cart-panel__quantity-up js--up">+</div>
-            <input type="number" value={item.quantity} min="0" className="cart-panel__quantity-input js--quantity-input" />
+            <input type="number" defaultValue={c.quantity} min="0" className="cart-panel__quantity-input js--quantity-input" />
             <div className="cart-panel__quantity-button cart-panel__quantity-down js--down">-</div>
           </div>
           <div className="cart-panel__delete">
@@ -71,10 +71,12 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  cart: getCartProducts(state.cart),
-  total: getTotalPrice(state.cart),
-});
+const mapStateToProps = state => {
+  return {
+    cart: state.cart.cart,
+    total: getTotalPrice(state.cart),
+  };
+};
 
 export default connect(mapStateToProps)(Cart);
 

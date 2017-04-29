@@ -9,7 +9,7 @@ const Dessert = ({ dessert: { file, description, price, tags, types, name }, add
       <button className="products__product__option btn-gold">Voir</button>
       <button className="products__product__option btn-gold" onClick={addToCart}>Ajouter</button>
     </div>
-    <img src={`/${file}`} alt="Produit" className="products__product__image" />
+    <img src={file} alt="Produit" className="products__product__image" />
     <h2 className="products__product__title">{name}</h2>
     <p className="products__product__tag">{
       tags.map(tag => (

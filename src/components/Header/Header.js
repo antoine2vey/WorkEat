@@ -44,7 +44,6 @@ function mapStateToProps(state) {
   const { token } = state.auth;
   return {
     token,
-    // Map object to array, reduce to calculate total items in the cart
     itemsInCart: getTotal(state.cart),
   };
 }

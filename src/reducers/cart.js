@@ -6,8 +6,6 @@ import {
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
   CHANGE_QUANTITY,
-  GET_CART,
-  getAddedIds
 } from '../actions/cart';
 
 const initialState = {
@@ -20,10 +18,10 @@ const initialState = {
 const addedIds = (state = initialState.addedIds, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      if (state.indexOf(action.productId) !== -1) {
+      if (state.indexOf(action.product._id) !== -1) {
         return state;
       }
-      return [...state, action.productId];
+      return [...state, action.product._id];
     default:
       return state;
   }
@@ -33,10 +31,14 @@ const quantityById = (state = initialState.quantityById, action) => {
   const { productId } = action;
   switch (action.type) {
     case ADD_TO_CART:
+      return {
+        ...state,
+        [action.product._id]: (state[action.product._id] || 0) + 1,
+      };
     case INCREMENT_QUANTITY:
       return {
         ...state,
-        [productId]: (state[productId] || 0) + 1,
+        [action.product._id]: state[action.product._id] + 1,
       };
     case CHANGE_QUANTITY:
       return {
@@ -56,27 +58,47 @@ const quantityById = (state = initialState.quantityById, action) => {
   }
 };
 
-const cart = (state = initialState, action) => {
+const cartHandler = (state = initialState.cart, action) => {
   switch (action.type) {
-    case GET_CART:
+    case ADD_TO_CART:
+      // Si l'id est déjà présent dans le cart, on retourne la state
+      if (state.filter(i => i._id === action.product._id).length) {
+        return state;
+      }
+      return [
+        ...state,
+        action.product,
+      ];
+    default:
+      return state;
+  }
+};
+
+const map = (state = initialState.productsById, action) => {
+  switch (action.type) {
+    case ADD_TO_CART:
+      if (!!state[action.product._id]) {
+        return state;
+      }
       return {
         ...state,
-        cart: action.cart,
-        productsById: {
-          ...action.cart.reduce((obj, product) => {
-            obj[product._id] = product;
-            return obj;
-          }, {}),
-        },
+        [action.product._id]: action.product,
       };
+    default:
+      return state;
+  }
+};
+
+const cart = (state = initialState, action) => {
+  switch (action.type) {
     case CHECKOUT_REQUEST:
       return initialState;
     case CHECKOUT_FAILURE:
       return action.cart;
     default:
       return {
-        cart: state.cart,
-        productsById: {},
+        cart: cartHandler(state.cart, action),
+        productsById: map(state.productsById, action),
         addedIds: addedIds(state.addedIds, action),
         quantityById: quantityById(state.quantityById, action),
       };
@@ -84,21 +106,16 @@ const cart = (state = initialState, action) => {
 };
 
 export const getTotal = state => (
-  values(state.quantityById).reduce((prev, next) => (prev + next), 0)
+  values(state.quantityById).reduce((prev, nxt) => (prev + nxt), 0)
 );
 
-const getProduct = (state, id) => state.productsById[id] || [];
+export const getTotalPrice = (state) => {
+  let price = 0;
+  state.addedIds.forEach((id) => {
+    price += (state.productsById[id].price * state.quantityById[id]);
+  });
 
-export const getCartProducts = state => (
-  getAddedIds(state).map(id => ({
-    ...getProduct(state, id),
-    quantity: state.quantityById[id] || 0,
-  }))
-);
-
-export const getTotalPrice = state => (
-  getAddedIds(state)
-    .reduce((total, id) => (total + getProduct(state, id).price) * state.quantityById[id], 0)
-);
+  return price;
+};
 
 export default cart;

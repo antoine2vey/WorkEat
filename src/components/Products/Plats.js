@@ -9,7 +9,7 @@ const Plat = ({ plat: { file, description, price, tags, types, name }, addToCart
       <button className="products__product__option btn-gold" onClick={isVisible ? hideProduct : showProduct}>Voir</button>
       <button className="products__product__option btn-gold" onClick={addToCart}>Ajouter</button>
     </div>
-    <img src={`/${file}`} alt="Produit" className="products__product__image" />
+    <img src={file} alt="Produit" className="products__product__image" />
     <h2 className="products__product__title">{name}</h2>
     <p className="products__product__tag">{
       tags.map(tag => (
@@ -35,7 +35,7 @@ const Plats = ({ ...props }) => {
             <Plat 
               plat={plat}
               key={plat._id}
-              addToCart={() => addToCart(plat._id)}
+              addToCart={() => addToCart(plat)}
               showProduct={() => showProduct(plat)}
               hideProduct={() => hideProduct()}
               isVisible={isVisible}
@@ -48,8 +48,8 @@ const Plats = ({ ...props }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addToCart(id) {
-    dispatch(addToCart(id));
+  addToCart(item) {
+    dispatch(addToCart(item));
   },
 });
 

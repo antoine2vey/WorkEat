@@ -155,10 +155,18 @@
         flex: 1;
         position: relative;
         margin:0 10px;
-        @include screenMd {
-          flex-basis: 100%;
+          @include screenMd {
+            flex-basis: 100%;
+          }
+
+          &-icon {
+            position: absolute;
+            bottom: 27px;
+            left: 10px;
+            width: 15px;
           }
         };
+        
         input[type="text"],
         input[type="email"],
         input[type="password"] {
@@ -168,12 +176,6 @@
           background: none;
           border: 1px solid $white;
           border-radius: 3px;
-        }
-        &-icon {
-          position: absolute;
-          bottom: 27px;
-          left: 10px;
-          width: 15px;
         }
       }
 
