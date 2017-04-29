@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getTotalPrice } from '../../reducers/cart';
+import { getTotalPrice, getProducts } from '../../reducers/cart';
+import { incrementQuantity, decrementQuantity } from '../../actions/cart';
 import { closeBlack, trashBlanc } from '../../images';
 
-const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
+const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity }) => (
   <div className={shown ? 'cart-panel cart-panel--js-open' : 'cart-panel'}>
     <img 
       src={closeBlack}
@@ -17,7 +18,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         <p>A la carte</p>
         <hr />
       </div>
-      { cart.map((c, i) => (
+      { cart.map(c => (
         <div className="cart-panel__product" key={c._id}>
           <div className="cart-panel__product-infos">
             <img src={c.file} alt="Canard laqué" className="cart-panel__product-image" />
@@ -27,9 +28,9 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
             </div>
           </div>
           <div className="cart-panel__quantity">
-            <div className="cart-panel__quantity-button cart-panel__quantity-up js--up">+</div>
-            <input type="number" defaultValue={c.quantity} min="0" className="cart-panel__quantity-input js--quantity-input" />
-            <div className="cart-panel__quantity-button cart-panel__quantity-down js--down">-</div>
+            <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+            <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+            <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
           </div>
           <div className="cart-panel__delete">
             <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
@@ -71,12 +72,10 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
   </div>
 );
 
-const mapStateToProps = state => {
-  return {
-    cart: state.cart.cart,
-    total: getTotalPrice(state.cart),
-  };
-};
+const mapStateToProps = state => ({
+  cart: getProducts(state.cart),
+  total: getTotalPrice(state.cart),
+});
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { incrementQuantity, decrementQuantity })(Cart);
 

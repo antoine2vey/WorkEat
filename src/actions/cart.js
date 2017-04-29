@@ -14,11 +14,29 @@ const addToCartUnsafe = product => ({
   product,
 });
 
+const increment = productId => ({
+  type: INCREMENT_QUANTITY,
+  productId
+});
+
+const decrement = productId => ({
+  type: DECREMENT_QUANTITY,
+  productId,
+})
+
 export const getAddedIds = state => state.addedIds;
 
 export const addToCart = product => (dispatch) => {
   dispatch(addToCartUnsafe(product));
 };
+
+export const incrementQuantity = productId => dispatch => (
+  dispatch(increment(productId))
+);
+
+export const decrementQuantity = productId => dispatch => (
+  dispatch(decrement(productId))
+);
 
 export const getQuantity = productId => (dispatch, getState) => (
   getState().cart.quantityById[productId]

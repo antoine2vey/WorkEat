@@ -38,7 +38,7 @@ const quantityById = (state = initialState.quantityById, action) => {
     case INCREMENT_QUANTITY:
       return {
         ...state,
-        [action.product._id]: state[action.product._id] + 1,
+        [productId]: state[productId] + 1,
       };
     case CHANGE_QUANTITY:
       return {
@@ -74,18 +74,50 @@ const cartHandler = (state = initialState.cart, action) => {
   }
 };
 
-const map = (state = initialState.productsById, action) => {
+// Un niveau avant pour acceder au autre states du reducer
+// Le reducer là est illisible, mais marche + pure
+const map = (state = initialState, action) => {
   switch (action.type) {
+    // Sur l'increment
+    case INCREMENT_QUANTITY:
+      return {
+        // Spread les items
+        ...state.productsById,
+        // Pour ce produit avec l'id
+        [action.productId]: {
+          // Spread l'item
+          ...state.productsById[action.productId],
+          // Incrémente la qte selon l'id
+          quantity: state.quantityById[action.productId] + 1,
+        },
+      };
+    case DECREMENT_QUANTITY:
+      return {
+        ...state.productsById,
+        [action.productId]: {
+          ...state.productsById[action.productId],
+          quantity: state.quantityById[action.productId] - 1,
+        },
+      };
     case ADD_TO_CART:
-      if (!!state[action.product._id]) {
-        return state;
+      if (!!state.productsById[action.product._id]) {
+        return {
+          ...state.productsById,
+          [action.product._id]: {
+            ...action.product,
+            quantity: state.quantityById[action.product._id] + 1,
+          },
+        };
       }
       return {
-        ...state,
-        [action.product._id]: action.product,
+        ...state.productsById,
+        [action.product._id]: {
+          ...action.product,
+          quantity: 1,
+        },
       };
     default:
-      return state;
+      return state.productsById;
   }
 };
 
@@ -98,7 +130,7 @@ const cart = (state = initialState, action) => {
     default:
       return {
         cart: cartHandler(state.cart, action),
-        productsById: map(state.productsById, action),
+        productsById: map(state, action),
         addedIds: addedIds(state.addedIds, action),
         quantityById: quantityById(state.quantityById, action),
       };
@@ -107,6 +139,10 @@ const cart = (state = initialState, action) => {
 
 export const getTotal = state => (
   values(state.quantityById).reduce((prev, nxt) => (prev + nxt), 0)
+);
+
+export const getProducts = state => (
+  values(state.productsById)
 );
 
 export const getTotalPrice = (state) => {
