@@ -17,11 +17,19 @@ const env = require('dotenv');
 const pmx = require('pmx');
 
 const ExtractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
 const app = express();
+const JwtStrategy = passportJWT.Strategy;
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('New socket', socket);
+  socket.emit('test', 'hello im a socket');
+});
 
 /**
 * ENV CONFIG
@@ -240,10 +248,6 @@ app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), 
 // EXPORT CSV
 app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
-
-app.all('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
 
 app.listen(PORT, () => {
   console.log(`\n\n🚀 C'EST PARTI SUR LE PORT ${PORT} 🚀\n\n`);

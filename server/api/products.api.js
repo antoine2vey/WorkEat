@@ -108,7 +108,7 @@ exports.create = (req, res) => {
       const img = new Buffer(base64data, 'base64');
       gm(img, fileName)
         .resize(null, 200)
-        .write(`public/${fileName}`, function (err) {
+        .write(`/public/${fileName}`, function (err) {
           if (err) {
             return console.log('image magick err', err);
           }

@@ -40,7 +40,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         <p>Formule</p>
         <hr />
       </div>
-      <div className="cart-panel__product">
+      {/*<div className="cart-panel__product">
         <div className="cart-panel__product-infos">
           <img src="images/thumb/canard-roti-thumb.jpg" alt="Canard laqué" className="cart-panel__product-image" />
           <div className="cart-panel__product-text">
@@ -55,7 +55,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         </div>
         <div className="cart-panel__delete">
           <img src="images/icons/trash-blanc.svg" alt="Supprimer" className="cart-panel__delete-icon" />          </div>
-      </div>
+      </div>*/}
       <div className="cart-panel__promo">
         <div className="material-field cart-panel__input">
           <div className="material-field__label">Code promo</div>

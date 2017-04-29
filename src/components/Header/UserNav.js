@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import * as images from '../../images';
@@ -13,6 +14,13 @@ class UserNav extends Component {
 
     this.showCart = this.showCart.bind(this);
     this.showNav = this.showNav.bind(this);
+  }
+
+  componentDidMount() {
+    //const socket = io.connect('http://127.0.0.1:3001/');
+    // socket.on('test', (data) => {
+    //   console.log(data);
+    // });
   }
 
   showCart() {
@@ -45,10 +53,6 @@ class UserNav extends Component {
         </header>
         <div className="panel-shadow" />
         <Cart itemsNumber={itemsNumber} shown={isCartShown} switcher={this.showCart} />
-        <div className="product-panel">
-          <img src="images/icons/close-black.svg" alt="Fermer la description" className="product-panel__close" />
-          <img src="images/burger-home.jpg" alt="Produit" className="product-panel__image" />
-        </div>
       </div>
     );
   }
