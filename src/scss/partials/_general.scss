@@ -448,15 +448,11 @@ a:hover {
     flex-wrap: wrap;
     height: auto;
     margin-bottom: 20px;
-    padding: 10px 20px;
     @include material-shadow(box, 1);
     transition: all 0.3s $transition;
-    @include screenSm {
-      padding: 10px 5px;
-    };
 
     &:hover {
-      @include material-shadow(box, 3);
+      @include material-shadow(box, 2);
     }
 
     &-infos {
@@ -465,11 +461,8 @@ a:hover {
     }
 
     &-image {
-      width: 100px;
       height: 100px;
-      border-radius: 5px;
       @include screenSm {
-        width: 60px;
         height: 60px;
       };
     }
@@ -574,7 +567,6 @@ a:hover {
     align-self: stretch;
     width: 35px;
     background: $red;
-    border-radius: 5px;
     cursor: pointer;
 
     &-icon {
