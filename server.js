@@ -192,7 +192,7 @@ app.get('**/canOrder', authorizeRequest, canOrder, (req, res) => {
 */
 
 // ACCOUNT API
-app.get('/account/logout', userRoute.logout);
+app.post('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);

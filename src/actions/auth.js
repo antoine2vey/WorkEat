@@ -34,7 +34,8 @@ const logout = () => {
 
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')
-    .then(() => dispatch(logout()));
+    .then(() => dispatch(logout()))
+    .catch(err => console.log(err));
 };
 
 export const loginUser = ({ email, password }) => (dispatch) => {
