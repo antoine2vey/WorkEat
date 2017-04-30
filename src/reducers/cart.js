@@ -1,11 +1,12 @@
 import values from 'lodash/values';
+import omit from 'lodash/omit';
 import {
   ADD_TO_CART,
   CHECKOUT_REQUEST,
   CHECKOUT_FAILURE,
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
-  CHANGE_QUANTITY,
+  DELETE_ITEM,
 } from '../actions/cart';
 
 const initialState = {
@@ -17,6 +18,8 @@ const initialState = {
 
 const addedIds = (state = initialState.addedIds, action) => {
   switch (action.type) {
+    case DELETE_ITEM:
+      return state.filter(id => id !== action.productId);
     case ADD_TO_CART:
       if (state.indexOf(action.product._id) !== -1) {
         return state;
@@ -30,6 +33,9 @@ const addedIds = (state = initialState.addedIds, action) => {
 const quantityById = (state = initialState.quantityById, action) => {
   const { productId } = action;
   switch (action.type) {
+    case DELETE_ITEM:
+      // Deletes the product from object, thanks to lodash
+      return omit(state, productId);
     case ADD_TO_CART:
       return {
         ...state,
@@ -39,11 +45,6 @@ const quantityById = (state = initialState.quantityById, action) => {
       return {
         ...state,
         [productId]: state[productId] + 1,
-      };
-    case CHANGE_QUANTITY:
-      return {
-        ...state,
-        [productId]: action.quantity,
       };
     case DECREMENT_QUANTITY:
       if (state[productId] > 0) {
@@ -60,6 +61,8 @@ const quantityById = (state = initialState.quantityById, action) => {
 
 const cartHandler = (state = initialState.cart, action) => {
   switch (action.type) {
+    case DELETE_ITEM:
+      return state.filter(i => i._id !== action.productId);
     case ADD_TO_CART:
       // Si l'id est déjà présent dans le cart, on retourne la state
       if (state.filter(i => i._id === action.product._id).length) {
@@ -99,6 +102,8 @@ const map = (state = initialState, action) => {
           quantity: state.quantityById[action.productId] - 1,
         },
       };
+    case DELETE_ITEM:
+      return omit(state.productsById, action.productId);
     case ADD_TO_CART:
       if (!!state.productsById[action.product._id]) {
         return {

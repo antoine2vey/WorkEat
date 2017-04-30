@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
-import { incrementQuantity, decrementQuantity } from '../../actions/cart';
+import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
 import { closeBlack, trashBlanc } from '../../images';
 
-const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity }) => (
+const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity, deleteProduct }) => (
   <div className={shown ? 'cart-panel cart-panel--js-open' : 'cart-panel'}>
     <img 
       src={closeBlack}
@@ -32,7 +32,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
             <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
             <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
           </div>
-          <div className="cart-panel__delete">
+          <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
             <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
           </div>
         </div>
@@ -77,5 +77,5 @@ const mapStateToProps = state => ({
   total: getTotalPrice(state.cart),
 });
 
-export default connect(mapStateToProps, { incrementQuantity, decrementQuantity })(Cart);
+export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct })(Cart);
 

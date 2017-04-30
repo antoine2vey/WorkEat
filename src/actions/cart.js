@@ -1,9 +1,6 @@
 export const ADD_TO_CART = 'ADD_TO_CART';
-
-export const UPDATE_MAP_ITEM = 'UPDATE_MAP_ITEM';
 export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
 export const DECREMENT_QUANTITY = 'UNINCREMENT_QUANTITY';
-export const CHANGE_QUANTITY = 'CHANGE_QUANTITY';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST';
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
@@ -16,13 +13,18 @@ const addToCartUnsafe = product => ({
 
 const increment = productId => ({
   type: INCREMENT_QUANTITY,
-  productId
+  productId,
 });
 
 const decrement = productId => ({
   type: DECREMENT_QUANTITY,
   productId,
-})
+});
+
+const deleteFromCart = productId => ({
+  type: DELETE_ITEM,
+  productId,
+});
 
 export const getAddedIds = state => state.addedIds;
 
@@ -36,6 +38,10 @@ export const incrementQuantity = productId => dispatch => (
 
 export const decrementQuantity = productId => dispatch => (
   dispatch(decrement(productId))
+);
+
+export const deleteProduct = productId => dispatch => (
+  dispatch(deleteFromCart(productId))
 );
 
 export const getQuantity = productId => (dispatch, getState) => (
