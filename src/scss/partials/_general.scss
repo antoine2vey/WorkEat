@@ -8,11 +8,13 @@ a:hover {
 
 .example-enter {
   opacity: 0.01;
+  transform: translateX(-50px);
 }
 
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transform: translateX(0);
+  transition: opacity .5s $transition, transform .2s $transition;
 }
 
 .example-leave {
@@ -23,16 +25,6 @@ a:hover {
   opacity: 0.01;
   height: 0;
   transition: 300ms ease-in all;
-}
-
-.example-appear {
-  opacity: 0.01;
-  height: 500px;
-}
-
-.example-appear.example-appear-active {
-  opacity: 1;
-  transition: opacity .5s ease-in;
 }
 
 .divider {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 import { getTotalPrice, getProducts } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
 import { closeBlack, trashBlanc } from '../../images';
@@ -18,25 +19,33 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
         <p>A la carte</p>
         <hr />
       </div>
-      { cart.map(c => (
-        <div className="cart-panel__product" key={c._id}>
-          <div className="cart-panel__product-infos">
-            <img src={c.file} alt="Canard laqué" className="cart-panel__product-image" />
-            <div className="cart-panel__product-text">
-              <h3 className="cart-panel__product-title">{c.name}</h3>
-              <p className="cart-panel__price">{c.price}€</p>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionEnter={true}
+        transitionLeave={false}
+      >
+        { cart.map(c => (
+          <div className="cart-panel__product" key={c._id}>
+            <div className="cart-panel__product-infos">
+              <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+              <div className="cart-panel__product-text">
+                <h3 className="cart-panel__product-title">{c.name}</h3>
+                <p className="cart-panel__price">{c.price}€</p>
+              </div>
+            </div>
+            <div className="cart-panel__quantity">
+              <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+              <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+              <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+            </div>
+            <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
+              <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
             </div>
           </div>
-          <div className="cart-panel__quantity">
-            <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
-            <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
-            <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
-          </div>
-          <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
-            <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
-          </div>
-        </div>
-      )) }
+        )) }
+      </ReactCSSTransitionGroup>
       <div className="cart-panel__category">
         <p>Formule</p>
         <hr />
