@@ -249,6 +249,10 @@ app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), 
 app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
 
+app.all('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`\n\n🚀 C'EST PARTI SUR LE PORT ${PORT} 🚀\n\n`);
 });

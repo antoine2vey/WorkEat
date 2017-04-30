@@ -79,6 +79,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
         <p>Total {total}€</p>
       </div>
       <div className="cart-panel__category">
+        {/* TODO: afficher une notification (SWAL?) */}
         <button className="btn-gold" onClick={cart.length ? () => history.push('/recap') : () => alert('Panier vide (changez moi asap please)')}>
           Commander
         </button>
