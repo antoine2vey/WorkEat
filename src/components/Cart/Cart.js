@@ -21,9 +21,10 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
       </div>
       <ReactCSSTransitionGroup
         transitionName="example"
-        transitionAppear={true}
+        transitionAppear
         transitionAppearTimeout={500}
-        transitionEnter={true}
+        transitionEnterTimeout={500}
+        transitionEnter
         transitionLeave={false}
       >
         { cart.map(c => (
