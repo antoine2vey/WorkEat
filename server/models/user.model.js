@@ -51,6 +51,17 @@ const accountSchema = new mongoose.Schema({
   tokens: {
     stripe: String,
   },
+  solde: {
+    type: Number,
+    default: 0,
+  },
+  creditCard: [
+    {
+      owner: String,
+      date: Date,
+      number: Number,
+    },
+  ],
 });
 
 accountSchema.methods.validatePassword = (password, hash) => bcrypt.compareSync(password, hash);

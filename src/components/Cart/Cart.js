@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
 import { closeBlack, trashBlanc } from '../../images';
+import history from '../../utils/history';
 
 const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity, deleteProduct }) => (
   <div className={shown ? 'cart-panel cart-panel--js-open' : 'cart-panel'}>
@@ -76,7 +77,11 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
       </div>
       <div className="cart-panel__category">
         <p>Total {total}€</p>
-        <hr />
+      </div>
+      <div className="cart-panel__category">
+        <button className="btn-gold" onClick={cart.length ? () => history.push('/recap') : () => alert('Panier vide (changez moi asap please)')}>
+          Commander
+        </button>
       </div>
     </div>
   </div>

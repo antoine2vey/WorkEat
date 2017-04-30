@@ -26,6 +26,10 @@ const deleteFromCart = productId => ({
   productId,
 });
 
+const checkoutRequest = () => ({
+  type: CHECKOUT_REQUEST,
+});
+
 export const getAddedIds = state => state.addedIds;
 
 export const addToCart = product => (dispatch) => {
@@ -42,6 +46,10 @@ export const decrementQuantity = productId => dispatch => (
 
 export const deleteProduct = productId => dispatch => (
   dispatch(deleteFromCart(productId))
+);
+
+export const checkoutCart = cart => dispatch => (
+  dispatch(checkoutRequest())
 );
 
 export const getQuantity = productId => (dispatch, getState) => (

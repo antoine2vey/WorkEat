@@ -131,7 +131,7 @@ const cart = (state = initialState, action) => {
     case CHECKOUT_REQUEST:
       return initialState;
     case CHECKOUT_FAILURE:
-      return action.cart;
+      return action.productsById;
     default:
       return {
         cart: cartHandler(state.cart, action),
