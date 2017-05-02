@@ -34,7 +34,6 @@ exports.list = (req, res) => {
     }
   })
   **/
-  console.log(req.session);
   Product.find({}).populate('tags').populate('availableAt').exec((err, products) => {
     if (err) {
       return res.status(500).send('Database error.');
@@ -107,8 +106,10 @@ exports.create = (req, res) => {
 
       const img = new Buffer(base64data, 'base64');
       gm(img, fileName)
-        .resize(null, 200)
-        .write(`public/${fileName}`, function (err) {
+        .resize('250', '200', '^')
+        .gravity('Center')
+        .crop('250', '200')
+        .write(`public/${fileName}`, (err) => {
           if (err) {
             return console.log('image magick err', err);
           }
