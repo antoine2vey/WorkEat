@@ -93,7 +93,7 @@ passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
 app.use(logger('dev'));
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('*/uploads', express.static(path.join(__dirname, '/public/uploads')));
+app.use('*/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: false,
