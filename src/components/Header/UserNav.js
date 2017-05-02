@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import io from 'socket.io-client';
+import moment from 'moment';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import * as images from '../../images';
@@ -10,6 +10,7 @@ class UserNav extends Component {
     this.state = {
       isCartShown: false,
       isNavShown: false,
+      tstamp: moment().format('HH:mm:ss'),
     };
 
     this.showCart = this.showCart.bind(this);
@@ -17,7 +18,14 @@ class UserNav extends Component {
   }
 
   componentDidMount() {
-    //io.connect('http://127.0.0.1:3001/');
+    const timer = setInterval(() => {
+      const date = moment().unix();
+      // eslint-disable-next-line
+      const tmrw = moment().add(1, 'day').hours('11').minutes('00').seconds('00').format();
+      const tmrwTimestamp = moment(tmrw).unix();
+
+      this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
+    });
   }
 
   showCart() {
@@ -30,7 +38,7 @@ class UserNav extends Component {
 
   render() {
     const { logoutUser, itemsNumber } = this.props;
-    const { isCartShown, isNavShown } = this.state;
+    const { isCartShown, isNavShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} />
@@ -39,7 +47,7 @@ class UserNav extends Component {
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <p className="main-header-timer-content">Il vous reste<br /> <span id="timer" className="main-header-timer-content-time">03 : 30 : 00</span><br /> pour commander</p>
+            <p className="main-header-timer-content">Il vous reste<br /> <span id="timer" className="main-header-timer-content-time">{tstamp}</span><br /> pour commander</p>
           </div>
           <div className="main-header-cart">
             <button className="main-header-cart-link" onClick={this.showCart}>
