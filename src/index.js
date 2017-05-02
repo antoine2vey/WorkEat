@@ -29,7 +29,7 @@ const PrivateRoute = ({ component, ...rest }) => (
 store.subscribe(throttle(() => {
   saveState({
     auth: store.getState().auth,
-    //cart: store.getState().cart,
+    cart: store.getState().cart,
   });
 }));
 

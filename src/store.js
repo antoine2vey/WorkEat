@@ -8,7 +8,7 @@ const persistedState = loadState();
 const loggerMiddleware = createLogger();
 
 let middlewares;
-if (process.env.NODE_END !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   middlewares = applyMiddleware(
     thunkMiddleware,
     loggerMiddleware,
