@@ -129,9 +129,15 @@
         @include flex;
       }
       &-arrow {
-        width:35px;
-        margin:10px;
+        flex:1;
+        position:relative;
+        width:100px;
+        color:$white;
+        font-family: $primary-font;
+        font-size:14px;
+        text-transform: uppercase;
         outline:none;
+        cursor: pointer;
         visibility: hidden;
         opacity: 0;
         transition: visibility 0.3s, opacity 0.3s $transition;
@@ -230,6 +236,44 @@
       font-family: $primary-font;
       color: $white;
       letter-spacing: 1px;
+    }
+  }
+}
+
+.right {
+  position:relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top:8px;
+    left:-55px;
+    width:50px;
+    height:3px;
+    background:$gold;
+    transition: left 0.3s $transition;
+  }
+  &:hover {
+    &::before {
+      left:-30px;
+    }
+  }
+}
+
+.left {
+  position:relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top:8px;
+    right:-55px;
+    width:50px;
+    height:3px;
+    background:$gold;
+    transition: right 0.3s $transition;
+  }
+  &:hover {
+    &::after {
+      right:-30px;
     }
   }
 }

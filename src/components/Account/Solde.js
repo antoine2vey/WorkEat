@@ -3,14 +3,25 @@ import * as images from '../../images';
 import Slider from 'react-slick';
 
 class Solde extends Component {
+  constructor() {
+    super();
+    this.GotoNextSlide = this.GotoNextSlide.bind(this);
+    this.GotoPrevSlide = this.GotoPrevSlide.bind(this);
+  }
+  GotoNextSlide() {
+    this.slider.slickNext();
+  }
+  GotoPrevSlide() {
+    this.slider.slickPrev();
+  }
   render() {
     const settings = {
-      slidesToShow: 3,
+      slidesToShow: 1,
       slidesToScroll: 1,
       centerMode: true,
       variableWidth: true,
+      infinite: false,
       arrows: false,
-      infinite: true,
     };
     return (
       <div className="compteInfo-bloc">
@@ -50,17 +61,17 @@ class Solde extends Component {
                     <input type="text" id="cvv" className="material-field__input" />
                   </div>
                 </div>
-                  <label htmlFor="checkbox" className="checkbox-label">
-                <input type="checkbox" className="material-field__checkbox" />
+                <label htmlFor="checkbox" className="checkbox-label">
+                  <input type="checkbox" className="material-field__checkbox" />
                      Enregistrer mes informations</label>
                 <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>
               </div>
               <div className="partTwo__cards-list">
                 <h3 className="partTwo__selected__title">Cartes enregistrées</h3>
                 <div className="cards-slider">
-                  <div className="cards-slider__navigation cards-slider__navigation__prev" />
-                  <div className="cards-slider__navigation cards-slider__navigation__next" />
-                  <Slider {...settings}>
+                  <div className="cards-slider__navigation cards-slider__navigation__prev" onClick={this.GotoPrevSlide} />
+                  <div className="cards-slider__navigation cards-slider__navigation__next" onClick={this.GotoNextSlide} />
+                  <Slider className="cards-slider" ref={c => this.slider = c } {...settings}>
                     <div className="card-container">
                       <div className="card visa-card">
                         <div className="card__top">

@@ -226,7 +226,7 @@ a:hover {
 /* Card slider */
 .cards-slider {
   position: relative;
-  max-width: 600px;
+  max-width:600px;  
   height: 240px;
   margin: 0 auto;
 
@@ -322,7 +322,7 @@ a:hover {
   }
 }
 
-.slick-current .card {
+.slick-center .card {
   @include material-shadow(box, 4);
   transform: scale(1);
 }

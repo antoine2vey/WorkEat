@@ -210,7 +210,7 @@ class ConnectionBox extends Component {
               </div>
             </Slider>
             <div className="header-home-form-step-nav">
-              <img
+              {/* <img
                 src={images.arrowLeft}
                 alt="icon"
                 onClick={this.GotoPrevSlide}
@@ -221,9 +221,15 @@ class ConnectionBox extends Component {
                 alt="icon"
                 onClick={this.GotoNextSlide}
                 className={'header-home-form-step-arrow ' + ((this.state.step === 3) || (this.state.step === 0 && (!this.state.name || !this.state.surname)) ? '' : 'header-home-form-step-arrow--active')}
-              />
+              /> */}
+              <div className={'header-home-form-step-arrow ' + (this.state.step === 0 ? '' : 'header-home-form-step-arrow--active')}>
+                <span onClick={this.GotoPrevSlide} className="left">Précédent</span>
+              </div>
+              <div className={'header-home-form-step-arrow ' + ((this.state.step === 3) || (this.state.step === 0 && (!this.state.name || !this.state.surname)) ? '' : 'header-home-form-step-arrow--active')}>
+                <span onClick={this.GotoNextSlide} className="right">Suivant</span>
+              </div>
             </div>
-            <input type="submit" value="create" style={{ display: this.state.town && this.state.phoneNumber ? 'inline-block' : 'none' }} />
+            <button type="submit" className="btn-gold" style={{ display: this.state.town && this.state.phoneNumber ? 'inline-block' : 'none' }}>Créer mon compte</button>
           </form>
         </div>
       </div>
