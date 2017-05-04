@@ -6,7 +6,7 @@ exports.create = (req, res) => {
   products.forEach(product => parseInt(total += (product.quantity * product.price), 10).toFixed(2));
 
   const order = new Order({
-    orderedBy: req.user._id,
+    orderedBy: req.user.id,
     articles: products.map(p => p._id),
     amount: total,
   });
