@@ -8,7 +8,7 @@ import history from '../../utils/history';
 
 const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity, deleteProduct }) => (
   <div className={shown ? 'cart-panel cart-panel--js-open' : 'cart-panel'}>
-    <img 
+    <img
       src={closeBlack}
       alt="Fermer le panier"
       className="cart-panel__close"
@@ -98,4 +98,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct })(Cart);
-
