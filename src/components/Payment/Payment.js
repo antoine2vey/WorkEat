@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
-import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
-import history from '../../utils/history';
+import { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart } from '../../actions/cart';
 import { trashBlanc } from '../../images';
 
-const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct }) => (
+const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct, checkoutCart }) => (
   <div className="partOne">
     <div className="container-fluid">
       <div className="partOne__recap">
@@ -27,7 +25,7 @@ const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct }) 
               </div>
               <div className="partOne__quantity">
                 <div className="partOne__quantity-button partOne__quantity-up js--up" onClick={() => incrementQuantity(item._id)} >+</div>
-                <input type="number" value={item.quantity} min="0" className="partOne__quantity-input js--quantity-input" />
+                <input type="number" value={item.quantity} min="0" readOnly className="partOne__quantity-input js--quantity-input" />
                 <div className="partOne__quantity-button partOne__quantity-down js--down" onClick={() => decrementQuantity(item._id)}>-</div>
               </div>
               <div className="partOne__delete" onClick={() => deleteProduct(item._id)}>
@@ -42,7 +40,7 @@ const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct }) 
         </div>
         <div className="partOne-recap-btn">
           <button className="btn-gold">Revenir au panier</button>
-          <Link to={cart.length ? '/paiement' : '/recap'} className="btn-gold">Suivant</Link>
+          <button onClick={() => checkoutCart(cart)} className="btn-gold">Suivant</button>
         </div>
       </div>
     </div>
@@ -54,5 +52,5 @@ const mapStateToProps = state => ({
   total: getTotalPrice(state.cart),
 });
 
-export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct })(Payment);
+export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart })(Payment);
 

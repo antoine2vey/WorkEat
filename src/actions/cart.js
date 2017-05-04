@@ -1,3 +1,6 @@
+import axios from 'axios';
+import history from '../utils/history';
+
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
 export const DECREMENT_QUANTITY = 'UNINCREMENT_QUANTITY';
@@ -30,6 +33,11 @@ const checkoutRequest = () => ({
   type: CHECKOUT_REQUEST,
 });
 
+const checkoutSuccess = orderId => ({
+  type: CHECKOUT_SUCCESS,
+  orderId,
+});
+
 export const getAddedIds = state => state.addedIds;
 
 export const addToCart = product => (dispatch) => {
@@ -48,10 +56,17 @@ export const deleteProduct = productId => dispatch => (
   dispatch(deleteFromCart(productId))
 );
 
-export const checkoutCart = cart => dispatch => (
-  dispatch(checkoutRequest())
-);
+export const checkoutCart = cart => (dispatch) => {
+  dispatch(checkoutRequest());
+  axios.post('/api/orders', cart, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  })
+    .then((res) => {
+      dispatch(checkoutSuccess(res.data));
+      history.push(`/paiement/${res.data}`);
+    })
+    .catch(err => console.error(err));
+};
 
-export const getQuantity = productId => (dispatch, getState) => (
-  getState().cart.quantityById[productId]
-);

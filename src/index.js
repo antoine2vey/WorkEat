@@ -31,7 +31,7 @@ store.subscribe(throttle(() => {
     auth: store.getState().auth,
     cart: store.getState().cart,
   });
-}));
+}, 1000));
 
 ReactDOM.render(
   <Provider store={store}>
