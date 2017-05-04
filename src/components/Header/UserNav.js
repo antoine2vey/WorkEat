@@ -21,7 +21,7 @@ class UserNav extends Component {
     const timer = setInterval(() => {
       const date = moment().unix();
       // eslint-disable-next-line
-      const tmrw = moment().add(1, 'day').hours('11').minutes('00').seconds('00').format();
+      const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
       const tmrwTimestamp = moment(tmrw).unix();
 
       this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
