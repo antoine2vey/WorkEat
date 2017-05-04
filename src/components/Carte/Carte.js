@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProductsIfNeeded } from '../../actions/products';
+import { fetchProductsIfNeeded, showProduct, hideProduct } from '../../actions/products';
 import Entrees from '../Products/Entrees';
 import Plats from '../Products/Plats';
 import Desserts from '../Products/Desserts';
 import Boissons from '../Products/Boissons';
+import ProductDetail from './ProductDetail';
 
 class Carte extends Component {
   componentDidMount() {
@@ -13,7 +14,10 @@ class Carte extends Component {
   }
 
   render() {
-    const { entrees, plats, desserts, boissons } = this.props;
+    const { entrees, plats, desserts, boissons, isDetailVisible, showProduct, hideProduct, product } = this.props;
+    if (!product.tags) {
+      product.tags = [];
+    }
     return (
       <div id="carte" className="products-carte tab tab--current">
         <div className="products-carte__choise">
@@ -31,22 +35,24 @@ class Carte extends Component {
           </NavLink>
         </div>
 
+        <ProductDetail product={product} isDetailVisible={isDetailVisible} />
+        
         <Switch>
           <Route
             path="/carte/entrees"
-            render={() => (<Entrees entrees={entrees} />)}
+            render={() => (<Entrees entrees={entrees} showProduct={showProduct} hideProduct={hideProduct} isVisible={isDetailVisible} />)}
           />
           <Route
             path="/carte/plats"
-            render={() => <Plats plats={plats} />}
+            render={() => <Plats plats={plats} showProduct={showProduct} hideProduct={hideProduct} isVisible={isDetailVisible} />}
           />
           <Route
             path="/carte/desserts"
-            render={() => (<Desserts desserts={desserts} />)}
+            render={() => (<Desserts desserts={desserts} showProduct={showProduct} hideProduct={hideProduct} isVisible={isDetailVisible} />)}
           />
           <Route
             path="/carte/boissons"
-            render={() => (<Boissons boissons={boissons} />)}
+            render={() => (<Boissons boissons={boissons} showProduct={showProduct} hideProduct={hideProduct} isVisible={isDetailVisible} />)}
           />
           <Redirect from="/carte" to="/carte/plats" />
         </Switch>
@@ -62,12 +68,20 @@ const mapStateToProps = (state) => {
     plats: products.filter(product => product.types.indexOf('plat') > -1),
     desserts: products.filter(product => product.types.indexOf('dessert') > -1),
     boissons: products.filter(product => product.types.indexOf('boisson') > -1),
+    isDetailVisible: state.products.isDetailVisible,
+    product: state.products.product,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   getProducts() {
     dispatch(fetchProductsIfNeeded());
+  },
+  showProduct(product) {
+    dispatch(showProduct(product));
+  },
+  hideProduct() {
+    dispatch(hideProduct());
   },
 });
 

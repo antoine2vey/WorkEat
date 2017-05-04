@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCartProducts, getTotalPrice } from '../../reducers/cart';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { getTotalPrice, getProducts } from '../../reducers/cart';
+import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
 import { closeBlack, trashBlanc } from '../../images';
+import history from '../../utils/history';
 
-const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
+const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, decrementQuantity, deleteProduct }) => (
   <div className={shown ? 'cart-panel cart-panel--js-open' : 'cart-panel'}>
     <img
       src={closeBlack}
@@ -17,30 +20,39 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         <p>A la carte</p>
         <hr />
       </div>
-      { cart.map(item => (
-        <div className="cart-panel__product" key={item._id}>
-          <div className="cart-panel__product-infos">
-            <img src={`/${item.file}`} alt="Canard laqué" className="cart-panel__product-image" />
-            <div className="cart-panel__product-text">
-              <h3 className="cart-panel__product-title">{item.name}</h3>
-              <p className="cart-panel__price">{item.price}€</p>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionAppear
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionEnter
+        transitionLeave={false}
+      >
+        { cart.map(c => (
+          <div className="cart-panel__product" key={c._id}>
+            <div className="cart-panel__product-infos">
+              <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+              <div className="cart-panel__product-text">
+                <h3 className="cart-panel__product-title">{c.name}</h3>
+                <p className="cart-panel__price">{c.price}€</p>
+              </div>
+            </div>
+            <div className="cart-panel__quantity">
+              <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+              <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+              <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+            </div>
+            <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
+              <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
             </div>
           </div>
-          <div className="cart-panel__quantity">
-            <div className="cart-panel__quantity-button cart-panel__quantity-up js--up">+</div>
-            <input type="number" value={item.quantity} min="0" className="cart-panel__quantity-input js--quantity-input" />
-            <div className="cart-panel__quantity-button cart-panel__quantity-down js--down">-</div>
-          </div>
-          <div className="cart-panel__delete">
-            <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
-          </div>
-        </div>
-      )) }
+        )) }
+      </ReactCSSTransitionGroup>
       <div className="cart-panel__category">
         <p>Formule</p>
         <hr />
       </div>
-      <div className="cart-panel__product">
+      {/*<div className="cart-panel__product">
         <div className="cart-panel__product-infos">
           <img src="images/thumb/canard-roti-thumb.jpg" alt="Canard laqué" className="cart-panel__product-image" />
           <div className="cart-panel__product-text">
@@ -55,7 +67,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
         </div>
         <div className="cart-panel__delete">
           <img src="images/icons/trash-blanc.svg" alt="Supprimer" className="cart-panel__delete-icon" />          </div>
-      </div>
+      </div>*/}
       <div className="cart-panel__promo">
         <div className="material-field cart-panel__input">
           <div className="material-field__label">Code promo</div>
@@ -65,15 +77,24 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher }) => (
       </div>
       <div className="cart-panel__category">
         <p>Total {total}€</p>
-        <hr />
+      </div>
+      <div className="cart-panel__category">
+        {/* TODO: afficher une notification (SWAL?) */}
+        <button className="btn-gold" onClick={cart.length ? () => {
+          history.push('/recap');
+          switcher();
+        } : () => alert('Panier vide (changez moi asap please)')}
+        >
+          Commander
+        </button>
       </div>
     </div>
   </div>
 );
 
 const mapStateToProps = state => ({
-  cart: getCartProducts(state.cart),
+  cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct })(Cart);

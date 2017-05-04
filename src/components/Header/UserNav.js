@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import moment from 'moment';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import * as images from '../../images';
@@ -10,10 +10,22 @@ class UserNav extends Component {
     this.state = {
       isCartShown: false,
       isNavShown: false,
+      tstamp: moment().format('HH:mm:ss'),
     };
 
     this.showCart = this.showCart.bind(this);
     this.showNav = this.showNav.bind(this);
+  }
+
+  componentDidMount() {
+    const timer = setInterval(() => {
+      const date = moment().unix();
+      // eslint-disable-next-line
+      const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
+      const tmrwTimestamp = moment(tmrw).unix();
+
+      this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
+    });
   }
 
   showCart() {
@@ -26,16 +38,16 @@ class UserNav extends Component {
 
   render() {
     const { logoutUser, itemsNumber } = this.props;
-    const { isCartShown, isNavShown } = this.state;
+    const { isCartShown, isNavShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
-        <Nav shown={isNavShown} switcher={this.showNav} />
+        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <p className="main-header-timer-content">Il vous reste<br /> <span id="timer" className="main-header-timer-content-time">03 : 30 : 00</span><br /> pour commander</p>
+            <p className="main-header-timer-content">Il vous reste<br /> <span id="timer" className="main-header-timer-content-time">{tstamp}</span><br /> pour commander</p>
           </div>
           <div className="main-header-cart">
             <button className="main-header-cart-link" onClick={this.showCart}>
@@ -46,10 +58,6 @@ class UserNav extends Component {
         </header>
         <div className="panel-shadow" />
         <Cart itemsNumber={itemsNumber} shown={isCartShown} switcher={this.showCart} />
-        <div className="product-panel">
-          <img src="images/icons/close-black.svg" alt="Fermer la description" className="product-panel__close" />
-          <img src="images/burger-home.jpg" alt="Produit" className="product-panel__image" />
-        </div>
       </div>
     );
   }

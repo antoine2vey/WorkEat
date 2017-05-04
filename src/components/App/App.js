@@ -10,6 +10,9 @@ import Livreur from '../Livreur/Livreur';
 import Cart from '../Cart/Cart';
 import Account from '../Account/Account';
 import Contact from '../Contact/Contact';
+import About from '../About/About';
+import Payment from '../Payment/Payment';
+import PaymentStepTwo from '../Payment/PaymentStepTwo';
 
 import './App.css';
 
@@ -24,6 +27,11 @@ const App = () => (
         <Route path="/prestataire" component={Prestataire} />
         <Route path="/livreur" component={Livreur} />
         <Route path="/contact" component={Contact} />
+        <Route path="/about" component={About} />
+
+        <Route path="/recap" component={Payment} />
+        <Route path="/paiement" component={PaymentStepTwo} />
+
         <Route path="/" component={GlobalProducts} />
       </Switch>
     </Route>

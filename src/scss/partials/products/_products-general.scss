@@ -25,6 +25,7 @@
     &__title {
       text-transform: uppercase;
       font-family: $primary-font;
+      margin: 0;
     }
   }
 
@@ -59,12 +60,14 @@
     &__tag {
       color: $dark-grey;
       font-style: italic;
+      margin: 0;
     }
 
     &__price {
       color: $gold;
       font-size: 20px;
       font-family: $primary-font;
+      margin: 0;
     }
 
     &__options {
@@ -125,8 +128,6 @@
     }
 
     &__image {
-      flex: 0.3;
-      width: 450px;
       @include material-shadow(box, 5);
       border: 3px solid $white;
     }
@@ -169,6 +170,8 @@
     &__desc {
       color: $white;
       font-family: $primary-font;
+      display: block;
+      width: 100%;
     }
   }
 }

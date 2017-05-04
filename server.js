@@ -17,11 +17,19 @@ const env = require('dotenv');
 const pmx = require('pmx');
 
 const ExtractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
 const app = express();
+const JwtStrategy = passportJWT.Strategy;
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
+
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server);
+
+// io.on('connection', (socket) => {
+//   console.log('New socket', socket);
+//   socket.emit('test', 'hello im a socket');
+// });
 
 /**
 * ENV CONFIG
@@ -85,7 +93,7 @@ passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
 app.use(logger('dev'));
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('*/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: false,
@@ -184,7 +192,7 @@ app.get('**/canOrder', authorizeRequest, canOrder, (req, res) => {
 */
 
 // ACCOUNT API
-app.get('/account/logout', userRoute.logout);
+app.post('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);

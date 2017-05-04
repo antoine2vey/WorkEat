@@ -6,6 +6,27 @@ a:hover {
   min-height: 100vh;
 }
 
+.example-enter {
+  opacity: 0.01;
+  transform: translateX(-50px);
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .5s $transition, transform .2s $transition;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  height: 0;
+  transition: 300ms ease-in all;
+}
+
 .divider {
   width: 100px;
   margin: 20px auto;
@@ -207,6 +228,8 @@ a:hover {
 
 .select-tab,
 .select-tab-2 {
+  text-decoration: none;
+  color: $write;
   border-bottom: 5px solid transparent;
   transition: all 0.3s $transition;
   cursor: pointer;
@@ -449,15 +472,11 @@ a:hover {
     flex-wrap: wrap;
     height: auto;
     margin-bottom: 20px;
-    padding: 10px 20px;
     @include material-shadow(box, 1);
     transition: all 0.3s $transition;
-    @include screenSm {
-      padding: 10px 5px;
-    };
 
     &:hover {
-      @include material-shadow(box, 3);
+      @include material-shadow(box, 2);
     }
 
     &-infos {
@@ -466,11 +485,8 @@ a:hover {
     }
 
     &-image {
-      width: 100px;
       height: 100px;
-      border-radius: 5px;
       @include screenSm {
-        width: 60px;
         height: 60px;
       };
     }
@@ -575,7 +591,6 @@ a:hover {
     align-self: stretch;
     width: 35px;
     background: $red;
-    border-radius: 5px;
     cursor: pointer;
 
     &-icon {
@@ -651,4 +666,13 @@ a:hover {
 
 .icon-instagrem:before {
   content: "\61";
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill{
+  -webkit-text-fill-color: $gold;
+  background: transparent;
+  transition: background-color 5000s ease-in-out 0s;
+
 }
