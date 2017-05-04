@@ -1,0 +1,16 @@
+.solde {
+  @include container(960px);
+  &__title {
+    padding-top: 20px;
+    text-align: center;
+    font-family: $primary-font;
+    @include screenSm {
+      font-size: 28px;
+    };
+  }
+  &__select {
+    @include flex(center, flex-start, row);
+    height: auto;
+    @include material-shadow(box, 2);
+  }
+}

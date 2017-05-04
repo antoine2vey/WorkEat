@@ -1,8 +1,13 @@
 .footer {
   @include flex(center, flex-start, row);
   flex-wrap:wrap;
+  position:fixed;
+  z-index:-1800;
+  bottom:0;
+  width:100%;
   background-color: $write;
   padding: 50px;
+  box-sizing: border-box;
   @include screenSm {
     padding: 20px 10px;
   };

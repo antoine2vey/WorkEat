@@ -1,6 +1,10 @@
 .products {
+  position:relative;
+  z-index: 200;
+  margin-bottom: 200px;
   padding-top: 100px;
-
+  background: $white;
+  
   &__choise {
     @include flex;
     @include material-shadow(box, 1);
