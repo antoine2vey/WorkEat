@@ -1,7 +1,15 @@
 .partTwo {
-  @include container(960px);
+  position:relative;
+  z-index: 200;
   padding-top: 200px;
   padding-bottom: 50px;
+  margin-bottom:200px;
+  background: $white;
+  @include material-shadow(box, 2);
+&__container {
+  @include container(960px);
+
+}
 
   &__title {
     padding-top: 20px;
