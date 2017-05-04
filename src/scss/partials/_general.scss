@@ -221,6 +221,11 @@ a:hover {
   }
 }
 /* Tab navigation */
+
+.tabs-container {
+  padding-top:100px;
+}
+
 .select-tab,
 .select-tab-2 {
   text-decoration: none;
@@ -246,64 +251,82 @@ a:hover {
     display: inherit;
   }
 }
-/* Card slider */
-.cards-slider {
-  position: relative;
-  max-width:600px;  
-  height: 240px;
-  margin: 0 auto;
 
-  &__navigation {
-    position: absolute;
-    z-index: 100;
-    width: 100px;
-    height: 100%;
-
-    &__prev {
-      top: 0;
-      left: 0;
-      background-image: linear-gradient(90deg, $white 0%, transparent 100%);
-    }
-
-    &__next {
-      top: 0;
-      right: 0;
-      background-image: linear-gradient(90deg, transparent 0%, $white 100%);
-    }
+.selected {
+  margin-top: 50px;
+  padding:20px;
+  @include material-shadow(box, 2);
+  &__title {
+    font-size: 24px;
+    font-family: $primary-font;
+    font-weight: 500;
   }
 }
 
-.card-container {
-  padding: 30px 0;
-  outline: none;
+/* payement selection */
+
+.payment {
+  &__select {
+    @include flex(center, flex-start, row);
+    height: auto;
+    @include material-shadow(box, 2);
+  }
+  &__type {
+    flex: 1;
+    height: 150px;
+    padding: 40px 0 0;
+    text-align: center;
+
+    &-title {
+      font-family: $primary-font;
+      font-size: 20px;
+    }
+  }
+  &__icon {
+    width: 60px;
+  }
+
+  &__solde {
+    font-family: $primary-font;
+  }
+  &__add-card {
+    flex:1;
+    width:100%;
+  }
+}
+
+/* Card */
+
+.cards-container {
+  @include flex(center, center, row);
+  @include screenMd {
+    @include flex(center, center, column);
+  };
+}
+
+.cards-list {
+  flex: 1;
 }
 
 .card {
   @include flex(null, null, column);
-  width: 270px;
-  height: 140px;
+  margin:0 auto;
+  max-width:380px;
+  height:240px;
   padding: 20px;
   border-radius: 5px;
   @include material-shadow(box, 2);
-  transform: scale(0.85);
   transition: all 0.3s $transition;
-
+  @include screenSm {
+    max-width:320px;
+    height:170px;
+  };
   &__top {
-    @include flex;
+    text-align:right;
   }
 
   &__type {
     height: 25px;
-  }
-
-  &__icons-container {
-    @include flex(flex-start, center, row);
-    flex: 1;
-  }
-
-  &__icons {
-    height: 20px;
-    margin-right: 10px;
   }
 
   &__middle {
@@ -312,12 +335,17 @@ a:hover {
   }
 
   &__code {
+    flex:1;
     margin:0;
     color: $white;
     text-align: center;
     font-family: $primary-font;
-    font-size: 20px;
-    letter-spacing: 6px;
+    font-size: 26px;
+    letter-spacing: 8px;
+    @include screenSm {
+      font-size:22px;
+      letter-spacing: 4px;
+    };
   }
 
   &__bottom {
@@ -332,23 +360,25 @@ a:hover {
   &__label-name {
     margin:0;
     color: $white;
-    font-size: 14px;
+    font-size: 16px;
     font-family: $primary-font;
+    @include screenSm {
+      font-size:14px;
+    };
   }
 
   &__date,
   &__name {
     margin:0;
     color: $white;
-    font-size: 20px;
+    font-size: 22px;
     font-family: $primary-font;
+    @include screenSm {
+      font-size:18px;
+    };
   }
 }
 
-.slick-center .card {
-  @include material-shadow(box, 4);
-  transform: scale(1);
-}
 /* Credit cards */
 .visa-card {
   background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
@@ -357,6 +387,7 @@ a:hover {
 .master-card {
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
+
 /* cart panel */
 .dont-scroll {
   overflow-y: hidden;
@@ -426,7 +457,6 @@ a:hover {
   &__list {
     width: 100%;
     padding: 0 10px;
-    overflow-y: scroll;
     box-sizing: border-box;
   }
 

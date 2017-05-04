@@ -1,12 +1,13 @@
 .compteInfo {
-  padding-top: 100px;
-  background-color: $grey;
-  height: 100%;
+  position:relative;
+  z-index: 200;
+  margin-bottom: 200px;
+  background: $white;
 &-maps{
   float: right;
   @include material-shadow(box, 2);
-width: 55%;
-height: 350px;
+  width: 55%;
+  height: 350px;
 }
 &-submit{
   left: 80px;
@@ -21,20 +22,14 @@ height: 350px;
     background-color: $white;
     @include material-shadow(box, 2);
     margin-bottom: 50px;
-
+    white-space: nowrap;
+    overflow-x: auto;
     &-item {
       flex: 1;
       padding: 10px;
       font-size: 18px;
       color: $divider;
       text-decoration: none;
-      border-bottom: 5px solid transparent;
-
-      &:hover{
-        color:$write;
-        border-bottom: 5px solid $gold;
-
-      }
     }
   }
   &-bloc {
