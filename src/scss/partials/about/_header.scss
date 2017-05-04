@@ -26,3 +26,11 @@
     };
   }
 }
+
+.about {
+  position:relative;
+  z-index: 200;
+  margin-bottom: 200px;
+  background: $white;
+  @include material-shadow(box, 2);
+}
