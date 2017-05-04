@@ -152,6 +152,10 @@
     &-content {
       margin: 0;
 
+      .btn-gold {
+        margin-top: 15px;
+      }
+
       &-row {
         @include flex;
         flex-wrap: wrap;

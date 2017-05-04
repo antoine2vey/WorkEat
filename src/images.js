@@ -31,6 +31,8 @@ import mastercard from './assets/images/icons/mastercard.svg';
 import arrowRight from './assets/images/icons/arrow-right.svg';
 import arrowLeft from './assets/images/icons/arrow-left.svg';
 
+import pig from './assets/images/icons/pig-money.svg';
+
 export {
   videoMP4,
   videoWebm,
@@ -60,4 +62,5 @@ export {
   mastercard,
   arrowRight,
   arrowLeft,
+  pig,
 };

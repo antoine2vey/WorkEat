@@ -223,6 +223,8 @@ a:hover {
 /* Tab navigation */
 .select-tab,
 .select-tab-2 {
+  text-decoration: none;
+  color: $write;
   border-bottom: 5px solid transparent;
   transition: all 0.3s $transition;
   cursor: pointer;

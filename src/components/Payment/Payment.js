@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct } from '../../actions/cart';
-import { trashBlanc } from '../../images';
+import history from '../../utils/history';
+import { trashBlanc } from '../../images';
 
 const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct }) => (
   <div className="partOne">
@@ -40,7 +42,7 @@ const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct }) 
         </div>
         <div className="partOne-recap-btn">
           <button className="btn-gold">Revenir au panier</button>
-          <button className="btn-gold">Suivant</button>
+          <Link to={cart.length ? '/paiement' : '/recap'} className="btn-gold">Suivant</Link>
         </div>
       </div>
     </div>
