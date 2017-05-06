@@ -10,12 +10,13 @@ const loginUserRequest = () => ({
   type: LOGIN_REQUEST,
 });
 
-const loginUserSuccess = (token) => {
-  localStorage.setItem('_token', token);
+const loginUserSuccess = (userInformations) => {
+  localStorage.setItem('_token', userInformations.token);
   history.push('/');
   return {
     type: LOGIN_SUCCESS,
-    token,
+    token: userInformations.token,
+    user: userInformations.user,
   };
 };
 
@@ -44,6 +45,6 @@ export const loginUser = ({ email, password }) => (dispatch) => {
     username: email,
     password,
   })
-  .then(res => dispatch(loginUserSuccess(res.data.token)))
+  .then(res => dispatch(loginUserSuccess(res.data)))
   .catch(err => dispatch(loginUserFailure(err)));
 };

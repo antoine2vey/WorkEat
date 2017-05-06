@@ -47,7 +47,20 @@ exports.login = (req, res) => {
             isPrestataire: user.isPrestataire,
           };
           const token = jwt.sign(payload, process.env.JWT_SECRET);
-          return res.status(200).send({ token });
+          return res.status(200).send({
+            token,
+            user: {
+              username: user.username,
+              name: user.name,
+              surname: user.surname,
+              codePostal: user.codePostal,
+              address: user.address,
+              phoneNumber: user.phoneNumber,
+              town: user.town,
+              solde: user.solde,
+              position: user.position,
+            },
+          });
         });
       } else {
         res.status(401).send({ success: false, message: 'Auth fail' });

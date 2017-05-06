@@ -2,6 +2,7 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT } from '../act
 
 const initialState = {
   token: null,
+  user: {},
   isAuthenticated: false,
   isAuthenticating: false,
   statusText: null,
@@ -18,6 +19,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         token: action.token,
+        user: action.user,
         isAuthenticated: true,
         isAuthenticating: false,
         statusText: 'Connecté!',
@@ -29,11 +31,7 @@ const auth = (state = initialState, action) => {
         statusText: 'Mauvais mot de passe/nom de compte',
       };
     case USER_LOGOUT:
-      return {
-        ...state,
-        isAuthenticated: false,
-        statusText: null,
-      };
+      return initialState;
     default:
       return state;
   }

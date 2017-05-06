@@ -7,6 +7,7 @@ import {
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
   DELETE_ITEM,
+  GET_ORDER,
 } from '../actions/cart';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   quantityById: {},
   cart: [],
   productsById: {},
+  order: {},
 };
 
 const addedIds = (state = initialState.addedIds, action) => {
@@ -131,13 +133,19 @@ const cart = (state = initialState, action) => {
     case CHECKOUT_SUCCESS:
       return state;
     case CHECKOUT_FAILURE:
-      return action.productsById;
+      return state;
+    case GET_ORDER:
+      return {
+        ...initialState,
+        order: action.order,
+      };
     default:
       return {
         cart: cartHandler(state.cart, action),
         productsById: map(state, action),
         addedIds: addedIds(state.addedIds, action),
         quantityById: quantityById(state.quantityById, action),
+        order: {},
       };
   }
 };
@@ -158,5 +166,7 @@ export const getTotalPrice = (state) => {
 
   return price;
 };
+
+export const getAllQuantities = state => state.quantityById;
 
 export default cart;

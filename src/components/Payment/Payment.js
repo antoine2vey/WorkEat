@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getTotalPrice, getProducts } from '../../reducers/cart';
-import { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart } from '../../actions/cart';
+import { getTotalPrice, getProducts, getAllQuantities } from '../../reducers/cart';
+import { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq } from '../../actions/cart';
 import { trashBlanc } from '../../images';
 
-const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct, checkoutCart }) => (
+const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq }) => (
   <div className="partOne">
     <div className="container-fluid">
       <div className="partOne__recap">
@@ -41,7 +41,7 @@ const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct, ch
         </div>
         <div className="partOne-recap-btn">
           <button className="btn-gold">Revenir au panier</button>
-          <button onClick={() => checkoutCart(cart)} className="btn-gold">Suivant</button>
+          <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold">Suivant</button>
         </div>
       </div>
     </div>
@@ -51,7 +51,8 @@ const Payment = ({ cart, incrementQuantity, decrementQuantity, deleteProduct, ch
 const mapStateToProps = state => ({
   cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
+  quantityById: getAllQuantities(state.cart),
 });
 
-export default withRouter(connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart })(Payment));
+export default withRouter(connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq })(Payment));
 

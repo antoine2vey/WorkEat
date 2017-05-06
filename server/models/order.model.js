@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+  position: Number,
+  method: String,
   orderedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -17,6 +19,7 @@ const orderSchema = new mongoose.Schema({
       ref: 'Bundle',
     },
   ],
+  quantitiesById: {},
   amount: Number,
   orderedAt: {
     type: Date,

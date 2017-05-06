@@ -134,7 +134,7 @@ const csv = require('./server/api/csv.api');
 const cart = require('./server/api/cart.api.js');
 
 const authorizeRequest = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() || process.env.NODE_ENV !== 'production') {
     next();
   } else {
     res.status(401).send('Unauthorized. Please login.');
@@ -229,6 +229,7 @@ app.post('/payment/:id', authorizeRequest, payment.send);
 
 // ORDERS
 app.post('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.create);
+app.get('/api/orders/:id', jwtExpress({ secret: process.env.JWT_SECRET }), order.getOne);
 
 // CART
 app.get('/api/cart', authorizeRequest, cart.get);

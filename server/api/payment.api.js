@@ -17,20 +17,24 @@ exports.send = (req, res) => {
 
   // Find the order from param
   Order.findById(id)
-  .populate('articles', 'name price -_id')
-  .populate('bundles', 'name price -_id')
-  .populate('placeToShip', 'name -_id')
+  .populate('articles', 'file name price')
+  .populate('bundles', 'file name price')
+  .populate('placeToShip', 'name')
   .exec((err, order) => {
     if (err) {
-      return res.send({
+      return res.status(400).send({
         error: 'Product does not exists',
       });
     }
 
+    if (order.finished) {
+      return res.status(403).send('Cette commande à déjà été passée');
+    }
+
     // Found the user who passed the order
     User.findById(order.orderedBy, (error, user) => {
-      if (error) {
-        throw new Error('Database error.');
+      if (error || !user) {
+        res.send('No user with this username');
       }
 
       // Format price for stripe
@@ -55,13 +59,16 @@ exports.send = (req, res) => {
             if (_err) {
               console.log('Database error @ update user', _err);
             }
-            
+
             // Order is finished since we saved a token
             order.finished = true;
+            order.method = 'Carte bancaire';
             order.save((err) => {
               if (err) {
                 console.log('Database error @ save order', err);
               }
+
+              res.status(200).send({ order });
             });
           });
         });
@@ -75,10 +82,13 @@ exports.send = (req, res) => {
 
         // Finished, we update the order
         order.finished = true;
+        order.method = 'Carte bancaire';
         order.save((err) => {
           if (err) {
             console.log('Database error @ save order', err);
           }
+
+          res.status(200).send({ order });
         });
       }
     });

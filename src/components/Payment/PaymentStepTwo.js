@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { trashBlanc, visa, mastercard, pig, creditCard, edit } from '../../images';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getTotalPrice, getProducts } from '../../reducers/cart';
+import { checkoutCart } from '../../actions/cart';
+import { visa, pig, creditCard } from '../../images';
 
 class PaymentStepTwo extends Component {
   constructor(props) {
@@ -11,12 +13,12 @@ class PaymentStepTwo extends Component {
       cvc: '433',
       exp_month: '08',
       exp_year: '19',
-      total: props.location.state.total,
     };
   }
 
   componentDidMount() {
-    let total = this.state.total;
+    // Total in paypal.Button is scope to window ..
+    let total = this.props.total;
     // eslint-disable-next-line
     Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
     // eslint-disable-next-line
@@ -31,6 +33,7 @@ class PaymentStepTwo extends Component {
         shape: 'pill',     // pill | rect
         color: 'silver',
       },
+      commit: true,
       payment() {
         // eslint-disable-next-line
         return paypal.rest.payment.create(this.props.env, this.props.client, {
@@ -58,11 +61,8 @@ class PaymentStepTwo extends Component {
         return console.error('error at Stripe handler', res);
       }
 
-      const token = res.id;
-
-      axios.post(`/payment/${this.props.match.params.orderId}`, { token })
-        .then(res => console.log('Chargé', res))
-        .catch(err => console.error('Pas chargé', err));
+      const stripeToken = res.id;
+      this.props.checkoutCart('STRIPE', stripeToken, this.props.match.params.orderId);
     });
   }
 
@@ -70,7 +70,7 @@ class PaymentStepTwo extends Component {
     return (
       <div className="partTwo">
         <div className="container-fluid">
-          <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.location.state.total}€</span></h2>
+          <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.total}€</span></h2>
           <div className="partTwo__select">
             <Link to="/compte/solde" className="partTwo__type select-tab">
               <img src={pig} alt="Solde du compte" className="partTwo__icon" />
@@ -147,5 +147,10 @@ class PaymentStepTwo extends Component {
   }
 }
 
-export default PaymentStepTwo;
+const mapStateToProps = state => ({
+  cart: getProducts(state.cart),
+  total: getTotalPrice(state.cart),
+});
+
+export default withRouter(connect(mapStateToProps, { checkoutCart })(PaymentStepTwo));
 
