@@ -64,8 +64,9 @@ export const checkoutCart = cart => (dispatch) => {
     },
   })
     .then((res) => {
-      dispatch(checkoutSuccess(res.data));
-      history.push(`/paiement/${res.data}`);
+      const { id, cart, total } = res.data;
+      dispatch(checkoutSuccess(id));
+      history.push(`/paiement/${id}`, { cart, total });
     })
     .catch(err => console.error(err));
 };

@@ -225,7 +225,7 @@ app.post('/api/places', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi
 app.delete('/api/places/:id', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.delete);
 
 // STRIPE
-app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
+app.post('/payment/:id', authorizeRequest, payment.send);
 
 // ORDERS
 app.post('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.create);

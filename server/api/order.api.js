@@ -16,6 +16,10 @@ exports.create = (req, res) => {
       return res.status(500).send('Database error');
     }
 
-    return res.send(order._id);
+    return res.send({
+      id: order._id,
+      cart: products,
+      total,
+    });
   });
 };

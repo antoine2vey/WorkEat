@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart } from '../../actions/cart';
@@ -52,5 +53,5 @@ const mapStateToProps = state => ({
   total: getTotalPrice(state.cart),
 });
 
-export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart })(Payment);
+export default withRouter(connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutCart })(Payment));
 

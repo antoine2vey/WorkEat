@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { trashBlanc, visa, mastercard, pig, paypal, creditCard, edit } from '../../images';
+import { trashBlanc, visa, mastercard, pig, creditCard, edit } from '../../images';
 
 class PaymentStepTwo extends Component {
   constructor(props) {
@@ -11,12 +11,43 @@ class PaymentStepTwo extends Component {
       cvc: '433',
       exp_month: '08',
       exp_year: '19',
+      total: props.location.state.total,
     };
   }
 
   componentDidMount() {
+    let total = this.state.total;
     // eslint-disable-next-line
     Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
+    // eslint-disable-next-line
+    paypal.Button.render({
+      env: 'sandbox',
+      client: {
+        sandbox: 'AYzECXkI2cPmq3gpDQQ6SXyYZVe2292wsy4RPLi5WrMeOCZQZu2rEIfYM-rCdbvIfDr-5Nz4LsfuYVYv',
+      },
+      style: {
+        label: 'checkout', // checkout || credit
+        size: 'medium',    // tiny | small | medium
+        shape: 'pill',     // pill | rect
+        color: 'silver',
+      },
+      payment() {
+        // eslint-disable-next-line
+        return paypal.rest.payment.create(this.props.env, this.props.client, {
+          transactions: [
+            {
+              amount: { total, currency: 'EUR' },
+            },
+          ],
+        });
+      },
+
+      onAuthorize(data, actions) {
+        return actions.payment.execute().then(() => {
+          alert('Payment done!');
+        });
+      },
+    }, '#paypal-button-container');
   }
 
   submitPayment() {
@@ -39,17 +70,18 @@ class PaymentStepTwo extends Component {
     return (
       <div className="partTwo">
         <div className="container-fluid">
-          <h2 className="partTwo__title">Total de votre commande : <span className="bold">18,5€</span></h2>
+          <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.location.state.total}€</span></h2>
           <div className="partTwo__select">
             <Link to="/compte/solde" className="partTwo__type select-tab">
               <img src={pig} alt="Solde du compte" className="partTwo__icon" />
               <p className="partTwo__type-title">Solde du compte</p>
               <p className="partTwo__solde">Solde actuel : <span className="bold">30,00€</span></p>
             </Link>
-            <div className="partTwo__type select-tab" data-tab="paypal">
+            {/*<div className="partTwo__type select-tab" data-tab="paypal">
               <img src={paypal} alt="Solde du compte" className="partTwo__icon" />
               <p className="partTwo__type-title">Paypal</p>
-            </div>
+            </div>*/}
+            <div id="paypal-button-container" className="partTwo__type select-tab" onClick={() => this.payWithPaypal()} />
             <div className="partTwo__type select-tab select-tab--current" data-tab="card">
               <img src={creditCard} alt="Solde du compte" className="partTwo__icon" />
               <p className="partTwo__type-title">Carte bancaire</p>
