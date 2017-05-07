@@ -5,7 +5,7 @@ exports.getOne = (req, res) => {
   Order.findOne({ _id: id })
     .populate({
       path: 'articles',
-      model: 'Products',
+      model: 'Product',
       populate: {
         path: 'tags',
         model: 'Tag',

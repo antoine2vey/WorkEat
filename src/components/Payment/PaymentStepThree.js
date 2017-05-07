@@ -10,7 +10,7 @@ class PaymentStepThree extends Component {
   }
 
   render() {
-    const { order } = this.props;
+    const { order, user } = this.props;
     return (
       <div className="partFive">
         <div className="container">
@@ -40,9 +40,10 @@ class PaymentStepThree extends Component {
             <div className="partFive-label-qty">Quantité</div>
             <div className="partFive-label-price">Prix</div>
           </div>
+          { order.articles &&
           <div className="tabcommand-part"><p>A la carte</p>
             <hr />
-          </div>
+          </div> }
           { order.articles ? (
             order.articles.map(article => (
               <div className="partFive__product" key={article._id}>
@@ -62,23 +63,30 @@ class PaymentStepThree extends Component {
           ) : (
             <div>Pas d'articles pour cette commande</div>
           ) }
+          { order.bundles &&
           <div className="partFive-tabcommand-part">
             <p>Formule</p>
             <hr />
-          </div>
-          <div className="partFive__product">
-            <div className="partFive__product-infos">
-              <img src="images/thumb/formule-thumb-blagounette.jpg" alt="The Formule" className="partFive__product-image" />
-              <div className="partFive__product-text">
-                <h6 className="partFive__product-type">Formule</h6>
-                <h3 className="partFive__product-title">La Complète</h3>
+          </div> }
+          { order.bundles ? (
+            order.bundles.map(article => (
+              <div className="partFive__product" key={article._id}>
+                <div className="partFive__product-infos">
+                  <img src={article.file} alt="Commande " className="partFive__product-image" />
+                  <div className="partFive__product-text">
+                    <h6 className="partFive__product-type">{ article.types.map((type, i) => <span key={i}>{type}{article.types.length - 1 === i ? '' : ','} </span>) }</h6>
+                    <h3 className="partFive__product-title">{article.name}</h3>
+                  </div>
+                </div>
+                <div className="partFive__quantity">
+                  <p>x{order.quantitiesById[article._id]}</p>
+                </div>
+                <p className="partFive__price">{(article.price * order.quantitiesById[article._id]).toFixed(2)}€</p>
               </div>
-            </div>
-            <div className="partFive__quantity">
-              <p>x1</p>
-            </div>
-            <p className="partFive__price">10,50€</p>
-          </div>
+            ))
+          ) : (
+            <div>Pas de formules pour cette commande</div>
+          ) }
           <div className="partFive-tabcommand-part">
             <p>Promo</p>
             <hr />
@@ -103,16 +111,14 @@ class PaymentStepThree extends Component {
             <div className="five columns">
               <div className="partFive-coord">
                 <h5 className="partFive__product-title">Vos Coordonnées</h5>
-                <strong>Adresse</strong>
-                3 rue d'Arras,<br />
-                Batiment C <br />
-                59000 Lille
+                <strong>Adresse</strong>: {user.address},<br />
+                {user.codePostal} {user.town}
               </div>
             </div>
             <div className="six columns">
               <div className="partFive-total">
-                <h3 className="partFive__product-title">Total :   </h3>
-                <h4>8,00€</h4>
+                <h3 className="partFive__product-title">Total :</h3>
+                <h4>{order.amount}€</h4>
               </div>
             </div>
           </div>
@@ -125,6 +131,7 @@ class PaymentStepThree extends Component {
 
 const mapStateToProps = state => ({
   order: state.cart.order,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { getOrderById })(PaymentStepThree);
