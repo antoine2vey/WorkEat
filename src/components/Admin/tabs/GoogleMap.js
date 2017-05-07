@@ -125,7 +125,7 @@ class GMap extends Component {
       <AsyncGettingStartedExampleGoogleMap
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA6gHqeycUHEafQjIUWJCmrvC67rRTUc7Y"
         containerElement={
-          <div style={{ height: '100%', minHeight: 500, paddingBottom: 30 }} />
+          <div style={{ height: 200, minHeight: 500, paddingBottom: 30 }} />
         }
         mapElement={
           <div style={{ height: '100%' }} />

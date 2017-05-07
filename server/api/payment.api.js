@@ -8,7 +8,6 @@ function getStripeAmount(amount) {
 }
 
 exports.send = (req, res) => {
-  const { username } = req.user;
   const { id } = req.params;
   const { token } = req.body;
 
@@ -43,8 +42,8 @@ exports.send = (req, res) => {
         // No token, we create a new customer first
         Stripe.customers.create({
           source: token,
-          description: `${req.user.surname} ${req.user.name}`,
-          email: username,
+          description: `${user.surname} ${user.name}`,
+          email: user.username,
         }).then(customer => (
           // Then we charge this customer with his id as token
           Stripe.charges.create({

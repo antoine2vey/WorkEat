@@ -152,28 +152,21 @@ exports.delete = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-  let query;
-  if (req.body.position) {
-    query = {
-      position: req.body.position,
-    };
-  } else {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-    query = {
-      username: req.body.username,
-      password: hash,
-      name: req.body.name,
-      surname: req.body.surname,
-      codePostal: req.body.codePostal,
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      town: req.body.town,
-    };
-  }
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
+  const query = {
+    username: req.body.username,
+    password: hash,
+    name: req.body.name,
+    surname: req.body.surname,
+    codePostal: req.body.codePostal,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    town: req.body.town,
+  };
 
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user._id, query, (err, doc) => {
+  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
     if (err) {
       return res.status(500).send({
         error: 'Email already exists',
