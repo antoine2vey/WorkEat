@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { deleteUser, updateUser } from '../../actions/auth';
 import InfoGenerale from './InfoGenerale';
 import Commandes from './Commandes';
 import Solde from './Solde';
@@ -32,4 +33,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(Account);
+export default connect(mapStateToProps, { deleteUser, updateUser })(Account);

@@ -1,7 +1,7 @@
 import React from 'react';
 import GMap from '../Admin/tabs/GoogleMap.js';
 
-const InfoGenerale = ({ user }) => (
+const InfoGenerale = ({ user, deleteUser }) => (
   <div className="container-fluid">
     <div className="compteInfo-bloc">
       <h5>INFORMATIONS GÉNÉRALES</h5>
@@ -43,7 +43,7 @@ const InfoGenerale = ({ user }) => (
             </div>
             <div className="material-field  compteInfo-field">
               <label className="material-field__label" htmlFor="mdpNew">Nouveau mot de passe</label>
-              <input type="text" id="mdpNew" className="material-field__input compteInfo-input"/>
+              <input type="text" id="mdpNew" className="material-field__input compteInfo-input" />
             </div>
             <div className="material-field  compteInfo-field">
               <label className="material-field__label" htmlFor="mdpConfirm">Confirmez le mot de passe</label>
@@ -58,7 +58,7 @@ const InfoGenerale = ({ user }) => (
         <p>
           Vous pouvez supprimer votre compte cependant cette action est irréversible.
         </p>
-        <button type="submit" className="btn-red compteInfo-btnSuppr">SUPPRIMER</button>
+        <button type="submit" className="btn-red compteInfo-btnSuppr" onClick={deleteUser}>SUPPRIMER</button>
       </div>
     </div>
   </div>

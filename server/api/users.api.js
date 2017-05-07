@@ -134,12 +134,13 @@ exports.create = (req, res) => {
   });
 };
 exports.delete = (req, res) => {
-  User.findByIdAndRemove(req.user._id, (err) => {
+  User.findByIdAndRemove(req.user.id, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error deleting account.');
       return;
     }
+
     req.session.destroy((err) => {
       if (err) {
         res.status(500).send('Error deleting account.');
