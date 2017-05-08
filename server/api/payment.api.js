@@ -8,11 +8,12 @@ function getStripeAmount(amount) {
 }
 
 exports.send = (req, res) => {
+  console.log(req.query);
   const { id } = req.params;
   const { token } = req.body;
 
   // If no id || token, we stop here
-  if (!id || !token) return;
+  if (!id) return;
 
   // Find the order from param
   Order.findById(id)
@@ -34,6 +35,29 @@ exports.send = (req, res) => {
     User.findById(order.orderedBy, (error, user) => {
       if (error || !user) {
         res.send('No user with this username');
+      }
+
+      if (req.query.method === 'solde') {
+        if (order.amount > user.solde) {
+          return res.send('Vous n\'avez pas assez sur votre solde!');
+        }
+
+        user.solde -= order.amount;
+        return user.save((err) => {
+          if (err) {
+            return console.log('Error updating user');
+          }
+
+          order.finished = true;
+          order.method = 'Solde';
+          order.save((err) => {
+            if (err) {
+              return console.log('Erreur update order');
+            }
+
+            return res.status(200).send({ order });
+          });
+        });
       }
 
       // Format price for stripe

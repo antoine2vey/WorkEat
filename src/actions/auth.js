@@ -38,7 +38,7 @@ export const updateAccount = account => ({ type: UPDATE_ACCOUNT, account });
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')
     .then(() => dispatch(logout()))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 };
 
 export const loginUser = ({ email, password }) => (dispatch) => {

@@ -62,8 +62,12 @@ class PaymentStepTwo extends Component {
       }
 
       const stripeToken = res.id;
-      this.props.checkoutCart('STRIPE', stripeToken, this.props.match.params.orderId);
+      this.props.checkoutCart('STRIPE', this.props.match.params.orderId, stripeToken);
     });
+  }
+
+  payWithSolde() {
+    this.props.checkoutCart('SOLDE', this.props.match.params.orderId);
   }
 
   render() {
@@ -72,11 +76,11 @@ class PaymentStepTwo extends Component {
         <div className="container-fluid">
           <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.total}€</span></h2>
           <div className="partTwo__select">
-            <Link to="/compte/solde" className="partTwo__type select-tab">
+            <div to="/compte/solde" className="partTwo__type select-tab" onClick={() => this.payWithSolde()}>
               <img src={pig} alt="Solde du compte" className="partTwo__icon" />
               <p className="partTwo__type-title">Solde du compte</p>
-              <p className="partTwo__solde">Solde actuel : <span className="bold">30,00€</span></p>
-            </Link>
+              <p className="partTwo__solde">Solde actuel : <span className="bold">{this.props.solde}€</span></p>
+            </div>
             {/*<div className="partTwo__type select-tab" data-tab="paypal">
               <img src={paypal} alt="Solde du compte" className="partTwo__icon" />
               <p className="partTwo__type-title">Paypal</p>
@@ -150,6 +154,7 @@ class PaymentStepTwo extends Component {
 const mapStateToProps = state => ({
   cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
+  solde: state.auth.user.solde,
 });
 
 export default withRouter(connect(mapStateToProps, { checkoutCart })(PaymentStepTwo));

@@ -53,7 +53,7 @@ export const checkoutReq = (cart, quantites) => (dispatch) => {
     .catch(err => console.error(err));
 };
 
-export const checkoutCart = (method, token, orderId) => (dispatch) => {
+export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
   dispatch(checkoutHandshake());
   if (method === 'STRIPE') {
     return axios.post(`/payment/${orderId}`, { token })
@@ -64,6 +64,10 @@ export const checkoutCart = (method, token, orderId) => (dispatch) => {
         history.push(`/paiement-confirmation/${order._id}`, { order });
       })
       .catch(err => dispatch(checkoutFailed()));
+  } else if (method === 'SOLDE') {
+    return axios.post(`/payment/${orderId}?method=solde`)
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   }
 };
 
