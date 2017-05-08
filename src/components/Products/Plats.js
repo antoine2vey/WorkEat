@@ -32,7 +32,7 @@ const Plats = ({ ...props }) => {
           key={i}
         >
           { row.map(plat => (
-            <Plat 
+            <Plat
               plat={plat}
               key={plat._id}
               addToCart={() => addToCart(plat)}

@@ -51,7 +51,7 @@ exports.send = (req, res) => {
             currency: 'eur',
             customer: customer.id,
           })
-        )).then((charge) => {
+        )).then((charge) => { 
           // Customer id becomes our token
           user.tokens.stripe = charge.customer;
           user.save((_err) => {
@@ -60,8 +60,10 @@ exports.send = (req, res) => {
             }
 
             // Order is finished since we saved a token
-            order.finished = true;
-            order.method = 'Carte bancaire';
+            order = {
+              finished: true,
+              method: 'Carte bancaire',
+            };
             order.save((err) => {
               if (err) {
                 console.log('Database error @ save order', err);
@@ -80,8 +82,10 @@ exports.send = (req, res) => {
         });
 
         // Finished, we update the order
-        order.finished = true;
-        order.method = 'Carte bancaire';
+        order = {
+          finished: true,
+          method: 'Carte bancaire',
+        };
         order.save((err) => {
           if (err) {
             console.log('Database error @ save order', err);

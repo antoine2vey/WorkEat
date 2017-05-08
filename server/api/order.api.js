@@ -27,9 +27,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  let total = 0;
   const { cart, quantites } = req.body;
-  cart.forEach(product => parseInt(total += (product.quantity * product.price), 10).toFixed(2));
 
   Order.count({}).exec((err, len) => {
     const order = new Order({
@@ -37,7 +35,7 @@ exports.create = (req, res) => {
       orderedBy: req.user.id,
       articles: cart.map(p => p._id),
       quantitiesById: quantites,
-      amount: total,
+      amount: cart.reduce((curr, next) => curr + (next.quantity * next.price), 0),
     });
 
     order.save((err) => {
@@ -60,7 +58,6 @@ exports.forCurrentUser = (req, res) => {
         return res.status(400).send('Error getting orders for current user');
       }
 
-      console.log(orders);
       return res.status(200).send(orders);
     });
 };
