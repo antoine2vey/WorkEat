@@ -1,4 +1,5 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../actions/auth';
+import { CHECKOUT_SUCCESS } from '../actions/cart';
 
 const initialState = {
   token: null,
@@ -10,6 +11,14 @@ const initialState = {
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
+    case CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          solde: state.user.solde -= action.order.amount,
+        },
+      };
     case UPDATE_ACCOUNT:
       return {
         ...state,
