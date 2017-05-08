@@ -230,6 +230,7 @@ app.post('/payment/:id', authorizeRequest, payment.send);
 // ORDERS
 app.post('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.create);
 app.get('/api/orders/:id', jwtExpress({ secret: process.env.JWT_SECRET }), order.getOne);
+app.get('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.forCurrentUser);
 
 // CART
 app.get('/api/cart', authorizeRequest, cart.get);

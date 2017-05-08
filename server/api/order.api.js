@@ -49,3 +49,18 @@ exports.create = (req, res) => {
     });
   });
 };
+
+exports.forCurrentUser = (req, res) => {
+  Order
+    .find({})
+    .where('orderedBy').equals(req.user.id)
+    .select('position orderedAt finished method amount quantitiesById')
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).send('Error getting orders for current user');
+      }
+
+      console.log(orders);
+      return res.status(200).send(orders);
+    });
+};
