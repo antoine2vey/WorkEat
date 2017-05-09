@@ -30,11 +30,11 @@ class Header extends Component {
 
   render() {
     const { roles, isAdminNavbarDisplayed } = this.state;
-    const { logoutUser, itemsInCart } = this.props;
+    const { logoutUser, itemsInCart, solde } = this.props;
     return (
       <div>
         {isAdminNavbarDisplayed && <AdminNav roles={roles} /> }
-        <UserNav logoutUser={logoutUser} itemsNumber={itemsInCart} />
+        <UserNav logoutUser={logoutUser} itemsNumber={itemsInCart} solde={solde} />
       </div>
     );
   }
@@ -45,6 +45,7 @@ function mapStateToProps(state) {
   return {
     token,
     itemsInCart: getTotal(state.cart),
+    solde: state.auth.user.solde,
   };
 }
 export default connect(mapStateToProps, { logoutUser })(Header);
