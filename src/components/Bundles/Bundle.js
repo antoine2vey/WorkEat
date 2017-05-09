@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/href-no-hash: "off" */
 import React from 'react';
+import Select from '../Admin/tabs/FormFields';
 
 class Bundle extends React.Component {
   constructor(props) {
@@ -13,14 +14,8 @@ class Bundle extends React.Component {
     this.props.fetchProducts();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.products !== this.state.products) {
-      this.setState({ products: nextProps.products });
-    }
-  }
-
   render() {
-    const { bundle } = this.props;
+    const { bundle, products } = this.props;
     return (
       <div className="card">
         <div className="card-content">

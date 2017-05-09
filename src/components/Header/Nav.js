@@ -20,7 +20,7 @@ const Nav = ({ shown, switcher, logout, solde }) => (
         <Link to="/compte" className="nav-list-item-link" onClick={() => switcher()}>Mon compte</Link>
       </li>
       <li className="nav-list-item">
-        <Link to="/compte/solde" className="nav-list-item-link" onClick={() => switcher()}>Solde <strong>{solde.toFixed(2)} €</strong></Link>
+        <Link to="/compte/solde" className="nav-list-item-link" onClick={() => switcher()}>Solde <strong>{solde} €</strong></Link>
       </li>
       <li className="nav-list-item">
         <Link to="/contact" className="nav-list-item-link" onClick={() => switcher()}>Contact</Link>
