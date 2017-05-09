@@ -45,7 +45,7 @@ class InfoGenerale extends Component {
                   <input type="text" id="name" defaultValue={user.name} name="name" onChange={this.handleChange} className="material-field__input compteInfo-input" />
                 </div>
 
-                <div>
+                <div className="compteInfo-maps">
                   <GMap loadedPlaces={places} />
                 </div>
                 <div className="material-field compteInfo-field">

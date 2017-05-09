@@ -3,18 +3,33 @@
   z-index: 200;
   margin-bottom: 200px;
   background: $white;
+&-form{
+  margin-bottom: 100px;
+}
 &-maps{
   float: right;
   @include material-shadow(box, 2);
   width: 55%;
-  height: 350px;
+  height: 350px ;
+  @include screenSm{
+    width: 100%;
+  }
+}
+&-maps > div{
+  min-height: 350px !important;
 }
 &-submit{
-  left: 80px;
   top:10px;
+  @include screenSm{
+    left: 20%;
+    top: 30px;
+  }
 }
 &-btnSuppr{
   margin-top: 20px;
+  @include screenSm{
+    left: 20%;
+  }
 }
   &-submenu {
     @include flex;
@@ -33,11 +48,10 @@
     }
   }
   &-bloc {
-    background-color: $white;
-    @include material-shadow(box, 2);
     margin: 20px;
     padding: 20px;
     padding-bottom: 30px;
+    display: block;
   }
   &-iframe{
     @include material-shadow(box, 2);
@@ -46,6 +60,9 @@
   &-field{
     width: 18% !important;
     margin-left: 1%;
+    @include screenSm{
+      width: 100% !important;
+    }
   }
   &-rowForm{
     margin-bottom: 50px;

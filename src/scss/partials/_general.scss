@@ -677,3 +677,22 @@ input:-webkit-autofill{
   transition: background-color 5000s ease-in-out 0s;
 
 }
+.cookie{
+  position: fixed;
+  top: 94%;
+  z-index: 1000;
+  width: 100%;
+  background-color: $gold;
+  @include material-shadow(box, 2);
+  &-content{
+text-align: center;
+padding: 5px;
+  }
+  &-valider, &-infos{
+    border:0;
+  }
+}
+.fadeOut{
+  visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;}
