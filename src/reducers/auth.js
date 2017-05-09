@@ -1,7 +1,9 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT } from '../actions/auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../actions/auth';
+import { CHECKOUT_SUCCESS } from '../actions/cart';
 
 const initialState = {
   token: null,
+  user: {},
   isAuthenticated: false,
   isAuthenticating: false,
   statusText: null,
@@ -9,6 +11,19 @@ const initialState = {
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
+    case CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          solde: state.user.solde -= action.order.amount,
+        },
+      };
+    case UPDATE_ACCOUNT:
+      return {
+        ...state,
+        user: action.account,
+      };
     case LOGIN_REQUEST:
       return {
         ...state,
@@ -18,6 +33,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         token: action.token,
+        user: action.user,
         isAuthenticated: true,
         isAuthenticating: false,
         statusText: 'Connecté!',
@@ -29,11 +45,8 @@ const auth = (state = initialState, action) => {
         statusText: 'Mauvais mot de passe/nom de compte',
       };
     case USER_LOGOUT:
-      return {
-        ...state,
-        isAuthenticated: false,
-        statusText: null,
-      };
+    case DELETE_ACCOUNT:
+      return initialState;
     default:
       return state;
   }

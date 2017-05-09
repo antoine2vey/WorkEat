@@ -47,7 +47,20 @@ exports.login = (req, res) => {
             isPrestataire: user.isPrestataire,
           };
           const token = jwt.sign(payload, process.env.JWT_SECRET);
-          return res.status(200).send({ token });
+          return res.status(200).send({
+            token,
+            user: {
+              username: user.username,
+              name: user.name,
+              surname: user.surname,
+              codePostal: user.codePostal,
+              address: user.address,
+              phoneNumber: user.phoneNumber,
+              town: user.town,
+              solde: user.solde,
+              position: user.position,
+            },
+          });
         });
       } else {
         res.status(401).send({ success: false, message: 'Auth fail' });
@@ -121,12 +134,13 @@ exports.create = (req, res) => {
   });
 };
 exports.delete = (req, res) => {
-  User.findByIdAndRemove(req.user._id, (err) => {
+  User.findByIdAndRemove(req.user.id, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send('Error deleting account.');
       return;
     }
+
     req.session.destroy((err) => {
       if (err) {
         res.status(500).send('Error deleting account.');
@@ -138,28 +152,21 @@ exports.delete = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-  let query;
-  if (req.body.position) {
-    query = {
-      position: req.body.position,
-    };
-  } else {
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-    query = {
-      username: req.body.username,
-      password: hash,
-      name: req.body.name,
-      surname: req.body.surname,
-      codePostal: req.body.codePostal,
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      town: req.body.town,
-    };
-  }
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
+  const query = {
+    username: req.body.username,
+    password: hash,
+    name: req.body.name,
+    surname: req.body.surname,
+    codePostal: req.body.codePostal,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    town: req.body.town,
+  };
 
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user._id, query, (err, doc) => {
+  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
     if (err) {
       return res.status(500).send({
         error: 'Email already exists',

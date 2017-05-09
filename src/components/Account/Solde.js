@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as images from '../../images';
-import Slider from 'react-slick';
 
 class Solde extends Component {
   constructor() {
@@ -10,21 +9,13 @@ class Solde extends Component {
       date: '',
       expiry: '',
       code: '',
-    }
+    };
   }
   render() {
-    const settings = {
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      centerMode: true,
-      variableWidth: true,
-      infinite: false,
-      arrows: false,
-    };
     return (
       <div className="solde">
         <div className="container-fluid">
-          <h2 className="solde__title">Solde actuel: <span className="bold">0,00€</span></h2>
+          <h2 className="solde__title">Solde actuel: <span className="bold">{this.props.user.solde.toFixed(2)}€</span></h2>
           <div className="payment__select">
             <div className="payment__type select-tab" data-tab="paypal">
               <img src={images.paypal} alt="Paypal" className="payment__icon" />

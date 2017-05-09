@@ -13,6 +13,7 @@ import Contact from '../Contact/Contact';
 import About from '../About/About';
 import Payment from '../Payment/Payment';
 import PaymentStepTwo from '../Payment/PaymentStepTwo';
+import PaymentStepThree from '../Payment/PaymentStepThree';
 
 import './App.css';
 
@@ -31,6 +32,7 @@ const App = () => (
 
         <Route path="/recap" component={Payment} />
         <Route path="/paiement/:orderId" component={PaymentStepTwo} />
+        <Route path="/paiement-confirmation/:orderId" component={PaymentStepThree} />
 
         <Route path="/" component={GlobalProducts} />
       </Switch>

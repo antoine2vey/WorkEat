@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import chunk from 'lodash/chunk';
 import { addToCart } from '../../actions/cart';
 
-const Dessert = ({ dessert: { file, description, price, tags, types, name }, addToCart }) => (
+const Dessert = ({ dessert: { file, description, price, tags, types, name }, addToCart, showProduct, isVisible, hideProduct }) => (
   <div className="products__product">
     <div className="products__product__options">
-      <button className="products__product__option btn-gold">Voir</button>
+      <button className="products__product__option btn-gold" onClick={isVisible ? hideProduct : showProduct}>Voir</button>
       <button className="products__product__option btn-gold" onClick={addToCart}>Ajouter</button>
     </div>
     <img src={file} alt="Produit" className="products__product__image" />
@@ -21,7 +21,7 @@ const Dessert = ({ dessert: { file, description, price, tags, types, name }, add
 );
 
 const Desserts = ({ ...props }) => {
-  const { desserts, addToCart } = props;
+  const { desserts, addToCart, showProduct, hideProduct, isVisible } = props;
   const rows = chunk(desserts, 4);
 
   return (
@@ -32,7 +32,14 @@ const Desserts = ({ ...props }) => {
           key={i}
         >
           { row.map(dessert => (
-            <Dessert dessert={dessert} key={dessert._id} addToCart={() => addToCart(dessert._id)} />
+            <Dessert
+              dessert={dessert}
+              key={dessert._id}
+              addToCart={() => addToCart(dessert)}
+              showProduct={() => showProduct(dessert)}
+              hideProduct={() => hideProduct()}
+              isVisible={isVisible}
+            />
           )) }
         </div>
       )) }

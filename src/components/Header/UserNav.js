@@ -10,6 +10,14 @@ class UserNav extends Component {
     this.state = {
       isCartShown: false,
       isNavShown: false,
+      timer: setInterval(() => {
+        const date = moment().unix();
+        // eslint-disable-next-line
+        const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
+        const tmrwTimestamp = moment(tmrw).unix();
+
+        this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
+      }),
       tstamp: moment().format('HH:mm:ss'),
     };
 
@@ -17,15 +25,8 @@ class UserNav extends Component {
     this.showNav = this.showNav.bind(this);
   }
 
-  componentDidMount() {
-    const timer = setInterval(() => {
-      const date = moment().unix();
-      // eslint-disable-next-line
-      const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
-      const tmrwTimestamp = moment(tmrw).unix();
-
-      this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
-    });
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
   }
 
   showCart() {

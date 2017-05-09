@@ -134,7 +134,7 @@ const csv = require('./server/api/csv.api');
 const cart = require('./server/api/cart.api.js');
 
 const authorizeRequest = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() || process.env.NODE_ENV !== 'production') {
     next();
   } else {
     res.status(401).send('Unauthorized. Please login.');
@@ -196,8 +196,8 @@ app.post('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);
-app.delete('/account/delete/:email', authorizeRequest, userRoute.delete);
-app.put('/account/update', authorizeRequest, userRoute.update);
+app.delete('/account/delete', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.delete);
+app.put('/account/update', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.update);
 
 app.get('/protected', authorizeRequest, (req, res) => {
   res.send({
@@ -225,10 +225,12 @@ app.post('/api/places', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi
 app.delete('/api/places/:id', jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.delete);
 
 // STRIPE
-app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
+app.post('/payment/:id', authorizeRequest, payment.send);
 
 // ORDERS
 app.post('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.create);
+app.get('/api/orders/:id', jwtExpress({ secret: process.env.JWT_SECRET }), order.getOne);
+app.get('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.forCurrentUser);
 
 // CART
 app.get('/api/cart', authorizeRequest, cart.get);
