@@ -26,14 +26,12 @@ class InfoGenerale extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value }, () => console.log(this.state));
   }
-  focusInput(){
-    var elements = document.getElementsByClassName("material-field");
 
-    // J'ai essayé différents trucs tel qu'un queryseleector etc mais ça n'a rien donné :'(
+  focusInput(event) {
+    const { value, id } = event.target;
 
-    console.log(elements);
-    elements.classList.add("is-focused");
-
+    console.log(value);
+    console.log(id);
   }
 
   render() {
@@ -47,7 +45,7 @@ class InfoGenerale extends Component {
               <div className="row compteInfo-rowForm">
                 <div className="material-field compteInfo-field" id="test">
                   <label className="material-field__label" htmlFor="prenom">Prénom</label>
-                  <input type="text" id="prenom" defaultValue={user.surname} onFocus={this.focusInput}  name="surname" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="prenom" defaultValue={user.surname} onFocus={this.focusInput} name="surname" onChange={this.handleChange} className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="name">Nom</label>
