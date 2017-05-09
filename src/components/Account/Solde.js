@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import * as images from '../../images';
 
 class Solde extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      owner: '',
+      owner: `${props.user.surname} ${props.user.name}`,
       date: '',
       expiry: '',
       code: '',
@@ -42,7 +42,7 @@ class Solde extends Component {
                         <div className="card__bottom">
                           <div className="card__owner">
                             <p className="card__label-name">Nom du propriétaire</p>
-                            <p className="card__name">Clouet Pierre</p>
+                            <p className="card__name">{this.state.owner}</p>
                           </div>
                           <div className="card__expiry">
                             <p className="card__label-date">Expire le</p>
@@ -53,8 +53,8 @@ class Solde extends Component {
                 </div>
                 <div className="payment__add-card">
                   <div className="material-field partTwo__owner">
-                    <label htmlFor="name" className="material-field__label">Nom du propriétaire</label>
-                    <input type="text" id="name" className="material-field__input" />
+                    <label htmlFor="owner" className="material-field__label">Nom du propriétaire</label>
+                    <input type="text" id="owner" value={this.state.owner} onChange={this.changeInfo} className="material-field__input" />
                   </div>
                   <div className="material-field partTwo__code">
                     <label htmlFor="code" className="material-field__label">Numéro de carte</label>
@@ -62,8 +62,8 @@ class Solde extends Component {
                   </div>
                   <div className="partTwo__expiry-cvv">
                     <div className="material-field partTwo__expiry">
-                      <label htmlFor="expiry" className="material-field__label">Expire le</label>
-                      <input type="text" id="expiry" className="material-field__input" />
+                      <label htmlFor="date" className="material-field__label">Expire le</label>
+                      <input type="text" id="date" className="material-field__input" />
                     </div>
                     <div className="material-field partTwo__cvv">
                       <label htmlFor="cvv" className="material-field__label">CVV</label>

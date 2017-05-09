@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class Cookie extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   cookieValid() {
     document.cookie += ' workEat_cookie=off';
     const element = document.getElementById('cookie-valider');

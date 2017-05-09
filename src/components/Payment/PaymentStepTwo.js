@@ -19,7 +19,6 @@ class PaymentStepTwo extends Component {
   componentDidMount() {
     // Total in paypal.Button is scope to window ..
     const _this = this;
-    let total = this.props.total;
     // eslint-disable-next-line
     Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
     // eslint-disable-next-line
@@ -40,7 +39,7 @@ class PaymentStepTwo extends Component {
         return paypal.rest.payment.create(this.props.env, this.props.client, {
           transactions: [
             {
-              amount: { total, currency: 'EUR' },
+              amount: { total: _this.props.total, currency: 'EUR' },
             },
           ],
         });
