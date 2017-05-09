@@ -18,6 +18,7 @@ class PaymentStepTwo extends Component {
 
   componentDidMount() {
     // Total in paypal.Button is scope to window ..
+    const _this = this;
     let total = this.props.total;
     // eslint-disable-next-line
     Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
@@ -47,7 +48,7 @@ class PaymentStepTwo extends Component {
 
       onAuthorize(data, actions) {
         return actions.payment.execute().then(() => {
-          alert('Payment done!');
+          _this.props.checkoutCart('PAYPAL', _this.props.match.params.orderId);
         });
       },
     }, '#paypal-button-container');

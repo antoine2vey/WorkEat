@@ -60,6 +60,18 @@ exports.send = (req, res) => {
         });
       }
 
+      if (req.query.method === 'paypal') {
+        order.finished = true;
+        order.method = 'Paypal';
+        return order.save((err) => {
+          if (err) {
+            console.log('Database error @ save order', err);
+          }
+
+          res.status(200).send({ order });
+        });
+      }
+
       // Format price for stripe
       const price = getStripeAmount(order.amount);
       if (!user.tokens.stripe) {
@@ -75,7 +87,7 @@ exports.send = (req, res) => {
             currency: 'eur',
             customer: customer.id,
           })
-        )).then((charge) => { 
+        )).then((charge) => {
           // Customer id becomes our token
           user.tokens.stripe = charge.customer;
           user.save((_err) => {
@@ -84,10 +96,8 @@ exports.send = (req, res) => {
             }
 
             // Order is finished since we saved a token
-            order = {
-              finished: true,
-              method: 'Carte bancaire',
-            };
+            order.finished = true;
+            order.method = 'Carte bancaire';
             order.save((err) => {
               if (err) {
                 console.log('Database error @ save order', err);
@@ -106,10 +116,8 @@ exports.send = (req, res) => {
         });
 
         // Finished, we update the order
-        order = {
-          finished: true,
-          method: 'Carte bancaire',
-        };
+        order.finished = true;
+        order.method = 'Carte bancaire';
         order.save((err) => {
           if (err) {
             console.log('Database error @ save order', err);

@@ -71,6 +71,14 @@ export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
         history.push(`/paiement-confirmation/${order._id}`, { order });
       })
       .catch(() => dispatch(checkoutFailed()));
+  } else if (method === 'PAYPAL') {
+    return axios.post(`/payment/${orderId}?method=paypal`)
+      .then((res) => {
+        const { order } = res.data;
+        dispatch(checkoutSuccess(order));
+        history.push(`/paiement-confirmation/${order._id}`, { order });
+      })
+      .catch(() => dispatch(checkoutFailed()));
   }
 };
 

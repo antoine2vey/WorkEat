@@ -7,8 +7,9 @@ import Bundle from './Bundle';
 
 class Bundles extends Component {
   componentDidMount() {
-    const { fetchBundles } = this.props;
-    fetchBundles();
+    const { fetchBundlesIfNeeded, fetchProductsIfNeeded } = this.props;
+    fetchBundlesIfNeeded();
+    fetchProductsIfNeeded();
   }
 
   render() {
@@ -39,18 +40,11 @@ const mapStateToProps = (state) => {
   const { bundles, isFetching } = state.bundles;
   const { products } = state.products;
   return {
-    bundles, isFetching, products,
+    bundles,
+    isFetching,
+    products,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchBundles() {
-    dispatch(fetchBundlesIfNeeded());
-  },
-  fetchProducts() {
-    dispatch(fetchProductsIfNeeded());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Bundles);
+export default connect(mapStateToProps, { fetchBundlesIfNeeded, fetchProductsIfNeeded })(Bundles);
 

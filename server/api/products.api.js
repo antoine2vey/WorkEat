@@ -34,13 +34,17 @@ exports.list = (req, res) => {
     }
   })
   **/
-  Product.find({}).populate('tags').populate('availableAt').exec((err, products) => {
-    if (err) {
-      return res.status(500).send('Database error.');
-    }
+  Product.find({})
+    .populate('availableAt')
+    .populate('tags')
+    .exec((err, products) => {
+      if (err) {
+        return res.status(500).send('Database error.');
+      }
 
-    return res.status(200).send(products);
-  });
+      console.log(products);
+      return res.status(200).send(products);
+    });
 };
 
 exports.create = (req, res) => {
