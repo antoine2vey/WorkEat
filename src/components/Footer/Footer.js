@@ -1,8 +1,10 @@
 import React from 'react';
 import { logoBlanc } from '../../images';
+import Cookie from '../Cookie/Cookie';
 
 const Footer = () => (
-  <div className="container-fluid footer--container">
+  <div>
+      <div className="container-fluid footer--container">
     <div className="footer">
       <div className="footer-logo">
         <img className="footer-logo-item" src={logoBlanc} alt="Logo WorkEat" />
@@ -24,7 +26,11 @@ const Footer = () => (
       </div>
     </div>
   </div>
+  <Cookie />
+  </div>
 );
 
-export default Footer;
 
+
+
+export default Footer;
