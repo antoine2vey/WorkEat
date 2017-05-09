@@ -28,7 +28,9 @@ class InfoGenerale extends Component {
   }
   focusInput(){
     var elements = document.getElementsByClassName("material-field");
-    var element = elements[9];
+
+    // J'ai essayé différents trucs tel qu'un queryseleector etc mais ça n'a rien donné :'(
+
     console.log(elements);
     elements.classList.add("is-focused");
 
