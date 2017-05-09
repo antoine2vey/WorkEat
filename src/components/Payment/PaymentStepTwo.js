@@ -71,10 +71,10 @@ const PaymentStepTwo = () => (
               <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>
             </div>
           </div>
-        </div>
-        <div className="btn-container">
-          <button className="btn-gold">Revenir au panier</button>
-          <button className="btn-gold">Suivant</button>
+          <div className="btn-container">
+            <button className="btn-gold">Revenir au panier</button>
+            <button className="btn-gold">Suivant</button>
+          </div>
         </div>
       </div>
     </div>

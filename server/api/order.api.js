@@ -1,49 +1,21 @@
 const Order = require('../models/order.model');
 
 exports.create = (req, res) => {
-  const articlesAmounts = [];
-  const bundlesAmounts = [];
-  const articlesId = [];
-  let amount = 0;
-  const bundlesId = [];
-  const { items, place } = req.body;
+  let total = 0;
+  const products = req.body;
+  products.forEach(product => parseInt(total += (product.quantity * product.price), 10).toFixed(2));
 
-  req.checkBody('items', 'You pushed empty cart ...').notEmpty().isArray();
-  req.checkBody('place', 'No place to ship...').notEmpty();
-  const errors = req.validationErrors();
-  if (errors) {
-    return res.status(400).send(errors);
-  }
-
-  items.forEach((item) => {
-    if (item.isBundle) {
-      bundlesId.push(item._id);
-      bundlesAmounts.push(item.amount);
-    } else {
-      articlesId.push(item._id);
-      articlesAmounts.push(item.amount);
-    }
-    amount += item.amount * item.price;
+  const order = new Order({
+    orderedBy: req.user.id,
+    articles: products.map(p => p._id),
+    amount: total,
   });
 
-  const product = new Order({
-    orderedBy: req.user._id,
-    articlesId,
-    bundlesId,
-    articlesNumber: articlesAmounts,
-    bundlesNumber: bundlesAmounts,
-    amount,
-    placeToShip: place,
-  });
-
-  product.save((err) => {
+  order.save((err) => {
     if (err) {
       return res.status(500).send('Database error');
     }
 
-    return res.send({
-      PAYMENT_ID: product._id,
-      data: 'Produit crée, nous procédons au payment',
-    });
+    return res.send(order._id);
   });
 };

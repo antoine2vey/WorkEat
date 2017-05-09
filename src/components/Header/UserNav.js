@@ -41,13 +41,15 @@ class UserNav extends Component {
     const { isCartShown, isNavShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
+        <div className="panel-shadow" />
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <p className="main-header-timer-content">Il vous reste<br /> <span id="timer" className="main-header-timer-content-time">{tstamp}</span><br /> pour commander</p>
+            <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
+            <p className="main-header-timer-content"><span id="timer" className="main-header-timer-content-time">{tstamp}</span></p>
           </div>
           <div className="main-header-cart">
             <button className="main-header-cart-link" onClick={this.showCart}>
@@ -56,7 +58,6 @@ class UserNav extends Component {
             </button>
           </div>
         </header>
-        <div className="panel-shadow" />
         <Cart itemsNumber={itemsNumber} shown={isCartShown} switcher={this.showCart} />
       </div>
     );

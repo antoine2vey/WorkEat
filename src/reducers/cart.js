@@ -2,7 +2,7 @@ import values from 'lodash/values';
 import omit from 'lodash/omit';
 import {
   ADD_TO_CART,
-  CHECKOUT_REQUEST,
+  CHECKOUT_SUCCESS,
   CHECKOUT_FAILURE,
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
@@ -128,8 +128,8 @@ const map = (state = initialState, action) => {
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case CHECKOUT_REQUEST:
-      return initialState;
+    case CHECKOUT_SUCCESS:
+      return state;
     case CHECKOUT_FAILURE:
       return action.productsById;
     default:

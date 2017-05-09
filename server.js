@@ -228,7 +228,7 @@ app.delete('/api/places/:id', jwtExpress({ secret: process.env.JWT_SECRET }), pl
 app.post('/payment/:id', authorizeRequest, canOrder, payment.send);
 
 // ORDERS
-app.post('/api/orders', authorizeRequest, order.create);
+app.post('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.create);
 
 // CART
 app.get('/api/cart', authorizeRequest, cart.get);

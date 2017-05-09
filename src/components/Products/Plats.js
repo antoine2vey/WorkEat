@@ -4,6 +4,7 @@ import chunk from 'lodash/chunk';
 import { addToCart } from '../../actions/cart';
 
 const Plat = ({ plat: { file, description, price, tags, types, name }, addToCart, showProduct, isVisible, hideProduct }) => (
+<div className="products__product-container">
   <div className="products__product">
     <div className="products__product__options">
       <button className="products__product__option btn-gold" onClick={isVisible ? hideProduct : showProduct}>Voir</button>
@@ -18,6 +19,7 @@ const Plat = ({ plat: { file, description, price, tags, types, name }, addToCart
     }</p>
     <p className="products__product__price">{price}€</p>
   </div>
+</div>
 );
 
 const Plats = ({ ...props }) => {
@@ -32,7 +34,7 @@ const Plats = ({ ...props }) => {
           key={i}
         >
           { row.map(plat => (
-            <Plat 
+            <Plat
               plat={plat}
               key={plat._id}
               addToCart={() => addToCart(plat)}

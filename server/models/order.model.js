@@ -5,20 +5,18 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  articlesId: [
+  articles: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
     },
   ],
-  bundlesId: [
+  bundles: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Bundle',
     },
   ],
-  articlesNumber: Array,
-  bundlesNumber: Array,
   amount: Number,
   orderedAt: {
     type: Date,
@@ -27,6 +25,10 @@ const orderSchema = new mongoose.Schema({
   placeToShip: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Place',
+  },
+  finished: {
+    type: Boolean,
+    default: false,
   },
 });
 
