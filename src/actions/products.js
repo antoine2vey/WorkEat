@@ -31,8 +31,9 @@ const showProductDetail = product => ({
   product,
 });
 
-const hideProductDetail = () => ({
+const hideProductDetail = product => ({
   type: HIDE_DETAIL,
+  product,
 });
 
 // API call to fetch products
@@ -88,8 +89,8 @@ const showProduct = product => dispatch => (
   dispatch(showProductDetail(product))
 );
 
-const hideProduct = () => dispatch => (
-  dispatch(hideProductDetail())
+const hideProduct = product => dispatch => (
+  dispatch(hideProductDetail(product))
 );
 
 export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct };

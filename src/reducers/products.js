@@ -16,6 +16,14 @@ const products = (state = initialState, action) => {
         product: action.product,
       };
     case HIDE_DETAIL:
+      if (state.isDetailVisible && (state.product._id !== action.product._id)) {
+        return {
+          ...state,
+          isDetailVisible: true,
+          product: action.product,
+        };
+      }
+
       return {
         ...state,
         isDetailVisible: false,
