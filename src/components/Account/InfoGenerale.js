@@ -36,7 +36,7 @@ class InfoGenerale extends Component {
           <div className="row">
             <form action="#" method="post" className="compteInfo-form">
               <div className="row compteInfo-rowForm">
-                <div className="material-field compteInfo-field ">
+                <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="prenom">Prénom</label>
                   <input type="text" id="prenom" defaultValue={user.surname} name="surname" onChange={this.handleChange} className="material-field__input compteInfo-input" />
                 </div>

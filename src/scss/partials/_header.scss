@@ -24,7 +24,7 @@
         letter-spacing: 3px;
         overflow: hidden;
         cursor: pointer;
-        
+
         @include screenSm {
           margin:0;
         };
@@ -73,10 +73,13 @@
     }
 
     &-cart {
+      @include flex(flex-end, center, row);
       position: relative;
       flex:1;
       text-align: center;
-
+      @include screenSm {
+        justify-content: center;
+      };
       &-number {
         position: absolute;
         font-family: $primary-font;
@@ -92,9 +95,6 @@
         padding: 5px;
         font-size: 14px;
         @include material-shadow(box, 2);
-        @include screenSm {
-          left: 50px;
-        };
       }
 
       &-item {
@@ -102,8 +102,12 @@
       }
       &-link {
         position:relative;
+        margin: 0 100px 0 0 !important;
         padding: 0 !important;
         border: 0;
+        @include screenSm {
+          margin: 0 !important;
+        };
       }
     }
     &-logo {
