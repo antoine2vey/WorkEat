@@ -38,12 +38,12 @@ class UserNav extends Component {
   }
 
   render() {
-    const { logoutUser, itemsNumber } = this.props;
+    const { logoutUser, itemsNumber, solde } = this.props;
     const { isCartShown, isNavShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
         <div className="panel-shadow" />
-        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} />
+        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>

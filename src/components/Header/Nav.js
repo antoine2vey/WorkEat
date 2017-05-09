@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { close, logoBlanc } from '../../images';
 
-const Nav = ({ shown, switcher, logout }) => (
+const Nav = ({ shown, switcher, logout, solde }) => (
   <nav className={shown ? 'nav nav--js-open' : 'nav'}>
     <img src={close} alt="Fermer le menu" className="nav-close" onClick={switcher} />
     <img src={logoBlanc} alt="logo" className="nav-logo" />
@@ -20,7 +20,7 @@ const Nav = ({ shown, switcher, logout }) => (
         <Link to="/compte" className="nav-list-item-link" onClick={() => switcher()}>Mon compte</Link>
       </li>
       <li className="nav-list-item">
-        <Link to="/compte/solde" className="nav-list-item-link" onClick={() => switcher()}>Solde <strong>0,00 €</strong></Link>
+        <Link to="/compte/solde" className="nav-list-item-link" onClick={() => switcher()}>Solde <strong>{solde.toFixed(2)} €</strong></Link>
       </li>
       <li className="nav-list-item">
         <Link to="/contact" className="nav-list-item-link" onClick={() => switcher()}>Contact</Link>
