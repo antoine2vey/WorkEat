@@ -3,21 +3,26 @@
   z-index: 200;
   margin-bottom: 200px;
   background: $white;
-&-maps{
-  float: right;
   @include material-shadow(box, 2);
-  width: 55%;
-  height: 350px;
-}
-&-submit{
-  left: 80px;
-  top:10px;
-}
-&-btnSuppr{
-  margin-top: 20px;
-}
+
+  &-maps {
+    float: right;
+    @include material-shadow(box, 2);
+    width: 55%;
+    height: 350px;
+  }
+
+  &-submit {
+    left: 80px;
+    top:10px;
+  }
+
+  &-btnSuppr {
+    margin-top: 20px;
+  }
+
   &-submenu {
-    @include flex;
+    @include flex(null, null, row);
     text-align: center;
     background-color: $white;
     @include material-shadow(box, 2);
@@ -32,6 +37,7 @@
       text-decoration: none;
     }
   }
+
   &-bloc {
     background-color: $white;
     @include material-shadow(box, 2);
@@ -39,15 +45,16 @@
     padding: 20px;
     padding-bottom: 30px;
   }
-  &-iframe{
-    @include material-shadow(box, 2);
 
+  &-iframe {
+    @include material-shadow(box, 2);
   }
-  &-field{
+
+  &-field {
     width: 18% !important;
     margin-left: 1%;
   }
-  &-rowForm{
+  &-rowForm {
     margin-bottom: 50px;
   }
 }

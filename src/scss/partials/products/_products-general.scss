@@ -1,10 +1,11 @@
 .products {
   position:relative;
   z-index: 200;
+  min-height:100vh;
   margin-bottom: 200px;
   padding-top: 100px;
   background: $white;
-  
+
   &__choise {
     @include flex;
     @include material-shadow(box, 1);
@@ -30,7 +31,8 @@
   }
 
   &__products-list {
-    @include flex(flex-start);
+    @include flex(center, center, row);
+    flex-wrap:wrap;
     @include container(1200px);
     padding: 25px 0 0;
     &:last-of-type {
@@ -40,13 +42,22 @@
 
   &__product {
     position: relative;
-    width: 250px;
-    margin: 0 20px;
+    width:250px;
+    margin:0 auto;
     padding: 0 0 20px;
     overflow: hidden;
     text-align: center;
     @include material-shadow(box, 2);
     transition: all 0.3s $transition;
+
+    &-container {
+      flex:1;
+      flex-basis: 25%;
+      padding: 0 0 20px;
+      @include screenDefault {
+        flex-basis: calc(100% / 3);
+      };
+    }
 
     &__title {
       margin: 5px 0;
@@ -107,7 +118,7 @@
     box-shadow: 0 0 20px 5px $black inset;
     box-sizing: border-box;
     transition: height 0.3s $transition;
-
+    overflow-y: auto;
     &--active {
       height: 500px;
     }
@@ -120,7 +131,10 @@
       opacity: 0;
       transition: visibility 0.3s, opacity 0.3s $transition;
       transition-delay: 0.4s;
-
+      @include screenMd {
+        @include flex(center, flex-start, column);
+        padding:0 20px;
+      };
       &--active {
         visibility: visible;
         opacity: 1;
@@ -130,6 +144,10 @@
     &__image {
       @include material-shadow(box, 5);
       border: 3px solid $white;
+      @include screenMd {
+        align-self: center;
+        margin-bottom:20px;
+      };
     }
 
     &__infos {
@@ -137,6 +155,9 @@
       flex-wrap: wrap;
       flex: 0.7;
       margin-left: 50px;
+      @include screenMd {
+        margin: 0;
+      };
     }
 
     &__title {
@@ -149,6 +170,9 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       border-bottom: 1px solid $gold;
+      @include screenXs {
+        flex-basis: 100%;
+      };
     }
 
     &__tag {
@@ -165,6 +189,9 @@
       text-align: right;
       font-size: 20px;
       font-family: $primary-font;
+      @include screenXs {
+        flex-basis: 100%;
+      };
     }
 
     &__desc {

@@ -1,0 +1,28 @@
+.formules {
+
+  &__row {
+    padding-top:25px;
+  }
+
+  &__column {
+    width:25%;
+    //@include screen;
+  }
+
+  &__container {
+    width:250px;
+    margin:0 auto;
+    padding:0 10px;
+    @include material-shadow(box, 2);
+  }
+
+  &__content {
+    @include flex;
+  }
+
+  &__title {
+    flex:1;
+    font-family: $primary-font;
+    font-weight: bold;
+  }
+}

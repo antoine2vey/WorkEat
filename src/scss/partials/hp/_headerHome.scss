@@ -1,6 +1,13 @@
 /* home */
+.home {
+  position:relative;
+  margin-bottom: 200px;
+  background: $white;
+}
+
 .header-home {
   position: relative;
+  z-index:100;
   width: 100%;
   height: 100%;
   padding: 25px 0 50px;
@@ -176,7 +183,7 @@
             width: 15px;
           }
         };
-        
+
         input[type="text"],
         input[type="email"],
         input[type="password"] {

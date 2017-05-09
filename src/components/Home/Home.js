@@ -32,7 +32,7 @@ class Home extends Component {
     const { isLoggingIn } = this.state;
 
     return (
-      <div>
+      <div className="home">
         <div className="container-fluid">
           <div className="header-home">
             <video autoPlay loop className="header-home-video">

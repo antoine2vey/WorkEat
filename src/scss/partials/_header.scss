@@ -8,14 +8,14 @@
     background: $write;
 
     &-menu {
-      width: 150px;
-      @include flex;
+      @include flex(flex-start, center, row);
+      flex:1;
       @include screenSm {
-        width: 100px;
+        justify-content: center;
       };
-
       &-item {
         position: relative;
+        margin-left:100px;
         color: $white;
         font-family: $primary-font;
         font-size: 20px;
@@ -24,6 +24,10 @@
         letter-spacing: 3px;
         overflow: hidden;
         cursor: pointer;
+
+        @include screenSm {
+          margin:0;
+        };
 
         &:hover {
           &:before {
@@ -46,7 +50,9 @@
     }
 
     &-timer {
+      @include flex(center, center, column);
       flex: 1;
+      align-self: stretch;
 
       &-content {
         margin: 0;
@@ -57,7 +63,8 @@
         line-height: 1.2;
 
         &-time {
-          font-size: 30px;
+          flex:0.4;
+          font-size: 26px;
           @include screenSm {
             font-size: 24px;
           };
@@ -66,19 +73,19 @@
     }
 
     &-cart {
+      @include flex(flex-end, center, row);
       position: relative;
-      width: 150px;
+      flex:1;
       text-align: center;
       @include screenSm {
-        width: 100px;
+        justify-content: center;
       };
-
       &-number {
         position: absolute;
         font-family: $primary-font;
         font-weight: 300;
         top: 0;
-        left: 75px;
+        left: 20px;
         @include flex;
         width: 15px;
         height: 15px;
@@ -88,17 +95,27 @@
         padding: 5px;
         font-size: 14px;
         @include material-shadow(box, 2);
-        @include screenSm {
-          left: 50px;
-        };
       }
 
       &-item {
         width: 40px;
       }
       &-link {
+        position:relative;
+        margin: 0 100px 0 0 !important;
+        padding: 0 !important;
         border: 0;
+        @include screenSm {
+          margin: 0 !important;
+        };
       }
+    }
+    &-logo {
+      width:200px;
+      flex:0.6;
+      @include screenXs {
+        width:150px;
+      };
     }
   }
 }
