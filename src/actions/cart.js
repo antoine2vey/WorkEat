@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
 import history from '../utils/history';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
@@ -11,7 +12,10 @@ export const CHECKOUT_HANDSHAKE = 'CHECKOUT_HANDSHAKE';
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
-const addToCartUnsafe = product => ({ type: ADD_TO_CART, product });
+const addToCartUnsafe = product => {
+  NotificationManager.success(`${product.name} ajouté!`, 'Panier :', 3000);
+  return { type: ADD_TO_CART, product };
+};
 const increment = productId => ({ type: INCREMENT_QUANTITY, productId });
 const decrement = productId => ({ type: DECREMENT_QUANTITY, productId });
 const deleteFromCart = productId => ({ type: DELETE_ITEM, productId });

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
-const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const mailer = require('../mailing').interface;
 
 mongoose.Promise = Promise;
 
@@ -103,33 +103,33 @@ exports.create = (req, res) => {
     if (existingUser) {
       return res.status(400).send('That username already exists. Please try a different username.');
     }
+
     user.save((err) => {
       if (err) {
         console.log(err);
         res.status(500).send('Error saving new account (database error). Please try again.');
         return;
       }
-      const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: process.env.GMAIL_ADDRESS,
-          pass: process.env.GMAIL_PWD,
+
+      mailer.sendMail({
+        from: 'WorkEat',
+        to: user.username,
+        subject: 'Création de votre compte',
+        template: 'welcome',
+        context: {
+          hostUrl: `${req.protocol}://${req.hostname}`,
+          name: user.surname,
+          mailTo: 'antoine.2vey@gmail.com',
         },
-      });
-      const mailOptions = {
-        from: 'WorkEat', // sender address
-        to: req.body.username, // list of receivers
-        subject: 'WorkEat - Votre compte à été crée !', // Subject line
-        text: `Hello ${req.body.surname}! Ton compte à bien été crée ! (login avec l'email ${req.body.username})`,
-        html: `Hello <b>${req.body.surname}</b> ! ton compte à bien été crée !<br/><br/><p>Tu peux donc te connecter avec l'email ${req.body.username} ! ;)</p>`,
-      };
-      transporter.sendMail(mailOptions, (error) => {
-        if (error) {
-          return console.log(error);
+      }, (err, response) => {
+        if (err) {
+          return console.log(err);
         }
-        console.log('Message sent!');
+
+        return console.log('mail sent!', response.response);
       });
-      res.status(200).send('Account created! Please login with your new account.');
+
+      return res.status(200).send('Account created! Please login with your new account.');
     });
   });
 };

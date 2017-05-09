@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { NotificationContainer } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 import RenderLoginBox from './RenderLoginBox';
 import * as images from '../../images';
 
@@ -17,15 +19,15 @@ class Home extends Component {
     this.switchBox = this.switchBox.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   switchBox(event) {
     event.preventDefault();
     this.setState({
       isLoggingIn: !this.state.isLoggingIn,
     });
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
   }
 
   render() {
@@ -169,6 +171,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import { NotificationContainer } from 'react-notifications';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -38,6 +39,7 @@ const App = () => (
       </Switch>
     </Route>
     <Footer />
+    <NotificationContainer />
   </div>
 );
 
