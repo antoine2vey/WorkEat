@@ -80,8 +80,8 @@ const mapDispatchToProps = dispatch => ({
   showProduct(product) {
     dispatch(showProduct(product));
   },
-  hideProduct() {
-    dispatch(hideProduct());
+  hideProduct(product) {
+    dispatch(hideProduct(product));
   },
 });
 
