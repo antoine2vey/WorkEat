@@ -15,11 +15,11 @@ class Bundle extends React.Component {
   }
 
   selectEntree(entree) {
-    alert(entree);
+    console.log(entree);
   }
 
-  selectPlat(entree) {
-    alert(entree);
+  selectPlat(plat) {
+    console.log(plat);
   }
 
   selectDessert(entree) {

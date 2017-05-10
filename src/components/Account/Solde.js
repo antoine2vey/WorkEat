@@ -26,6 +26,18 @@ class Solde extends Component {
     this.setState({ [name]: value });
   }
 
+  focusInput(event) {
+    const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.remove('is-focused');
+  }
+
   render() {
     return (
       <div className="solde">
@@ -67,22 +79,22 @@ class Solde extends Component {
                       </div>
                 </div>
                 <form className="payment__add-card" noValidate autoComplete="on">
-                  <div className="material-field partTwo__owner">
+                  <div className="material-field partTwo__owner has-label">
                     <label htmlFor="owner" className="material-field__label">Nom du propriétaire</label>
-                    <input type="text" id="owner" name="owner" value={this.state.owner} onChange={this.changeInfo} className="material-field__input" />
+                    <input type="text" id="owner" name="owner" value={this.state.owner} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.changeInfo} className="material-field__input" />
                   </div>
-                  <div className="material-field partTwo__code">
+                  <div className="material-field partTwo__code has-label">
                     <label htmlFor="number" className="material-field__label">Numéro de carte</label>
-                    <input type="text" id="number" name="number" onChange={this.changeInfo} pattern="\d*" className="material-field__input" />
+                    <input type="text" id="number" name="number" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} pattern="\d*" className="material-field__input" />
                   </div>
                   <div className="partTwo__expiry-cvv">
-                    <div className="material-field partTwo__expiry">
+                    <div className="material-field partTwo__expiry has-label">
                       <label htmlFor="date" className="material-field__label">Expire le</label>
-                      <input type="text" id="date" name="date" pattern="\d*" onChange={this.changeInfo} className="material-field__input" />
+                      <input type="text" id="date" name="date" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                     </div>
-                    <div className="material-field partTwo__cvv">
+                    <div className="material-field partTwo__cvv has-label">
                       <label htmlFor="cvc" className="material-field__label">CVC</label>
-                      <input type="text" id="cvc" pattern="\d*" onChange={this.changeInfo} className="material-field__input" />
+                      <input type="text" id="cvc" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                     </div>
                   </div>
                   <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>

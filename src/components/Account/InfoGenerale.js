@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import GMap from '../Admin/tabs/GoogleMap.js';
 
 class InfoGenerale extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      username: '',
-      name: '',
-      surname: '',
-      phoneNumber: '',
-      address: '',
-      codePostal: '',
-      town: '',
+      username: props.user.username,
+      name: props.user.name,
+      surname: props.user.surname,
+      phoneNumber: props.user.phoneNumber,
+      address: props.user.address,
+      codePostal: props.user.codePostal,
+      town: props.user.town,
       password: '',
     };
 
@@ -20,8 +20,6 @@ class InfoGenerale extends Component {
 
   componentDidMount(event) {
     this.props.fetchPlacesIfNeeded();
-    var valueInput = document.querySelectorAll('material-field__input');
- 
   }
 
   handleChange(event) {
@@ -32,14 +30,13 @@ class InfoGenerale extends Component {
   focusInput(event) {
     const { value, id } = event.target;
     var parent = event.target.parentNode;
-    parent.classList.add('is-focused' , 'has-label');
-
+    parent.classList.add('is-focused');
   }
+
   blurInput(event) {
     const { value, id } = event.target;
     var parent = event.target.parentNode;
-    parent.classList.remove('is-focused' , 'has-label');
-
+    parent.classList.remove('is-focused');
   }
 
   render() {
@@ -51,45 +48,45 @@ class InfoGenerale extends Component {
           <div className="row">
             <form action="#" method="post" className="compteInfo-form">
               <div className="row compteInfo-rowForm">
-                <div className="material-field compteInfo-field"  >
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="prenom">Prénom</label>
-                  <input type="text" id="prenom" defaultValue={user.surname} name="surname" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" id="test" />
+                  <input type="text" id="prenom" value={this.state.surname} name="surname" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="name">Nom</label>
-                  <input type="text" id="name" defaultValue={user.name} name="name" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="text" id="name" value={this.state.name} name="name" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
 
                 <div className="compteInfo-maps">
                   <GMap loadedPlaces={places} />
                 </div>
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="email">Email</label>
-                  <input type="email" id="email" name="username" onFocus={this.focusInput} defaultValue={user.username} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="email" id="email" name="username" onFocus={this.focusInput} value={this.state.username} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="tel">Tel</label>
-                  <input type="text" id="tel" name="phoneNumber" onFocus={this.focusInput} defaultValue={user.phoneNumber} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="text" id="tel" name="phoneNumber" onFocus={this.focusInput} value={this.state.phoneNumber} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
               </div>
               <div className="row">
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="NumeroRue" >N° et nom de rue</label>
-                  <input type="text" id="NumeroRue" onFocus={this.focusInput}  defaultValue={user.address} name="address" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="text" id="NumeroRue" onFocus={this.focusInput} value={this.state.address} name="address" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="CP">Code Postal </label>
-                  <input type="text" id="CP" onFocus={this.focusInput} defaultValue={user.codePostal} name="codePostal" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="text" id="CP" onFocus={this.focusInput} value={this.state.codePostal} name="codePostal" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field compteInfo-field">
+                <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="ville" >Ville </label>
-                  <input type="text" id="ville" onFocus={this.focusInput} defaultValue={user.town} name="town" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                  <input type="text" id="ville" onFocus={this.focusInput} value={this.state.town} name="town" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field  compteInfo-field">
+                <div className="material-field  compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="mdpNew">Nouveau mot de passe</label>
                   <input type="text" id="mdpNew" onFocus={this.focusInput} onChange={this.handleChange} onBlur={this.blurInput} name="password" className="material-field__input compteInfo-input" />
                 </div>
-                <div className="material-field  compteInfo-field">
+                <div className="material-field  compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="mdpConfirm">Confirmez le mot de passe</label>
                   <input type="text" id="mdpConfirm" onFocus={this.focusInput} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
