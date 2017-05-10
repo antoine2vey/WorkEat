@@ -318,16 +318,21 @@ a:hover {
   border-radius: 5px;
   @include material-shadow(box, 2);
   transition: all 0.3s $transition;
+
   @include screenSm {
     max-width:320px;
     height:170px;
   };
   &__top {
-    text-align:right;
+    @include flex;
   }
 
   &__type {
     height: 25px;
+  }
+
+  &__cvc {
+    flex: 1;
   }
 
   &__middle {
@@ -357,6 +362,7 @@ a:hover {
     flex: 1;
   }
 
+  &__label-cvc,
   &__label-date,
   &__label-name {
     margin:0;
@@ -368,6 +374,7 @@ a:hover {
     };
   }
 
+  &__secret-code,
   &__date,
   &__name {
     margin:0;

@@ -16,80 +16,86 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
         onClick={switcher}
       />
       <h3 className="cart-panel__title">Votre panier <span className="cart-panel__number-item">({itemsNumber})</span></h3>
-      <div className="cart-panel__list">
-        <div className="cart-panel__category">
-          <p>A la carte</p>
-          <hr />
-        </div>
-        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionAppear
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionEnter
-          transitionLeave={false}
-        >
-          { cart.map(c => (
-            <div className="cart-panel__product" key={c._id}>
+      {
+        cart.length ? (
+          <div className="cart-panel__list">
+            <div className="cart-panel__category">
+              <p>A la carte</p>
+              <hr />
+            </div>
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionAppear
+              transitionAppearTimeout={500}
+              transitionEnterTimeout={500}
+              transitionEnter
+              transitionLeave={false}
+            >
+              { cart.map(c => (
+                <div className="cart-panel__product" key={c._id}>
+                  <div className="cart-panel__product-infos">
+                    <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+                    <div className="cart-panel__product-text">
+                      <h3 className="cart-panel__product-title">{c.name}</h3>
+                      <p className="cart-panel__price">{c.price}€</p>
+                    </div>
+                  </div>
+                  <div className="cart-panel__quantity">
+                    <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+                    <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+                    <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                  </div>
+                  <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
+                    <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
+                  </div>
+                </div>
+              )) }
+            </ReactCSSTransitionGroup>
+            <div className="cart-panel__category">
+              <p>Formule</p>
+              <hr />
+            </div>
+            {/*<div className="cart-panel__product">
               <div className="cart-panel__product-infos">
-                <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+                <img src="images/thumb/canard-roti-thumb.jpg" alt="Canard laqué" className="cart-panel__product-image" />
                 <div className="cart-panel__product-text">
-                  <h3 className="cart-panel__product-title">{c.name}</h3>
-                  <p className="cart-panel__price">{c.price}€</p>
+                  <h3 className="cart-panel__product-title">La complète</h3>
+                  <p className="cart-panel__price">10€</p>
                 </div>
               </div>
               <div className="cart-panel__quantity">
-                <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
-                <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
-                <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                <div className="cart-panel__quantity-button cart-panel__quantity-up js--up">+</div>
+                <input type="number" value="1" min="0" className="cart-panel__quantity-input js--quantity-input" />
+                <div className="cart-panel__quantity-button cart-panel__quantity-down js--down">-</div>
               </div>
-              <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
-                <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
+              <div className="cart-panel__delete">
+                <img src="images/icons/trash-blanc.svg" alt="Supprimer" className="cart-panel__delete-icon" />          </div>
+            </div>*/}
+            <div className="cart-panel__promo">
+              <div className="material-field cart-panel__input has-label">
+                <div className="material-field__label">Code promo</div>
+                <input type="text" className="material-field__input" />
               </div>
+              <button className="btn-gold cart-panel__apply">Appliquer</button>
             </div>
-          )) }
-        </ReactCSSTransitionGroup>
-        <div className="cart-panel__category">
-          <p>Formule</p>
-          <hr />
-        </div>
-        {/*<div className="cart-panel__product">
-          <div className="cart-panel__product-infos">
-            <img src="images/thumb/canard-roti-thumb.jpg" alt="Canard laqué" className="cart-panel__product-image" />
-            <div className="cart-panel__product-text">
-              <h3 className="cart-panel__product-title">La complète</h3>
-              <p className="cart-panel__price">10€</p>
+            <div className="cart-panel__category">
+              <p>Total {total}€</p>
+            </div>
+            <div className="cart-panel__category">
+              {/* TODO: afficher une notification (SWAL?) */}
+              <button className="btn-gold" onClick={cart.length ? () => {
+                history.push('/recap');
+                switcher();
+              } : () => alert('Panier vide (changez moi asap please)')}
+              >
+                Commander
+              </button>
             </div>
           </div>
-          <div className="cart-panel__quantity">
-            <div className="cart-panel__quantity-button cart-panel__quantity-up js--up">+</div>
-            <input type="number" value="1" min="0" className="cart-panel__quantity-input js--quantity-input" />
-            <div className="cart-panel__quantity-button cart-panel__quantity-down js--down">-</div>
-          </div>
-          <div className="cart-panel__delete">
-            <img src="images/icons/trash-blanc.svg" alt="Supprimer" className="cart-panel__delete-icon" />          </div>
-        </div>*/}
-        <div className="cart-panel__promo">
-          <div className="material-field cart-panel__input has-label">
-            <div className="material-field__label">Code promo</div>
-            <input type="text" className="material-field__input" />
-          </div>
-          <button className="btn-gold cart-panel__apply">Appliquer</button>
-        </div>
-        <div className="cart-panel__category">
-          <p>Total {total}€</p>
-        </div>
-        <div className="cart-panel__category">
-          {/* TODO: afficher une notification (SWAL?) */}
-          <button className="btn-gold" onClick={cart.length ? () => {
-            history.push('/recap');
-            switcher();
-          } : () => alert('Panier vide (changez moi asap please)')}
-          >
-            Commander
-          </button>
-        </div>
-      </div>
+        ) : (
+          <p>Votre panier est vide</p>
+        )
+      }
     </div>
   </div>
 );

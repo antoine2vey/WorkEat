@@ -6,10 +6,22 @@ class Bundle extends React.Component {
     super(props);
     this.state = {
       products: [],
-      activeEntree: false,
-      activePlat: false,
-      activeDessert: false,
-      activeBoisson: false,
+      entree: {
+        active: false,
+        choisie: {},
+      },
+      plat: {
+        active: false,
+        choisie: {},
+      },
+      dessert: {
+        active: false,
+        choisie: {},
+      },
+      boisson: {
+        active: false,
+        choisie: {},
+      },
     };
 
     this.toggleEntree = this.toggleEntree.bind(this);
@@ -17,24 +29,36 @@ class Bundle extends React.Component {
     this.toggleDessert = this.toggleDessert.bind(this);
     this.toggleBoisson = this.toggleBoisson.bind(this);
   }
-  toggleEntree() {
+  toggleEntree(entree) {
     this.setState({
-      activeEntree: !this.state.activeEntree,
+      entree: {
+        active: !this.state.entree.active,
+        choisie: entree,
+      },
     });
   }
-  togglePlat() {
+  togglePlat(plat) {
     this.setState({
-      activePlat: !this.state.activePlat,
+      plat: {
+        active: !this.state.plat.active,
+        choisie: plat,
+      },
     });
   }
-  toggleDessert() {
+  toggleDessert(dessert) {
     this.setState({
-      activeDessert: !this.state.activeDessert,
+      dessert: {
+        active: !this.state.dessert.active,
+        choisie: dessert,
+      },
     });
   }
-  toggleBoisson() {
+  toggleBoisson(boisson) {
     this.setState({
-      activeBoisson: !this.state.activeBoisson,
+      boisson: {
+        active: !this.state.boisson.active,
+        choisie: boisson,
+      },
     });
   }
   render() {
@@ -51,10 +75,10 @@ class Bundle extends React.Component {
               <div className="formules__choise">
                 { bundle.items.hasEntree &&
                   <div className="formules__input">
-                    <label htmlFor="entree" onClick={this.toggleEntree} className="formules__label">entree</label>
-                    <div name="entree" id="entree" className={'formules__select' + (this.state.activeEntree ? ' current' : '')}>
+                    <label htmlFor="entree" onClick={this.toggleEntree} className="formules__label">entree {this.state.entree.choisie.name ? ` - ${this.state.entree.choisie.name}` : ''}</label>
+                    <div name="entree" id="entree" className={'formules__select' + (this.state.entree.active ? ' current' : '')}>
                       { products.filter(product => product.types.indexOf('entree') > -1).map(entree => (
-                        <div id={entree._id} key={entree._id} className="formules__item" onClick={this.toggleEntree}>
+                        <div id={entree._id} key={entree._id} className="formules__item" onClick={() => this.toggleEntree(entree)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={entree.file} alt={entree.name} />
                           </div>
@@ -87,10 +111,10 @@ class Bundle extends React.Component {
                 </div> } */}
                 { bundle.items.hasPlat &&
                   <div className="formules__input">
-                      <label htmlFor="plat" onClick={this.togglePlat} className="formules__label">plat</label>
-                    <div name="plat" id="plat" className={'formules__select' + (this.state.activePlat ? ' current' : '')}>
+                      <label htmlFor="plat" onClick={this.togglePlat} className="formules__label">plat {this.state.plat.choisie.name ? ` - ${this.state.plat.choisie.name}` : ''}</label>
+                    <div name="plat" id="plat" className={'formules__select' + (this.state.plat.active ? ' current' : '')}>
                       { products.filter(product => product.types.indexOf('plat') > -1).map(plat => (
-                        <div id={plat._id} key={plat._id} className="formules__item">
+                        <div id={plat._id} key={plat._id} className="formules__item" onClick={() => this.togglePlat(plat)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={plat.file} alt={plat.name} />
                           </div>
@@ -123,10 +147,10 @@ class Bundle extends React.Component {
                 </div> } */}
                 { bundle.items.hasDessert &&
                   <div className="formules__input">
-                    <label htmlFor="dessert" onClick={this.toggleDessert} className="formules__label">dessert</label>
-                    <div name="dessert" id="dessert" className={'formules__select' + (this.state.activeDessert ? ' current' : '')}>
+                    <label htmlFor="dessert" onClick={this.toggleDessert} className="formules__label">dessert {this.state.dessert.choisie.name ? ` - ${this.state.dessert.choisie.name}` : ''}</label>
+                    <div name="dessert" id="dessert" className={'formules__select' + (this.state.dessert.active ? ' current' : '')}>
                       { products.filter(product => product.types.indexOf('dessert') > -1).map(dessert => (
-                        <div id={dessert._id} key={dessert._id} className="formules__item">
+                        <div id={dessert._id} key={dessert._id} className="formules__item" onClick={() => this.toggleDessert(dessert)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={dessert.file} alt={dessert.name} />
                           </div>
@@ -159,10 +183,10 @@ class Bundle extends React.Component {
                 </div> } */}
                 { bundle.items.hasBoisson &&
                   <div className="formules__input">
-                    <label htmlFor="boisson" onClick={this.toggleBoisson} className="formules__label">boisson</label>
-                    <div name="boisson" id="boisson" className={'formules__select' + (this.state.activeBoisson ? ' current' : '')}>
+                    <label htmlFor="boisson" onClick={this.toggleBoisson} className="formules__label">boisson {this.state.boisson.choisie.name ? ` - ${this.state.boisson.choisie.name}` : ''}</label>
+                    <div name="boisson" id="boisson" className={'formules__select' + (this.state.boisson.active ? ' current' : '')}>
                       { products.filter(product => product.types.indexOf('boisson') > -1).map(boisson => (
-                        <div id={boisson._id} key={boisson._id} className="formules__item">
+                        <div id={boisson._id} key={boisson._id} className="formules__item" onClick={() => this.toggleBoisson(boisson)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={boisson.file} alt={boisson.name} />
                           </div>

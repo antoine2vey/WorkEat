@@ -78,6 +78,7 @@
     overflow: hidden;
     @include material-shadow(box, 1);
     transition: all 0.3s $transition;
+    cursor: pointer;
 
     &:hover {
       @include material-shadow(box, 3);
