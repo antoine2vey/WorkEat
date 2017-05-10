@@ -30,6 +30,7 @@ class Bundle extends React.Component {
     this.toggleBoisson = this.toggleBoisson.bind(this);
   }
   toggleEntree(entree) {
+    console.log(entree);
     this.setState({
       entree: {
         active: !this.state.entree.active,
