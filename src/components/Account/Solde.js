@@ -7,15 +7,50 @@ class Solde extends Component {
     super(props);
     this.state = {
       owner: `${props.user.surname} ${props.user.name}`,
-      number: '5893 2475 8935 7543',
+      number: '4242 4242 4242 4242',
       cvc: '433',
-      date: '06/19',
+      date: '08/19',
+      montant: 0,
     };
 
     this.changeInfo = this.changeInfo.bind(this);
   }
 
   componentDidMount() {
+    const _this = this;
+
+    // eslint-disable-next-line
+    Stripe.setPublishableKey('pk_test_PJVcvbd18FBSYwdkNvtQDLX5');
+    // eslint-disable-next-line
+    paypal.Button.render({
+      env: 'sandbox',
+      client: {
+        sandbox: 'AYzECXkI2cPmq3gpDQQ6SXyYZVe2292wsy4RPLi5WrMeOCZQZu2rEIfYM-rCdbvIfDr-5Nz4LsfuYVYv',
+      },
+      style: {
+        label: 'checkout', // checkout || credit
+        size: 'medium',    // tiny | small | medium
+        shape: 'pill',     // pill | rect
+        color: 'silver',
+      },
+      commit: true,
+      payment() {
+        // eslint-disable-next-line
+        return paypal.rest.payment.create(this.props.env, this.props.client, {
+          transactions: [
+            {
+              amount: { total: _this.state.montant, currency: 'EUR' },
+            },
+          ],
+        });
+      },
+
+      onAuthorize(data, actions) {
+        return actions.payment.execute().then(() => {
+          _this.props.updateSolde(_this.state.montant);
+        });
+      },
+    }, '#paypal-button-container');
     Payment.formatCardNumber(document.getElementById('number'));
     Payment.formatCardExpiry(document.getElementById('date'));
     Payment.formatCardCVC(document.getElementById('cvc'));
@@ -38,6 +73,20 @@ class Solde extends Component {
     parent.classList.remove('is-focused');
   }
 
+  submitPayment() {
+    const { number, cvc, date } = this.state;
+    const [exp_month, exp_year] = date.split('/');
+    // eslint-disable-next-line
+    Stripe.card.createToken({ number, cvc, exp_month, exp_year }, (status, res) => {
+      if (res.error) {
+        return console.error('error at Stripe handler', res);
+      }
+
+      const stripeToken = res.id;
+      this.props.updateSolde(this.state.montant, stripeToken);
+    });
+  }
+
   render() {
     return (
       <div className="solde">
@@ -45,12 +94,20 @@ class Solde extends Component {
           <h2 className="solde__title">Solde actuel: <span className="bold">{this.props.user.solde.toFixed(2)}€</span></h2>
           <div className="payment__select">
             <div className="payment__type select-tab" data-tab="paypal">
-              <img src={images.paypal} alt="Paypal" className="payment__icon" />
-              <p className="payment__type-title">Paypal</p>
+              <div id="paypal-button-container"></div>
+              {/*<img src={images.paypal} alt="Paypal" className="payment__icon" />
+              <p className="payment__type-title">Paypal</p>*/}
             </div>
-            <div className="payment__type select-tab select-tab--current" data-tab="card">
+            <div className="payment__type select-tab" data-tab="card" onClick={() => this.submitPayment()}>
               <img src={images.creditCard} alt="Solde du compte" className="payment__icon" />
               <p className="payment__type-title">Carte bancaire</p>
+            </div>
+          </div>
+          <div className="selected">
+            <h3 className="selected__title" style={{ margin: 0, display: 'inline' }}>Montant à ajouter</h3>
+            <div className="material-field partTwo__owner has-label">
+              <label htmlFor="montant" className="material-field__label">Montant</label>
+              <input type="number" pattern="\d*" min="0" id="montant" name="montant" value={this.state.montant} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.changeInfo} className="material-field__input" />
             </div>
           </div>
           <div className="selected">

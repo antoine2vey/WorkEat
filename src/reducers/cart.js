@@ -13,7 +13,10 @@ import {
 const initialState = {
   addedIds: [],
   quantityById: {},
-  cart: [],
+  cart: {
+    products: [],
+    bundles: [],
+  },
   productsById: {},
   order: {},
 };
@@ -64,16 +67,36 @@ const quantityById = (state = initialState.quantityById, action) => {
 const cartHandler = (state = initialState.cart, action) => {
   switch (action.type) {
     case DELETE_ITEM:
-      return state.filter(i => i._id !== action.productId);
+      if (action.productType === 'bundle') {
+        return state.bundles.filter(i => i._id !== action.productId);
+      }
+
+      return state.products.filter(i => i._id !== action.productId);
     case ADD_TO_CART:
       // Si l'id est déjà présent dans le cart, on retourne la state
-      if (state.filter(i => i._id === action.product._id).length) {
+      if (action.productType === 'bundle') {
+        if (state.bundles.filter(i => i._id === action.product._id).length) {
+          return state;
+        }
+        return {
+          ...state,
+          bundles: [
+            ...state.products,
+            action.product,
+          ],
+        };
+      }
+
+      if (state.products.filter(i => i._id === action.product._id).length) {
         return state;
       }
-      return [
+      return {
         ...state,
-        action.product,
-      ];
+        products: [
+          ...state.products,
+          action.product,
+        ],
+      };
     default:
       return state;
   }

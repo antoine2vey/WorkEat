@@ -3,8 +3,13 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const mailer = require('../mailing').interface;
+const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 mongoose.Promise = Promise;
+
+function getStripeAmount(amount) {
+  return amount * 100;
+}
 
 // temp
 exports.list = (req, res) => {
@@ -16,6 +21,70 @@ exports.list = (req, res) => {
     res.send(users);
   });
 };
+
+exports.updateAmount = (req, res) => {
+  const { amount, token } = req.body;
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) {
+      return console.log('Error @ update amount', err);
+    }
+
+    if (req.query.method === 'paypal') {
+      user.solde += parseInt(amount, 10);
+      return user.save((_err) => {
+        if (_err) {
+          console.log('Database error @ update user', _err);
+        }
+        return res.send({ amount });
+      });
+    }
+
+    if (!user.tokens.stripe) {
+        // No token, we create a new customer first
+      Stripe.customers.create({
+        source: token,
+        description: `${user.surname} ${user.name} ajoute ${getStripeAmount(amount)}€ de solde`,
+        email: user.username,
+      }).then(customer => (
+        // Then we charge this customer with his id as token
+        Stripe.charges.create({
+          amount: getStripeAmount(amount),
+          currency: 'eur',
+          customer: customer.id,
+        })
+      )).then((charge) => {
+        // Customer id becomes our token
+        user.tokens.stripe = charge.customer;
+        user.solde += parseInt(amount, 10);
+        user.save((_err) => {
+          if (_err) {
+            console.log('Database error @ update user', _err);
+          }
+
+          res.send({ amount });
+        });
+      });
+    } else {
+      // We charge directly by the provided token!
+      Stripe.charges.create({
+        amount: getStripeAmount(amount),
+        currency: 'eur',
+        customer: user.tokens.stripe,
+      });
+
+      user.solde += parseInt(amount, 10);
+      user.save((_err) => {
+        if (_err) {
+          console.log('Database error @ update user', _err);
+        }
+
+        res.send({ amount });
+      });
+    }
+  });
+};
+
 exports.login = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
