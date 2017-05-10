@@ -62,15 +62,13 @@ class Solde extends Component {
   }
 
   focusInput(event) {
-    const { value, id } = event.target;
-    var parent = event.target.parentNode;
-    parent.classList.add('is-focused');
+    const { parentNode } = event.target;
+    parentNode.classList.add('is-focused');
   }
 
   blurInput(event) {
-    const { value, id } = event.target;
-    var parent = event.target.parentNode;
-    parent.classList.remove('is-focused');
+    const { parentNode } = event.target;
+    parentNode.classList.remove('is-focused');
   }
 
   submitPayment() {
