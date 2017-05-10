@@ -20,6 +20,7 @@ class Livraison extends Component {
 
   componentDidMount() {
     this.props.fetchPlacesIfNeeded();
+    console.log(this.props);
   }
 
   handleSubmit(event) {

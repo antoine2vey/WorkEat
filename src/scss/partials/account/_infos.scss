@@ -3,7 +3,7 @@
   z-index: 200;
   margin-bottom: 200px;
   background: $white;
-  
+
   &-form{
     margin-bottom: 100px;
   }
@@ -75,4 +75,11 @@
 .active {
   border-bottom: 5px solid $gold;
   color: $black;
+}
+#livraison{
+  width: 100%;
+  border:0px;
+}
+.fullInput{
+  width: 37% !important;
 }

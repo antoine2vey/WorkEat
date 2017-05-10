@@ -20,6 +20,9 @@ class InfoGenerale extends Component {
 
   componentDidMount(event) {
     this.props.fetchPlacesIfNeeded();
+    console.log(this.props.user);
+    console.log(this.places);
+
   }
 
   handleChange(event) {
@@ -67,6 +70,12 @@ class InfoGenerale extends Component {
                 <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="tel">Tel</label>
                   <input type="text" id="tel" name="phoneNumber" onFocus={this.focusInput} value={this.state.phoneNumber} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
+                </div>
+                <div className="material-field compteInfo-field has-label fullInput">
+                  <label className="material-field__label" htmlFor="livraison">Point de livraison</label>
+                  <select id="livraison">
+{places.map(place => <option value={place._id} key={place._id}>{place.name}</option>)}
+</select>
                 </div>
               </div>
               <div className="row">
