@@ -82,4 +82,7 @@
 }
 .fullInput{
   width: 37% !important;
+  @include screenSm{
+    width: 100% !important;
+  }
 }
