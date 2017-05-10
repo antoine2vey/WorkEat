@@ -59,30 +59,33 @@ export const checkoutReq = (cart, quantites) => (dispatch) => {
 
 export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
   dispatch(checkoutHandshake());
-  if (method === 'STRIPE') {
-    return axios.post(`/payment/${orderId}`, { token })
-      .then((res) => {
-        const { order } = res.data;
-        dispatch(checkoutSuccess(order));
-        history.push(`/paiement-confirmation/${order._id}`, { order });
-      })
-      .catch(() => dispatch(checkoutFailed()));
-  } else if (method === 'SOLDE') {
-    return axios.post(`/payment/${orderId}?method=solde`)
-      .then((res) => {
-        const { order } = res.data;
-        dispatch(checkoutSuccess(order));
-        history.push(`/paiement-confirmation/${order._id}`, { order });
-      })
-      .catch(() => dispatch(checkoutFailed()));
-  } else if (method === 'PAYPAL') {
-    return axios.post(`/payment/${orderId}?method=paypal`)
-      .then((res) => {
-        const { order } = res.data;
-        dispatch(checkoutSuccess(order));
-        history.push(`/paiement-confirmation/${order._id}`, { order });
-      })
-      .catch(() => dispatch(checkoutFailed()));
+  switch (method) {
+    case 'STRIPE':
+      return axios.post(`/payment/${orderId}`, { token })
+        .then((res) => {
+          const { order } = res.data;
+          dispatch(checkoutSuccess(order));
+          history.push(`/paiement-confirmation/${order._id}`, { order });
+        })
+        .catch(() => dispatch(checkoutFailed()));
+    case 'SOLDE':
+      return axios.post(`/payment/${orderId}?method=solde`)
+        .then((res) => {
+          const { order } = res.data;
+          dispatch(checkoutSuccess(order));
+          history.push(`/paiement-confirmation/${order._id}`, { order });
+        })
+        .catch(() => dispatch(checkoutFailed()));
+    case 'PAYPAL':
+      return axios.post(`/payment/${orderId}?method=paypal`)
+        .then((res) => {
+          const { order } = res.data;
+          dispatch(checkoutSuccess(order));
+          history.push(`/paiement-confirmation/${order._id}`, { order });
+        })
+        .catch(() => dispatch(checkoutFailed()));
+    default:
+      return dispatch(checkoutFailed());
   }
 };
 
