@@ -10,6 +10,7 @@ import Prestataire from '../Prestataire/Prestataire';
 import Livreur from '../Livreur/Livreur';
 import Cart from '../Cart/Cart';
 import Account from '../Account/Account';
+import Blog from '../Blog/Blog';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
 import Payment from '../Payment/Payment';
@@ -30,6 +31,7 @@ const App = () => (
         <Route path="/livreur" component={Livreur} />
         <Route path="/contact" component={Contact} />
         <Route path="/about" component={About} />
+        <Route path="/blog" component={Blog} />
 
         <Route path="/recap" component={Payment} />
         <Route path="/paiement/:orderId" component={PaymentStepTwo} />
