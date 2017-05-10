@@ -53,6 +53,18 @@ class PaymentStepTwo extends Component {
     }, '#paypal-button-container');
   }
 
+  focusInput(event) {
+    const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.remove('is-focused');
+  }
+
   submitPayment() {
     const { number, cvc, exp_month, exp_year } = this.state;
     // eslint-disable-next-line
@@ -118,20 +130,20 @@ class PaymentStepTwo extends Component {
                           </div>
                     </div>
                     <form className="payment__add-card">
-                      <div className="material-field partTwo__owner">
+                      <div className="material-field partTwo__owner has-label">
                         <label htmlFor="name" className="material-field__label">Nom du propriétaire</label>
                         <input type="text" id="name" className="material-field__input" />
                       </div>
-                      <div className="material-field partTwo__code">
+                      <div className="material-field partTwo__code has-label">
                         <label htmlFor="code" className="material-field__label">Numéro de carte</label>
                         <input type="text" id="code" className="material-field__input" />
                       </div>
                       <div className="partTwo__expiry-cvv">
-                        <div className="material-field partTwo__expiry">
+                        <div className="material-field partTwo__expiry has-label">
                           <label htmlFor="expiry" className="material-field__label">Expire le</label>
                           <input type="text" id="expiry" className="material-field__input" />
                         </div>
-                        <div className="material-field partTwo__cvv">
+                        <div className="material-field partTwo__cvv has-label">
                           <label htmlFor="cvv" className="material-field__label">CVV</label>
                           <input type="text" id="cvv" className="material-field__input" />
                         </div>

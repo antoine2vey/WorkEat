@@ -70,7 +70,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
             <img src="images/icons/trash-blanc.svg" alt="Supprimer" className="cart-panel__delete-icon" />          </div>
         </div>*/}
         <div className="cart-panel__promo">
-          <div className="material-field cart-panel__input">
+          <div className="material-field cart-panel__input has-label">
             <div className="material-field__label">Code promo</div>
             <input type="text" className="material-field__input" />
           </div>
