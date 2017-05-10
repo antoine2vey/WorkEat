@@ -61,6 +61,10 @@ class Solde extends Component {
                 <div className="cards-list">
                       <div className="card visa-card">
                         <div className="card__top">
+                          <div className="card__cvc">
+                            <p className="card__label-cvc">CVC</p>
+                            <p className="card__secret-code">{this.state.cvc}</p>
+                          </div>
                           <img src={images.visa} alt="Type de carte" className="card__type" />
                         </div>
                         <div className="card__middle">
@@ -94,7 +98,7 @@ class Solde extends Component {
                     </div>
                     <div className="material-field partTwo__cvv has-label">
                       <label htmlFor="cvc" className="material-field__label">CVC</label>
-                      <input type="text" id="cvc" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
+                      <input type="text" id="cvc" name="cvc" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                     </div>
                   </div>
                   <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>

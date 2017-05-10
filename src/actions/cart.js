@@ -13,7 +13,6 @@ export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
 const addToCartUnsafe = product => {
-  NotificationManager.success(`${product.name} ajouté!`, 'Panier :', 3000);
   return { type: ADD_TO_CART, product };
 };
 const increment = productId => ({ type: INCREMENT_QUANTITY, productId });
@@ -95,4 +94,3 @@ export const getOrderById = orderId => (dispatch) => {
     .then(res => dispatch(setLastOrder(res.data)))
     .catch(err => console.error(err));
 };
-
