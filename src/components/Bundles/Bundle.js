@@ -5,7 +5,6 @@ class Bundle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
       entree: {
         active: false,
         choisie: {},
@@ -64,6 +63,17 @@ class Bundle extends React.Component {
         choisie: boisson,
       },
     });
+  }
+
+  getBundle() {
+    const { entree, plat, dessert, boisson } = this.state;
+    return {
+      ...this.props.bundle,
+      entree: entree.choisie ? entree.choisie : null,
+      plat: plat.choisie ? plat.choisie : null,
+      dessert: dessert.choisie ? dessert.choisie : null,
+      boisson: boisson.choisie ? boisson.choisie : null,
+    };
   }
 
   render() {
@@ -222,7 +232,7 @@ class Bundle extends React.Component {
                     ))}
                   </select>
                 </div> } */}
-                <button className="btn-gold formules__submit">Commander</button>
+                <button className="btn-gold formules__submit" onClick={() => this.props.addToCart(this.getBundle())}>Commander</button>
               </div>
             </div>
           </div>

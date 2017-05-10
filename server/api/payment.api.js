@@ -18,7 +18,11 @@ exports.send = (req, res) => {
   // Find the order from param
   Order.findById(id)
   .populate('articles', 'file name price')
-  .populate('bundles', 'file name price')
+  .populate('bundles.bundle', 'name price')
+  .populate('bundles.entree', 'file name price')
+  .populate('bundles.plat', 'file name price')
+  .populate('bundles.dessert', 'file name price')
+  .populate('bundles.boisson', 'file name price')
   .populate('placeToShip', 'name')
   .exec((err, order) => {
     if (err) {
@@ -54,6 +58,8 @@ exports.send = (req, res) => {
             if (err) {
               return console.log('Erreur update order');
             }
+
+            console.log(order.bundles[0]);
 
             return res.status(200).send({ order });
           });

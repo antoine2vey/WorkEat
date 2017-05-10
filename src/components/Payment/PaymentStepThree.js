@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { getOrderById } from '../../actions/cart';
 
@@ -72,16 +73,18 @@ class PaymentStepThree extends Component {
             order.bundles.map(article => (
               <div className="partFive__product" key={article._id}>
                 <div className="partFive__product-infos">
-                  <img src={article.file} alt="Commande " className="partFive__product-image" />
                   <div className="partFive__product-text">
-                    <h6 className="partFive__product-type">{ article.types.map((type, i) => <span key={i}>{type}{article.types.length - 1 === i ? '' : ','} </span>) }</h6>
-                    <h3 className="partFive__product-title">{article.name}</h3>
+                    <h3 className="partFive__product-title">{article.bundle.name}</h3>
+                    { article.entree && article.entree.name}
+                    { article.plat && article.plat.name}
+                    { article.dessert && article.dessert.name}
+                    { article.boisson && article.boisson.name}
                   </div>
                 </div>
                 <div className="partFive__quantity">
-                  <p>x{order.quantitiesById[article._id]}</p>
+                  <p>x{order.quantitiesById[article.bundle._id]}</p>
                 </div>
-                <p className="partFive__price">{(article.price * order.quantitiesById[article._id]).toFixed(2)}€</p>
+                <p className="partFive__price">{(article.bundle.price * order.quantitiesById[article.bundle._id]).toFixed(2)}€</p>
               </div>
             ))
           ) : (
@@ -122,7 +125,7 @@ class PaymentStepThree extends Component {
               </div>
             </div>
           </div>
-          <a href="/"><button className="partFive-return">Retour à la page d'accueil</button></a>
+          <Link to="/"><button className="partFive-return">Retour à la page d'accueil</button></Link>
         </div>
       </div>
     );
