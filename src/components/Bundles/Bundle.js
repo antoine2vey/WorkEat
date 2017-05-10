@@ -29,8 +29,8 @@ class Bundle extends React.Component {
     this.toggleDessert = this.toggleDessert.bind(this);
     this.toggleBoisson = this.toggleBoisson.bind(this);
   }
+
   toggleEntree(entree) {
-    console.log(entree);
     this.setState({
       entree: {
         active: !this.state.entree.active,
@@ -38,6 +38,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   togglePlat(plat) {
     this.setState({
       plat: {
@@ -46,6 +47,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   toggleDessert(dessert) {
     this.setState({
       dessert: {
@@ -54,6 +56,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   toggleBoisson(boisson) {
     this.setState({
       boisson: {
@@ -62,6 +65,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   render() {
     const { bundle, products } = this.props;
     return (

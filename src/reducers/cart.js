@@ -68,10 +68,16 @@ const cartHandler = (state = initialState.cart, action) => {
   switch (action.type) {
     case DELETE_ITEM:
       if (action.productType === 'bundle') {
-        return state.bundles.filter(i => i._id !== action.productId);
+        return {
+          ...state,
+          products: state.bundles.filter(i => i._id !== action.productId),
+        };
       }
 
-      return state.products.filter(i => i._id !== action.productId);
+      return {
+        ...state,
+        products: state.products.filter(i => i._id !== action.productId),
+      };
     case ADD_TO_CART:
       // Si l'id est déjà présent dans le cart, on retourne la state
       if (action.productType === 'bundle') {
@@ -163,6 +169,7 @@ const cart = (state = initialState, action) => {
         order: action.order,
       };
     default:
+      console.log(state.cart);
       return {
         cart: cartHandler(state.cart, action),
         productsById: map(state, action),
