@@ -18,8 +18,7 @@ class Bundle extends React.Component {
             <div className="formules__container">
               <div className="formules__content">
                 <p className="formules__title is-4">{ bundle.name }</p>
-                <p className="formule__price is-6">{ bundle.price }€</p>
-                {/* <p className="formule__desc">{ bundle.desc }</p> */}
+                <p className="formules__price is-6">{ bundle.price }€</p>
               </div>
               <div className="formules__choise">
                 { bundle.items.hasEntree &&
@@ -27,7 +26,7 @@ class Bundle extends React.Component {
                   <label htmlFor="entree">entree</label>
                   <div name="entree" id="entree" className="formules__select active">
                     { products.filter(product => product.types.indexOf('entree') > -1).map(entree => (
-                      <div id={entree._id} className="formules__item">
+                      <div id={entree._id} key={entree._id} className="formules__item">
                         <div className="formules__item-image">
                           <img src={entree.file} alt={entree.name} />
                         </div>
@@ -35,7 +34,7 @@ class Bundle extends React.Component {
                           <h3 className="formules__item-title">{entree.name}</h3>
                           <p className="formules__item-desc">{
                             entree.tags.map(tag => (
-                              <span>{tag.name}, </span>
+                              <span key={tag._id}>{tag.name}, </span>
                             ))
                           }</p>
                         </div>
@@ -57,7 +56,7 @@ class Bundle extends React.Component {
                   <label htmlFor="plat">plat</label>
                   <div name="plat" id="plat" className="formules__select active">
                     { products.filter(product => product.types.indexOf('plat') > -1).map(plat => (
-                      <div id={plat._id} className="formules__item">
+                      <div id={plat._id} key={plat._id} className="formules__item">
                         <div className="formules__item-image">
                           <img src={plat.file} alt={plat.name} />
                         </div>
@@ -65,7 +64,7 @@ class Bundle extends React.Component {
                           <h3 className="formules__item-title">{plat.name}</h3>
                           <p className="formules__item-desc">{
                             plat.tags.map(tag => (
-                              <span>{tag.name}, </span>
+                              <span key={tag._id}>{tag.name}, </span>
                             ))
                           }</p>
                         </div>
@@ -87,7 +86,7 @@ class Bundle extends React.Component {
                   <label htmlFor="dessert">plat</label>
                   <div name="dessert" id="dessert" className="formules__select active">
                     { products.filter(product => product.types.indexOf('dessert') > -1).map(dessert => (
-                      <div id={dessert._id} className="formules__item">
+                      <div id={dessert._id} key={dessert._id} className="formules__item">
                         <div className="formules__item-image">
                           <img src={dessert.file} alt={dessert.name} />
                         </div>
@@ -95,7 +94,7 @@ class Bundle extends React.Component {
                           <h3 className="formules__item-title">{dessert.name}</h3>
                           <p className="formules__item-desc">{
                             dessert.tags.map(tag => (
-                              <span>{tag.name}, </span>
+                              <span key={tag._id}>{tag.name}, </span>
                             ))
                           }</p>
                         </div>
@@ -117,7 +116,7 @@ class Bundle extends React.Component {
                   <label htmlFor="boisson">plat</label>
                   <div name="boisson" id="boisson" className="formules__select active">
                     { products.filter(product => product.types.indexOf('boisson') > -1).map(boisson => (
-                      <div id={boisson._id} className="formules__item">
+                      <div id={boisson._id} key={boisson._id} className="formules__item">
                         <div className="formules__item-image">
                           <img src={boisson.file} alt={boisson.name} />
                         </div>
@@ -125,7 +124,7 @@ class Bundle extends React.Component {
                           <h3 className="formules__item-title">{boisson.name}</h3>
                           <p className="formules__item-desc">{
                             boisson.tags.map(tag => (
-                              <span>{tag.name}, </span>
+                              <span key={tag._id}>{tag.name}, </span>
                             ))
                           }</p>
                         </div>
@@ -143,6 +142,7 @@ class Bundle extends React.Component {
                   </select>
                 </div> } */}
               </div>
+              <button className="btn-gold">Commander</button>
             </div>
           </div>
         </div>

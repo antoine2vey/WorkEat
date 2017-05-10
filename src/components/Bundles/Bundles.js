@@ -19,11 +19,7 @@ class Bundles extends Component {
     return (
       <div>
         { rows.map((row, i) => (
-          <div
-            className="columns" key={i} style={{
-              marginLeft: i !== 0 ? 0 : 'auto',
-            }}
-          >
+          <div className="formule">
             { row.map(bundle => (
               <div className="column is-3" key={bundle._id} style={{ margin: 0 }}>
                 <Bundle bundle={bundle} {...this.props} />
@@ -47,4 +43,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { fetchBundlesIfNeeded, fetchProductsIfNeeded })(Bundles);
-
