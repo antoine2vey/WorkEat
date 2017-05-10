@@ -8,6 +8,7 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
+export const INCREASE_AMOUNT = 'INCREASE_AMOUNT';
 
 const loginUserRequest = () => ({ type: LOGIN_REQUEST });
 const loginUserSuccess = (userInformations) => {
@@ -41,6 +42,7 @@ export const deleteAccount = () => {
   };
 };
 export const updateAccount = account => ({ type: UPDATE_ACCOUNT, account });
+export const increaseSolde = (amount, token = '') => ({ type: INCREASE_AMOUNT, amount, token });
 
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')
@@ -79,4 +81,22 @@ export const updateUser = account => (dispatch) => {
   })
     .then(res => dispatch(updateAccount(res.data.user)))
     .catch(err => console.error(err));
+};
+
+export const updateSolde = (amount, token) => (dispatch) => {
+  if (!token) {
+    return axios.put('/account/update/solde?method=paypal', { amount }, {
+      headers: {
+        Authorization: `Bearer ${localStorage._token}`,
+      },
+    })
+      .then(res => dispatch(increaseSolde(res.data.amount)));
+  }
+
+  return axios.put('/account/update/solde', { amount, token }, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  })
+    .then(res => dispatch(increaseSolde(res.data.amount)));
 };

@@ -11,7 +11,7 @@ class Bundle extends React.Component {
       activeDessert: false,
       activeBoisson: false,
     };
-<<<<<<< HEAD
+
     this.toggleEntree = this.toggleEntree.bind(this);
     this.togglePlat = this.togglePlat.bind(this);
     this.toggleDessert = this.toggleDessert.bind(this);
@@ -50,7 +50,6 @@ class Bundle extends React.Component {
               </div>
               <div className="formules__choise">
                 { bundle.items.hasEntree &&
-<<<<<<< HEAD
                   <div className="formules__input">
                     <label htmlFor="entree" onClick={this.toggleEntree} className="formules__label">entree</label>
                     <div name="entree" id="entree" className={'formules__select' + (this.state.activeEntree ? ' current' : '')}>

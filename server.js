@@ -194,6 +194,7 @@ app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);
 app.delete('/account/delete', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.delete);
 app.put('/account/update', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.update);
+app.put('/account/update/solde', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.updateAmount);
 
 app.get('/protected', authorizeRequest, (req, res) => {
   res.send({

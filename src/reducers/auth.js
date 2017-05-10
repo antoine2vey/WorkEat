@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../actions/auth';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT, DELETE_ACCOUNT, UPDATE_ACCOUNT, INCREASE_AMOUNT } from '../actions/auth';
 import { CHECKOUT_SUCCESS } from '../actions/cart';
 
 const initialState = {
@@ -12,13 +12,17 @@ const initialState = {
 const auth = (state = initialState, action) => {
   switch (action.type) {
     case CHECKOUT_SUCCESS:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          solde: state.user.solde -= action.order.amount,
-        },
-      };
+      if (action.method === 'SOLDE') {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            solde: state.user.solde -= action.order.amount,
+          },
+        };
+      }
+
+      return state;
     case UPDATE_ACCOUNT:
       return {
         ...state,
@@ -28,6 +32,14 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticating: true,
+      };
+    case INCREASE_AMOUNT:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          solde: (parseInt(state.user.solde, 10) + parseInt(action.amount, 10)),
+        },
       };
     case LOGIN_SUCCESS:
       return {

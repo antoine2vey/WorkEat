@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { deleteUser, updateUser } from '../../actions/auth';
+import { deleteUser, updateUser, updateSolde } from '../../actions/auth';
 import { fetchPlacesIfNeeded } from '../../actions/livraison';
 import InfoGenerale from './InfoGenerale';
 import Commandes from './Commandes';
@@ -35,4 +35,4 @@ const mapStateToProps = state => ({
   places: state.places.places,
 });
 
-export default connect(mapStateToProps, { deleteUser, updateUser, fetchPlacesIfNeeded })(Account);
+export default connect(mapStateToProps, { deleteUser, updateUser, fetchPlacesIfNeeded, updateSolde })(Account);

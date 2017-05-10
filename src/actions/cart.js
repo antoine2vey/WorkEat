@@ -21,7 +21,7 @@ const decrement = productId => ({ type: DECREMENT_QUANTITY, productId });
 const deleteFromCart = productId => ({ type: DELETE_ITEM, productId });
 const checkoutRequest = id => ({ type: CHECKOUT_REQUEST, id });
 const checkoutHandshake = () => ({ type: CHECKOUT_HANDSHAKE });
-const checkoutSuccess = order => ({ type: CHECKOUT_SUCCESS, order });
+const checkoutSuccess = (method, order) => ({ type: CHECKOUT_SUCCESS, method, order });
 const checkoutFailed = () => ({ type: CHECKOUT_FAILURE });
 const setLastOrder = order => ({ type: GET_ORDER, order });
 
@@ -64,7 +64,7 @@ export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
       return axios.post(`/payment/${orderId}`, { token })
         .then((res) => {
           const { order } = res.data;
-          dispatch(checkoutSuccess(order));
+          dispatch(checkoutSuccess(method, order));
           history.push(`/paiement-confirmation/${order._id}`, { order });
         })
         .catch(() => dispatch(checkoutFailed()));
@@ -72,7 +72,7 @@ export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
       return axios.post(`/payment/${orderId}?method=solde`)
         .then((res) => {
           const { order } = res.data;
-          dispatch(checkoutSuccess(order));
+          dispatch(checkoutSuccess(method, order));
           history.push(`/paiement-confirmation/${order._id}`, { order });
         })
         .catch(() => dispatch(checkoutFailed()));
@@ -80,7 +80,7 @@ export const checkoutCart = (method, orderId, token = '') => (dispatch) => {
       return axios.post(`/payment/${orderId}?method=paypal`)
         .then((res) => {
           const { order } = res.data;
-          dispatch(checkoutSuccess(order));
+          dispatch(checkoutSuccess(method, order));
           history.push(`/paiement-confirmation/${order._id}`, { order });
         })
         .catch(() => dispatch(checkoutFailed()));
