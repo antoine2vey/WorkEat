@@ -17,7 +17,9 @@
   }
 
   &__container {
+    @include flex(center, flex-start, column);
     width:90%;
+    min-height: 400px;
     margin:0 auto;
     padding:10px;
     @include material-shadow(box, 2);
@@ -25,6 +27,21 @@
 
   &__content {
     @include flex;
+    align-self: stretch;
+  }
+
+  &__choise {
+    @include flex(center, center, column);
+    flex: 1;
+    align-self: stretch;
+  }
+
+  &__input {
+    align-self: stretch;
+  }
+
+  &__label {
+    font-family:  $primary-font;
   }
 
   &__title {
@@ -42,11 +59,13 @@
     z-index: 10;
     width:100%;
     height:0px;
+    margin-bottom:40px;
     overflow: hidden;
     box-sizing: border-box;
     border-bottom: 1px solid $dark-grey !important;
+    transition: height 0.3s $transition;
 
-    &.active {
+    &.current {
       height:300px;
       overflow: auto;
     }
@@ -65,8 +84,6 @@
     }
 
     &-infos {
-      @include flex(flex-start, flex-start, row);
-      flex-wrap: wrap;
       flex: 1;
       align-self: stretch;
       padding: 10px;
@@ -76,20 +93,34 @@
       flex: 1;
       margin:0;
       font-family: $primary-font;
+      font-weight: 500;
       font-size: 20px;
     }
 
     &-desc {
       flex-basis: 100%;
+      margin: 0;
       align-self: flex-start;
       font-family: $primary-font;
       font-size: 16px;
     }
 
-    &-image {
-      width: 150px;
-      height: 150px;
+    &-allergenes {
+      margin: 0;
+    }
+
+    &-container {
+      width: 100px;
+      height: 100px;
       overflow: hidden;
     }
+
+    &-image {
+      height: 100px;
+    }
+  }
+
+  &__submit {
+    margin-top: 20px;
   }
 }

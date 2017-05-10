@@ -19,7 +19,7 @@ class Bundles extends Component {
     return (
       <div>
         { rows.map((row, i) => (
-          <div className="formule">
+          <div key={i} className="formule">
             { row.map(bundle => (
               <div className="column is-3" key={bundle._id} style={{ margin: 0 }}>
                 <Bundle bundle={bundle} {...this.props} />
