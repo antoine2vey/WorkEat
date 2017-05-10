@@ -44,7 +44,6 @@ ReactDOM.render(
                 <PrivateRoute path="/" component={App} />
                 <Route path="/about" component={About} />
                 <Route path="*" render={() => <h1>404</h1>} />
-
               </Switch>
             ) : (
               <Switch>

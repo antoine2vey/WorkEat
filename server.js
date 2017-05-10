@@ -15,6 +15,7 @@ const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
 const pmx = require('pmx');
+const exphbs = require('express-handlebars');
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const app = express();
@@ -23,13 +24,8 @@ const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
 
-// const server = require('http').Server(app);
-// const io = require('socket.io')(server);
-
-// io.on('connection', (socket) => {
-//   console.log('New socket', socket);
-//   socket.emit('test', 'hello im a socket');
-// });
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 /**
 * ENV CONFIG

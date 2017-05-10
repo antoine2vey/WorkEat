@@ -342,7 +342,7 @@ a:hover {
     text-align: center;
     font-family: $primary-font;
     font-size: 26px;
-    letter-spacing: 8px;
+    letter-spacing: 2.5px;
     @include screenSm {
       font-size:22px;
       letter-spacing: 4px;
@@ -679,17 +679,19 @@ input:-webkit-autofill{
 }
 .cookie{
   position: fixed;
-  top: 94%;
+  bottom: 0;
   z-index: 1000;
   width: 100%;
   background-color: $gold;
   @include material-shadow(box, 2);
   &-content{
-text-align: center;
-padding: 5px;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
   }
   &-valider, &-infos{
     border:0;
+    margin: 0;
   }
 }
 .fadeOut{

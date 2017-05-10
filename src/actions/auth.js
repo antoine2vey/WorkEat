@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
 import history from '../utils/history';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -18,7 +19,13 @@ const loginUserSuccess = (userInformations) => {
     user: userInformations.user,
   };
 };
-const loginUserFailure = err => ({ type: LOGIN_FAILURE, err });
+const loginUserFailure = (err) => {
+  NotificationManager.error('Vérifiez bien!', 'Mauvais identifiants', 3000);
+  return {
+    type: LOGIN_FAILURE,
+    err,
+  };
+};
 const logout = () => {
   localStorage.removeItem('_token');
   history.push('/');
