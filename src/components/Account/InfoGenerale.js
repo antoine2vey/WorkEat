@@ -18,8 +18,10 @@ class InfoGenerale extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(event) {
     this.props.fetchPlacesIfNeeded();
+    var valueInput = document.querySelectorAll('material-field__input');
+ 
   }
 
   handleChange(event) {
@@ -29,9 +31,15 @@ class InfoGenerale extends Component {
 
   focusInput(event) {
     const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.add('is-focused' , 'has-label');
 
-    console.log(value);
-    console.log(id);
+  }
+  blurInput(event) {
+    const { value, id } = event.target;
+    var parent = event.target.parentNode;
+    parent.classList.remove('is-focused' , 'has-label');
+
   }
 
   render() {
@@ -43,13 +51,13 @@ class InfoGenerale extends Component {
           <div className="row">
             <form action="#" method="post" className="compteInfo-form">
               <div className="row compteInfo-rowForm">
-                <div className="material-field compteInfo-field" id="test">
+                <div className="material-field compteInfo-field"  >
                   <label className="material-field__label" htmlFor="prenom">Prénom</label>
-                  <input type="text" id="prenom" defaultValue={user.surname} onFocus={this.focusInput} name="surname" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="prenom" defaultValue={user.surname} name="surname" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" id="test" />
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="name">Nom</label>
-                  <input type="text" id="name" defaultValue={user.name} name="name" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="name" defaultValue={user.name} name="name" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
 
                 <div className="compteInfo-maps">
@@ -57,33 +65,33 @@ class InfoGenerale extends Component {
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="email">Email</label>
-                  <input type="email" id="email" name="username" defaultValue={user.username} onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="email" id="email" name="username" onFocus={this.focusInput} defaultValue={user.username} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="tel">Tel</label>
-                  <input type="text" id="tel" name="phoneNumber" defaultValue={user.phoneNumber} onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="tel" name="phoneNumber" onFocus={this.focusInput} defaultValue={user.phoneNumber} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
               </div>
               <div className="row">
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="NumeroRue" >N° et nom de rue</label>
-                  <input type="text" id="NumeroRue" defaultValue={user.address} name="address" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="NumeroRue" onFocus={this.focusInput}  defaultValue={user.address} name="address" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="CP">Code Postal </label>
-                  <input type="text" id="CP" defaultValue={user.codePostal} name="codePostal" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="CP" onFocus={this.focusInput} defaultValue={user.codePostal} name="codePostal" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field compteInfo-field">
                   <label className="material-field__label" htmlFor="ville" >Ville </label>
-                  <input type="text" id="ville" defaultValue={user.town} name="town" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="ville" onFocus={this.focusInput} defaultValue={user.town} name="town" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field  compteInfo-field">
                   <label className="material-field__label" htmlFor="mdpNew">Nouveau mot de passe</label>
-                  <input type="text" id="mdpNew" onChange={this.handleChange} name="password" className="material-field__input compteInfo-input" />
+                  <input type="text" id="mdpNew" onFocus={this.focusInput} onChange={this.handleChange} onBlur={this.blurInput} name="password" className="material-field__input compteInfo-input" />
                 </div>
                 <div className="material-field  compteInfo-field">
                   <label className="material-field__label" htmlFor="mdpConfirm">Confirmez le mot de passe</label>
-                  <input type="text" id="mdpConfirm" onChange={this.handleChange} className="material-field__input compteInfo-input" />
+                  <input type="text" id="mdpConfirm" onFocus={this.focusInput} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
                 <button type="submit" className="btn-red compteInfo-submit">MODIFIER</button>
               </div>
