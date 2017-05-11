@@ -107,6 +107,7 @@
         border: 0;
         @include screenSm {
           margin: 0 !important;
+          height: 8vh;
         };
       }
     }
@@ -115,6 +116,11 @@
       flex:0.6;
       @include screenXs {
         width:150px;
+      };
+      @include screenSm{
+        flex: 0;
+        margin-bottom: 5px;
+
       };
     }
   }
