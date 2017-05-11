@@ -86,7 +86,7 @@ class InfoGenerale extends Component {
                   </select>
                 </div>
               </div>
-              <div className="row">
+              <div className="compteInfo__adressForm">
                 <div className="material-field compteInfo-field has-label">
                   <label className="material-field__label" htmlFor="NumeroRue" >N° et nom de rue</label>
                   <input type="text" id="NumeroRue" onFocus={this.focusInput} value={this.state.address} name="address" onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />

@@ -23,6 +23,7 @@ class UserNav extends Component {
 
     this.showCart = this.showCart.bind(this);
     this.showNav = this.showNav.bind(this);
+    this.hideNavAndCart = this.hideNavAndCart.bind(this);
   }
 
   componentWillUnmount() {
@@ -30,11 +31,21 @@ class UserNav extends Component {
   }
 
   showCart() {
+    document.body.classList.toggle('dont-scroll');
     this.setState({ isCartShown: !this.state.isCartShown });
   }
 
   showNav() {
+    document.body.classList.toggle('dont-scroll');
     this.setState({ isNavShown: !this.state.isNavShown });
+  }
+
+  hideNavAndCart() {
+    document.body.classList.toggle('dont-scroll');
+    this.setState({
+      isNavShown: false,
+      isCartShown: false,
+    });
   }
 
   render() {
@@ -42,7 +53,7 @@ class UserNav extends Component {
     const { isCartShown, isNavShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
-        <div className="panel-shadow" />
+        <div className={"panel-shadow" + (this.state.isCartShown || this.state.isNavShown ? ' panel-shadow--active' : '')} onClick={this.hideNavAndCart} />
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} />
         <header className="main-header">
           <div className="main-header-menu">

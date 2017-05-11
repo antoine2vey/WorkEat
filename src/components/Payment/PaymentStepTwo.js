@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import Payment from 'payment';
 import { connect } from 'react-redux';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
@@ -170,7 +170,7 @@ class PaymentStepTwo extends Component {
                   </div>
             </div>
             <div className="btn-container">
-              <button className="btn-gold">Revenir au panier</button>
+              <NavLink to="/recap"><button className="btn-gold">Précédent</button></NavLink>
               <button className="btn-gold" onClick={() => this.submitPayment()}>Suivant</button>
             </div>
           </div>

@@ -60,7 +60,6 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
             </div>
           )) }
           <div className="partOne-recap-btn">
-            <button className="btn-gold">Revenir au panier</button>
             <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold">Suivant</button>
           </div>
         </div>

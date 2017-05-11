@@ -20,7 +20,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
         cart.length ? (
           <div className="cart-panel__list">
             <div className="cart-panel__category">
-              <p>A la carte</p>
+              <p className="cart-panel__category-name">A la carte</p>
               <hr />
             </div>
             <ReactCSSTransitionGroup
@@ -33,7 +33,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
             >
               { cart.map(c => (
                 // IF ITS NOT A BUNDLE
-                !c.isBundle && 
+                !c.isBundle &&
                 <div className="cart-panel__product" key={c._id}>
                   <div className="cart-panel__product-infos">
                     <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
@@ -54,12 +54,12 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
               )) }
             </ReactCSSTransitionGroup>
             <div className="cart-panel__category">
-              <p>Formule</p>
+              <p className="cart-panel__category-name">Formule</p>
               <hr />
             </div>
             { cart.map(c => (
                 // IF ITS A BUNDLE
-                c.isBundle && 
+                c.isBundle &&
                 <div className="cart-panel__product" key={c._id}>
                   <div className="cart-panel__product-infos">
                     <div className="cart-panel__product-text">
@@ -87,12 +87,12 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
             <div className="cart-panel__category">
               <p>Total {total}€</p>
             </div>
-            <div className="cart-panel__category">
-              {/* TODO: afficher une notification (SWAL?) */}
-              <button className="btn-gold" onClick={cart.length ? () => {
-                history.push('/recap');
-                switcher();
-              } : () => alert('Panier vide (changez moi asap please)')}
+            <div className="cart-panel__submit">
+              <button
+                className="btn-gold" onClick={() => {
+                  history.push('/recap');
+                  switcher();
+                }}
               >
                 Commander
               </button>
