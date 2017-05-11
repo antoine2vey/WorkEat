@@ -31,7 +31,7 @@
   }
 
   &__products-list {
-    @include flex(center, center, row);
+    @include flex(flex-start, center, row);
     flex-wrap:wrap;
     @include container(1200px);
     padding: 25px 0 0;
@@ -51,11 +51,13 @@
     transition: all 0.3s $transition;
 
     &-container {
-      flex:1;
       flex-basis: 25%;
       padding: 0 0 20px;
       @include screenDefault {
         flex-basis: calc(100% / 3);
+      };
+      @include screenMd {
+        flex: 1;
       };
     }
 
