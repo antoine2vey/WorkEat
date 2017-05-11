@@ -33,12 +33,12 @@ const App = () => (
         <Route path="/contact" component={Contact} />
         <Route path="/about" component={About} />
 
-        <Route path="/blog" component={Blog} />
-        <Route path="/:articleTitle" component={Article} />
-
         <Route path="/recap" component={Payment} />
         <Route path="/paiement/:orderId" component={PaymentStepTwo} />
         <Route path="/paiement-confirmation/:orderId" component={PaymentStepThree} />
+
+        <Route path="/blog" component={Blog} />
+        <Route path="/article/:articleTitle" component={Article} />
 
         <Route path="/" component={GlobalProducts} />
       </Switch>
