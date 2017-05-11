@@ -5,12 +5,12 @@ import { getTotalPrice, getProducts, getAllQuantities } from '../../reducers/car
 import { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq } from '../../actions/cart';
 import { trashBlanc } from '../../images';
 
-const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq }) => (
+const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq, total }) => (
   <div className="partOne">
     <div className="partOne__container">
       <div className="container-fluid">
         <div className="partOne__recap">
-          <h2 className="partOne__title">Récapitulatif de votre commande</h2>
+          <h2 className="partOne__title">Récapitulatif de votre commande - <strong>{total.toFixed(2)}€</strong></h2>
           <div className="partOne__list">
             <div className="partOne__category">
               <p>A la carte</p>

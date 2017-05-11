@@ -51,7 +51,7 @@ class Commandes extends Component {
                 </tr>
               </thead>
               <tbody>
-                { !this.state.orders ? (
+                { this.state.orders ? (
                   this.state.orders.map(order => (
                     <tr className="compteCommand-tab-row" key={order._id}>
                       <td className="compteCommand-tab-cellule">
@@ -72,9 +72,11 @@ class Commandes extends Component {
                     </tr>
                   ))
                   ) : (
-                    <div>
-                      <p>Pas de commandes</p>
-                    </div>
+                    <tr>
+                      <td>
+                        Pas de commandes
+                      </td>
+                    </tr>
                   )
                 }
 

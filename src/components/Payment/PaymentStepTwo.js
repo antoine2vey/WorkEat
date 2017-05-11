@@ -14,6 +14,7 @@ class PaymentStepTwo extends Component {
       number: '4242 4242 4242 4242',
       cvc: '433',
       date: '08/19',
+      selectedCard: false,
     };
 
     this.changeInfo = this.changeInfo.bind(this);
@@ -93,6 +94,10 @@ class PaymentStepTwo extends Component {
     this.props.checkoutCart('SOLDE', this.props.match.params.orderId);
   }
 
+  toggleCard() {
+    this.setState({ selectedCard: !this.state.selectedCard });
+  }
+
   render() {
     return (
       <div className="partTwo">
@@ -100,22 +105,23 @@ class PaymentStepTwo extends Component {
           <div className="container-fluid">
             <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.total}€</span></h2>
             <div className="partTwo__select">
-              <div className="partTwo__type select-tab" onClick={() => this.payWithSolde()}>
+              <div className={(this.props.total > this.props.solde) ? 'partTwo__type select-tab select-tab--current disabled' : 'partTwo__type select-tab select-tab--current'} onClick={() => this.payWithSolde()}>
                 <img src={pig} alt="Solde du compte" className="partTwo__icon" />
                 <p className="partTwo__type-title">Solde du compte</p>
                 <p className="partTwo__solde">Solde actuel : <span className="bold">{this.props.solde}€</span></p>
+                <p className="partTwo__solde partTwo__solde__small">Payer en 1 click</p>
               </div>
               {/*<div className="partTwo__type select-tab" data-tab="paypal">
                 <img src={paypal} alt="Solde du compte" className="partTwo__icon" />
                 <p className="partTwo__type-title">Paypal</p>
               </div>*/}
-              <div id="paypal-button-container" className="partTwo__type select-tab" onClick={() => this.payWithPaypal()} />
-              <div className="partTwo__type select-tab select-tab--current" data-tab="card">
+              <div id="paypal-button-container" className="partTwo__type select-tab" />
+              <div className="partTwo__type select-tab" data-tab="card" onClick={() => this.toggleCard()}>
                 <img src={creditCard} alt="Solde du compte" className="partTwo__icon" />
                 <p className="partTwo__type-title">Carte bancaire</p>
               </div>
             </div>
-            <div className="selected">
+            <div className={this.state.selectedCard ? 'card-selected selected in' : 'card-selected selected'}>
               <div id="solde" className="tab">solde</div>
               <div id="paypal" className="tab">paypal</div>
               <div id="card" className="tab tab--current">
@@ -152,26 +158,25 @@ class PaymentStepTwo extends Component {
                         </div>
                         <div className="material-field partTwo__code has-label">
                           <label htmlFor="number" className="material-field__label">Numéro de carte</label>
-                          <input type="text" id="number" name="number" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} pattern="\d*" className="material-field__input" />
+                          <input type="text" id="number" name="number" value={this.state.number} onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} pattern="\d*" className="material-field__input" />
                         </div>
                         <div className="partTwo__expiry-cvv">
                           <div className="material-field partTwo__expiry has-label">
                             <label htmlFor="date" className="material-field__label">Expire le</label>
-                            <input type="text" id="date" name="date" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
+                            <input type="text" id="date" name="date" pattern="\d*" value={this.state.date} onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                           </div>
                           <div className="material-field partTwo__cvv has-label">
-                            <label htmlFor="cvv" className="material-field__label">CVV</label>
-                            <input type="text" id="cvc" name="cvc" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
+                            <label htmlFor="cvv" className="material-field__label">CVC</label>
+                            <input type="text" id="cvc" name="cvc" pattern="\d*" value={this.state.cvc} onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                           </div>
                         </div>
-                        <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>
+                        <button type="button" name="Ajouter" className="btn-gold" onClick={() => this.submitPayment()}>Payer {this.props.total.toFixed(2)}€</button>
                       </form>
                     </div>
                   </div>
             </div>
             <div className="btn-container">
               <NavLink to="/recap" className="btn-link"><button className="btn-gold">Précédent</button></NavLink>
-              <button className="btn-gold" onClick={() => this.submitPayment()}>Suivant</button>
             </div>
           </div>
         </div>

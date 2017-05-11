@@ -5,6 +5,7 @@
   margin-bottom: 200px;
   padding-top: 100px;
   background: $white;
+  font-family: $primary-font;
 
   &__container {
     @include container(960px);

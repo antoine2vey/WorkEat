@@ -224,9 +224,20 @@ a:hover {
   color: $gold !important;
 }
 
+.is-invalid .material-field__label {
+  color: $red !important;
+}
+
 .material-field.is-focused {
   &::after {
     transform: scaleX(1);
+  }
+}
+
+.material-field.is-focused.is-invalid {
+  &::after {
+    transform: scaleX(1);
+    background-color: $red !important;
   }
 }
 /* Tab navigation */
@@ -252,6 +263,12 @@ a:hover {
   }
 }
 
+.select-tab.disabled,
+.select-tab-2.disbled {
+  opacity: .3;
+  pointer-events: none;
+} 
+
 .tab,
 .tab-2 {
   display: none;
@@ -262,7 +279,7 @@ a:hover {
 }
 
 .selected {
-  margin-top: 50px;
+  margin-top: 20px;
   padding:20px;
   @include material-shadow(box, 2);
   &__title {
