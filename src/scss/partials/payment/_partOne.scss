@@ -15,7 +15,7 @@
   &__recap {
     min-height: 100vh;
     margin-bottom:200px;
-    padding-top: 100px 20px 0;
+    padding: 100px 20px 0;
     background: $white;
     @include screenSm {
       padding: 100px 5px 0;

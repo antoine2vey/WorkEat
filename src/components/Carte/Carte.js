@@ -35,8 +35,8 @@ class Carte extends Component {
           </NavLink>
         </div>
 
-        <ProductDetail product={product} isDetailVisible={isDetailVisible} />
-        
+        <ProductDetail product={product} isDetailVisible={isDetailVisible} hideProduct={hideProduct} />
+
         <Switch>
           <Route
             path="/carte/entrees"

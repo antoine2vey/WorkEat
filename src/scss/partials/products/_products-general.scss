@@ -120,6 +120,7 @@
     box-sizing: border-box;
     transition: height 0.3s $transition;
     overflow-y: auto;
+    position: relative;
     &--active {
       height: 500px;
     }
@@ -149,6 +150,9 @@
         align-self: center;
         margin-bottom:20px;
       };
+      @include screenSm{
+        margin-top: 100px;
+      }
     }
 
     &__infos {

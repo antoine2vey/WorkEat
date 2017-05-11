@@ -134,6 +134,9 @@ a:hover {
     background: $gold;
     transition: all 0.6s $transition;
   }
+  &:active{
+    color:inherit;
+  }
 
   &:hover {
     &::before {
@@ -705,3 +708,15 @@ input:-webkit-autofill{
   visibility: hidden;
     opacity: 0;
     transition: visibility 0s 0.5s, opacity 0.5s linear;}
+
+.cancel-btn-gold{
+  background: url('../../assets/images/icons/cancel.svg') center center no-repeat;
+  border: 0px;
+  float: right;
+  margin: 3% 3% 0 0;
+@include screenSm{
+left:40%;
+top: 5%;
+position: absolute;
+}
+}
