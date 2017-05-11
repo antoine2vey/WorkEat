@@ -31,6 +31,7 @@ const loginUserFailure = (err) => {
   };
 };
 const logout = () => {
+  document.body.classList.toggle('dont-scroll');
   localStorage.removeItem('_token');
   history.push('/');
   return {
@@ -77,6 +78,7 @@ export const deleteUser = () => (dispatch) => {
 };
 
 export const updateUser = account => (dispatch) => {
+  NotificationManager.success('Vos modifications ont bien été prises en compte', 'Informations modifiées', 3000);
   axios.put('/account/update', account, {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,

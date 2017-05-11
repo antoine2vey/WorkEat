@@ -170,7 +170,7 @@ class PaymentStepTwo extends Component {
                   </div>
             </div>
             <div className="btn-container">
-              <NavLink to="/recap"><button className="btn-gold">Précédent</button></NavLink>
+              <NavLink to="/recap" className="btn-link"><button className="btn-gold">Précédent</button></NavLink>
               <button className="btn-gold" onClick={() => this.submitPayment()}>Suivant</button>
             </div>
           </div>

@@ -19,18 +19,8 @@
   &-maps > div{
     min-height: 350px !important;
   }
-  &-submit{
-    top:10px;
-    @include screenSm{
-      left: 20%;
-      top: 30px;
-    }
-  }
   &-btnSuppr{
     margin-top: 20px;
-    @include screenSm{
-      left: 20%;
-    }
   }
   &-submenu {
     @include flex(null, null, row);
@@ -54,6 +44,9 @@
     padding: 20px;
     padding-bottom: 30px;
     display: block;
+    @include screenSm {
+      margin: 20px 0;
+    };
   }
 
   &-iframe {

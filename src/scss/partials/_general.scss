@@ -151,6 +151,10 @@ a:hover {
   }
 }
 
+.btn-link {
+  margin-right: 10px;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -407,7 +411,7 @@ a:hover {
 }
 
 .panel-shadow {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
@@ -503,13 +507,16 @@ a:hover {
     &-infos {
       @include flex(flex-start, center, row);
       flex: 1;
+      align-self: stretch;
     }
 
     &-image {
       height: 100px;
-      @include screenSm {
-        height: 60px;
-      };
+      &-container {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+      }
     }
 
     &-text {
