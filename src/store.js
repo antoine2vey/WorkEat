@@ -7,24 +7,10 @@ import rootReducer from './reducers';
 const persistedState = loadState();
 const loggerMiddleware = createLogger();
 
-let middlewares;
-if (process.env.NODE_ENV !== 'production') {
-  middlewares = applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware,
-  );
-} else {
-  middlewares = applyMiddleware(
-    thunkMiddleware,
-  );
-}
-
-middlewares = applyMiddleware(thunkMiddleware, loggerMiddleware);
-
 const store = createStore(
   rootReducer,
   persistedState,
-  middlewares,
+  applyMiddleware(thunkMiddleware, loggerMiddleware),
 );
 
 export default store;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { fetchProductsIfNeeded, showProduct, hideProduct } from '../../actions/products';
 import Entrees from '../Products/Entrees';
 import Plats from '../Products/Plats';
@@ -20,6 +21,10 @@ class Carte extends Component {
     }
     return (
       <div id="carte" className="products-carte tab tab--current">
+        <Helmet>
+          <title>WorkEat - Produits</title>
+          <meta name="description" content="WorkEat produits luxe haut de gamme livraison de nourriture" />
+        </Helmet>
         <div className="products-carte__choise">
           <NavLink to="/carte/entrees" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">
             <p className="products-carte__choise__title">Entrées</p>

@@ -42,7 +42,6 @@ exports.list = (req, res) => {
         return res.status(500).send('Database error.');
       }
 
-      console.log(products);
       return res.status(200).send(products);
     });
 };

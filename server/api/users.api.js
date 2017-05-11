@@ -24,11 +24,12 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
-  console.warn('@ UPDATE AMOUNT USER ID:', req.user.id);
+  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
-      return console.warn('Error @ update amount', err);
+      console.log('ERREUR');
+      return console.log(err);
     }
 
     if (req.query.method === 'paypal') {

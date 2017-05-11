@@ -34,6 +34,8 @@ const auth = (state = initialState, action) => {
         isAuthenticating: true,
       };
     case INCREASE_AMOUNT:
+      console.log(state, action);
+      alert(action.amount);
       return {
         ...state,
         user: {
