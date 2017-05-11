@@ -1,8 +1,14 @@
 .partOne {
-  @include container(960px);
   position:relative;
   z-index: 200;
   min-height: 100vh;
+  margin-bottom: 200px;
+  padding-top: 100px;
+  background: $white;
+
+  &__container {
+    @include container(960px);
+  }
 
   &__title {
     padding-top: 20px;
