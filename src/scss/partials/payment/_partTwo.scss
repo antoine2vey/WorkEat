@@ -2,7 +2,7 @@
   position:relative;
   z-index: 200;
   min-height: 100vh;
-  padding-top: 200px;
+  padding-top: 100px;
   padding-bottom: 50px;
   margin-bottom:200px;
   background: $white;
@@ -26,6 +26,9 @@
     @include flex(center, flex-start, row);
     height: auto;
     @include material-shadow(box, 2);
+    @include screenSm {
+      flex-direction: column;
+    };
   }
 
   &__type {
@@ -33,6 +36,11 @@
     height: 150px;
     padding: 40px 0 0;
     text-align: center;
+    @include screenSm {
+      align-self: stretch;
+      padding: 10px 0 0;
+      height: auto;
+    };
 
     &-title {
       font-family: $primary-font;

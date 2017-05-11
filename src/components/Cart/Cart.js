@@ -36,7 +36,9 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                 !c.isBundle &&
                 <div className="cart-panel__product" key={c._id}>
                   <div className="cart-panel__product-infos">
-                    <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+                    <div className="cart-panel__product-image-container">
+                      <img src={c.file} alt={`${c.name} dans le panier`} className="cart-panel__product-image" />
+                    </div>
                     <div className="cart-panel__product-text">
                       <h3 className="cart-panel__product-title">{c.name}</h3>
                       <p className="cart-panel__price">{c.price}€</p>

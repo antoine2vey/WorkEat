@@ -90,6 +90,13 @@ class Solde extends Component {
       <div className="solde">
         <div className="container-fluid">
           <h2 className="solde__title">Solde actuel: <span className="bold">{this.props.user.solde.toFixed(2)}€</span></h2>
+          <div className="selected">
+            <h3 className="selected__title" style={{ margin: 0, display: 'inline' }}>Montant à ajouter</h3>
+            <div className="material-field partTwo__owner has-label">
+              <label htmlFor="montant" className="material-field__label">Montant</label>
+              <input type="number" pattern="\d*" min="0" id="montant" name="montant" value={this.state.montant} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.changeInfo} className="material-field__input" />
+            </div>
+          </div>
           <div className="payment__select">
             <div className="payment__type select-tab" data-tab="paypal">
               <div id="paypal-button-container"></div>
@@ -99,13 +106,6 @@ class Solde extends Component {
             <div className="payment__type select-tab" data-tab="card" onClick={() => this.submitPayment()}>
               <img src={images.creditCard} alt="Solde du compte" className="payment__icon" />
               <p className="payment__type-title">Carte bancaire</p>
-            </div>
-          </div>
-          <div className="selected">
-            <h3 className="selected__title" style={{ margin: 0, display: 'inline' }}>Montant à ajouter</h3>
-            <div className="material-field partTwo__owner has-label">
-              <label htmlFor="montant" className="material-field__label">Montant</label>
-              <input type="number" pattern="\d*" min="0" id="montant" name="montant" value={this.state.montant} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.changeInfo} className="material-field__input" />
             </div>
           </div>
           <div className="selected">
