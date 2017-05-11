@@ -145,7 +145,10 @@ display: block !important;
     overflow-y: auto;
     position: relative;
     &--active {
-      height: 500px;
+      height:  500px;
+      @include screenSm {
+        height: 110vh;
+      };
     }
 
     &-container {
