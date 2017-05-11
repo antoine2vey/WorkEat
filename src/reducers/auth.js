@@ -38,7 +38,7 @@ const auth = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          solde: (parseInt(state.user.solde, 10) + parseInt(action.amount, 10)),
+          solde: state.user.solde += action.amount,
         },
       };
     case LOGIN_SUCCESS:

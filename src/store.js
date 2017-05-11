@@ -19,6 +19,8 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
+middlewares = applyMiddleware(thunkMiddleware, loggerMiddleware);
+
 const store = createStore(
   rootReducer,
   persistedState,

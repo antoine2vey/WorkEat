@@ -17,6 +17,7 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
               <hr />
             </div>
             { cart.map(item => (
+              !item.isBundle &&
               <div className="partOne__product" key={item._id}>
                 <div className="partOne__product-infos">
                   <img src={item.file} alt="Canard laqué" className="partOne__product-image" />
