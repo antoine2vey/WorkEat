@@ -53,7 +53,7 @@ class LoginBox extends Component {
                 <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
               </div>
               <div className="twelve columns">
-                <button type="submit" className="header-home-form-content-btn">Connexion</button>
+                <button type="submit" className="header-home-form-content-btn btn-gold">Connexion</button>
               </div>
             </div>
           </form>

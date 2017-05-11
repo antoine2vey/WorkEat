@@ -19,6 +19,9 @@
   justify-content: $justify;
   align-items: $align;
   flex-direction: $direction;
+  -webkit-flex-direction: $direction;
+  -webkit-align-items: center; /* Safari 7.0+ */
+
 }
 // =============================================================================
 // Images

@@ -46,7 +46,7 @@ export const deleteAccount = () => {
   };
 };
 export const updateAccount = account => ({ type: UPDATE_ACCOUNT, account });
-export const increaseSolde = (amount, token = '') => ({ type: INCREASE_AMOUNT, amount, token });
+export const increaseSolde = amount => ({ type: INCREASE_AMOUNT, amount });
 
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')
@@ -95,7 +95,8 @@ export const updateSolde = (amount, token) => (dispatch) => {
         Authorization: `Bearer ${localStorage._token}`,
       },
     })
-      .then(res => dispatch(increaseSolde(res.data.amount)));
+      .then(res => dispatch(increaseSolde(parseInt(res.data.amount, 10))))
+      .catch(err => console.error(err));
   }
 
   return axios.put('/account/update/solde', { amount, token }, {
@@ -103,5 +104,6 @@ export const updateSolde = (amount, token) => (dispatch) => {
       Authorization: `Bearer ${localStorage._token}`,
     },
   })
-    .then(res => dispatch(increaseSolde(res.data.amount)));
+    .then(res => dispatch(increaseSolde(parseInt(res.data.amount, 10))))
+    .catch(err => console.error(err));
 };

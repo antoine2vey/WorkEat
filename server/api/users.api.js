@@ -24,10 +24,11 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
+  console.warn('@ UPDATE AMOUNT USER ID:', req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
-      return console.log('Error @ update amount', err);
+      return console.warn('Error @ update amount', err);
     }
 
     if (req.query.method === 'paypal') {
@@ -36,7 +37,7 @@ exports.updateAmount = (req, res) => {
         if (_err) {
           console.log('Database error @ update user', _err);
         }
-        return res.send({ amount });
+        return res.status(200).send({ amount });
       });
     }
 
@@ -62,7 +63,7 @@ exports.updateAmount = (req, res) => {
             console.log('Database error @ update user', _err);
           }
 
-          res.send({ amount });
+          res.status(200).send({ amount });
         });
       });
     } else {
@@ -79,7 +80,7 @@ exports.updateAmount = (req, res) => {
           console.log('Database error @ update user', _err);
         }
 
-        res.send({ amount });
+        res.status(200).send({ amount });
       });
     }
   });

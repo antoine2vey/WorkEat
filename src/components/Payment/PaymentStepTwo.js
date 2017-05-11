@@ -100,7 +100,7 @@ class PaymentStepTwo extends Component {
           <div className="container-fluid">
             <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.total}€</span></h2>
             <div className="partTwo__select">
-              <div to="/compte/solde" className="partTwo__type select-tab" onClick={() => this.payWithSolde()}>
+              <div className="partTwo__type select-tab" onClick={() => this.payWithSolde()}>
                 <img src={pig} alt="Solde du compte" className="partTwo__icon" />
                 <p className="partTwo__type-title">Solde du compte</p>
                 <p className="partTwo__solde">Solde actuel : <span className="bold">{this.props.solde}€</span></p>
