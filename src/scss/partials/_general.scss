@@ -102,6 +102,8 @@ a:hover {
   border: 2px solid $gold;
   border-radius: 0;
   font-family: $primary-font;
+  font-weight: 300;
+  letter-spacing: .5px;
   font-size: 15px;
   text-transform: inherit;
   transition: all 0.6s ease;
@@ -439,6 +441,7 @@ a:hover {
   @include material-shadow(box, 2);
   box-sizing: border-box;
   transition: transform 0.3s ease;
+  overflow-y: auto;
   @include screenSm {
     width: 320px;
   };
@@ -476,6 +479,13 @@ a:hover {
     color: $divider;
     font-family: $primary-font;
     font-style: italic;
+    &-name {
+      margin: 0;
+    }
+  }
+
+  &__submit {
+    text-align: center;
   }
 
   &__product {

@@ -70,6 +70,16 @@
   &-rowForm {
     margin-bottom: 50px;
   }
+
+  &__adressForm {
+    @include flex(flex-start, center, row);
+    flex-wrap: wrap;
+
+    &-field {
+      flex-basis: 18%;
+      margin-left: 1%;
+    }
+  }
 }
 
 .active {

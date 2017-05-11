@@ -51,25 +51,33 @@ class Commandes extends Component {
                 </tr>
               </thead>
               <tbody>
-                { this.state.orders.map(order => (
-                  <tr className="compteCommand-tab-row" key={order._id}>
-                    <td className="compteCommand-tab-cellule">
-                      N°{order.position}
-                    </td>
-                    <td className="compteCommand-tab-cellule">
-                      {moment(order.orderedAt).format('DD/MM/YYYY')}
-                    </td>
-                    <td className="compteCommand-tab-cellule">
-                      {order.finished ? 'Terminée' : 'En cours'}
-                    </td>
-                    <td className="compteCommand-tab-cellule">
-                      {order.method}
-                    </td>
-                    <td className="compteCommand-tab-cellule">
-                      {order.amount}€ pour {Object.keys(order.quantitiesById).length} {Object.keys(order.quantitiesById).length === 1 ? 'produit' : 'produits'}
-                    </td>
-                  </tr>
-                )) }
+                { !this.state.orders ? (
+                  this.state.orders.map(order => (
+                    <tr className="compteCommand-tab-row" key={order._id}>
+                      <td className="compteCommand-tab-cellule">
+                        N°{order.position}
+                      </td>
+                      <td className="compteCommand-tab-cellule">
+                        {moment(order.orderedAt).format('DD/MM/YYYY')}
+                      </td>
+                      <td className="compteCommand-tab-cellule">
+                        {order.finished ? 'Terminée' : 'En cours'}
+                      </td>
+                      <td className="compteCommand-tab-cellule">
+                        {order.method}
+                      </td>
+                      <td className="compteCommand-tab-cellule">
+                        {order.amount}€ pour {Object.keys(order.quantitiesById).length} {Object.keys(order.quantitiesById).length === 1 ? 'produit' : 'produits'}
+                      </td>
+                    </tr>
+                  ))
+                  ) : (
+                    <div>
+                      <p>Pas de commandes</p>
+                    </div>
+                  )
+                }
+
               </tbody>
             </table>
           </div>
