@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GMap from '../Admin/tabs/GoogleMap.js';
+import GMap from '../Admin/tabs/GoogleMap';
 
 class InfoGenerale extends Component {
   constructor(props) {
@@ -12,21 +12,21 @@ class InfoGenerale extends Component {
       address: props.user.address,
       codePostal: props.user.codePostal,
       town: props.user.town,
+      position: '',
       password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(event) {
+  componentDidMount() {
     this.props.fetchPlacesIfNeeded();
-    console.log(this.props.user);
-    console.log(this.places);
-
   }
 
   handleChange(event) {
     const { name, value } = event.target;
+    console.log(name)
+    console.log(value)
     this.setState({ [name]: value }, () => console.log(this.state));
   }
 
@@ -40,8 +40,15 @@ class InfoGenerale extends Component {
     parentNode.classList.remove('is-focused');
   }
 
+  formatUserInformations(state) {
+    return {
+      ...state,
+      position: this.props.places.find(place => place._id === state.position).geolocation || [],
+    };
+  }
+
   render() {
-    const { deleteUser, places } = this.props;
+    const { user, deleteUser, places } = this.props;
     return (
       <div className="container-fluid">
         <div className="compteInfo-bloc">
@@ -71,9 +78,12 @@ class InfoGenerale extends Component {
                 </div>
                 <div className="material-field compteInfo-field has-label fullInput">
                   <label className="material-field__label" htmlFor="livraison">Point de livraison</label>
-                  <select id="livraison">
-{places.map(place => <option value={place._id} key={place._id}>{place.name}</option>)}
-</select>
+                  <select id="livraison" onChange={this.handleChange} name="position">
+                    { !user.position.length ? <option defaultValue="" selected></option> : '' }
+                    {places.map(place => (
+                      <option value={place._id} key={place._id}>{place.name}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div className="row">
@@ -97,7 +107,7 @@ class InfoGenerale extends Component {
                   <label className="material-field__label" htmlFor="mdpConfirm">Confirmez le mot de passe</label>
                   <input type="text" id="mdpConfirm" onFocus={this.focusInput} onChange={this.handleChange} onBlur={this.blurInput} className="material-field__input compteInfo-input" />
                 </div>
-                <button type="submit" className="btn-red compteInfo-submit">MODIFIER</button>
+                <button type="button" className="btn-red compteInfo-submit" onClick={() => this.props.updateUser(this.formatUserInformations(this.state))}>MODIFIER</button>
               </div>
             </form>
           </div>

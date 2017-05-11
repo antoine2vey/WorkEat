@@ -138,7 +138,6 @@ exports.login = (req, res) => {
   });
 };
 exports.create = (req, res) => {
-  console.log(req.body);
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -163,6 +162,7 @@ exports.create = (req, res) => {
     name: req.body.name,
     surname: req.body.surname,
     codePostal: req.body.codePostal,
+    position: req.body.position,
     town: req.body.town,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
@@ -223,12 +223,14 @@ exports.delete = (req, res) => {
 exports.update = (req, res) => {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
+
   const query = {
     username: req.body.username,
     password: hash,
     name: req.body.name,
     surname: req.body.surname,
     codePostal: req.body.codePostal,
+    position: req.body.position,
     phoneNumber: req.body.phoneNumber,
     address: req.body.address,
     town: req.body.town,
@@ -243,7 +245,6 @@ exports.update = (req, res) => {
     }
 
     res.status(200).send({
-      user: doc,
       status: 'Account updated',
     });
   });

@@ -714,9 +714,11 @@ input:-webkit-autofill{
   border: 0px;
   float: right;
   margin: 3% 3% 0 0;
-@include screenSm{
-left:40%;
-top: 5%;
-position: absolute;
-}
+  @include screenSm{
+    left: 50%;
+    top: 5%;
+    position: absolute;
+    transform: translateX(-50%);
+    background-size: 50%;
+  }
 }

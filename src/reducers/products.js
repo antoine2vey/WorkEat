@@ -19,7 +19,6 @@ const products = (state = initialState, action) => {
       if (state.isDetailVisible && (state.product._id !== action.product._id)) {
         return {
           ...state,
-          isDetailVisible: true,
           product: action.product,
         };
       }

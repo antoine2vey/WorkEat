@@ -34,6 +34,8 @@ import cancel from './assets/images/icons/cancel.svg';
 
 import pig from './assets/images/icons/pig-money.svg';
 
+import articleThumb from './assets/images/thumb/article-thumb.jpg';
+
 export {
   videoMP4,
   videoWebm,
@@ -65,4 +67,5 @@ export {
   arrowLeft,
   pig,
   cancel,
+  articleThumb,
 };
