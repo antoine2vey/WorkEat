@@ -732,3 +732,7 @@ input:-webkit-autofill{
     background-size: 50%;
   }
 }
+.notification{
+  @include material-shadow(box, 4);
+
+}
