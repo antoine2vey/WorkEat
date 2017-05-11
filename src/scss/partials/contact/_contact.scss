@@ -78,5 +78,12 @@ max-height: 100px;
 .textarea{
   height: 150px;
   max-height: 160px;
-  max-width: 526px;
+  max-width: 453px;
+  border: 0;
+  &:focus{
+    border:0;
+  }
+}
+.div-message{
+height: auto !important;
 }

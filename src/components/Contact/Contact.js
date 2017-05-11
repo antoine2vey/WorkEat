@@ -48,7 +48,10 @@ class Contact extends Component {
                   <label className="material-field__label" htmlFor="email">Email</label>
                   <input type="email" id="email" name="email" onChange={this.handleChange} className="material-field__input" />
                 </div>
-                <textarea placeholder="Votre Message..." className="partContact-form-input textarea" rows="10"></textarea>
+                <div className="material-field div-message">
+                  <label className="material-field__label" htmlFor="message"></label>
+                <textarea placeholder="Votre Message..." className="partContact-form-input textarea" id="message" rows="10"></textarea>
+                </div>
                 <button className="btn-gold btn-full">Envoyer</button>
               </form>
             </div>
