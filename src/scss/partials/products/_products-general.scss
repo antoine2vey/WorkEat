@@ -32,19 +32,18 @@
   }
 
   &__products-list {
-    @include screenSm{
-      flex-direction: column;
-      flex-basis: 0%;
-      display: block !important;
-    };
     @include flex(flex-start, center, row);
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     @include container(1200px);
     padding: 25px 0 0;
     &:last-of-type {
       padding-bottom: 25px;
     }
-
+    @include screenSm {
+      flex-direction: column;
+      flex-basis: 0%;
+      display: block !important;
+    };
   }
 
   &__product {
@@ -67,21 +66,20 @@
 
 
     &-container {
-      @include screenSm{
-        flex-basis: 0%;
-      };
-      flex:1;
       flex-basis: 25%;
       padding: 0 0 20px;
       @include screenDefault {
         flex-basis: calc(100% / 3);
       };
-      @include screenXs{
-        flex-basis: 0%;
-      }
       @include screenMd {
         flex: 1;
       };
+      @include screenSm{
+        flex-basis: 0%;
+      };
+      @include screenXs{
+        flex-basis: 0%;
+      }
     }
 
     &__title {
