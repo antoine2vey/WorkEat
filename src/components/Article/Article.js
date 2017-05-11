@@ -7,7 +7,7 @@ class Article extends Component {
         <div className="article">
           <div className="article__header">
             <h1 className="article__title">Ceci est le premier article de votre blog</h1>
-            <div className="article__opacity"></div>
+            <div className="article__opacity" />
           </div>
           <div className="article__container">
             <h2 className="article__subtitle">Ceci est la partie une de l'article</h2>
