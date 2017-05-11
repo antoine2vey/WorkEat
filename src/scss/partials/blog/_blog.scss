@@ -1,0 +1,89 @@
+.blog {
+  margin-bottom: 200px;
+  padding-bottom: 50px;
+  background: $white;
+  @include material-shadow(box, 2);
+
+  &__header {
+    @include flex;
+    width: 100%;
+    height: 500px;
+    background-image: url('../../../src/assets/images/about.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 60%;
+    @include screenSm {
+      height: 200px;
+      padding-top: 100px;
+    };
+  }
+
+  &__title {
+    color: $white;
+    font-family: $primary-font;
+    font-size: 75px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    @include material-shadow(text, 2);
+    @include screenSm {
+      font-size: 60px;
+    };
+    @include screenXs {
+      font-size: 45px;
+    };
+  }
+
+  &__container {
+    @include container(960px);
+    @include flex(center, center, row);
+    flex-wrap: wrap;
+    padding-top: 25px;
+  }
+
+  &__column {
+    flex-basis: 25%;
+    @include screenDefault {
+      flex-basis: calc( 100% / 3 );
+    };
+    @include screenMd {
+      flex-basis: 50%;
+    };
+    @include screenSm {
+      width: 100%;
+    };
+  }
+
+  &__article {
+    @include flex(flex-end, flex-start, column);
+    width: 250px;
+    height: 300px;
+    margin: 20px auto 0;
+    padding: 20px;
+    background: $write;
+    box-sizing: border-box;
+    @include material-shadow(box, 2);
+    transition: all 0.3s $transition;
+
+    &:hover {
+      @include material-shadow(box, 5);
+    }
+
+    &-title {
+      color: $white;
+      font-family: $primary-font;
+      font-size: 24px;
+    }
+
+    &-link {
+      color: $white;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s $transition;
+
+      &:hover {
+        color: $white;
+        border-color: $white;
+      }
+    }
+  }
+}
