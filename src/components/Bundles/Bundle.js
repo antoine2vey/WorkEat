@@ -5,7 +5,6 @@ class Bundle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
       entree: {
         active: false,
         choisie: {},
@@ -29,6 +28,7 @@ class Bundle extends React.Component {
     this.toggleDessert = this.toggleDessert.bind(this);
     this.toggleBoisson = this.toggleBoisson.bind(this);
   }
+
   toggleEntree(entree) {
     this.setState({
       entree: {
@@ -37,6 +37,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   togglePlat(plat) {
     this.setState({
       plat: {
@@ -45,6 +46,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   toggleDessert(dessert) {
     this.setState({
       dessert: {
@@ -53,6 +55,7 @@ class Bundle extends React.Component {
       },
     });
   }
+
   toggleBoisson(boisson) {
     this.setState({
       boisson: {
@@ -61,6 +64,18 @@ class Bundle extends React.Component {
       },
     });
   }
+
+  getBundle() {
+    const { entree, plat, dessert, boisson } = this.state;
+    return {
+      ...this.props.bundle,
+      entree: entree.choisie ? entree.choisie : null,
+      plat: plat.choisie ? plat.choisie : null,
+      dessert: dessert.choisie ? dessert.choisie : null,
+      boisson: boisson.choisie ? boisson.choisie : null,
+    };
+  }
+
   render() {
     const { bundle, products } = this.props;
     return (
@@ -217,7 +232,7 @@ class Bundle extends React.Component {
                     ))}
                   </select>
                 </div> } */}
-                <button className="btn-gold formules__submit">Commander</button>
+                <button className="btn-gold formules__submit" onClick={() => this.props.addToCart(this.getBundle())}>Commander</button>
               </div>
             </div>
           </div>

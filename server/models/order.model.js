@@ -15,8 +15,26 @@ const orderSchema = new mongoose.Schema({
   ],
   bundles: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Bundle',
+      bundle: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bundle',
+      },
+      entree: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+      plat: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+      dessert: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+      boisson: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
     },
   ],
   quantitiesById: {},

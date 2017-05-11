@@ -34,7 +34,6 @@
   }
 
   &__container {
-    @include container(960px);
     @include flex(center, center, row);
     flex-wrap: wrap;
     padding-top: 25px;
@@ -54,6 +53,7 @@
   }
 
   &__article {
+    position: relative;
     @include flex(flex-end, flex-start, column);
     width: 250px;
     height: 300px;
@@ -69,12 +69,16 @@
     }
 
     &-title {
+      position: relative;
+      z-index: 2;
       color: $white;
       font-family: $primary-font;
       font-size: 24px;
     }
 
     &-link {
+      position: relative;
+      z-index: 2;
       color: $white;
       text-decoration: none;
       border-bottom: 1px solid transparent;
@@ -84,6 +88,17 @@
         color: $white;
         border-color: $white;
       }
+    }
+
+    &-thumb {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-filter: brightness(50%);
+      filter: brightness(50%);
     }
   }
 }

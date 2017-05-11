@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import chunk from 'lodash/chunk';
 import { fetchBundlesIfNeeded } from '../../actions/bundles';
 import { fetchProductsIfNeeded } from '../../actions/products';
+import { addToCart } from '../../actions/cart';
 import Bundle from './Bundle';
 
 class Bundles extends Component {
@@ -42,4 +43,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchBundlesIfNeeded, fetchProductsIfNeeded })(Bundles);
+export default connect(mapStateToProps, dispatch => ({
+  fetchBundlesIfNeeded() {
+    dispatch(fetchBundlesIfNeeded());
+  },
+  fetchProductsIfNeeded() {
+    dispatch(fetchProductsIfNeeded());
+  },
+  addToCart(plat, isBundle = true) {
+    dispatch(addToCart(plat, isBundle));
+  },
+}))(Bundles);

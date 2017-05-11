@@ -10,10 +10,10 @@ class PaymentStepTwo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      owner: 'Pierre Clouet',
-      number: '5893 2475 8935 7543',
+      owner: `${props.user.surname} ${props.user.name}`,
+      number: '4242 4242 4242 4242',
       cvc: '433',
-      date: '06/19',
+      date: '08/19',
     };
 
     this.changeInfo = this.changeInfo.bind(this);
@@ -76,7 +76,8 @@ class PaymentStepTwo extends Component {
   }
 
   submitPayment() {
-    const { number, cvc, exp_month, exp_year } = this.state;
+    const { number, cvc, date } = this.state;
+    const [exp_month, exp_year] = date.split('/');
     // eslint-disable-next-line
     Stripe.card.createToken({ number, cvc, exp_month, exp_year }, (status, res) => {
       if (res.error) {
@@ -183,6 +184,7 @@ const mapStateToProps = state => ({
   cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
   solde: state.auth.user.solde,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps, { checkoutCart })(PaymentStepTwo));
