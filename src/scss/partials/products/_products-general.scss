@@ -56,6 +56,14 @@ display: block !important;
     text-align: center;
     @include material-shadow(box, 2);
     transition: all 0.3s $transition;
+    @include screenSm{
+      width: 70%;
+      display: block;
+    }
+@include screenXs{
+  width: 90%;
+  display: block;
+}
 
 
     &-container {
@@ -121,7 +129,9 @@ display: block !important;
       .products__product__options {
         visibility: visible;
         opacity: 1;
+
       }
+
     }
   }
 
@@ -155,17 +165,18 @@ display: block !important;
         opacity: 1;
       }
     }
-
     &__image {
+      @include screenXs{
+        margin-top: 25%;
+        width: 100%;
+      };
       @include material-shadow(box, 5);
       border: 3px solid $white;
       @include screenMd {
         align-self: center;
         margin-bottom:20px;
       };
-      @include screenSm{
-        margin-top: 25%;
-      }
+
     }
 
     &__infos {
@@ -219,4 +230,19 @@ display: block !important;
       width: 100%;
     }
   }
+}
+
+.products__product__image{
+  @include screenSm{
+    width: 100%;
+  };
+
+}
+.products__product__options {
+  @include screenSm{
+    height: 71.5%;
+
+  };
+
+
 }
