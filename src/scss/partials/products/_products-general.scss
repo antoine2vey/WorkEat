@@ -9,6 +9,7 @@
   &__choise {
     @include flex;
     @include material-shadow(box, 1);
+    margin-bottom: 3px;
 
     &__type {
       @include flex;
@@ -121,6 +122,7 @@
     box-sizing: border-box;
     transition: height 0.3s $transition;
     overflow-y: auto;
+    position: relative;
     &--active {
       height: 500px;
     }
@@ -150,6 +152,9 @@
         align-self: center;
         margin-bottom:20px;
       };
+      @include screenSm{
+        margin-top: 70px;
+      }
     }
 
     &__infos {

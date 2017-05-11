@@ -115,7 +115,7 @@ list-style: none;
     margin-bottom: 10px;
   }
 }
-@include screenSm{
+@include screenMd{
   flex-direction: column;
 }
 }

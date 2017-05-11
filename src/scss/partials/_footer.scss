@@ -17,6 +17,7 @@
     flex:1;
     @include screenSm {
       flex-basis: 100%;
+      text-align: center;
     };
     @include screenXs {
       margin-bottom: 20px;
@@ -39,9 +40,13 @@
     &-social {
       font-size: 25px;
       list-style: none;
+      @include screenSm{
+        justify-content: center;
+      };
 
       &-item {
         margin-left: 10px;
+
 
         &-link {
           text-decoration: none;

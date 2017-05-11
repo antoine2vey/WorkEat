@@ -26,10 +26,13 @@ const addProduct = product => ({
   product,
 });
 
-const showProductDetail = product => ({
-  type: SHOW_DETAIL,
-  product,
-});
+const showProductDetail = (product) => {
+  window.scrollTo(0, 0);
+  return {
+    type: SHOW_DETAIL,
+    product,
+  };
+};
 
 const hideProductDetail = product => ({
   type: HIDE_DETAIL,

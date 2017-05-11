@@ -30,6 +30,7 @@ import visa from './assets/images/icons/visa.svg';
 import mastercard from './assets/images/icons/mastercard.svg';
 import arrowRight from './assets/images/icons/arrow-right.svg';
 import arrowLeft from './assets/images/icons/arrow-left.svg';
+import cancel from './assets/images/icons/cancel.svg';
 
 import pig from './assets/images/icons/pig-money.svg';
 
@@ -65,5 +66,6 @@ export {
   arrowRight,
   arrowLeft,
   pig,
+  cancel,
   articleThumb,
 };

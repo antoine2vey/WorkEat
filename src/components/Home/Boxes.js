@@ -75,6 +75,7 @@ class ConnectionBox extends Component {
       town: '',
       address: '',
       phoneNumber: '',
+      position: [],
       step: 0,
     };
 
@@ -83,6 +84,14 @@ class ConnectionBox extends Component {
     this.nextClick = this.nextClick.bind(this);
     this.GotoNextSlide = this.GotoNextSlide.bind(this);
     this.GotoPrevSlide = this.GotoPrevSlide.bind(this);
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      this.setState({ position: [pos.coords.latitude, pos.coords.longitude] });
+    }, (error) => {
+      console.error(error);
+    });
   }
 
   handleChange(event) {
@@ -100,6 +109,7 @@ class ConnectionBox extends Component {
       town,
       address,
       phoneNumber,
+      position,
     } = this.state;
     e.preventDefault();
 
@@ -111,6 +121,7 @@ class ConnectionBox extends Component {
       name,
       surname,
       codePostal: zipCode,
+      position,
       town,
       address,
       phoneNumber,
