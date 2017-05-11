@@ -37,6 +37,10 @@
     @include flex(center, center, row);
     flex-wrap: wrap;
     padding-top: 25px;
+    @include screenSm{
+      display: block !important;
+      flex-direction: column;
+    }
   }
 
   &__column {

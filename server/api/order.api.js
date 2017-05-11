@@ -1,4 +1,5 @@
 const Order = require('../models/order.model');
+const mailer = require('../mailing').interface;
 
 exports.getOne = (req, res) => {
   const { id } = req.params;
@@ -17,6 +18,7 @@ exports.getOne = (req, res) => {
     .populate('bundles.dessert')
     .populate('bundles.boisson')
     .populate('placeToShip')
+    .populate('orderedBy', 'name address codePostal town surname username')
     .exec((err, order) => {
       if (!order) {
         return res.status(404).send('Cet commande n\'existe pas');
@@ -25,6 +27,31 @@ exports.getOne = (req, res) => {
       if (err) {
         return res.status(400).send('Erreur');
       }
+
+      mailer.sendMail({
+        from: 'WorkEat',
+        to: order.orderedBy.username,
+        subject: 'Votre commande',
+        template: 'recap',
+        context: {
+          hostUrl: `${req.protocol}://${req.hostname}`,
+          total: order.amount,
+          user: {
+            address: order.orderedBy.address,
+            codePostal: order.orderedBy.codePostal,
+            town: order.orderedBy.town,
+          },
+          articles: order.articles,
+          bundles: order.bundles,
+          quantitiesById: order.quantitiesById,
+        },
+      }, (err, response) => {
+        if (err) {
+          return console.log(err);
+        }
+
+        return console.log('mail sent!', response.response);
+      });
 
       return res.send(order);
     });
