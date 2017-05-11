@@ -9,6 +9,7 @@
   &__choise {
     @include flex;
     @include material-shadow(box, 1);
+    margin-bottom: 3px;
 
     &__type {
       @include flex;
