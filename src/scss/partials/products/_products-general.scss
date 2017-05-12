@@ -73,10 +73,10 @@
       @include screenMd {
         flex: 1;
       };
-      @include screenSm{
+      @include screenSm {
         flex-basis: 0%;
       };
-      @include screenXs{
+      @include screenXs {
         flex-basis: 0%;
       }
     }

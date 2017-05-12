@@ -21,7 +21,7 @@ class Bundles extends Component {
       <div>
         <div className="formules">
         { rows.map((row, i) => (
-            <div className="formules__row">
+            <div key={i} className="formules__row">
             { row.map(bundle => (
               <div className="formules__column" key={bundle._id}>
                 <Bundle bundle={bundle} {...this.props} />

@@ -63,16 +63,24 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                 // IF ITS A BUNDLE
                 c.isBundle &&
                 <div className="cart-panel__product" key={c._id}>
-                  <div className="cart-panel__product-infos">
-                    <div className="cart-panel__product-text">
-                      <h3 className="cart-panel__product-title">{c.name}</h3>
-                      <p className="cart-panel__price">{c.price}€</p>
+                  <div className="cart-panel__left">
+                    <div className="cart-panel__product-infos">
+                      <div className="cart-panel__product-text">
+                        <h3 className="cart-panel__product-title">{c.name}</h3>
+                        <p className="cart-panel__price">{c.price}€</p>
+                      </div>
+                      <div className="cart-panel__formules">
+                        { c.entree.name && <p className="cart-panel__formules-content">Entrée : {c.entree.name}</p> }
+                        { c.plat.name && <p className="cart-panel__formules-content">Plat : {c.plat.name}</p> }
+                        { c.dessert.name && <p className="cart-panel__formules-content">Dessert : {c.dessert.name}</p> }
+                        { c.boisson.name && <p className="cart-panel__formules-content">Boisson : {c.boisson.name}</p> }
+                      </div>
                     </div>
-                  </div>
-                  <div className="cart-panel__quantity" style={{ padding: '10px 0' }}>
-                    <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
-                    <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
-                    <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                    <div className="cart-panel__quantity" style={{ padding: '10px 0' }}>
+                      <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+                      <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+                      <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                    </div>
                   </div>
                   <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
                     <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />

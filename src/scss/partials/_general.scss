@@ -270,7 +270,7 @@ a:hover {
 .select-tab-2.disbled {
   opacity: .3;
   pointer-events: none;
-} 
+}
 
 .tab,
 .tab-2 {
@@ -528,6 +528,7 @@ a:hover {
 
     &-infos {
       @include flex(flex-start, center, row);
+      flex-wrap: wrap;
       flex: 1;
       align-self: stretch;
     }
@@ -552,7 +553,7 @@ a:hover {
     }
 
     &-type {
-      color: $dark-grey;
+      color: $write;
       font-style: italic;
       @include screenSm {
         font-size: 14px;
@@ -568,6 +569,12 @@ a:hover {
         font-size: 18px;
       };
     }
+  }
+
+  &__left {
+    @include flex(flet-start, center, row);
+    flex-wrap: wrap;
+    flex: 1;
   }
 
   &__quantity {
@@ -652,6 +659,18 @@ a:hover {
       height: 35px;
       margin-top: 10px;
     };
+  }
+
+  &__formules {
+    flex-basis: 100%;
+    padding-left: 20px;
+
+    &-content {
+      margin: 0;
+      color: $dark-grey;
+      font-family: $primary-font;
+      font-size: 12px;
+    }
   }
 
   &__promo {
