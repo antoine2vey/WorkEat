@@ -80,9 +80,6 @@ class Bundle extends React.Component {
   render() {
     const { bundle, products } = this.props;
     return (
-      <div className="formules">
-        <div className="formules__row">
-          <div className="formules__column">
             <div className="formules__container">
               <div className="formules__content">
                 <p className="formules__title is-4">{ bundle.name }</p>
@@ -248,9 +245,6 @@ class Bundle extends React.Component {
                 <button className="btn-gold formules__submit" onClick={() => this.props.addToCart(this.getBundle())}>Ajouter</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
     );
   }
 }
