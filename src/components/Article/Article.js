@@ -11,17 +11,22 @@ class Article extends Component {
         </Helmet>
         <div className="article">
           <div className="article__header">
-            <h1 className="article__title">Ceci est le premier article de votre blog</h1>
+            <h1 className="article__title">Pourquoi réduire ses apports en viande ?</h1>
             <div className="article__opacity" />
           </div>
           <div className="article__container">
-            <h2 className="article__subtitle">Ceci est la partie une de l'article</h2>
-            <p className="article__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel ante volutpat, molestie mi nec, commodo purus. Pellentesque mauris magna, hendrerit euismod ex quis, volutpat pretium nulla. Maecenas fringilla nisl sit amet imperdiet blandit. Pellentesque eu semper arcu. Quisque vitae quam et lectus sagittis maximus sed eget neque. Duis eget neque pharetra, tempus lorem at, gravida diam. Ut pharetra porttitor nisl. Nullam pulvinar hendrerit magna.</p>
-            <p className="article__content">Mauris commodo mi massa, tincidunt vestibulum ex pretium a. Vestibulum at nulla nisl. Nullam faucibus, quam non placerat feugiat, lorem ante sagittis ipsum, eu vehicula metus dui suscipit tortor. Vestibulum quam velit, facilisis id lorem vel, tristique consectetur ante. Nunc pulvinar porta dui id vestibulum. Cras ut fringilla tortor, sed eleifend ligula. Ut consectetur ut ante eu condimentum. Mauris nec consequat nunc.</p>
-            <h2 className="article__subtitle">Ceci est seconde partie de l'article</h2>
-            <p className="article__content">Fusce sapien justo, vehicula et commodo ac, luctus in velit. Sed posuere dui lorem, non blandit massa tincidunt at. Cras sed dui tortor. Duis lacinia tempus interdum. Sed gravida, risus sit amet tincidunt eleifend, augue augue convallis diam, vitae tincidunt nisi sem et metus. Vivamus sed odio vitae orci suscipit luctus quis sed diam. Cras tempus vitae arcu eget pellentesque. Quisque facilisis libero viverra fermentum pellentesque. Nam quis hendrerit libero. Maecenas rhoncus faucibus varius.</p>
-            <p className="article__content">Integer non aliquam justo. Quisque eleifend ante eu mi accumsan, at suscipit eros pretium. Pellentesque nulla neque, mollis et metus non, mollis lobortis diam. Aliquam interdum dignissim est eget tincidunt. Ut nunc odio, aliquet eget quam in, fringilla pulvinar nisl. Donec at mattis augue. Donec tincidunt augue bibendum quam rutrum, in vehicula elit viverra. Phasellus varius molestie leo non condimentum.</p>
-            <p className="article__content">Suspendisse potenti. Curabitur faucibus convallis posuere. Integer eget nibh non odio egestas placerat eu id enim. Nam metus arcu, mattis non laoreet quis, varius ut sem. Fusce ut dictum sem. Proin ac convallis tellus. Integer non quam lacus. Ut tincidunt pellentesque lacinia. Aliquam facilisis sed justo nec rhoncus. Nulla volutpat enim sit amet dapibus aliquam.</p>
+            <h2 className="article__subtitle">La viande à quoi sert-elle ?</h2>
+            <p className="article__content">La viande est un aliment constitué des tissus musculaires des animaux. Elle est une importante source de protéines animales.
+Les protéines sont des macromolécules indispensables à la formation osseuse, au développement des muscles et au renouvellement des ongles, des cheveux, de la peau, etc. Ce sont les acides aminés présents dans les protéines qui les rendent si précieuses et indispensables à l’organisme.
+Les acides aminés sont des molécules indispensables au bon fonctionnement de l’organisme car ils assurent les fonctions de transport et de stockage de toutes les substances nutritives.</p>
+            <p className="article__content">En plus des protéines, la viande apporte d’autres nutriments indispensables au bon fonctionnement de l’organisme, zinc, fer, vitamines B (la viande est l’unique source naturelle de vitamine B12), ainsi que les acides gras et les oméga 3 pour le poisson.</p>
+            <h2 className="article__subtitle">La viande quelle consommation ?</h2>
+            <p className="article__content">Les protéines sont donc essentielles pour une bonne croissance et pour aider l’organisme à se défendre.
+S’il n’existe pas actuellement de recommandation précise quant à la consommation de viande, on suggère un apport de 0,8 g de protéines par kg par jour par personne.</p>
+            <p className="article__content">Les français sont historiquement des amateurs de produits carnés. Cela étant, on observe depuis un peu plus de 10 ans une baisse régulière de la consommation de viande au niveau national.
+A l’inverse, la consommation mondiale est en croissance, tirée par les pays émergents.
+La consommation moyenne annuelle en France était de 86 kg de viande / habitant en 2014, contre 94 kg en 1998.</p>
+            <p className="article__content">Dans l’alimentation, la viande ne doit pas être introduit avant les 7 premiers mois de la vie. La diversification devra se faire de manière évolutive, tout comme la quantité et la fréquence de proposition en fonction de l’âge et donc des besoins, pas plus de 10g / jour pour un bébé de 7 mois pour aller jusqu’à 50 g / jour (soit un demi steak haché ou une tranche de jambon) pour des enfants de 6 à 11 ans.</p>
           </div>
         </div>
       </div>
