@@ -36,6 +36,11 @@ import pig from './assets/images/icons/pig-money.svg';
 
 import articleThumb from './assets/images/thumb/article-thumb.jpg';
 
+import entree from './assets/images/icons/entree.svg';
+import plat from './assets/images/icons/plat.svg';
+import dessert from './assets/images/icons/dessert.svg';
+import boisson from './assets/images/icons/boisson.svg';
+
 export {
   videoMP4,
   videoWebm,
@@ -68,4 +73,8 @@ export {
   pig,
   cancel,
   articleThumb,
+  entree,
+  plat,
+  dessert,
+  boisson,
 };

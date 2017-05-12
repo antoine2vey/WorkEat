@@ -164,7 +164,6 @@ class PaymentStepTwo extends Component {
                             <input type="text" id="cvc" name="cvc" pattern="\d*" onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                           </div>
                         </div>
-                        <button type="button" name="Ajouter" className="btn-gold">Ajouter</button>
                       </form>
                     </div>
                   </div>
