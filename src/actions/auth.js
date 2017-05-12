@@ -46,7 +46,10 @@ export const deleteAccount = () => {
   };
 };
 export const updateAccount = account => ({ type: UPDATE_ACCOUNT, account });
-export const increaseSolde = amount => ({ type: INCREASE_AMOUNT, amount });
+export const increaseSolde = (amount) => {
+  NotificationManager.success(`${amount}€ ajouté!`, 'Solde mis à jour', 3000);
+  return { type: INCREASE_AMOUNT, amount };
+};
 
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')

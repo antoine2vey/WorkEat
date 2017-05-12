@@ -110,7 +110,7 @@ a:hover {
   overflow: hidden;
   @include reset($white, inherit, $gold);
   &:focus {
-    color:$gold;
+    color:inherit;
   }
   &:disabled {
     pointer-events: none;

@@ -2,6 +2,7 @@
 .partContact {
   min-height: 100vh;
   margin-bottom: 200px;
+  font-family: roboto;
   @include material-shadow(box, 2);
 
   &-title {

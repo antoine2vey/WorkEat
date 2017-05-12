@@ -250,9 +250,15 @@
 }
 .products__product__options {
   @include screenSm{
-    height: 71.5%;
+    height: 56vw;
 
   };
+
+  @include screenXs{
+    height: 72vw;
+
+  };
+
 
 
 }
