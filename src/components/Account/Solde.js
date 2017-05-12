@@ -10,7 +10,7 @@ class Solde extends Component {
       number: '4242 4242 4242 4242',
       cvc: '433',
       date: '08/19',
-      montant: 0,
+      montant: 1,
       invalid: false,
       selectedCard: false,
     };
@@ -162,7 +162,7 @@ class Solde extends Component {
                       <input type="text" id="cvc" name="cvc" pattern="\d*" value={this.state.cvc} onChange={this.changeInfo} onFocus={this.focusInput} onBlur={this.blurInput} className="material-field__input" />
                     </div>
                   </div>
-                  <button type="button" name="Ajouter" className="btn-gold" onClick={() => this.submitPayment()}>Ajouter à {this.state.montant}€ mon solde</button>
+                  <button type="button" name="Ajouter" className="btn-gold" disabled={this.state.montant <= 0 ? true : false} onClick={() => this.submitPayment()}>Ajouter à {this.state.montant}€ mon solde</button>
                 </form>
               </div>
             </div>

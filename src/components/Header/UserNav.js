@@ -21,7 +21,7 @@ class UserNav extends Component {
 
         // Si je suis entre 8h et 11h30
         if (moment().isAfter(before) && moment().isBefore(after)) {
-          this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
+          return this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
         }
 
         this.setState({ tstamp: 'Reviens à partir de 8h!' });
