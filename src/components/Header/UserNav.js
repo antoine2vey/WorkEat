@@ -17,7 +17,7 @@ class UserNav extends Component {
         const tmrwTimestamp = moment(tmrw).unix();
 
         const before = moment().hours('7').minutes('00').seconds('00').format();
-        const after = moment().hours('10').minutes('30').seconds('00').format();
+        const after = moment().hours('11').minutes('30').seconds('00').format();
 
         // Si je suis entre 8h et 11h30
         if (moment().isAfter(before) && moment().isBefore(after)) {

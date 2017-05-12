@@ -22,6 +22,9 @@
   transition: max-height .5s ease-in, opacity .2s ease-in-out;
   &.in {
     max-height: 420px;
+    @include screenMd {
+      max-height: 800px;
+    }
     transition: max-height .1s ease-in, opacity .5s ease-in-out;
     opacity: 1;
   }
