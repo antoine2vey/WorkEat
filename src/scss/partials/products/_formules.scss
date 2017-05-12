@@ -23,6 +23,11 @@
     margin:0 auto;
     padding:10px;
     @include material-shadow(box, 2);
+    transition: all 0.3s $transition;
+
+    &:hover {
+      @include material-shadow(box, 4);
+    }
   }
 
   &__content {
@@ -41,17 +46,31 @@
   }
 
   &__label {
+    @include flex;
     font-family:  $primary-font;
+  }
+
+  &__icone {
+    width: 25px;
+    margin-right: 5px;
+  }
+
+  &__selected {
+    flex: 1;
+    text-align: right;
   }
 
   &__title {
     flex:1;
     font-family: $primary-font;
+    font-size: 26px;
     font-weight: bold;
   }
 
   &__price {
+    color: $gold;
     font-family: $primary-font;
+    font-size: 22px;
   }
 
   &__select {

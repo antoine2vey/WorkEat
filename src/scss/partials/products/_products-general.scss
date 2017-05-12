@@ -59,11 +59,10 @@
       width: 70%;
       display: block;
     }
-@include screenXs{
-  width: 90%;
-  display: block;
-}
-
+    @include screenXs{
+      width: 90%;
+      display: block;
+    }
 
     &-container {
       flex-basis: 25%;
@@ -131,25 +130,23 @@
       .products__product__options {
         visibility: visible;
         opacity: 1;
-
       }
-
     }
   }
 
   &__desc {
     width: 100%;
-    height: 0;
+    max-height: 0;
     background: $write;
     box-shadow: 0 0 20px 5px $black inset;
     box-sizing: border-box;
-    transition: height 0.3s $transition;
+    transition: max-height 0.3s $transition;
     overflow-y: auto;
     position: relative;
     &--active {
-      height:  500px;
+      max-height:  500px;
       @include screenSm {
-        height: 110vh;
+        max-height: 200vh;
       };
     }
 

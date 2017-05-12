@@ -353,7 +353,8 @@ a:hover {
     height:170px;
   };
   &__top {
-    @include flex;
+    @include flex(center, center, row);
+    align-self: stretch;
   }
 
   &__type {
@@ -385,6 +386,7 @@ a:hover {
 
   &__bottom {
     @include flex;
+    align-self: stretch;
   }
 
   &__owner {

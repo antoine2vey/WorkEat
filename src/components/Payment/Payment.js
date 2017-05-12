@@ -61,7 +61,7 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
             </div>
           )) }
           <div className="partOne-recap-btn">
-            <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold">Suivant</button>
+            <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold" disabled={!cart.length}>Suivant</button>
           </div>
         </div>
       </div>
