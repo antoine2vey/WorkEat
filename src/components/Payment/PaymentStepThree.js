@@ -90,25 +90,6 @@ class PaymentStepThree extends Component {
           ) : (
             <div>Pas de formules pour cette commande</div>
           ) }
-          <div className="partFive-tabcommand-part">
-            <p>Promo</p>
-            <hr />
-          </div>
-          <div className="partFive__product">
-            <div className="partFive__product-infos">
-              <div className="partFive__product-text">
-                <h6 className="partFive__product-type">Code</h6>
-                <h3 className="partFive__product-title">Promo</h3>
-              </div>
-            </div>
-            <div className="partFive__quantity">
-              <p>x1</p>
-            </div>
-            <p className="partFive__price price-promo">10,50€</p>
-          </div>
-          <div className="partFive-tabcommand-part">
-            <hr />
-          </div>
           <div className="row partFive-final">
             <div className="one column" />
             <div className="five columns">
@@ -125,7 +106,7 @@ class PaymentStepThree extends Component {
               </div>
             </div>
           </div>
-          <Link to="/"><button className="partFive-return">Retour à la page d'accueil</button></Link>
+          <Link to="/" className="btn-link partFive-return"><button className=" btn-gold">Retour à la page d'accueil</button></Link>
         </div>
       </div>
     );

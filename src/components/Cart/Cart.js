@@ -46,7 +46,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                   </div>
                   <div className="cart-panel__quantity">
                     <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
-                    <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
+                    <input type="number" value={c.quantity} min="1" readOnly className="cart-panel__quantity-input js--quantity-input" />
                     <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
                   </div>
                   <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>

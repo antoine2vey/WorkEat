@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
 class Article extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>WorkEat - Article de blog</title>
+          <meta name="description" content="Article lol ptdr xd viagra porno" />
+        </Helmet>
         <div className="article">
           <div className="article__header">
             <h1 className="article__title">Ceci est le premier article de votre blog</h1>

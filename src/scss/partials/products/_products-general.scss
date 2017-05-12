@@ -103,6 +103,7 @@
       margin: 0;
     }
 
+
     &__options {
       position: absolute;
       @include flex(center, center, column);
@@ -212,6 +213,13 @@
       font-size: 16px;
       font-family: $primary-font;
       font-style: italic;
+    }
+    &__allerg{
+      color: $white;
+      font-family: $primary-font;
+      font-style: italic;
+      margin: 0 0 20px;
+        font-size: 16px;
     }
 
     &__price {

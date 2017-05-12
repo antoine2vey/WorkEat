@@ -95,7 +95,9 @@ export const updateSolde = (amount, token) => (dispatch) => {
         Authorization: `Bearer ${localStorage._token}`,
       },
     })
-      .then(res => dispatch(increaseSolde(parseInt(res.data.amount, 10))))
+      .then(res => {
+        dispatch(increaseSolde(parseInt(res.data.amount, 10)));
+      })
       .catch(err => console.error(err));
   }
 

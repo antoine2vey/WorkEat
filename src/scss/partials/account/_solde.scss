@@ -15,3 +15,14 @@
     @include material-shadow(box, 2);
   }
 }
+
+.card-selected {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .5s ease-in, opacity .2s ease-in-out;
+  &.in {
+    max-height: 420px;
+    transition: max-height .1s ease-in, opacity .5s ease-in-out;
+    opacity: 1;
+  }
+}
