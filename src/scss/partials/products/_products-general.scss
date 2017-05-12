@@ -154,6 +154,7 @@
       @include container(1200px);
       @include flex;
       height: 100%;
+      padding: 50px 0;
       visibility: hidden;
       opacity: 0;
       transition: visibility 0.3s, opacity 0.3s $transition;

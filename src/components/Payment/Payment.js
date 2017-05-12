@@ -5,12 +5,12 @@ import { getTotalPrice, getProducts, getAllQuantities } from '../../reducers/car
 import { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq } from '../../actions/cart';
 import { trashBlanc } from '../../images';
 
-const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq, total }) => (
+const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq, total, places }) => (
   <div className="partOne">
     <div className="partOne__container">
       <div className="container-fluid">
         <div className="partOne__recap">
-          <h2 className="partOne__title">Récapitulatif de votre commande - <strong>{total.toFixed(2)}€</strong></h2>
+          <h2 className="partOne__title">Récapitulatif de votre commande : <strong>{total.toFixed(2)}€</strong></h2>
           <div className="partOne__list">
             <div className="partOne__category">
               <p>A la carte</p>
@@ -40,7 +40,6 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
               <p>Formule</p>
               <hr />
             </div>
-          </div>
           { cart.map(item => (
             item.isBundle &&
             <div className="partOne__product" key={item._id}>
@@ -60,8 +59,15 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
               </div>
             </div>
           )) }
-          <div className="partOne-recap-btn">
-            <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold" disabled={!cart.length}>Suivant</button>
+            {/* <div className="partOne__livraison">
+              <div className="partOne__category">
+                <p>Point de livraison</p>
+                <hr />
+              </div>
+            </div> */}
+            <div className="partOne-recap-btn">
+              <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold" disabled={!cart.length}>Suivant</button>
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +78,7 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
 const mapStateToProps = state => ({
   cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
+  places: state.places.places,
   quantityById: getAllQuantities(state.cart),
 });
 

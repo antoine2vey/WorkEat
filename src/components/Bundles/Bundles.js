@@ -15,19 +15,21 @@ class Bundles extends Component {
 
   render() {
     const { bundles } = this.props;
-    const rows = chunk(bundles, 4);
+    const rows = chunk(bundles, 2);
 
     return (
       <div>
+        <div className="formules">
         { rows.map((row, i) => (
-          <div key={i} className="formule">
+            <div className="formules__row">
             { row.map(bundle => (
-              <div className="column is-3" key={bundle._id} style={{ margin: 0 }}>
+              <div className="formules__column" key={bundle._id}>
                 <Bundle bundle={bundle} {...this.props} />
               </div>
             )) }
-          </div>
+            </div>
         )) }
+        </div>
       </div>
     );
   }

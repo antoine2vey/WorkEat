@@ -6,11 +6,16 @@
   background:$white;
 
   &__row {
+    @include flex(flex-start, flex-start, row);
     padding-top:25px;
+    @include screenSm {
+      flex-direction: column;
+    };
   }
 
   &__column {
     width:50%;
+    align-self: flex-start;
     @include screenMd {
       width:100%;
     };
@@ -19,8 +24,8 @@
   &__container {
     @include flex(center, flex-start, column);
     width:90%;
-    min-height: 400px;
     margin:0 auto;
+    height: 100%;
     padding:10px;
     @include material-shadow(box, 2);
     transition: all 0.3s $transition;
