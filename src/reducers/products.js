@@ -56,4 +56,9 @@ const products = (state = initialState, action) => {
   }
 };
 
+export const getEntrees = state => state.products.filter(product => product.types.indexOf('entree') > -1);
+export const getPlats = state => state.products.filter(product => product.types.indexOf('plat') > -1);
+export const getDesserts = state => state.products.filter(product => product.types.indexOf('dessert') > -1);
+export const getBoissons = state => state.products.filter(product => product.types.indexOf('boisson') > -1);
+
 export default products;

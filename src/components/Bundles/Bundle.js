@@ -30,6 +30,17 @@ class Bundle extends React.Component {
     this.toggleBoisson = this.toggleBoisson.bind(this);
   }
 
+  getBundle() {
+    const { entree, plat, dessert, boisson } = this.state;
+    return {
+      ...this.props.bundle,
+      entree: entree.choisie ? entree.choisie : null,
+      plat: plat.choisie ? plat.choisie : null,
+      dessert: dessert.choisie ? dessert.choisie : null,
+      boisson: boisson.choisie ? boisson.choisie : null,
+    };
+  }
+
   toggleEntree(entree) {
     this.setState({
       entree: {
@@ -66,19 +77,8 @@ class Bundle extends React.Component {
     });
   }
 
-  getBundle() {
-    const { entree, plat, dessert, boisson } = this.state;
-    return {
-      ...this.props.bundle,
-      entree: entree.choisie ? entree.choisie : null,
-      plat: plat.choisie ? plat.choisie : null,
-      dessert: dessert.choisie ? dessert.choisie : null,
-      boisson: boisson.choisie ? boisson.choisie : null,
-    };
-  }
-
   render() {
-    const { bundle, products } = this.props;
+    const { bundle, entrees, plats, desserts, boissons } = this.props;
     return (
             <div className="formules__container">
               <div className="formules__content">
@@ -93,7 +93,7 @@ class Bundle extends React.Component {
                       Entrée <span className="formules__selected">{this.state.entree.choisie.name ? `${this.state.entree.choisie.name}` : ''}</span>
                     </label>
                     <div name="entree" id="entree" className={'formules__select' + (this.state.entree.active ? ' current' : '')}>
-                      { products.filter(product => product.types.indexOf('entree') > -1).map(entree => (
+                      { entrees.map(entree => (
                         <div id={entree._id} key={entree._id} className="formules__item" onClick={() => this.toggleEntree(entree)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={entree.file} alt={entree.name} />
@@ -116,15 +116,6 @@ class Bundle extends React.Component {
                     </div>
                   </div>
                 }
-                {/* { bundle.items.hasEntree &&
-                <div>
-                  <label htmlFor="entree">entree</label>
-                  <select name="entree" id="entree" className="formules__select">
-                    { products.filter(product => product.types.indexOf('entree') > -1).map(entree => (
-                      <option value={entree._id} key={entree._id}>{entree.name}</option>
-                    ))}
-                  </select>
-                </div> } */}
                 { bundle.items.hasPlat &&
                   <div className="formules__input">
                     <label htmlFor="plat" onClick={this.togglePlat} className="formules__label">
@@ -132,7 +123,7 @@ class Bundle extends React.Component {
                       Plat <span className="formules__selected">{this.state.plat.choisie.name ? `${this.state.plat.choisie.name}` : ''}</span>
                     </label>
                     <div name="plat" id="plat" className={'formules__select' + (this.state.plat.active ? ' current' : '')}>
-                      { products.filter(product => product.types.indexOf('plat') > -1).map(plat => (
+                      { plats.map(plat => (
                         <div id={plat._id} key={plat._id} className="formules__item" onClick={() => this.togglePlat(plat)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={plat.file} alt={plat.name} />
@@ -155,15 +146,6 @@ class Bundle extends React.Component {
                     </div>
                   </div>
                 }
-                {/* { bundle.items.hasPlat &&
-                <div>
-                  <label htmlFor="plat">plat</label>
-                  <select name="plat" id="plat">
-                    { products.filter(product => product.types.indexOf('plat') > -1).map(plat => (
-                      <option value={plat._id} key={plat._id}>{plat.name}</option>
-                    ))}
-                  </select>
-                </div> } */}
                 { bundle.items.hasDessert &&
                   <div className="formules__input">
                     <label htmlFor="dessert" onClick={this.toggleDessert} className="formules__label">
@@ -171,7 +153,7 @@ class Bundle extends React.Component {
                       Dessert <span className="formules__selected">{this.state.dessert.choisie.name ? `${this.state.dessert.choisie.name}` : ''}</span>
                     </label>
                     <div name="dessert" id="dessert" className={'formules__select' + (this.state.dessert.active ? ' current' : '')}>
-                      { products.filter(product => product.types.indexOf('dessert') > -1).map(dessert => (
+                      { desserts.map(dessert => (
                         <div id={dessert._id} key={dessert._id} className="formules__item" onClick={() => this.toggleDessert(dessert)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={dessert.file} alt={dessert.name} />
@@ -194,15 +176,6 @@ class Bundle extends React.Component {
                     </div>
                   </div>
                 }
-                {/* { bundle.items.hasDessert &&
-                <div>
-                  <label htmlFor="dessert">dessert</label>
-                  <select name="dessert" id="dessert">
-                    { products.filter(product => product.types.indexOf('dessert') > -1).map(dessert => (
-                      <option value={dessert._id} key={dessert._id}>{dessert.name}</option>
-                    ))}
-                  </select>
-                </div> } */}
                 { bundle.items.hasBoisson &&
                   <div className="formules__input">
                     <label htmlFor="boisson" onClick={this.toggleBoisson} className="formules__label">
@@ -210,7 +183,7 @@ class Bundle extends React.Component {
                       Boisson <span className="formules__selected">{this.state.boisson.choisie.name ? `${this.state.boisson.choisie.name}` : ''}</span>
                     </label>
                     <div name="boisson" id="boisson" className={'formules__select' + (this.state.boisson.active ? ' current' : '')}>
-                      { products.filter(product => product.types.indexOf('boisson') > -1).map(boisson => (
+                      { boissons.map(boisson => (
                         <div id={boisson._id} key={boisson._id} className="formules__item" onClick={() => this.toggleBoisson(boisson)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={boisson.file} alt={boisson.name} />
@@ -233,15 +206,6 @@ class Bundle extends React.Component {
                     </div>
                   </div>
                 }
-                {/* { bundle.items.hasBoisson &&
-                <div>
-                  <label htmlFor="boisson">boisson</label>
-                  <select name="boisson" id="boisson">
-                    { products.filter(product => product.types.indexOf('boisson') > -1).map(boisson => (
-                      <option value={boisson._id} key={boisson._id}>{boisson.name}</option>
-                    ))}
-                  </select>
-                </div> } */}
                 <button className="btn-gold formules__submit" onClick={() => this.props.addToCart(this.getBundle())}>Ajouter</button>
               </div>
             </div>

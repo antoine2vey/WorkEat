@@ -193,23 +193,10 @@ const cart = (state = initialState, action) => {
   }
 };
 
-export const getTotal = state => (
-  values(state.quantityById).reduce((prev, nxt) => (prev + nxt), 0)
-);
-
-export const getProducts = state => (
-  values(state.productsById)
-);
-
-export const getTotalPrice = (state) => {
-  let price = 0;
-  state.addedIds.forEach((id) => {
-    price += (state.productsById[id].price * state.quantityById[id]);
-  });
-
-  return price;
-};
-
+export const getTotal = state => values(state.quantityById).reduce((prev, nxt) => (prev + nxt), 0);
+export const getProducts = state => values(state.productsById);
 export const getAllQuantities = state => state.quantityById;
+export const getTotalPrice = state =>
+  state.addedIds.reduce((prev, acc) => (prev + (state.productsById[acc].price * state.quantityById[acc])), 0);
 
 export default cart;

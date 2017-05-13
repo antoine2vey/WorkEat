@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import chunk from 'lodash/chunk';
 import { fetchBundlesIfNeeded } from '../../actions/bundles';
 import { fetchProductsIfNeeded } from '../../actions/products';
+import { getEntrees, getPlats, getDesserts, getBoissons } from '../../reducers/products';
 import { addToCart } from '../../actions/cart';
 import Bundle from './Bundle';
 
@@ -20,15 +21,15 @@ class Bundles extends Component {
     return (
       <div>
         <div className="formules">
-        { rows.map((row, i) => (
-            <div className="formules__row">
-            { row.map(bundle => (
-              <div className="formules__column" key={bundle._id}>
-                <Bundle bundle={bundle} {...this.props} />
-              </div>
-            )) }
+          { rows.map((row, i) => (
+            <div className="formules__row" key={i}>
+              { row.map(bundle => (
+                <div className="formules__column" key={bundle._id}>
+                  <Bundle bundle={bundle} {...this.props} />
+                </div>
+              )) }
             </div>
-        )) }
+          )) }
         </div>
       </div>
     );
@@ -37,11 +38,14 @@ class Bundles extends Component {
 
 const mapStateToProps = (state) => {
   const { bundles, isFetching } = state.bundles;
-  const { products } = state.products;
+  const { products } = state;
   return {
     bundles,
     isFetching,
-    products,
+    entrees: getEntrees(products),
+    plats: getPlats(products),
+    desserts: getDesserts(products),
+    boissons: getBoissons(products),
   };
 };
 

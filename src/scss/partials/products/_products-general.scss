@@ -79,6 +79,12 @@
       @include screenXs{
         flex-basis: 0%;
       }
+
+      &.is-outOfStock {
+        opacity: .5;
+        pointer-events: none;
+        position: relative;
+      }
     }
 
     &__title {

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { fetchProductsIfNeeded, showProduct, hideProduct } from '../../actions/products';
+import { getEntrees, getPlats, getDesserts, getBoissons } from '../../reducers/products';
 import Entrees from '../Products/Entrees';
 import Plats from '../Products/Plats';
 import Desserts from '../Products/Desserts';
@@ -67,14 +68,14 @@ class Carte extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { products } = state.products;
+  const { products } = state;
   return {
-    entrees: products.filter(product => product.types.indexOf('entree') > -1),
-    plats: products.filter(product => product.types.indexOf('plat') > -1),
-    desserts: products.filter(product => product.types.indexOf('dessert') > -1),
-    boissons: products.filter(product => product.types.indexOf('boisson') > -1),
-    isDetailVisible: state.products.isDetailVisible,
-    product: state.products.product,
+    entrees: getEntrees(products),
+    plats: getPlats(products),
+    desserts: getDesserts(products),
+    boissons: getBoissons(products),
+    isDetailVisible: products.isDetailVisible,
+    product: products.product,
   };
 };
 
