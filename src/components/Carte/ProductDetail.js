@@ -1,10 +1,9 @@
 import React from 'react';
-import { cancel } from '../../images';
 
 
 const ProductDetail = ({ isDetailVisible, product, hideProduct }) => (
   <div className={isDetailVisible ? 'products__desc products__desc--active' : 'products__desc'}>
-  <button className="cancel-btn-gold" type="button" onClick={() => hideProduct(product)} />
+    <button className="cancel-btn-gold" type="button" onClick={() => hideProduct(product)} />
     <div className={isDetailVisible ? 'products__desc-container products__desc-container--active' : 'products__desc-container'}>
       <img src={product.file ? product.file : ''} alt="Produit détaillé" className="products__desc__image" />
       <div className="products__desc__infos">

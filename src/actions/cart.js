@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { NotificationManager } from 'react-notifications';
 import history from '../utils/history';
 
 export const ADD_TO_CART = 'ADD_TO_CART';

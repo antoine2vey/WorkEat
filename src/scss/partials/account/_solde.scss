@@ -8,7 +8,7 @@
     @include screenSm {
       font-size: 28px;
     };
-  }
+  } 
   &__select {
     @include flex(center, flex-start, row);
     height: auto;

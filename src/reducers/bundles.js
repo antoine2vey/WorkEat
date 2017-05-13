@@ -1,4 +1,3 @@
-import omit from 'lodash/omit';
 import { RECEIVE_BUNDLES, REQUEST_BUNDLES, DELETE_BUNDLE, CREATE_BUNDLE } from '../actions/bundles';
 
 const initialState = {
@@ -19,10 +18,6 @@ const bundles = (state = initialState, action) => {
         ...state,
         isFetching: false,
         bundles: action.bundles,
-        bundlesById: action.bundles.reduce((obj, bundle) => {
-          obj[bundle._id] = bundle;
-          return obj;
-        }, {}),
       };
     case DELETE_BUNDLE:
       return {
