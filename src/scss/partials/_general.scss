@@ -520,17 +520,33 @@ a:hover {
     height: auto;
     margin-bottom: 20px;
     @include material-shadow(box, 1);
+    overflow: hidden;
     transition: all 0.3s $transition;
 
     &:hover {
       @include material-shadow(box, 2);
+      .cart-panel__formules {
+        top: 50%;
+        transform: translateY(-50%);
+        visibility: visible;
+        opacity: 1;
+      }
+      .formula-product {
+        visibility: hidden;
+        opacity: 0;
+      }
     }
 
     &-infos {
+      position: relative;
       @include flex(flex-start, center, row);
       flex-wrap: wrap;
       flex: 1;
       align-self: stretch;
+
+      @include screenSm {
+        flex-direction: column;
+      };
     }
 
     &-image {
@@ -545,6 +561,9 @@ a:hover {
     &-text {
       padding: 0 0 0 20px;
       font-family: $primary-font;
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.3s ease;
     }
 
     &-title,
@@ -662,8 +681,13 @@ a:hover {
   }
 
   &__formules {
-    flex-basis: 100%;
+    position: absolute;
+    top: 80%;
+    transform: translateY(-80%);
     padding-left: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
 
     &-content {
       margin: 0;

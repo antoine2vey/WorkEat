@@ -65,7 +65,7 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                 <div className="cart-panel__product" key={c._id}>
                   <div className="cart-panel__left">
                     <div className="cart-panel__product-infos">
-                      <div className="cart-panel__product-text">
+                      <div className="cart-panel__product-text formula-product">
                         <h3 className="cart-panel__product-title">{c.name}</h3>
                         <p className="cart-panel__price">{c.price}€</p>
                       </div>

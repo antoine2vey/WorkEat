@@ -22,10 +22,10 @@
   &__recap {
     min-height: 100vh;
     margin-bottom:200px;
-    padding: 100px 20px 0;
+    padding: 0 20px;
     background: $white;
     @include screenSm {
-      padding: 100px 5px 0;
+      padding: 0 5px;
     };
 
     &-btn {

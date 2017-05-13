@@ -25,7 +25,8 @@
     @include flex(center, flex-start, column);
     width:90%;
     margin:0 auto;
-    height: 100%;
+    min-height: 430px;
+    height: auto;
     padding:10px;
     @include material-shadow(box, 2);
     transition: all 0.3s $transition;
@@ -33,6 +34,10 @@
     &:hover {
       @include material-shadow(box, 4);
     }
+
+    @include screenSm {
+      min-height: 1000%;
+    };
   }
 
   &__content {
