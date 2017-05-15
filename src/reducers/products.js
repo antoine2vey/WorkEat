@@ -1,4 +1,5 @@
 import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL } from '../actions/products';
+import { ADD_TO_CART } from '../actions/cart';
 
 const initialState = {
   isFetching: false,
@@ -9,6 +10,20 @@ const initialState = {
 
 const products = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        products: state.products.map((product, i) => {
+          if (i === action.index) {
+            return {
+              ...product,
+              stock: product.stock - 1,
+            };
+          }
+
+          return product;
+        }),
+      };
     case SHOW_DETAIL:
       return {
         ...state,

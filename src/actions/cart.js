@@ -11,8 +11,8 @@ export const CHECKOUT_HANDSHAKE = 'CHECKOUT_HANDSHAKE';
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
-const addToCartUnsafe = (product, isBundle) => {
-  if (isBundle) {
+const addToCartUnsafe = (product, isBundle, index) => {
+  if (isBundle === true) {
     return {
       type: ADD_TO_CART,
       product,
@@ -22,6 +22,7 @@ const addToCartUnsafe = (product, isBundle) => {
 
   return {
     type: ADD_TO_CART,
+    index,
     product,
   };
 };
@@ -36,8 +37,8 @@ const setLastOrder = order => ({ type: GET_ORDER, order });
 
 export const getAddedIds = state => state.addedIds;
 
-export const addToCart = (product, isBundle) => (dispatch) => {
-  dispatch(addToCartUnsafe(product, isBundle));
+export const addToCart = (product, isBundle, index) => (dispatch) => {
+  dispatch(addToCartUnsafe(product, isBundle, index));
 };
 
 export const incrementQuantity = productId => dispatch => (

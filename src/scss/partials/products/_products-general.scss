@@ -66,6 +66,8 @@
 
     &-container {
       flex-basis: 25%;
+      opacity: 1;
+      transition: opacity .2s $transition;
       padding: 0 0 20px;
       @include screenDefault {
         flex-basis: calc(100% / 3);

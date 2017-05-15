@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../../actions/cart';
 
-const Plat = ({ plat: { file, description, price, tags, types, name }, addToCart, showProduct, isVisible, hideProduct }) => (
-  <div className="products__product-container">
+const Plat = ({ plat: { file, description, price, tags, types, name, stock }, addToCart, showProduct, isVisible, hideProduct }) => (
+  <div className={stock > 0 ? 'products__product-container' : 'products__product-container is-outOfStock'}>
     <div className="products__product">
       <div className="products__product__options">
         <button className="products__product__option btn-gold" onClick={isVisible ? hideProduct : showProduct}>Voir</button>
@@ -26,11 +26,11 @@ const Plats = ({ ...props }) => {
 
   return (
     <div className="products__products-list">
-      { plats.map(plat => (
+      { plats.map((plat, i) => (
         <Plat
           plat={plat}
           key={plat._id}
-          addToCart={() => addToCart(plat)}
+          addToCart={() => addToCart(plat, false, i)}
           showProduct={() => showProduct(plat)}
           hideProduct={() => hideProduct(plat)}
           isVisible={isVisible}
