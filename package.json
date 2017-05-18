@@ -76,6 +76,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "flow-bin": "^0.46.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
@@ -86,6 +87,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "build-css": "node-sass src/ -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive"
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "flow": "flow"
   }
 }
