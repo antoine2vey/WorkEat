@@ -41,6 +41,7 @@
   }
 
   &__product {
+    position: relative;
     @include flex;
     flex-wrap: wrap;
     height: auto;
@@ -53,6 +54,16 @@
 
     &:hover {
       @include material-shadow(box, 2);
+      .formula-product {
+        visibility: hidden;
+        opacity: 0;
+      }
+      .cart-panel__formules {
+        top: 50%;
+        transform: translateY(-50%);
+        visibility: visible;
+        opacity: 1;
+      }
     }
 
     &-infos {

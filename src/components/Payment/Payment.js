@@ -44,7 +44,7 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
             item.isBundle &&
             <div className="partOne__product" key={item._id}>
               <div className="partOne__product-infos">
-                <div className="partOne__product-text">
+                <div className="partOne__product-text formula-product">
                   <h3 className="partOne__product-title">{item.name}</h3>
                   <p className="partOne__price">{item.price}€</p>
                 </div>

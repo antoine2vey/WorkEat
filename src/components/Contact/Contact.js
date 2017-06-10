@@ -14,17 +14,7 @@ class Contact extends Component {
             </div>
             <div className="five columns">
               <div className="row">
-                <div className="five columns">
-                  <div className="partContact-info">
-                    <h4 className="partContact-info-title">Horaires</h4>
-                    <hr />
-                    <p className="partContact-info-p">
-                      Du Lundi au Vendredi<br /> 8h00 à 11h30
-                    </p>
-                  </div>
-                </div>
-                <div className="one column"></div>
-                <div className="six columns">
+                <div className="twelve columns">
                   <div className="partContact-info">
                     <h4 className="partContact-info-title">Adresse</h4>
                     <hr />
