@@ -51,22 +51,34 @@ mongoose.connect(sessionDB);
 * bodyParser for objects
 * validators, parsers, session
 */
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  store: new MongoStore({
+    url: sessionDB,
+    autoReconnect: true,
+  }),
+  saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
+passport.deserializeUser((user, done) => {
+  User.findById(user.id, (err, user) => {
     done(err, user);
   });
 });
+
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
   secretOrKey: process.env.JWT_SECRET || 'ChangeThisKeyPlease',
 };
 passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
-  console.log(payload);
+  console.log('got some payload', payload);
   User.findOne({ username }, (err, user) => {
     if (err) {
       return done(err);
@@ -105,17 +117,6 @@ app.use(expressValidator({
   },
 }));
 app.use(cookieParser('secretKey!'));
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  store: new MongoStore({
-    url: sessionDB,
-    autoReconnect: true,
-  }),
-  saveUninitialized: false,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(require('prerender-node'));
 
 const userRoute = require('./server/api/users.api');

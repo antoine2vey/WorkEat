@@ -44,9 +44,15 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
             item.isBundle &&
             <div className="partOne__product" key={item._id}>
               <div className="partOne__product-infos">
-                <div className="partOne__product-text">
+                <div className="partOne__product-text formula-product">
                   <h3 className="partOne__product-title">{item.name}</h3>
                   <p className="partOne__price">{item.price}€</p>
+                </div>
+                <div className="cart-panel__formules">
+                  { item.entree.name && <p className="cart-panel__formules-content">Entrée : {item.entree.name}</p> }
+                  { item.plat.name && <p className="cart-panel__formules-content">Plat : {item.plat.name}</p> }
+                  { item.dessert.name && <p className="cart-panel__formules-content">Dessert : {item.dessert.name}</p> }
+                  { item.boisson.name && <p className="cart-panel__formules-content">Boisson : {item.boisson.name}</p> }
                 </div>
               </div>
               <div className="partOne__quantity" style={{ padding: '10px 0' }}>

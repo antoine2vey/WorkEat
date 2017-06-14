@@ -9,13 +9,14 @@
 
     &-menu {
       @include flex(flex-start, center, row);
-      flex:1;
+      flex: 1;
       @include screenSm {
         justify-content: center;
       };
+
       &-item {
         position: relative;
-        margin-left:100px;
+        margin-left: 100px;
         color: $white;
         font-family: $primary-font;
         font-size: 20px;
@@ -24,9 +25,8 @@
         letter-spacing: 3px;
         overflow: hidden;
         cursor: pointer;
-
         @include screenSm {
-          margin:0;
+          margin: 0;
         };
 
         &:hover {
@@ -63,7 +63,7 @@
         line-height: 1.2;
 
         &-time {
-          flex:0.4;
+          flex: 0.4;
           font-size: 26px;
           @include screenSm {
             font-size: 24px;
@@ -75,11 +75,12 @@
     &-cart {
       @include flex(flex-end, center, row);
       position: relative;
-      flex:1;
+      flex: 1;
       text-align: center;
       @include screenSm {
         justify-content: center;
       };
+
       &-number {
         position: absolute;
         font-family: $primary-font;
@@ -100,8 +101,9 @@
       &-item {
         width: 40px;
       }
+
       &-link {
-        position:relative;
+        position: relative;
         margin: 0 100px 0 0 !important;
         padding: 0 !important;
         border: 0;
@@ -111,16 +113,16 @@
         };
       }
     }
+
     &-logo {
-      width:200px;
-      flex:0.6;
+      width: 200px;
+      flex: 0.6;
       @include screenXs {
-        width:150px;
+        width: 150px;
       };
-      @include screenSm{
+      @include screenSm {
         flex: 0;
         margin-bottom: 5px;
-
       };
     }
   }

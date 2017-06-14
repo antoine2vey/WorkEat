@@ -21,7 +21,7 @@ class About extends Component {
               <div className="explain-content">
                 <h1 className="explain-content-title">Nous, WorkEat</h1>
                 <hr className="divider" />
-                <p className="explain-content-text">Chez WorkEat nous vous proposons chaques jours une large gamme de mets livrés à proximité de votre entreprise. Cela vous permet de déguster le meilleur de la gastronomie tout en restant au travail.  </p>
+                <p className="explain-content-text">Chez WorkEat nous vous proposons chaques jours une large gamme de mets livrés à proximité de votre entreprise. Cela vous permet de déguster le meilleur de la gastronomie tout en restant au travail.</p>
               </div>
               <div className="explain-image explain-image--concept" />
             </div>

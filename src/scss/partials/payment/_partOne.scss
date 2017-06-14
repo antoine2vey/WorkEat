@@ -22,10 +22,10 @@
   &__recap {
     min-height: 100vh;
     margin-bottom:200px;
-    padding: 100px 20px 0;
+    padding: 0 20px;
     background: $white;
     @include screenSm {
-      padding: 100px 5px 0;
+      padding: 0 5px;
     };
 
     &-btn {
@@ -41,6 +41,7 @@
   }
 
   &__product {
+    position: relative;
     @include flex;
     flex-wrap: wrap;
     height: auto;
@@ -53,6 +54,16 @@
 
     &:hover {
       @include material-shadow(box, 2);
+      .formula-product {
+        visibility: hidden;
+        opacity: 0;
+      }
+      .cart-panel__formules {
+        top: 50%;
+        transform: translateY(-50%);
+        visibility: visible;
+        opacity: 1;
+      }
     }
 
     &-infos {

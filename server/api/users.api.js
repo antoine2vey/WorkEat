@@ -139,6 +139,7 @@ exports.login = (req, res) => {
     });
   });
 };
+
 exports.create = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
@@ -252,6 +253,8 @@ exports.update = (req, res) => {
   });
 };
 exports.logout = (req, res) => {
+  console.log(req.user);
+  console.log(req.session);
   if (!req.user) {
     res.status(400).send('User not logged in.');
   } else {

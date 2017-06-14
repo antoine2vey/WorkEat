@@ -19,7 +19,7 @@ exports.list = (req, res) => {
     } else {
       Product
       .find({})
-      .populate('tag')
+      .populate('tags')
       .exec((err, products) => {
         if (err) {
           return res.status(500).send('Database error.');
