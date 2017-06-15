@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+const Places = require('../models/places.model');
 const jwt = require('jsonwebtoken');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -96,51 +97,73 @@ exports.login = (req, res) => {
     return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
-  User.findOne({ username: req.body.username }, (err, user) => {
-    if (err) {
-      throw new Error(err);
-    }
-
-    if (!user) {
-      return res.status(401).send('User not found. Please check your entry and try again.');
-    }
-
-    bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-      if (isMatch) {
-        req.logIn(user, (err) => {
-          if (err) {
-            return res.status(500).send('Error saving session.');
-          }
-          const payload = {
-            id: user._id,
-            isAdmin: user.isAdmin,
-            isLivreur: user.isLivreur,
-            isPrestataire: user.isPrestataire,
-          };
-          const token = jwt.sign(payload, process.env.JWT_SECRET);
-          return res.status(200).send({
-            token,
-            user: {
-              username: user.username,
-              name: user.name,
-              surname: user.surname,
-              codePostal: user.codePostal,
-              address: user.address,
-              phoneNumber: user.phoneNumber,
-              town: user.town,
-              solde: user.solde,
-              position: user.position,
-            },
-          });
-        });
-      } else {
-        res.status(401).send({ success: false, message: 'Auth fail' });
+  User
+    .findOne({ username: req.body.username })
+    .populate('position')
+    .exec((err, user) => {
+      if (err) {
+        throw new Error(err);
       }
+
+      if (!user) {
+        return res.status(401).send('User not found. Please check your entry and try again.');
+      }
+
+      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+        if (isMatch) {
+          req.logIn(user, (err) => {
+            if (err) {
+              return res.status(500).send('Error saving session.');
+            }
+            const payload = {
+              id: user._id,
+              isAdmin: user.isAdmin,
+              isLivreur: user.isLivreur,
+              isPrestataire: user.isPrestataire,
+            };
+            const token = jwt.sign(payload, process.env.JWT_SECRET);
+            return res.status(200).send({
+              token,
+              user: {
+                username: user.username,
+                name: user.name,
+                surname: user.surname,
+                codePostal: user.codePostal,
+                address: user.address,
+                phoneNumber: user.phoneNumber,
+                town: user.town,
+                solde: user.solde,
+                position: user.position,
+              },
+            });
+          });
+        } else {
+          res.status(401).send({ success: false, message: 'Auth fail' });
+        }
+      });
     });
-  });
 };
 
 exports.create = (req, res) => {
+  const _pos = [];
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+  function getDistanceFromLatLonInKm(lat2, lon2, lat1 = req.body.position[0], lon1 = req.body.position[1]) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      (Math.sin(dLat / 2) * Math.sin(dLat / 2)) +
+      (Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2))
+      ;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c; // Distance in km
+    return d;
+  }
+
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
@@ -156,52 +179,68 @@ exports.create = (req, res) => {
     return;
   }
 
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.password, salt);
+  console.log(req.body.position);
+  // TODO: optimize this
+  Places.find({}, (err, places) => {
+    places.forEach((place, i) => {
+      const [lat, lng] = place.geolocation;
+      _pos.push({
+        index: i,
+        distance: getDistanceFromLatLonInKm(lat, lng),
+      });
+    });
 
-  const user = new User({
-    username: req.body.username,
-    password: hash,
-    name: req.body.name,
-    surname: req.body.surname,
-    codePostal: req.body.codePostal,
-    position: req.body.position,
-    town: req.body.town,
-    address: req.body.address,
-    phoneNumber: req.body.phoneNumber,
-  });
+    const lowestDistance = _pos.reduce((a, b) => {
+      return a.distance < b.distance ? a : b;
+    });
 
-  User.findOne({ username: req.body.username }, (err, existingUser) => {
-    if (existingUser) {
-      return res.status(400).send('That username already exists. Please try a different username.');
-    }
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
-    user.save((err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Error saving new account (database error). Please try again.');
-        return;
+    const user = new User({
+      username: req.body.username,
+      password: hash,
+      name: req.body.name,
+      surname: req.body.surname,
+      codePostal: req.body.codePostal,
+      position: places[lowestDistance.index]._id,
+      town: req.body.town,
+      address: req.body.address,
+      phoneNumber: req.body.phoneNumber,
+    });
+
+    User.findOne({ username: req.body.username }, (err, existingUser) => {
+      if (existingUser) {
+        return res.status(400).send('That username already exists. Please try a different username.');
       }
 
-      mailer.sendMail({
-        from: 'WorkEat',
-        to: user.username,
-        subject: 'Création de votre compte',
-        template: 'welcome',
-        context: {
-          hostUrl: `${req.protocol}://${req.hostname}`,
-          name: user.surname,
-          mailTo: 'antoine.2vey@gmail.com',
-        },
-      }, (err, response) => {
+      user.save((err) => {
         if (err) {
-          return console.log(err);
+          console.log(err);
+          res.status(500).send('Error saving new account (database error). Please try again.');
+          return;
         }
 
-        return console.log('mail sent!', response.response);
-      });
+        mailer.sendMail({
+          from: 'WorkEat',
+          to: user.username,
+          subject: 'Création de votre compte',
+          template: 'welcome',
+          context: {
+            hostUrl: `${req.protocol}://${req.hostname}`,
+            name: user.surname,
+            mailTo: 'antoine.2vey@gmail.com',
+          },
+        }, (err, response) => {
+          if (err) {
+            return console.log(err);
+          }
 
-      return res.status(200).send('Account created! Please login with your new account.');
+          return console.log('mail sent!', response.response);
+        });
+
+        return res.status(200).send('Account created! Please login with your new account.');
+      });
     });
   });
 };

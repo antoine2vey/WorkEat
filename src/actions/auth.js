@@ -14,9 +14,12 @@ const loginUserRequest = () => ({ type: LOGIN_REQUEST });
 const loginUserSuccess = (userInformations) => {
   localStorage.setItem('_token', userInformations.token);
   history.push('/');
-  NotificationManager.warning('Cliquez ici pour la renseigner', 'Pas de point de livraison', 10000, () => {
-    history.push('/compte/infos');
-  });
+  if (!userInformations.user.position) {
+    NotificationManager.warning('Cliquez ici pour la renseigner', 'Pas de point de livraison', 10000, () => {
+      history.push('/compte/infos');
+    });
+  }
+
   return {
     type: LOGIN_SUCCESS,
     token: userInformations.token,

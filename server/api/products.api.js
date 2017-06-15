@@ -34,8 +34,9 @@ exports.list = (req, res) => {
     }
   })
   **/
-  Product.find({})
-    .populate('availableAt')
+  Product
+    .find({})
+    .populate('availableAt', '_id')
     .populate('tags')
     .exec((err, products) => {
       if (err) {
