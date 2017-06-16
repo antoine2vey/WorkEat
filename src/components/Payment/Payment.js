@@ -1,11 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTotalPrice, getProducts, getAllQuantities } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq } from '../../actions/cart';
 import { trashBlanc } from '../../images';
 
-const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq, total, places }) => (
+const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, deleteProduct, checkoutReq, total, places, choosenPlace }) => (
   <div className="partOne">
     <div className="partOne__container">
       <div className="container-fluid">
@@ -65,12 +64,23 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
               </div>
             </div>
           )) }
-            {/* <div className="partOne__livraison">
+            <div className="partOne__livraison">
               <div className="partOne__category">
-                <p>Point de livraison</p>
+                <p>Endroits à livrer</p>
                 <hr />
+                <div className="material-field compteInfo-field has-label fullInput">
+                  <label className="material-field__label" htmlFor="livraison">Point de livraison</label>
+                  <select id="livraison" name="position">
+                    { places.map((place) => {
+                      if (place._id === choosenPlace._id) {
+                        return <option defaultValue={choosenPlace._id} key={choosenPlace._id}>{choosenPlace.name}</option>;
+                      }
+                      return <option value={place._id} key={place._id}>{place.name}</option>;
+                    })}
+                  </select>
+                </div>
               </div>
-            </div> */}
+            </div>
             <div className="partOne-recap-btn">
               <button onClick={() => checkoutReq(cart, quantityById)} className="btn-gold" disabled={!cart.length}>Suivant</button>
             </div>
@@ -82,10 +92,11 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
 );
 
 const mapStateToProps = state => ({
+  choosenPlace: state.auth.user.position,
   cart: getProducts(state.cart),
   total: getTotalPrice(state.cart),
   places: state.places.places,
   quantityById: getAllQuantities(state.cart),
 });
 
-export default withRouter(connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq })(Payment));
+export default connect(mapStateToProps, { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq })(Payment);
