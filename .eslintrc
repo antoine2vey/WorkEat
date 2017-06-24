@@ -21,6 +21,7 @@
     "no-console": "off",
     "react/prop-types": "off",
     "react/no-array-index-key": "warn",
+    "jsx-a11y/anchor-has-content": "off",
     "flowtype/boolean-style": [
       2,
       "boolean"

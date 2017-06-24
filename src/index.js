@@ -34,7 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route
-        render={({ location }) => (
+        render={() => (
             isUserAuthenticated() ? (
               <Switch>
                 <Route exact path="/home" component={Home} />
