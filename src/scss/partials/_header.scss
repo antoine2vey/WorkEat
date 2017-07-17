@@ -104,13 +104,28 @@
 
       &-link {
         position: relative;
-        margin: 0 100px 0 0 !important;
+        margin: 0 30px 0 0 !important;
+        padding: 0 !important;
+        border: 0;
+        @include screenSm {
+          margin: 0 10px 0 0 !important;
+          // height: 8vh;
+        };
+      }
+    }
+
+    &-search {
+      &-link {
+        margin: 0 70px 0 0 !important;
         padding: 0 !important;
         border: 0;
         @include screenSm {
           margin: 0 !important;
-          height: 8vh;
         };
+      }
+
+      &-item {
+        width: 40px;
       }
     }
 

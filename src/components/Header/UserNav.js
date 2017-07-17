@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
+import Search from '../Search/Search';
 import * as images from '../../images';
 
 class UserNav extends Component {
@@ -10,6 +11,7 @@ class UserNav extends Component {
     this.state = {
       isCartShown: false,
       isNavShown: false,
+      isSearchShown: false,
       timer: setInterval(() => {
         const date = moment().unix();
         // eslint-disable-next-line
@@ -31,7 +33,8 @@ class UserNav extends Component {
 
     this.showCart = this.showCart.bind(this);
     this.showNav = this.showNav.bind(this);
-    this.hideNavAndCart = this.hideNavAndCart.bind(this);
+    this.hideEverything = this.hideEverything.bind(this);
+    this.showSearch = this.showSearch.bind(this);
   }
 
   componentWillUnmount() {
@@ -48,20 +51,26 @@ class UserNav extends Component {
     this.setState({ isNavShown: !this.state.isNavShown });
   }
 
-  hideNavAndCart() {
+  hideEverything() {
     document.body.classList.toggle('dont-scroll');
     this.setState({
       isNavShown: false,
       isCartShown: false,
+      isSearchShown: false,
     });
+  }
+
+  showSearch() {
+    document.body.classList.toggle('dont-scroll');
+    this.setState({ isSearchShown: !this.state.isSearchShown });
   }
 
   render() {
     const { logoutUser, itemsNumber, solde } = this.props;
-    const { isCartShown, isNavShown, tstamp } = this.state;
+    const { isCartShown, isNavShown, isSearchShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
-        <div className={"panel-shadow" + (this.state.isCartShown || this.state.isNavShown ? ' panel-shadow--active' : '')} onClick={this.hideNavAndCart} />
+        <div className={"panel-shadow" + (this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : '')} onClick={this.hideEverything} />
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} />
         <header className="main-header">
           <div className="main-header-menu">
@@ -76,9 +85,13 @@ class UserNav extends Component {
               <div className="main-header-cart-number">{itemsNumber}</div>
               <img src={images.cart} alt="Panier" className="main-header-cart-item" />
             </button>
+            <button className="main-header-search-link" onClick={this.showSearch}>
+              <img src={images.search} alt="Recherche" className="main-header-search-item" />
+            </button>
           </div>
         </header>
         <Cart itemsNumber={itemsNumber} shown={isCartShown} switcher={this.showCart} />
+        <Search shown={isSearchShown} switcher={this.showSearch} />
       </div>
     );
   }
