@@ -2,11 +2,9 @@
 import React from 'react';
 
 const Input = ({ ...props }) => (
-  <div className="field">
-    <label htmlFor={props.name} className="label">{props.placeholder}</label>
-    <p className="control">
-      <input className="input" {...props} />
-    </p>
+  <div className="material-field">
+    <label htmlFor={props.name} className="material-field__label" onFocus={this.focusInput} onBlur={this.blurInput}>{props.placeholder}</label>
+    <input className="material-field__input" {...props} />
   </div>
 );
 

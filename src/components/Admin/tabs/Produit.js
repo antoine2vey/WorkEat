@@ -31,6 +31,16 @@ class Product extends Component {
     fetchPlacesIfNeeded();
   }
 
+  focusInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.remove('is-focused');
+  }
+
   handleChange(event) {
     const { name, value, options } = event.target;
     switch (name) {
@@ -66,11 +76,11 @@ class Product extends Component {
   render() {
     const { tags, places, types } = this.props;
     return (
-      <div className="columns" style={{ justifyContent: 'center' }}>
-        <div className="column">
-          <ProductList {...this.props} />
-        </div>
-        <div className="column">
+      <div className="admin__products">
+        <h2 className="admin__products-title">Mes produits</h2>
+        <ProductList {...this.props} />
+        <div className="admin__add-product">
+          <h2 className="admin__products-title">Ajouter un produit</h2>
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
             <div className="field">
               <label htmlFor="file" className="label">Photo</label>

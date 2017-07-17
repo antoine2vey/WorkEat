@@ -1,0 +1,70 @@
+.admin {
+  &__products {
+    background: $white;
+    margin-bottom: 200px;
+    padding: 0 20px;
+
+    &-title {
+      font-size: 30px;
+      font-family: $primary-font;
+      font-weight: bold;
+    }
+
+    &-list {
+      @include flex(flex-start, flex-start, row);
+      flex-wrap: wrap;
+      width: 100%;
+    }
+  }
+
+  &__product {
+    height: 100%;
+    @include material-shadow(box, 1);
+
+    &-column {
+      flex-basis: 25%;
+      align-self: stretch;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    &-image {
+      width: 100%;
+
+      &-container {
+        display: inherit;
+        height: 200px;
+        overflow: hidden;
+      }
+    }
+
+    &-content {
+      @include flex(flex-start, flex-start, column);
+      flex: 1;
+      padding: 10px;
+    }
+
+    &-title {
+      margin-bottom: 5px;
+      font-size: 24px;
+      font-family: $primary-font;
+      font-weight: bold;
+    }
+
+    &-price {
+      margin-bottom: 5px;
+      font-size: 22px;
+      font-family: $primary-font;
+    }
+
+    &-desc {
+      font-size: 16px;
+      font-family: $secondary-font;
+    }
+  }
+
+  &__add-product {
+    margin-top: 50px;
+  }
+}

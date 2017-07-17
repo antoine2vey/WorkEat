@@ -14,7 +14,7 @@ a:hover {
 .example-enter.example-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity .5s $transition, transform .2s $transition;
+  transition: opacity 0.5s $transition, transform 0.2s $transition;
 }
 
 .example-leave {
@@ -103,19 +103,22 @@ a:hover {
   border-radius: 0;
   font-family: $primary-font;
   font-weight: 300;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   font-size: 15px;
   text-transform: inherit;
   transition: all 0.6s ease;
   overflow: hidden;
   @include reset($white, inherit, $gold);
+
   &:focus {
-    color:inherit;
+    color: inherit;
   }
+
   &:disabled {
     pointer-events: none;
-    opacity: .5;
+    opacity: 0.5;
   }
+
   &::before {
     content: '';
     position: absolute;
@@ -139,8 +142,9 @@ a:hover {
     background: $gold;
     transition: all 0.6s $transition;
   }
-  &:active{
-    color:inherit;
+
+  &:active {
+    color: inherit;
   }
 
   &:hover {
@@ -182,10 +186,12 @@ a:hover {
     transition: transform 0.3s, color 0.3s !important;
     transform-origin: 0 50% !important;
   }
-  &__checkbox{
-  background-color: $red;
-  margin-right: 3%;
-}
+
+  &__checkbox {
+    background-color: $red;
+    margin-right: 3%;
+  }
+
   &__input {
     position: relative !important;
     display: block !important;
@@ -244,9 +250,8 @@ a:hover {
   }
 }
 /* Tab navigation */
-
 .tabs-container {
-  padding-top:100px;
+  padding-top: 100px;
 }
 
 .select-tab,
@@ -261,14 +266,15 @@ a:hover {
     color: $write !important;
     border-color: $gold;
   }
-  &:hover{
+
+  &:hover {
     border-bottom: 5px solid $gold;
   }
 }
 
-.select-tab.disabled,
-.select-tab-2.disbled {
-  opacity: .3;
+.select-tab-2.disbled,
+.select-tab.disabled {
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -283,23 +289,23 @@ a:hover {
 
 .selected {
   margin-top: 20px;
-  padding:20px;
+  padding: 20px;
   @include material-shadow(box, 2);
+
   &__title {
     font-size: 24px;
     font-family: $primary-font;
     font-weight: 500;
   }
 }
-
 /* payement selection */
-
 .payment {
   &__select {
     @include flex(center, flex-start, row);
     height: auto;
     @include material-shadow(box, 2);
   }
+
   &__type {
     flex: 1;
     height: 150px;
@@ -312,6 +318,7 @@ a:hover {
       margin-bottom: 0;
     }
   }
+
   &__icon {
     width: 60px;
   }
@@ -319,18 +326,17 @@ a:hover {
   &__solde {
     font-family: $primary-font;
   }
+
   &__add-card {
-    flex:1;
-    width:100%;
+    flex: 1;
+    width: 100%;
   }
 }
-
 /* Card */
-
 .cards-container {
   @include flex(center, center, row);
   @include screenMd {
-    @include flex(center, center, column);
+     @include flex(center, center, column);
   };
 }
 
@@ -340,18 +346,18 @@ a:hover {
 
 .card {
   @include flex(null, null, column);
-  margin:0 auto;
-  max-width:380px;
-  height:240px;
+  margin: 0 auto;
+  max-width: 380px;
+  height: 240px;
   padding: 20px;
   border-radius: 5px;
   @include material-shadow(box, 2);
   transition: all 0.3s $transition;
-
   @include screenSm {
-    max-width:320px;
-    height:170px;
+    max-width: 320px;
+    height: 170px;
   };
+
   &__top {
     @include flex(center, center, row);
     align-self: stretch;
@@ -371,15 +377,15 @@ a:hover {
   }
 
   &__code {
-    flex:1;
-    margin:0;
+    flex: 1;
+    margin: 0;
     color: $white;
     text-align: center;
     font-family: $primary-font;
     font-size: 26px;
     letter-spacing: 2.5px;
     @include screenSm {
-      font-size:22px;
+      font-size: 22px;
       letter-spacing: 4px;
     };
   }
@@ -396,28 +402,27 @@ a:hover {
   &__label-cvc,
   &__label-date,
   &__label-name {
-    margin:0;
+    margin: 0;
     color: $white;
     font-size: 16px;
     font-family: $primary-font;
     @include screenSm {
-      font-size:14px;
+      font-size: 14px;
     };
   }
 
-  &__secret-code,
   &__date,
-  &__name {
-    margin:0;
+  &__name,
+  &__secret-code {
+    margin: 0;
     color: $white;
     font-size: 22px;
     font-family: $primary-font;
     @include screenSm {
-      font-size:18px;
+      font-size: 18px;
     };
   }
 }
-
 /* Credit cards */
 .visa-card {
   background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
@@ -426,7 +431,6 @@ a:hover {
 .master-card {
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
-
 /* cart panel */
 .dont-scroll {
   overflow-y: hidden;
@@ -461,14 +465,13 @@ a:hover {
   height: 100px;
   @include flex;
   background: $white;
-  transition: top .3s $transition;
+  transition: top 0.3s $transition;
   box-sizing: border-box;
-
   @include screenSm {
     top: -200px;
     flex-direction: column;
     height: 200px;
-    padding:0 10px 10px 10px;
+    padding: 0 10px 10px;
   };
 
   &--open {
@@ -485,6 +488,7 @@ a:hover {
       margin-right: 0;
     };
   }
+
   &__submit {
     margin: 0 !important;
   }
@@ -543,6 +547,7 @@ a:hover {
     color: $divider;
     font-family: $primary-font;
     font-style: italic;
+
     &-name {
       margin: 0;
     }
@@ -563,12 +568,14 @@ a:hover {
 
     &:hover {
       @include material-shadow(box, 2);
+
       .cart-panel__formules {
         top: 50%;
         transform: translateY(-50%);
         visibility: visible;
         opacity: 1;
       }
+
       .formula-product {
         visibility: hidden;
         opacity: 0;
@@ -581,7 +588,6 @@ a:hover {
       flex-wrap: wrap;
       flex: 1;
       align-self: stretch;
-
       @include screenSm {
         flex-direction: column;
       };
@@ -589,6 +595,7 @@ a:hover {
 
     &-image {
       height: 100px;
+
       &-container {
         width: 100px;
         height: 100px;
@@ -798,43 +805,48 @@ a:hover {
 .icon-instagrem:before {
   content: "\61";
 }
+
 input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus
-input:-webkit-autofill{
+input:-webkit-autofill:focus input:-webkit-autofill,
+input:-webkit-autofill:hover {
   -webkit-text-fill-color: $gold;
   background: transparent;
   transition: background-color 5000s ease-in-out 0s;
-
 }
-.cookie{
+
+.cookie {
   position: fixed;
   bottom: 0;
   z-index: 1000;
   width: 100%;
   background-color: $gold;
   @include material-shadow(box, 2);
-  &-content{
+
+  &-content {
     text-align: center;
     padding: 5px;
     margin: 0;
   }
-  &-valider, &-infos{
-    border:0;
+
+  &-infos,
+  &-valider {
+    border: 0;
     margin: 0;
   }
 }
-.fadeOut{
-  visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.5s, opacity 0.5s linear;}
 
-.cancel-btn-gold{
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.cancel-btn-gold {
   background: url('../../assets/images/icons/cancel.svg') center center no-repeat;
-  border: 0px;
+  border: 0;
   float: right;
   margin: 3% 3% 0 0;
-  @include screenSm{
+  @include screenSm {
     left: 50%;
     top: 5%;
     position: absolute;
@@ -842,7 +854,15 @@ input:-webkit-autofill{
     background-size: 50%;
   }
 }
-.notification{
-  @include material-shadow(box, 4);
 
+.notification {
+  @include material-shadow(box, 4);
+}
+
+.btn {
+  &__delete {
+    color: $white;
+    background: $red;
+    border: none;
+  }
 }
