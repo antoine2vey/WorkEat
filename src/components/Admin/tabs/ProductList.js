@@ -17,8 +17,8 @@ class ProductList extends Component {
       <div className="admin__products-list">
         {
           products.map(product => (
-            <div className="admin__product-column">
-              <article className="admin__product" key={product._id}>
+            <div className="admin__product-column" key={product._id}>
+              <article className="admin__product">
                 <div className="admin__product-image-container">
                   <img className="admin__product-image" src={product.file} alt={product.name} />
                 </div>

@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   places,
   bundles,
   cart,
-  //routing: routerReducer,
+  // routing: routerReducer,
 });
 
 export default rootReducer;

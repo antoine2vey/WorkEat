@@ -3,7 +3,7 @@ import React from 'react';
 
 const Input = ({ ...props }) => (
   <div className="material-field">
-    <label htmlFor={props.name} className="material-field__label" onFocus={this.focusInput} onBlur={this.blurInput}>{props.placeholder}</label>
+    <label htmlFor={props.name} className="material-field__label" onFocus={props.focusInput} onBlur={props.blurInput}>{props.placeholder}</label>
     <input className="material-field__input" {...props} />
   </div>
 );

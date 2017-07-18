@@ -1,4 +1,4 @@
-import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL } from '../actions/products';
+import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL, TRIGGER_FILTER } from '../actions/products';
 import { ADD_TO_CART } from '../actions/cart';
 
 const initialState = {
@@ -65,6 +65,23 @@ const products = (state = initialState, action) => {
           ...state.products,
           action.product,
         ],
+      };
+    case TRIGGER_FILTER:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.name.toUpperCase().includes(action.str.toUpperCase())) {
+            return {
+              ...product,
+              isHidden: false,
+            };
+          }
+          
+          return {
+            ...product,
+            isHidden: true,
+          };
+        }),
       };
     default:
       return state;

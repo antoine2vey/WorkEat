@@ -6,6 +6,7 @@ export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const HIDE_DETAIL = 'HIDE_DETAIL';
+export const TRIGGER_FILTER = 'TRIGGER_FILTER';
 
 // Action to receive products
 const receiveProducts = products => ({
@@ -37,6 +38,11 @@ const showProductDetail = (product) => {
 const hideProductDetail = product => ({
   type: HIDE_DETAIL,
   product,
+});
+
+const triggerFilter = str => ({
+  type: TRIGGER_FILTER,
+  str,
 });
 
 // API call to fetch products
@@ -96,4 +102,8 @@ const hideProduct = product => dispatch => (
   dispatch(hideProductDetail(product))
 );
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct };
+const getFilteredProducts = str => (dispatch, getState) => (
+  dispatch(triggerFilter(str))
+);
+
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts };

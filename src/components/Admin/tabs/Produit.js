@@ -89,15 +89,15 @@ class Product extends Component {
               </p>
               <img src="" id="preview" style={{ maxWidth: 400 }} alt="Preview" />
             </div>
-            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-            <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-            <Input type="text" name="preparation" placeholder="Preparation" onChange={this.handleChange} />
-            <Input type="text" name="allergics" placeholder="Allergènes" onChange={this.handleChange} />
-            <Input type="number" name="price" placeholder="Prix" onChange={this.handleChange} />
+            <Input type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            <Input type="text" name="description" placeholder="Description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            <Input type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            <Input type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            <Input type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             <Select label="Tags" name="tags" multiple data={tags} onChange={this.handleChange} />
             <Select label="Endroits" name="places" multiple data={places} onChange={this.handleChange} />
             <Select label="Type" name="types" multiple flat data={types} onChange={this.handleChange} />
-            <Input type="submit" value="Créer" className="btn" />
+            <Input type="submit" value="Créer" onFocus={this.focusInput} onBlur={this.blurInput} className="btn" />
           </form>
         </div>
       </div>

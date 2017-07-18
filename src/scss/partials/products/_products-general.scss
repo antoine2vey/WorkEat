@@ -87,6 +87,10 @@
         pointer-events: none;
         position: relative;
       }
+
+      &__hidden {
+        display: none;
+      }
     }
 
     &__title {
