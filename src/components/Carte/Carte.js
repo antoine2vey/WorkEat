@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { fetchProductsIfNeeded, showProduct, hideProduct } from '../../actions/products';
+import { fetchProductsIfNeeded, showProduct, hideProduct, addListener } from '../../actions/products';
 import { fetchPlacesIfNeeded } from '../../actions/livraison';
 import { getEntrees, getPlats, getDesserts, getBoissons } from '../../reducers/products';
 import Entrees from '../Products/Entrees';
@@ -15,6 +15,7 @@ class Carte extends Component {
   componentDidMount() {
     this.props.fetchProductsIfNeeded();
     this.props.fetchPlacesIfNeeded();
+    this.props.addListener('updateQuantity');
   }
 
   render() {
@@ -81,4 +82,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded })(Carte);
+export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener })(Carte);

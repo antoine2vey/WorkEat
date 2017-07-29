@@ -15,6 +15,7 @@ const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
 const pmx = require('pmx');
+const bootstrapSockets = require('./server/sockets').index;
 const exphbs = require('express-handlebars');
 
 const ExtractJwt = passportJWT.ExtractJwt;
@@ -40,6 +41,8 @@ if (!DEV) {
 
 process.setMaxListeners(0);
 mongoose.connect(sessionDB);
+
+bootstrapSockets();
 
 /**
 * APP CONFIG

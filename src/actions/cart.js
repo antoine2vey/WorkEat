@@ -1,10 +1,13 @@
 import axios from 'axios';
+import * as io from 'socket.io-client';
 import history from '../utils/history';
+
+const socket = io.connect('http://localhost:3005');
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
 export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
-export const DECREMENT_QUANTITY = 'UNINCREMENT_QUANTITY';
+export const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST';
 export const CHECKOUT_HANDSHAKE = 'CHECKOUT_HANDSHAKE';
@@ -12,6 +15,8 @@ export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
 const addToCartUnsafe = (product, isBundle, index) => {
+  socket.emit('decreaseQuantity', product._id);
+
   if (isBundle === true) {
     return {
       type: ADD_TO_CART,
@@ -44,7 +49,6 @@ export const addToCart = (product, isBundle, index) => (dispatch) => {
 export const incrementQuantity = productId => dispatch => (
   dispatch(increment(productId))
 );
-
 export const decrementQuantity = productId => dispatch => (
   dispatch(decrement(productId))
 );

@@ -1,4 +1,4 @@
-import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL, TRIGGER_FILTER } from '../actions/products';
+import { RECEIVE_PRODUCTS, REQUEST_PRODUCTS, DELETE_PRODUCT, CREATE_PRODUCT, SHOW_DETAIL, HIDE_DETAIL, TRIGGER_FILTER, DECREMENT_PRODUCT_QUANTITY } from '../actions/products';
 import { ADD_TO_CART } from '../actions/cart';
 
 const initialState = {
@@ -10,6 +10,20 @@ const initialState = {
 
 const products = (state = initialState, action) => {
   switch (action.type) {
+    case DECREMENT_PRODUCT_QUANTITY:
+      return {
+        ...state,
+        products: state.products.map((product, i) => {
+          if (action.productId === product._id) {
+            return {
+              ...product,
+              stock: product.stock - 1,
+            };
+          }
+
+          return product;
+        }),
+      };
     case ADD_TO_CART:
       return {
         ...state,

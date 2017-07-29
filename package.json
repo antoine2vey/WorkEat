@@ -1,6 +1,14 @@
 {
   "name": "WorkEat",
-  "proxy": "http://localhost:3001",
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3001"
+    },
+    "/socket": {
+      "target": "http://localhost:3005",
+      "ws": true
+    }
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
