@@ -39,31 +39,31 @@ const Payment = ({ cart, incrementQuantity, quantityById, decrementQuantity, del
               <p>Formule</p>
               <hr />
             </div>
-          { cart.map(item => (
-            item.isBundle &&
-            <div className="partOne__product" key={item._id}>
-              <div className="partOne__product-infos">
-                <div className="partOne__product-text formula-product">
-                  <h3 className="partOne__product-title">{item.name}</h3>
-                  <p className="partOne__price">{item.price}€</p>
+            { cart.map(item => (
+              item.isBundle &&
+              <div className="partOne__product" key={item._id}>
+                <div className="partOne__product-infos">
+                  <div className="partOne__product-text formula-product">
+                    <h3 className="partOne__product-title">{item.name}</h3>
+                    <p className="partOne__price">{item.price}€</p>
+                  </div>
+                  <div className="cart-panel__formules">
+                    { item.entree.name && <p className="cart-panel__formules-content">Entrée : {item.entree.name}</p> }
+                    { item.plat.name && <p className="cart-panel__formules-content">Plat : {item.plat.name}</p> }
+                    { item.dessert.name && <p className="cart-panel__formules-content">Dessert : {item.dessert.name}</p> }
+                    { item.boisson.name && <p className="cart-panel__formules-content">Boisson : {item.boisson.name}</p> }
+                  </div>
                 </div>
-                <div className="cart-panel__formules">
-                  { item.entree.name && <p className="cart-panel__formules-content">Entrée : {item.entree.name}</p> }
-                  { item.plat.name && <p className="cart-panel__formules-content">Plat : {item.plat.name}</p> }
-                  { item.dessert.name && <p className="cart-panel__formules-content">Dessert : {item.dessert.name}</p> }
-                  { item.boisson.name && <p className="cart-panel__formules-content">Boisson : {item.boisson.name}</p> }
+                <div className="partOne__quantity" style={{ padding: '10px 0' }}>
+                  <div className="partOne__quantity-button partOne__quantity-up js--up" onClick={() => incrementQuantity(item._id)} >+</div>
+                  <input type="number" value={item.quantity} min="0" readOnly className="partOne__quantity-input js--quantity-input" />
+                  <div className="partOne__quantity-button partOne__quantity-down js--down" onClick={() => decrementQuantity(item._id)}>-</div>
+                </div>
+                <div className="partOne__delete" onClick={() => deleteProduct(item._id)}>
+                  <img src={trashBlanc} alt="Supprimer" className="partOne__delete-icon" />
                 </div>
               </div>
-              <div className="partOne__quantity" style={{ padding: '10px 0' }}>
-                <div className="partOne__quantity-button partOne__quantity-up js--up" onClick={() => incrementQuantity(item._id)} >+</div>
-                <input type="number" value={item.quantity} min="0" readOnly className="partOne__quantity-input js--quantity-input" />
-                <div className="partOne__quantity-button partOne__quantity-down js--down" onClick={() => decrementQuantity(item._id)}>-</div>
-              </div>
-              <div className="partOne__delete" onClick={() => deleteProduct(item._id)}>
-                <img src={trashBlanc} alt="Supprimer" className="partOne__delete-icon" />
-              </div>
-            </div>
-          )) }
+            )) }
             <div className="partOne__livraison">
               <div className="partOne__category">
                 <p>Endroits à livrer</p>
