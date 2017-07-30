@@ -99,19 +99,22 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    User.findOne({ username }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false);
-      }
-      if (!user.validatePassword(password, user.password)) {
-        return done(null, false);
-      }
+    User
+      .findOne({ username })
+      .populate('position')
+      .exec((err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false);
+        }
+        if (!user.validatePassword(password, user.password)) {
+          return done(null, false);
+        }
 
-      return done(null, user);
-    });
+        return done(null, user);
+      });
   }));
 
 const userRoute = require('./server/api/users.api');
