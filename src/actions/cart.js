@@ -57,8 +57,8 @@ export const deleteProduct = productId => dispatch => (
   dispatch(deleteFromCart(productId))
 );
 
-export const checkoutReq = (cart, quantites) => (dispatch) => {
-  axios.post('/api/orders', { cart, quantites }, {
+export const checkoutReq = (cart, quantites, placeId) => (dispatch) => {
+  axios.post('/api/orders', { cart, quantites, placeId }, {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,
     },
