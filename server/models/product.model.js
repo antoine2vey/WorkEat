@@ -52,6 +52,10 @@ const productSchema = new mongoose.Schema({
       required: true,
     },
   ],
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('Product', productSchema);
