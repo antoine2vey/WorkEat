@@ -5,7 +5,9 @@ import { close, logoBlanc } from '../../images';
 const Nav = ({ shown, switcher, logout, solde }) => (
   <nav className={shown ? 'nav nav--js-open' : 'nav'}>
     <img src={close} alt="Fermer le menu" className="nav-close" onClick={switcher} />
-    <img src={logoBlanc} alt="logo" className="nav-logo" />
+    <Link to="/home">
+      <img src={logoBlanc} alt="logo" className="nav-logo" />
+    </Link>
     <ul className="nav-list">
       <li className="nav-list-item">
         <Link to="/" className="nav-list-item-link" onClick={() => switcher()}>Liste des produits</Link>
