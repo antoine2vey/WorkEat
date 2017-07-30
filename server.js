@@ -73,7 +73,7 @@ app.use(session({
   }),
   saveUninitialized: true,
   cookie: {
-    secure: !DEV,
+    secure: DEV,
   },
 }));
 
@@ -127,7 +127,7 @@ const cart = require('./server/api/cart.api.js');
 const messageApi = require('./server/api/contact.api.js');
 
 const authorizeRequest = (req, res, next) => {
-  if (req.isAuthenticated() || process.env.NODE_ENV !== 'production') {
+  if (req.isAuthenticated()) {
     next();
   } else {
     res.status(401).send('Unauthorized. Please login.');
@@ -246,7 +246,7 @@ app.post('/api/csv', isPresta, csv.createFile);
 app.get('/api/csv', isPresta, csv.download);
 
 // MAIL
-app.post('/api/contact', authorizeRequest, messageApi.contact);
+app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
