@@ -50,7 +50,8 @@ exports.getOne = (req, res) => {
           return console.log(err);
         }
 
-        return console.log('mail sent!', response.response);
+        console.log('mail sent!', response.response);
+        return mailer.close();
       });
 
       return res.send(order);

@@ -227,7 +227,8 @@ exports.create = (req, res) => {
             return console.log(err);
           }
 
-          return console.log('mail sent!', response.response);
+          console.log('mail sent!', response.response);
+          return mailer.close();
         });
 
         return res.status(200).send('Account created! Please login with your new account.');
