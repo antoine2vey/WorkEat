@@ -4,7 +4,7 @@ import { Product, Article, Livraison, Formule, Tag } from './tabs';
 
 const Admin = () => (
   <div>
-    <div className="tabs is-fullwidth is-medium">
+    <div className="main-header main-header__small">
       <ul>
         <li>
           <NavLink to="/admin/produits" activeClassName="is-active">
