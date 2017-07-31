@@ -26,7 +26,6 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
-  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
