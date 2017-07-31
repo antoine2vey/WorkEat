@@ -1,5 +1,5 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USER_LOGOUT, DELETE_ACCOUNT, UPDATE_ACCOUNT, INCREASE_AMOUNT } from '../actions/auth';
-import { CHECKOUT_SUCCESS } from '../actions/cart';
+import { CHECKOUT_SUCCESS } from '../actions/cart';
 
 const initialState = {
   token: null,

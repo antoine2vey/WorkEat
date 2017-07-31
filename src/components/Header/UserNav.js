@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import Cart from '../Cart/Cart';
 import { Link } from 'react-router-dom';
+import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import Search from '../Search/Search';
 import * as images from '../../images';
@@ -65,12 +65,12 @@ class UserNav extends Component {
   }
 
   render() {
-    const { logoutUser, itemsNumber, solde } = this.props;
+    const { logoutUser, itemsNumber, solde, token } = this.props;
     const { isCartShown, isNavShown, isSearchShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
-        <div className={"panel-shadow" + (this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : '')} onClick={this.hideEverything} />
-        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} />
+        <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
+        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} token={token} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
