@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/bundles';
+import { fetchBundlesIfNeeded, deleteBundles, createBundles } from '../../../actions/bundles';
 import { Input, CheckBox } from './FormFields';
 
 class Formule extends Component {
@@ -115,15 +114,13 @@ class Formule extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { bundles, isFetching } = state.bundles;
-  return {
-    bundles, isFetching,
-  };
-}
+const mapStateToProps = ({ bundles: { bundles, isFetching } }) => ({
+  bundles,
+  isFetching,
+});
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Formule);
+export default connect(mapStateToProps, {
+  fetchBundlesIfNeeded,
+  createBundles,
+  deleteBundles,
+})(Formule);
