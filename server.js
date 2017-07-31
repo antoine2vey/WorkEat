@@ -242,6 +242,7 @@ app.delete('/api/bundles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), b
 // ARTICLES
 app.post('/api/articles', jwtExpress({ secret: process.env.JWT_SECRET }), article.create);
 app.get('/api/articles', article.list);
+app.get('/api/articles/:id', article.getOne);
 app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), article.delete);
 
 // EXPORT CSV
