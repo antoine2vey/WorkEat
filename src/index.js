@@ -9,6 +9,7 @@ import About from './components/About/About';
 import store from './store';
 import history from './utils/history';
 import { saveState } from './utils/persistState';
+import ScrollToTop from './utils/scrollToTop';
 
 const isUserAuthenticated = () => localStorage.getItem('_token') !== null;
 const PrivateRoute = ({ component, ...rest }) => (
@@ -33,24 +34,25 @@ store.subscribe(throttle(() => {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
+      <ScrollToTop />
       <Route
         render={() => (
-            isUserAuthenticated() ? (
-              <Switch>
-                <Route exact path="/home" component={Home} />
-                <PrivateRoute path="/" component={App} />
-                <Route path="/about" component={About} />
-                <Route path="*" render={() => <h1>404</h1>} />
-              </Switch>
-            ) : (
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <PrivateRoute path="/app" component={App} />
-                <Route path="/about" component={About} />
-                <Route path="*" render={() => <h1>404</h1>} />
-              </Switch>
+          isUserAuthenticated() ? (
+            <Switch>
+              <Route exact path="/home" component={Home} />
+              <PrivateRoute path="/" component={App} />
+              <Route path="/about" component={About} />
+              <Route path="*" render={() => <h1>404</h1>} />
+            </Switch>
+          ) : (
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <PrivateRoute path="/app" component={App} />
+              <Route path="/about" component={About} />
+              <Route path="*" render={() => <h1>404</h1>} />
+            </Switch>
           )
-      )}
+        )}
       />
     </Router>
   </Provider>,
