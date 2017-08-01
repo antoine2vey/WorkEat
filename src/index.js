@@ -33,8 +33,9 @@ store.subscribe(throttle(() => {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route
-        render={() => (
+      <ScrollToTop>
+        <Route
+          render={() => (
             isUserAuthenticated() ? (
               <Switch>
                 <Route exact path="/home" component={Home} />
@@ -49,9 +50,10 @@ ReactDOM.render(
                 <Route path="/about" component={About} />
                 <Route path="*" render={() => <h1>404</h1>} />
               </Switch>
-          )
-      )}
-      />
+            )
+          )}
+        />
+      </ScrollToTop>
     </Router>
   </Provider>,
   document.getElementById('root'),
