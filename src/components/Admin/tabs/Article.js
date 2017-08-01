@@ -70,13 +70,7 @@ class Article extends Component {
     return (
       <div className="admin__products">
         <h2 className="admin__products-title">Mes articles</h2>
-        <ul>
-          {
-            articles.map(({ _id, title }) => (
-              <li key={_id}>{title}  - <button onClick={() => this.props.deleteArticles(_id)}>X</button></li>
-            ))
-          }
-        </ul>
+        <h3>articles to spread</h3>
         <div className="admin__add-product">
           <h2 className="admin__products-title">Ajouter un article</h2>
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
