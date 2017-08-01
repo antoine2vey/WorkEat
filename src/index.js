@@ -9,6 +9,7 @@ import About from './components/About/About';
 import store from './store';
 import history from './utils/history';
 import { saveState } from './utils/persistState';
+import ScrollToTop from './utils/scrollToTop';
 
 const isUserAuthenticated = () => localStorage.getItem('_token') !== null;
 const PrivateRoute = ({ component, ...rest }) => (
