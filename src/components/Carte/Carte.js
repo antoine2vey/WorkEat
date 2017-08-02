@@ -15,7 +15,8 @@ class Carte extends Component {
   componentDidMount() {
     this.props.fetchProductsIfNeeded();
     this.props.fetchPlacesIfNeeded();
-    this.props.addListener('updateQuantity');
+    this.props.addListener('INCREMENT_QUANTITY');
+    this.props.addListener('DECREMENT_QUANTITY');
   }
 
   render() {

@@ -7,6 +7,7 @@ import {
   HIDE_DETAIL,
   TRIGGER_FILTER,
   DECREMENT_PRODUCT_QUANTITY,
+  INCREMENT_PRODUCT_QUANTITY,
 } from '../actions/products';
 
 const initialState = {
@@ -26,6 +27,20 @@ const products = (state = initialState, action) => {
             return {
               ...product,
               stock: product.stock - 1,
+            };
+          }
+
+          return product;
+        }),
+      };
+    case INCREMENT_PRODUCT_QUANTITY:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (action.productId === product._id) {
+            return {
+              ...product,
+              stock: product.stock + action.quantity,
             };
           }
 

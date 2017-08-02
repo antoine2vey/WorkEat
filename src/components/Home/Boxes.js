@@ -97,6 +97,7 @@ class ConnectionBox extends Component {
 
 
   componentDidMount() {
+    // eslint-disable-next-line
     this.callNavigation;
   }
 

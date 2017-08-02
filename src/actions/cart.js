@@ -15,8 +15,6 @@ export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
 const addToCartUnsafe = (product, isBundle, index) => {
-  socket.emit('decreaseQuantity', product._id);
-
   if (isBundle === true) {
     return {
       type: ADD_TO_CART,
@@ -25,15 +23,43 @@ const addToCartUnsafe = (product, isBundle, index) => {
     };
   }
 
+  socket.emit('DECREMENT_QUANTITY', product._id);
   return {
     type: ADD_TO_CART,
     index,
     product,
   };
 };
-const increment = productId => ({ type: INCREMENT_QUANTITY, productId });
-const decrement = productId => ({ type: DECREMENT_QUANTITY, productId });
-const deleteFromCart = productId => ({ type: DELETE_ITEM, productId });
+const increment = (productId) => {
+  socket.emit('DECREMENT_QUANTITY', productId);
+
+  return {
+    type: INCREMENT_QUANTITY,
+    productId,
+  };
+};
+const decrement = (productId) => {
+  socket.emit('INCREMENT_QUANTITY', {
+    id: productId,
+    quantity: 1,
+  });
+
+  return {
+    type: DECREMENT_QUANTITY,
+    productId,
+  };
+};
+const deleteFromCart = ({ _id, quantity }) => {
+  socket.emit('INCREMENT_QUANTITY', {
+    id: _id,
+    quantity,
+  });
+
+  return {
+    type: DELETE_ITEM,
+    productId: _id,
+  };
+};
 const checkoutRequest = id => ({ type: CHECKOUT_REQUEST, id });
 const checkoutHandshake = () => ({ type: CHECKOUT_HANDSHAKE });
 const checkoutSuccess = (method, order) => ({ type: CHECKOUT_SUCCESS, method, order });
