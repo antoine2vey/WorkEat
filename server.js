@@ -246,7 +246,7 @@ app.get('/api/articles/:id', article.getOne);
 app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), article.delete);
 
 // EXPORT CSV
-app.post('/api/csv', isPresta, csv.createFile);
+app.post('/api/csv', isPresta, jwtExpress({ secret: process.env.JWT_SECRET }), csv.createFile);
 
 // MAIL
 app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);

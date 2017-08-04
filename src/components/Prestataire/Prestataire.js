@@ -18,10 +18,14 @@ class Prestataire extends Component {
   downloadCSV() {
     const { date } = this.state;
 
-    axios.post('/api/csv', { date })
-    .then(({ status, data }) => {
+    axios.post('/api/csv', { date }, {
+      headers: {
+        Authorization: `Bearer ${localStorage._token}`,
+      },
+    })
+    .then(({ status, data: { fileContent, fileName } }) => {
       if (status === 200) {
-        fileDownload(data, 'file.csv');
+        fileDownload(fileContent, fileName);
       }
     })
     .catch(({ response }) => console.error(response));

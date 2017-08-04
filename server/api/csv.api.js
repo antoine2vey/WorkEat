@@ -1,18 +1,22 @@
 const fs = require('fs');
 const json2csv = require('json2csv');
+const moment = require('moment');
+const path = require('path');
 const Order = require('../models/order.model');
 
 /**
- * Check if given fields exists in a given array for CSV file
- * @param {*} array 
- * @param {*} field 
+ * @description Check if given fields exists in a given array for CSV file
+ * @param {*} array
+ * @param {*} field
  */
 const doesFieldExists = (array, field) => {
-  return array.some(fields => fields.name === field);
+  return array.some(fields => fields.produit === field);
 };
 
 exports.createFile = (req, res) => {
   const { date } = req.body;
+  const formattedDate = moment(date).format('DD-MM-YYYY');
+  const fileName = `commandes_${formattedDate}.csv`;
   const limit = new Date(date);
 
   limit.setHours(limit.getHours() + 11);
@@ -34,19 +38,19 @@ exports.createFile = (req, res) => {
     }
 
     if (orders.length) {
-      const fields = ['name', 'amount'];
+      const fields = ['produit', 'montant'];
       const data = [];
       orders.forEach((order) => {
         // Articles
         order.articles.forEach((article) => {
           if (doesFieldExists(data, article.name)) {
-            const index = data.findIndex(obj => obj.name === article.name);
-            return (data[index].amount += order.quantitiesById[article._id]);
+            const index = data.findIndex(obj => obj.produit === article.name);
+            return (data[index].montant += order.quantitiesById[article._id]);
           }
 
           data.push({
-            name: article.name,
-            amount: order.quantitiesById[article._id],
+            produit: article.name,
+            montant: order.quantitiesById[article._id],
           });
         });
 
@@ -55,29 +59,46 @@ exports.createFile = (req, res) => {
           const keys = ['entree', 'plat', 'dessert', 'boisson'];
 
           keys.forEach((key) => {
+            // If no boisson or plat or ....
             if (bundle[key] === null) {
               return;
             }
 
             if (doesFieldExists(data, bundle[key].name)) {
-              const index = data.findIndex(obj => obj.name === bundle[key].name);
-              return (data[index].amount += 1);
+              const index = data.findIndex(obj => obj.produit === bundle[key].name);
+              return (data[index].montant += 1);
             }
 
             data.push({
-              name: bundle[key].name,
-              amount: 1,
+              produit: bundle[key].name,
+              montant: 1,
             });
           });
         });
       });
 
       const csv = json2csv({ data, fields });
-      fs.writeFile('file.csv', csv, (err) => {
+      const csvDir = path.join(__dirname, '..', '..', 'csv');
+
+      // If directory doesnt exist, we create it
+      fs.stat(csvDir, (err) => {
+        // We can write to dir
+        if (err) {
+          // On doit bloquer le thread sinon il writefile avant
+          // de mkdir
+          fs.mkdirSync(csvDir, () => fs.close());
+        }
+      });
+
+      fs.writeFile(`${csvDir}/${fileName}`, csv, (err) => {
         if (err) {
           res.status(500).send('Quelque chose s\'est mal déroulé, veuillez réessayer');
         }
-        res.status(200).download('file.csv');
+
+        res.status(200).send({
+          fileContent: csv,
+          fileName,
+        });
       });
     } else {
       res.status(404).send('Pas de commandes aujourd\'hui');
