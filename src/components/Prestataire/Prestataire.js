@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import axios from 'axios';
+import fileDownload from 'react-file-download';
 
 class Prestataire extends Component {
   constructor() {
     super();
 
     this.state = {
-      date: new Date().toISOString(),
+      date: moment().format('YYYY-MM-DD'),
     };
 
     this.changeDate = this.changeDate.bind(this);
@@ -17,7 +19,11 @@ class Prestataire extends Component {
     const { date } = this.state;
 
     axios.post('/api/csv', { date })
-    .then(res => console.log(res))
+    .then(({ status, data }) => {
+      if (status === 200) {
+        fileDownload(data, 'file.csv');
+      }
+    })
     .catch(({ response }) => console.error(response));
   }
 
@@ -32,7 +38,7 @@ class Prestataire extends Component {
   render() {
     return (
       <div style={{ paddingTop: 100 }}>
-        <input type="date" onChange={this.changeDate} />
+        <input type="date" onChange={this.changeDate} defaultValue={this.state.date} />
         <button onClick={this.downloadCSV}>downloadCSV</button>
       </div>
     );

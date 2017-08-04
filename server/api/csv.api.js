@@ -77,20 +77,10 @@ exports.createFile = (req, res) => {
         if (err) {
           res.status(500).send('Quelque chose s\'est mal déroulé, veuillez réessayer');
         }
-        res.status(200).send('Fichier crée!');
+        res.status(200).download('file.csv');
       });
     } else {
       res.status(404).send('Pas de commandes aujourd\'hui');
     }
-  });
-};
-
-exports.download = (req, res) => {
-  res.download('file.csv', 'file.csv', (err) => {
-    if (err) {
-      throw new Error(err);
-    }
-
-    res.end();
   });
 };

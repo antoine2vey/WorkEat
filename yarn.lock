@@ -5731,6 +5731,10 @@ react-dom@^15.4.2:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-file-download:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/react-file-download/-/react-file-download-0.3.4.tgz#4e1cfc7a47df6eeb299dfd845b99676cdedab5d2"
+
 react-google-maps@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-google-maps/-/react-google-maps-6.3.0.tgz#ba7e0b3c2a3ad15ebdff55ecfe8c17a1c9cd8a6b"
