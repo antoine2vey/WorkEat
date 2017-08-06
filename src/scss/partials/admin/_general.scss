@@ -1,0 +1,78 @@
+.admin {
+  &__form {
+    @include flex;
+    flex-wrap: wrap;
+  }
+
+  &__field-column {
+    padding: 20px;
+    box-sizing: border-box;
+
+    &-1 {
+      flex-basis: 100%;
+    }
+
+    &-2 {
+      flex-basis: 50%;
+    }
+
+    &-3 {
+      flex-basis: calc(100% / 3);
+    }
+
+    &-4 {
+      flex-basis: 25%;
+    }
+  }
+
+  &__select {
+    width: 100%;
+    border: 1px solid $dark-grey;
+    transition: border-color 0.3s $transition;
+
+    &:focus {
+      border-color: $gold;
+    }
+  }
+
+  &__file {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+
+    &-container {
+      @include flex(center, flex-start, row);
+      padding: 0;
+    }
+  }
+
+  &__tabs {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: $write;
+
+    &-list {
+      @include flex;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    &-item {
+      flex: 1;
+      text-align: center;
+    }
+
+    &-link {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: $white;
+      @include reset($white, none, none);
+    }
+  }
+}

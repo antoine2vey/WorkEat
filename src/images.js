@@ -32,6 +32,7 @@ import arrowRight from './assets/images/icons/arrow-right.svg';
 import arrowLeft from './assets/images/icons/arrow-left.svg';
 import cancel from './assets/images/icons/cancel.svg';
 import search from './assets/images/icons/search.svg';
+import download from './assets/images/icons/download.svg';
 
 import pig from './assets/images/icons/pig-money.svg';
 
@@ -79,4 +80,5 @@ export {
   dessert,
   boisson,
   search,
+  download,
 };
