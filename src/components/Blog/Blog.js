@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { articleThumb } from '../../images';
+import { connect } from 'react-redux';
+import { fetchArticlesIfNeeded } from '../../actions/articles';
 
 class Blog extends Component {
+  componentDidMount() {
+    this.props.fetchArticlesIfNeeded();
+  }
+
   render() {
+    const { articles } = this.props;
     return (
       <div>
         <div className="blog">
@@ -12,11 +18,13 @@ class Blog extends Component {
           </div>
           <div className="blog__container">
             <div className="blog__column">
-              <div className="blog__article">
-                <h2 className="blog__article-title">Pourquoi réduire ses apports en viande ?</h2>
-                <NavLink to="/article/test" className="blog__article-link">Lire</NavLink>
-                <img className="blog__article-thumb" src={articleThumb} alt="Nom de l'article" />
-              </div>
+              { articles.map(({ _id, title, thumbnail }) => (
+                <div className="blog__article" key={_id}>
+                  <h2 className="blog__article-title">{title}</h2>
+                  <NavLink to={`/article/${_id}`} className="blog__article-link">Lire</NavLink>
+                  <img className="blog__article-thumb" src={thumbnail} alt="Nom de l'article" />
+                </div>
+              )) }
             </div>
           </div>
         </div>
@@ -25,4 +33,9 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+const mapStateToProps = state => ({
+  articles: state.articles.articles,
+  isFetching: state.articles.isFetching,
+});
+
+export default connect(mapStateToProps, { fetchArticlesIfNeeded })(Blog);

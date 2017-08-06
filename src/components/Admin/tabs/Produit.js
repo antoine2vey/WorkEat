@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionsTags from '../../../actions/tags';
-import * as actionsPlaces from '../../../actions/livraison';
-import * as actionsProduct from '../../../actions/products';
+import { fetchTagsIfNeeded } from '../../../actions/tags';
+import { fetchPlacesIfNeeded } from '../../../actions/livraison';
+import { createProduct, fetchProductsIfNeeded, deleteProducts } from '../../../actions/products';
 import { Input, Select } from './FormFields';
 import ProductList from './ProductList';
 import { download } from '../../../images';
@@ -48,8 +47,7 @@ class Product extends Component {
       case 'file': {
         const reader = new FileReader();
         const img = document.getElementById('preview');
-        // eslint-disable-next-line
-        const blob = reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(event.target.files[0]);
 
         reader.addEventListener('load', () => {
           img.src = reader.result;
@@ -127,18 +125,18 @@ class Product extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    products: state.products.products,
-    tags: state.tags.tags,
-    places: state.places.places,
-    isFetching: state.products.isFetching,
-    types: ['Entree', 'Plat', 'Dessert', 'Boisson'],
-  };
-}
+const mapStateToProps = state => ({
+  products: state.products.products,
+  tags: state.tags.tags,
+  places: state.places.places,
+  isFetching: state.products.isFetching,
+  types: ['Entree', 'Plat', 'Dessert', 'Boisson'],
+});
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...actionsTags, ...actionsPlaces, ...actionsProduct }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, {
+  fetchPlacesIfNeeded,
+  fetchTagsIfNeeded,
+  fetchProductsIfNeeded,
+  createProduct,
+  deleteProducts,
+})(Product);

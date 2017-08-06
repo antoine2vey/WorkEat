@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as io from 'socket.io-client';
 
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
@@ -7,6 +8,9 @@ export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const HIDE_DETAIL = 'HIDE_DETAIL';
 export const TRIGGER_FILTER = 'TRIGGER_FILTER';
+export const DECREMENT_PRODUCT_QUANTITY = 'DECREMENT_PRODUCT_QUANTITY';
+export const INCREMENT_PRODUCT_QUANTITY = 'INCREMENT_PRODUCT_QUANTITY';
+const socket = io.connect('http://localhost:3005');
 
 // Action to receive products
 const receiveProducts = products => ({
@@ -43,6 +47,17 @@ const hideProductDetail = product => ({
 const triggerFilter = str => ({
   type: TRIGGER_FILTER,
   str,
+});
+
+const decrement = id => ({
+  type: DECREMENT_PRODUCT_QUANTITY,
+  productId: id,
+});
+
+const increment = (id, quantity) => ({
+  type: INCREMENT_PRODUCT_QUANTITY,
+  productId: id,
+  quantity,
 });
 
 // API call to fetch products
@@ -106,4 +121,17 @@ const getFilteredProducts = str => (dispatch, getState) => (
   dispatch(triggerFilter(str))
 );
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts };
+const addListener = key => (dispatch) => {
+  socket.on(key, ({ id, quantity }) => {
+    switch (key) {
+      case 'DECREMENT_QUANTITY':
+        return dispatch(decrement(id));
+      case 'INCREMENT_QUANTITY':
+        return dispatch(increment(id, quantity));
+      default:
+        return false;
+    }
+  });
+};
+
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener };

@@ -4,6 +4,7 @@ import { Product, Article, Livraison, Formule, Tag } from './tabs';
 
 const Admin = () => (
   <div>
+<<<<<<< HEAD
     <div className="admin__tabs">
       <ul className="admin__tabs-list">
         <li className="admin__tabs-item">

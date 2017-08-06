@@ -84,15 +84,27 @@ class ConnectionBox extends Component {
     this.nextClick = this.nextClick.bind(this);
     this.GotoNextSlide = this.GotoNextSlide.bind(this);
     this.GotoPrevSlide = this.GotoPrevSlide.bind(this);
+
+    const success = (pos) => {
+      this.setState({
+        position: [pos.coords.latitude, pos.coords.longitude],
+      });
+    };
+    const error = err => console.error(err);
+
+    this.callNavigation = navigator.geolocation.watchPosition(success, error);
   }
 
+
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      this.setState({ position: [pos.coords.latitude, pos.coords.longitude] });
-    }, (error) => {
-      console.error(error);
-    });
+    // eslint-disable-next-line
+    this.callNavigation;
   }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.callNavigation);
+  }
+
 
   handleChange(event) {
     const { name, value } = event.target;

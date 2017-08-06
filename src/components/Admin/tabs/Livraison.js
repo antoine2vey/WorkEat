@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/livraison';
+import { fetchPlacesIfNeeded, createPlaces, deletePlaces } from '../../../actions/livraison';
 import GMap from './GoogleMap';
 import { Input } from './FormFields';
 
@@ -88,6 +87,8 @@ const mapStateToProps = state => ({
   places: state.places.places,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Livraison);
+export default connect(mapStateToProps, {
+  fetchPlacesIfNeeded,
+  deletePlaces,
+  createPlaces,
+})(Livraison);

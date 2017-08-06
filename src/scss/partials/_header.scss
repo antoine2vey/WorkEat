@@ -7,6 +7,33 @@
     height: 100px;
     background: $write;
 
+    &__small {
+      position: relative;
+      z-index: 0;
+      padding-top: 100px;
+      margin-bottom: 20px;
+
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        list-style: none;
+        li {
+          margin: 0 25px;
+          font-size: 1.2em;
+          a {
+            color: $white;
+            text-decoration: none;
+            cursor: pointer;
+            &.is-active {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
     &-menu {
       @include flex(flex-start, center, row);
       flex: 1;

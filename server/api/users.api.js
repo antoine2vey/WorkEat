@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Places = require('../models/places.model');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -25,7 +26,6 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
-  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
@@ -88,7 +88,7 @@ exports.updateAmount = (req, res) => {
   });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
 
@@ -97,51 +97,41 @@ exports.login = (req, res) => {
     return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
-  User
-    .findOne({ username: req.body.username })
-    .populate('position')
-    .exec((err, user) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(404).send('Utilisateur non existant');
+    }
+    req.logIn(user, (err) => {
       if (err) {
-        throw new Error(err);
+        return res.status(500).send('Error saving session.');
       }
 
-      if (!user) {
-        return res.status(401).send('User not found. Please check your entry and try again.');
-      }
-
-      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-        if (isMatch) {
-          req.logIn(user, (err) => {
-            if (err) {
-              return res.status(500).send('Error saving session.');
-            }
-            const payload = {
-              id: user._id,
-              isAdmin: user.isAdmin,
-              isLivreur: user.isLivreur,
-              isPrestataire: user.isPrestataire,
-            };
-            const token = jwt.sign(payload, process.env.JWT_SECRET);
-            return res.status(200).send({
-              token,
-              user: {
-                username: user.username,
-                name: user.name,
-                surname: user.surname,
-                codePostal: user.codePostal,
-                address: user.address,
-                phoneNumber: user.phoneNumber,
-                town: user.town,
-                solde: user.solde,
-                position: user.position,
-              },
-            });
-          });
-        } else {
-          res.status(401).send({ success: false, message: 'Auth fail' });
-        }
+      const payload = {
+        id: user._id,
+        isAdmin: user.isAdmin,
+        isLivreur: user.isLivreur,
+        isPrestataire: user.isPrestataire,
+      };
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      return res.status(200).send({
+        token,
+        user: {
+          username: user.username,
+          name: user.name,
+          surname: user.surname,
+          codePostal: user.codePostal,
+          address: user.address,
+          phoneNumber: user.phoneNumber,
+          town: user.town,
+          solde: user.solde,
+          position: user.position,
+        },
       });
     });
+  })(req, res, next);
 };
 
 exports.create = (req, res) => {
@@ -236,7 +226,8 @@ exports.create = (req, res) => {
             return console.log(err);
           }
 
-          return console.log('mail sent!', response.response);
+          console.log('mail sent!', response.response);
+          return mailer.close();
         });
 
         return res.status(200).send('Account created! Please login with your new account.');

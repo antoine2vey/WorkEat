@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/tags';
+import { fetchTagsIfNeeded, createTags, deleteTags } from '../../../actions/tags';
 import { Input } from './FormFields';
 
 class Tag extends Component {
@@ -63,6 +62,8 @@ const mapStateToProps = state => ({
   tags: state.tags.tags,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tag);
+export default connect(mapStateToProps, {
+  fetchTagsIfNeeded,
+  createTags,
+  deleteTags,
+})(Tag);

@@ -12,6 +12,7 @@
     "flowtype"
   ],
   "rules": {
+    "jsx-a11y/no-static-element-interactions": "off",
     "flowtype/no-weak-types": 0,
     "consistent-return": "off",
     "no-shadow": "off",

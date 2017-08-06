@@ -5,7 +5,14 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  thumbnail: String,
+  thumbnail: {
+    type: String,
+    required: true,
+  },
+  banner: {
+    type: String,
+    require: true,
+  },
   text: {
     type: String,
     required: true,

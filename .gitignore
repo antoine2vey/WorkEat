@@ -12,6 +12,7 @@ build/
 
 # misc
 .DS_Store
+file.csv
 .env
 npm-debug.log*
 yarn-debug.log*

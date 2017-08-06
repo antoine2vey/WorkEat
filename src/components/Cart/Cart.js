@@ -45,11 +45,11 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                     </div>
                   </div>
                   <div className="cart-panel__quantity">
-                    <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+                    <button className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</button>
                     <input type="number" value={c.quantity} min="1" readOnly className="cart-panel__quantity-input js--quantity-input" />
-                    <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                    <button className="cart-panel__quantity-button cart-panel__quantity-down js--down" disabled={c.quantity === 0} onClick={() => decrementQuantity(c._id)}>-</button>
                   </div>
-                  <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
+                  <div className="cart-panel__delete" onClick={() => deleteProduct(c)}>
                     <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
                   </div>
                 </div>
@@ -77,12 +77,12 @@ const Cart = ({ cart, total, itemsNumber, shown, switcher, incrementQuantity, de
                       </div>
                     </div>
                     <div className="cart-panel__quantity" style={{ padding: '10px 0' }}>
-                      <div className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</div>
+                      <button className="cart-panel__quantity-button cart-panel__quantity-up js--up" onClick={() => incrementQuantity(c._id)}>+</button>
                       <input type="number" value={c.quantity} min="0" readOnly className="cart-panel__quantity-input js--quantity-input" />
-                      <div className="cart-panel__quantity-button cart-panel__quantity-down js--down" onClick={() => decrementQuantity(c._id)}>-</div>
+                      <button className="cart-panel__quantity-button cart-panel__quantity-down js--down" disabled={c.quantity === 0} onClick={() => decrementQuantity(c._id)}>-</button>
                     </div>
                   </div>
-                  <div className="cart-panel__delete" onClick={() => deleteProduct(c._id)}>
+                  <div className="cart-panel__delete" onClick={() => deleteProduct(c)}>
                     <img src={trashBlanc} alt="Supprimer" className="cart-panel__delete-icon" />
                   </div>
                 </div>

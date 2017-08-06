@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import Search from '../Search/Search';
@@ -13,14 +14,12 @@ class UserNav extends Component {
       isNavShown: false,
       isSearchShown: false,
       timer: setInterval(() => {
-        const date = moment().unix();
         // eslint-disable-next-line
         const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
-        const tmrwTimestamp = moment(tmrw).unix();
-
         const before = moment().hours('7').minutes('00').seconds('00').format();
         const after = moment().hours('11').minutes('30').seconds('00').format();
-
+        const date = moment().unix();
+        const tmrwTimestamp = moment(tmrw).unix();
         // Si je suis entre 8h et 11h30
         if (moment().isAfter(before) && moment().isBefore(after)) {
           return this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
@@ -66,18 +65,20 @@ class UserNav extends Component {
   }
 
   render() {
-    const { logoutUser, itemsNumber, solde } = this.props;
+    const { logoutUser, itemsNumber, solde, token } = this.props;
     const { isCartShown, isNavShown, isSearchShown, tstamp } = this.state;
     return (
       <div className="container-fluid">
-        <div className={"panel-shadow" + (this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : '')} onClick={this.hideEverything} />
-        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} />
+        <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
+        <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} token={token} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
+            <Link to="/home">
+              <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
+            </Link>
             <p className="main-header-timer-content"><span id="timer" className="main-header-timer-content-time">{tstamp}</span></p>
           </div>
           <div className="main-header-cart">

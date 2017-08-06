@@ -52,6 +52,9 @@ const quantityById = (state = initialState.quantityById, action) => {
         [productId]: state[productId] + 1,
       };
     case DECREMENT_QUANTITY:
+      if (state[productId] === 1) {
+        return omit(state, productId);
+      }
       if (state[productId] > 0) {
         return {
           ...state,

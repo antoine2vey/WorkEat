@@ -11,7 +11,8 @@ class PaymentStepThree extends Component {
   }
 
   render() {
-    const { order, user } = this.props;
+    const { order } = this.props;
+    const place = order.placeToShip && order.placeToShip.name;
     return (
       <div className="partFive">
         <div className="container">
@@ -95,8 +96,7 @@ class PaymentStepThree extends Component {
             <div className="five columns">
               <div className="partFive-coord">
                 <h5 className="partFive__product-title">Vos Coordonnées</h5>
-                <strong>Adresse</strong>: {user.address},<br />
-                {user.codePostal} {user.town}
+                <strong>Adresse</strong>: {place}<br />
               </div>
             </div>
             <div className="six columns">
@@ -115,7 +115,6 @@ class PaymentStepThree extends Component {
 
 const mapStateToProps = state => ({
   order: state.cart.order,
-  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { getOrderById })(PaymentStepThree);
