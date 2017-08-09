@@ -15,6 +15,9 @@ export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
 const addToCartUnsafe = (product, isBundle, index) => {
+  // In any case, update cart to server.
+  socket.emit('CART_UPDATE', { product });
+
   if (isBundle === true) {
     return {
       type: ADD_TO_CART,
@@ -23,6 +26,8 @@ const addToCartUnsafe = (product, isBundle, index) => {
     };
   }
 
+  // But if our product is not a bundle, connect stock to
+  // streaming pipeline
   socket.emit('DECREMENT_QUANTITY', product._id);
   return {
     type: ADD_TO_CART,
@@ -49,7 +54,10 @@ const decrement = (productId) => {
     productId,
   };
 };
-const deleteFromCart = ({ _id, quantity }) => {
+const deleteFromCart = (product) => {
+  const { _id, quantity } = product;
+
+  socket.emit('CART_UPDATE', { product, deleted: true });
   socket.emit('INCREMENT_QUANTITY', {
     id: _id,
     quantity,

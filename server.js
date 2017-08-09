@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
 const pmx = require('pmx');
-const bootstrapSockets = require('./server/sockets').index;
+const bootstrapSockets = require('./server/sockets');
 const exphbs = require('express-handlebars');
 
 const app = express();

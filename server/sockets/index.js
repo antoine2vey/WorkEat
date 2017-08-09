@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const Product = require('../models/product.model');
 
-exports.index = () => {
+module.exports = () => {
   io.on('connection', (socket) => {
     socket.on('DECREMENT_QUANTITY', (id) => {
       Product.findByIdAndUpdate(id, { $inc: { stock: -1 } }, (err, product) => {
