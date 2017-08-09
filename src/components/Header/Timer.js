@@ -18,14 +18,10 @@ class Timer extends Component {
 
   componentDidMount() {
     setInterval(() => {
-      // eslint-disable-next-line
-      const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
-      const before = moment().hours('7').minutes('00').seconds('00').format();
-      const after = moment().hours('11').minutes('30').seconds('00').format();
       const date = moment().unix();
-      const tmrwTimestamp = moment(tmrw).unix();
+      const tmrwTimestamp = moment(this.tmrw).unix();
       // Si je suis entre 8h et 11h30
-      if (moment().isAfter(before) && moment().isBefore(after)) {
+      if (moment().isAfter(this.before) && moment().isBefore(this.after)) {
         return this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
       }
 
