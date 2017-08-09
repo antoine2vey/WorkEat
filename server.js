@@ -254,6 +254,9 @@ app.post('/api/csv', isPresta, jwtExpress({ secret: process.env.JWT_SECRET }), c
 // MAIL
 app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);
 
+// LIVREURS
+app.get('/api/livreurs', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.getLivreurs);
+
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 import { Product, Article, Livraison, Formule, Tag } from './tabs';
+import Livreur from '../Livreur/Livreur';
 
 const Admin = () => (
   <div>
@@ -31,6 +32,11 @@ const Admin = () => (
             <span>Formules</span>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/admin/livreurs" activeClassName="is-active">
+            <span>Livreurs</span>
+          </NavLink>
+        </li>
       </ul>
     </div>
 
@@ -40,6 +46,7 @@ const Admin = () => (
       <Route path="/admin/livraisons" component={Livraison} />
       <Route path="/admin/articles" component={Article} />
       <Route path="/admin/formules" component={Formule} />
+      <Route path="/admin/livreurs" component={Livreur} />
       <Redirect from="/admin" to="/admin/produits" />
     </Switch>
   </div>
