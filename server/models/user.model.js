@@ -58,6 +58,8 @@ const accountSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 accountSchema.methods.validatePassword = (password, hash) => bcrypt.compareSync(password, hash);

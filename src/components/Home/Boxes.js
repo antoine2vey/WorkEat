@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import * as images from '../../images';
 import Slider from 'react-slick';
+import * as images from '../../images';
 
 class LoginBox extends Component {
   constructor() {
@@ -9,15 +9,24 @@ class LoginBox extends Component {
     this.state = {
       email: '',
       password: '',
+      resetEmail: '',
+      isResettingPassword: false,
     };
 
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleAction = this.handleAction.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.switchInnerView = this.switchInnerView.bind(this);
   }
 
-  handleLogin(event) {
+  handleAction(event) {
+    const { email, password, isResettingPassword } = this.state;
     event.preventDefault();
-    this.props.loginUser(this.state);
+
+    if (isResettingPassword) {
+      this.props.resetPassword({ email });
+    } else {
+      this.props.loginUser({ email, password });
+    }
   }
 
   handleChange(event) {
@@ -25,35 +34,57 @@ class LoginBox extends Component {
     this.setState({ [name]: value });
   }
 
+  switchInnerView() {
+    this.setState({
+      isResettingPassword: !this.state.isResettingPassword
+    });
+  }
+
   render() {
     return (
       <div>
         <div className="header-home-form-container">
-          <p className="header-home-form-title">Connexion</p>
-          <form onSubmit={this.handleLogin} className="header-home-form-content">
+          <p className="header-home-form-title">{ this.state.isResettingPassword ? 'Mot de passe perdu' : 'Connexion'}</p>
+          <form onSubmit={this.handleAction} className="header-home-form-content">
             <div className="row">
-              <div className=" header-home-form-content-input">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email *"
-                  required className="header-home-form-content-input-item"
-                  onChange={this.handleChange}
-                />
-                <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
-              </div>
-              <div className=" header-home-form-content-input">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Mot de passe *"
-                  required className="header-home-form-content-input-item"
-                  onChange={this.handleChange}
-                />
-                <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
-              </div>
+              { this.state.isResettingPassword ? (
+                <div className=" header-home-form-content-input">
+                  <input
+                    type="email"
+                    name="resetEmail"
+                    placeholder="Email *"
+                    required className="header-home-form-content-input-item"
+                    onChange={this.handleChange}
+                  />
+                  <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+                </div>
+              ) : (
+                <div>
+                  <div className=" header-home-form-content-input">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email *"
+                      required className="header-home-form-content-input-item"
+                      onChange={this.handleChange}
+                    />
+                    <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+                  </div>
+                  <div className=" header-home-form-content-input">
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Mot de passe *"
+                      required className="header-home-form-content-input-item"
+                      onChange={this.handleChange}
+                    />
+                    <img src={images.user} className="header-home-form-content-input-icon" alt="Icone champs formulaire" />
+                  </div>
+                </div>
+              )}
               <div className="twelve columns">
-                <button type="submit" className="header-home-form-content-btn btn-gold">Connexion</button>
+                <button type="submit" className="header-home-form-content-btn btn-gold">{ this.state.isResettingPassword ? 'Envoyer' : 'Connexion'}</button>
+                <button type="submit" className="header-home-form-content-btn btn-gold" onClick={this.switchInnerView}>{ this.state.isResettingPassword ? 'Se connecter' : 'Mot de passe perdu'}</button>
               </div>
             </div>
           </form>

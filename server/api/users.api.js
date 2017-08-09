@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 mongoose.Promise = Promise;
 
@@ -297,5 +299,122 @@ exports.logout = (req, res) => {
 
       res.status(200).send('Success logging user out!');
     });
+  }
+};
+
+exports.getLivreurs = async (req, res) => {
+  try {
+    const livreurs = await User.find({ isLivreur: true }).select('-password');
+
+    if (!livreurs) {
+      res.status(404).send('Pas de livreurs à dispo');
+    }
+
+    res.status(200).send(livreurs);
+  } catch (e) {
+    res.status(500).send('Error server');
+  }
+};
+
+exports.forgot = async (req, res) => {
+  const { email } = req.body;
+  // Génération random de token
+  const token = await crypto.randomBytes(20).toString('hex');
+  console.log(email);
+  User.findOne({ username: email }, (err, user) => {
+    if (!user) {
+      return false;
+    }
+
+    // Assign token and expire
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000;
+
+    user.save((err) => {
+      if (err) {
+        res.status(500).send('Erreur du serveur');
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: process.env.GMAIL_ADDRESS,
+          pass: process.env.GMAIL_PWD,
+        },
+      }, {
+        from: 'WorkEat <noreply@workeat.io>',
+      });
+
+      const message = {
+        from: 'WorkEat',
+        to: user.username,
+        subject: 'Reset password',
+        text: `http://${req.headers.host}/reset/${token}`,
+      };
+
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
+          console.log('Error', err);
+          return res.status(500).send('Un problème est survenu');
+        }
+
+        console.log('Message sent', info);
+        transporter.close();
+
+        res.status(200).send('Mail envoyé!');
+      });
+    });
+  });
+};
+
+exports.reset = async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }).select('username');
+    if (!user) {
+      return res
+        .status(404)
+        .send({
+          message: 'Votre lien à expiré, veuillez réessayer',
+        });
+    }
+
+    res.status(200).send({ user: user.username });
+  } catch (e) {
+    res.status(500).send('Serveur error');
+  }
+};
+
+exports.resetPwd = async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }).select('username');
+    if (!user) {
+      return res
+        .status(404)
+        .send({
+          message: 'Votre lien à expiré, veuillez réessayer',
+        });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
+    user.password = hash;
+    user.resetPasswordExpires = undefined;
+    user.resetPasswordToken = undefined;
+
+    user.save((err) => {
+      if (err) {
+        return res.status(500).send('Server error');
+      }
+
+      res.status(200).send('Compte update');
+      // should send mail;
+    });
+  } catch (e) {
+    res.status(500).send('Serveur error');
   }
 };
