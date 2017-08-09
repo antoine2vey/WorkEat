@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
+import Timer from './Timer';
 import Cart from '../Cart/Cart';
 import Nav from './Nav';
 import Search from '../Search/Search';
@@ -13,31 +13,12 @@ class UserNav extends Component {
       isCartShown: false,
       isNavShown: false,
       isSearchShown: false,
-      timer: setInterval(() => {
-        // eslint-disable-next-line
-        const tmrw = moment().add(1, 'day').hours('10').minutes('30').seconds('00').format();
-        const before = moment().hours('7').minutes('00').seconds('00').format();
-        const after = moment().hours('11').minutes('30').seconds('00').format();
-        const date = moment().unix();
-        const tmrwTimestamp = moment(tmrw).unix();
-        // Si je suis entre 8h et 11h30
-        if (moment().isAfter(before) && moment().isBefore(after)) {
-          return this.setState({ tstamp: moment((tmrwTimestamp - date) * 1000).format('HH:mm:ss') });
-        }
-
-        this.setState({ tstamp: 'Reviens à partir de 8h!' });
-      }, 1000),
-      tstamp: '',
     };
 
     this.showCart = this.showCart.bind(this);
     this.showNav = this.showNav.bind(this);
     this.hideEverything = this.hideEverything.bind(this);
     this.showSearch = this.showSearch.bind(this);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
   }
 
   showCart() {
@@ -79,7 +60,7 @@ class UserNav extends Component {
             <Link to="/home">
               <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
             </Link>
-            <p className="main-header-timer-content"><span id="timer" className="main-header-timer-content-time">{tstamp}</span></p>
+            <Timer />
           </div>
           <div className="main-header-cart">
             <button className="main-header-cart-link" onClick={this.showCart}>
