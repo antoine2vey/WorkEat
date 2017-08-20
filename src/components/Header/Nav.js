@@ -4,7 +4,12 @@ import jwtDecode from 'jwt-decode';
 import { close, logoBlanc } from '../../images';
 
 const Nav = ({ shown, switcher, logout, solde, token }) => {
-  const user = jwtDecode(token);
+  let user;
+  if (token !== null) {
+    user = jwtDecode(token);
+  } else {
+    return null;
+  }
 
   return (
     <nav className={shown ? 'nav nav--js-open' : 'nav'}>

@@ -16,8 +16,8 @@ class Timer extends Component {
     };
   }
 
-  componentDidMount() {
-    setInterval(() => {
+  componentWillMount() {
+    this.timer = setInterval(() => {
       const date = moment().unix();
       const tmrwTimestamp = moment(this.tmrw).unix();
       // Si je suis entre 8h et 11h30
@@ -27,6 +27,10 @@ class Timer extends Component {
 
       this.setState({ tstamp: 'Reviens à partir de 8h!' });
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   render() {
