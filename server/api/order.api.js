@@ -70,8 +70,6 @@ exports.create = (req, res) => {
     boisson: bundle.boisson._id ? bundle.boisson._id : null,
   }));
 
-  console.log(req.user);
-
   Order.count({}).exec((err, len) => {
     const order = new Order({
       position: len + 1,
