@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
-import { Product, Article, Livraison, Formule, Tag } from './tabs';
-import Livreur from '../Livreur/Livreur';
+import { Product, Article, Livraison, Formule, Tag, Livreur } from './tabs';
 
 const Admin = () => (
   <div>

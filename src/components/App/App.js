@@ -7,7 +7,6 @@ import Footer from '../Footer/Footer';
 import GlobalProducts from '../GlobalProducts/GlobalProducts';
 import Admin from '../Admin/Admin';
 import Prestataire from '../Prestataire/Prestataire';
-import Livreur from '../Livreur/Livreur';
 import Cart from '../Cart/Cart';
 import Account from '../Account/Account';
 import Blog from '../Blog/Blog';
@@ -29,7 +28,6 @@ const App = () => (
         <Route path="/compte" component={Account} />
         <Route path="/admin" component={Admin} />
         <Route path="/prestataire" component={Prestataire} />
-        <Route path="/livreur" component={Livreur} />
         <Route path="/contact" component={Contact} />
         <Route path="/about" component={About} />
 

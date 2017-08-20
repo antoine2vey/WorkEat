@@ -302,20 +302,6 @@ exports.logout = (req, res) => {
   }
 };
 
-exports.getLivreurs = async (req, res) => {
-  try {
-    const livreurs = await User.find({ isLivreur: true }).select('-password');
-
-    if (!livreurs) {
-      res.status(404).send('Pas de livreurs à dispo');
-    }
-
-    res.status(200).send(livreurs);
-  } catch (e) {
-    res.status(500).send('Error server');
-  }
-};
-
 exports.forgot = async (req, res) => {
   const { email } = req.body;
   // Génération random de token

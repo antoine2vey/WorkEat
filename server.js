@@ -128,6 +128,7 @@ const article = require('./server/api/article.api');
 const csv = require('./server/api/csv.api');
 const cart = require('./server/api/cart.api.js');
 const messageApi = require('./server/api/contact.api.js');
+const livreurApi = require('./server/api/livreur.api.js');
 
 const authorizeRequest = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -255,7 +256,8 @@ app.post('/api/csv', isPresta, jwtExpress({ secret: process.env.JWT_SECRET }), c
 app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);
 
 // LIVREURS
-app.get('/api/livreurs', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.getLivreurs);
+app.post('/api/livreurs', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.create);
+app.post('/livreur/login', livreurApi.login);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
