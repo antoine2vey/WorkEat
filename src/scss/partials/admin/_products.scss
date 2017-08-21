@@ -14,46 +14,57 @@
       @include flex(flex-start, flex-start, row);
       flex-wrap: wrap;
       width: 100%;
+      margin-top: 150px;
     }
   }
 
   &__product {
-    height: 100%;
+    @include flex;
+    height: 100px;
     @include material-shadow(box, 1);
 
     &-column {
-      flex-basis: 25%;
+      flex-basis: 50%;
       align-self: stretch;
       width: 100%;
-      padding: 20px;
+      padding: 10px;
       box-sizing: border-box;
+      @include screenDefault {
+        flex-basis: 100%;
+      };
     }
 
     &-image {
-      width: 100%;
+      height: 100%;
 
       &-container {
-        display: inherit;
-        height: 200px;
+        width: 100px;
+        height: 100%;
         overflow: hidden;
+        @include screenSm {
+          display: none;
+        };
       }
     }
 
     &-content {
-      @include flex(flex-start, flex-start, column);
+      @include flex(flex-start, center, row);
       flex: 1;
       padding: 10px;
     }
 
     &-title {
-      margin-bottom: 5px;
+      flex: 1;
+      margin-bottom: 0;
+      margin-right: 15px;
       font-size: 24px;
       font-family: $primary-font;
       font-weight: bold;
     }
 
     &-price {
-      margin-bottom: 5px;
+      flex: 1;
+      margin-bottom: 0;
       font-size: 22px;
       font-family: $primary-font;
     }
@@ -61,6 +72,10 @@
     &-desc {
       font-size: 16px;
       font-family: $secondary-font;
+    }
+
+    &-delete {
+      margin: 0;
     }
   }
 

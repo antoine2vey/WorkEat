@@ -2,33 +2,31 @@
 import React from 'react';
 
 const Input = ({ ...props }) => (
-  <div className="material-field">
+  <div className="material-field has-label">
     <label htmlFor={props.name} className="material-field__label" onFocus={props.focusInput} onBlur={props.blurInput}>{props.placeholder}</label>
     <input className="material-field__input" {...props} />
   </div>
 );
 
 const Select = ({ ...props }) => (
-  <div className="field">
-    <label htmlFor={props.name} className="label">{props.label}</label>
-    <p className="control">
-      <select
-        type="select"
-        className="input"
-        style={{ height: 100 }}
-        name={props.name}
-        multiple={props.multiple ? true : false}
-        onChange={props.onChange}
-      >
-        { props.data.map((item, i) => (
-          props.flat ? (
-            <option value={item.toLowerCase()} key={i}>{item}</option>
-          ) : (
-            <option value={item._id} key={item._id}>{item.name}</option>
-          )
-        ))}
-      </select>
-    </p>
+  <div>
+    <label htmlFor={props.name}>{props.label}</label>
+    <select
+      type="select"
+      className="admin__select"
+      style={{ height: 100 }}
+      name={props.name}
+      multiple={props.multiple ? true : false}
+      onChange={props.onChange}
+    >
+      { props.data.map((item, i) => (
+        props.flat ? (
+          <option value={item.toLowerCase()} key={i}>{item}</option>
+        ) : (
+          <option value={item._id} key={item._id}>{item.name}</option>
+        )
+      ))}
+    </select>
   </div>
 );
 

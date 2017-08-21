@@ -5,6 +5,7 @@ import { fetchPlacesIfNeeded } from '../../../actions/livraison';
 import { createProduct, fetchProductsIfNeeded, deleteProducts } from '../../../actions/products';
 import { Input, Select } from './FormFields';
 import ProductList from './ProductList';
+import { download } from '../../../images';
 
 class Product extends Component {
   constructor() {
@@ -79,23 +80,44 @@ class Product extends Component {
         <ProductList {...this.props} />
         <div className="admin__add-product">
           <h2 className="admin__products-title">Ajouter un produit</h2>
-          <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
-            <div className="field">
-              <label htmlFor="file" className="label">Photo</label>
-              <p className="control">
-                <input className="input" type="file" name="file" onChange={this.handleChange} />
-              </p>
-              <img src="" id="preview" style={{ maxWidth: 400 }} alt="Preview" />
+          <form className="admin__form" encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
+            <div className="admin__field-column admin__field-column-2">
+              <Input type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             </div>
-            <Input type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-            <Input type="text" name="description" placeholder="Description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-            <Input type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-            <Input type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-            <Input type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-            <Select label="Tags" name="tags" multiple data={tags} onChange={this.handleChange} />
-            <Select label="Endroits" name="places" multiple data={places} onChange={this.handleChange} />
-            <Select label="Type" name="types" multiple flat data={types} onChange={this.handleChange} />
-            <Input type="submit" value="Créer" onFocus={this.focusInput} onBlur={this.blurInput} className="btn" />
+            <div className="admin__field-column  admin__field-column-2">
+              <Input type="text" name="description" placeholder="Description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column  admin__field-column-2">
+              <Input type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column  admin__field-column-2">
+              <Input type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column  admin__field-column-1">
+              <Input type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-3">
+              <Select label="Tags" name="tags" multiple data={tags} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-3">
+              <Select label="Endroits" name="places" multiple data={places} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-3">
+              <Select label="Type" name="types" multiple flat data={types} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-1 admin__file-container">
+              <div className="admin__field-column admin__field-column-2">
+                <div className="material-field has-label">
+                  <label htmlFor="file" className="material__label">Photo</label>
+                  {/* <span className="admin__file-name">{this.state.file.name}</span> */}
+                  <input className="material__input admin__file" type="file" id="file" name="file" onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <img src="" id="preview" style={{ maxWidth: 400 }} alt="Preview" />
+              </div>
+            </div>
+            <input type="submit" value="Créer" />
           </form>
         </div>
       </div>

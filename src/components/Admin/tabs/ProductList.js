@@ -26,9 +26,7 @@ class ProductList extends Component {
                   {/* <div className="admin__product-desc">
                     {product.description}
                   </div> */}
-                  <div className="media-right">
-                    <button className="btn__delete" onClick={() => this.deleteProduct(product)}>Supprimer</button>
-                  </div>
+                  <button className="admin__product-delete btn__delete" onClick={() => this.deleteProduct(product)}>Supprimer</button>
                 </div>
               </article>
             </div>
