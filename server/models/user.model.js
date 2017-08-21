@@ -43,10 +43,6 @@ const accountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isPrestataire: {
-    type: Boolean,
-    default: false,
-  },
   position: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Place',

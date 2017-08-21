@@ -53,6 +53,11 @@ a:hover {
   @include material-shadow(box, 2);
   @include reset($white, inherit, $gold);
 
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   &::before {
     content: '';
     position: absolute;

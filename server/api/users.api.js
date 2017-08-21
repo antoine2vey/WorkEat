@@ -272,17 +272,22 @@ exports.update = (req, res) => {
   };
 
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
-    if (err) {
-      return res.status(500).send({
-        error: 'Email already exists',
-      });
-    }
+  User
+    .findByIdAndUpdate(req.user.id, query, { new: true })
+    .populate('position')
+    .select('-password -tokens')
+    .exec((err, updatedUser) => {
+      if (err) {
+        return res.status(500).send({
+          error: 'Email already exists',
+        });
+      }
 
-    res.status(200).send({
-      status: 'Account updated',
+      res.status(200).send({
+        user: updatedUser,
+        status: 'Account updated',
+      });
     });
-  });
 };
 exports.logout = (req, res) => {
   console.log(req.user);
