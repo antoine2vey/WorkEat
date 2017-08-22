@@ -1,0 +1,22 @@
+.admin {
+  &__tag {
+    @include flex;
+    height: 50px;
+    @include material-shadow(box, 1);
+
+    &-column {
+      flex-basis: 20%;
+      align-self: stretch;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      @include screenDefault {
+        flex-basis: 100%;
+      };
+    }
+  }
+
+  &__add-tag {
+    margin-top: 20px;
+  }
+}

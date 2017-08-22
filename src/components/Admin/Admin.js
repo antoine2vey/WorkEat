@@ -38,16 +38,17 @@ const Admin = () => (
         </li>
       </ul>
     </div>
-
-    <Switch>
-      <Route path="/admin/produits" component={Product} />
-      <Route path="/admin/tags" component={Tag} />
-      <Route path="/admin/livraisons" component={Livraison} />
-      <Route path="/admin/articles" component={Article} />
-      <Route path="/admin/formules" component={Formule} />
-      <Route path="/admin/livreurs" component={Livreur} />
-      <Redirect from="/admin" to="/admin/produits" />
-    </Switch>
+    <div className="admin__container">
+      <Switch>
+        <Route path="/admin/produits" component={Product} />
+        <Route path="/admin/tags" component={Tag} />
+        <Route path="/admin/livraisons" component={Livraison} />
+        <Route path="/admin/articles" component={Article} />
+        <Route path="/admin/formules" component={Formule} />
+        <Route path="/admin/livreurs" component={Livreur} />
+        <Redirect from="/admin" to="/admin/produits" />
+      </Switch>
+    </div>
   </div>
 );
 

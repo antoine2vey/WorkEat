@@ -75,11 +75,11 @@ class Product extends Component {
   render() {
     const { tags, places, types } = this.props;
     return (
-      <div className="admin__products">
-        <h2 className="admin__products-title">Mes produits</h2>
+      <div>
+        <h2 className="admin__container-title">Mes produits</h2>
         <ProductList {...this.props} />
         <div className="admin__add-product">
-          <h2 className="admin__products-title">Ajouter un produit</h2>
+          <h2 className="admin__container-title">Ajouter un produit</h2>
           <form className="admin__form" encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
             <div className="admin__field-column admin__field-column-2">
               <Input type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
@@ -114,10 +114,10 @@ class Product extends Component {
                 </div>
               </div>
               <div className="admin__field-column admin__field-column-2">
-                <img src="" id="preview" style={{ maxWidth: 400 }} alt="Preview" />
+                <img src="" id="preview" className="admin__preview" alt="Preview" />
               </div>
             </div>
-            <input type="submit" value="Créer" />
+            <button type="submit" className="btn-gold">Créer</button>
           </form>
         </div>
       </div>

@@ -1,23 +1,4 @@
 .admin {
-  &__products {
-    background: $white;
-    margin-bottom: 200px;
-    padding: 0 20px;
-
-    &-title {
-      font-size: 30px;
-      font-family: $primary-font;
-      font-weight: bold;
-    }
-
-    &-list {
-      @include flex(flex-start, flex-start, row);
-      flex-wrap: wrap;
-      width: 100%;
-      margin-top: 150px;
-    }
-  }
-
   &__product {
     @include flex;
     height: 100px;

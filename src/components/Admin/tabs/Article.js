@@ -68,35 +68,41 @@ class Article extends Component {
   render() {
     const { articles } = this.props;
     return (
-      <div className="admin__products">
-        <h2 className="admin__products-title">Mes articles</h2>
+      <div>
+        <h2 className="admin__container-title">Mes articles</h2>
         <ul>
           { articles.map(article => (
             <li key={article._id}>{article.title} - <button onClick={() => this.props.deleteArticles(article._id)}>X</button></li>
           )) }
         </ul>
-        <div className="admin__add-product">
-          <h2 className="admin__products-title">Ajouter un article</h2>
+        <div>
+          <h2 className="admin__container-title">Ajouter un article</h2>
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
-            <div className="field">
-              <label htmlFor="file" className="label">Bannière</label>
-              <p className="control">
-                <input className="input" type="file" name="banner" onChange={this.handleChange} />
-              </p>
+            <div className="admin__container-list">
+              <div className="admin__field-column admin__field-column-2">
+                <div className="material-field has-label">
+                  <label htmlFor="banner" className="material__label">Bannière</label>
+                  <input className="material__input admin__file" type="file" id="banner" name="banner" onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <div className="material-field has-label">
+                  <label htmlFor="thumbnail" className="material__label">Thumbnail</label>
+                  <input className="material__input admin__file" type="file" id="thumbnail" name="thumbnail" onChange={this.handleChange} />
+                </div>
+              </div>
+              <div className="admin__field-column">
+                <img src="" id="preview" className="admin__preview" alt="Preview" />
+              </div>
             </div>
-            <div className="field">
-              <label htmlFor="file" className="label">Thumbnail</label>
-              <p className="control">
-                <input className="input" type="file" name="thumbnail" onChange={this.handleChange} />
-              </p>
-              <img src="" id="preview" style={{ maxWidth: 400 }} alt="Preview" />
+            <div className="admin__field-column">
+              <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             </div>
-            <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             <RichTextEditor
               value={this.state.text}
               onChange={this.onChange}
             />
-            <Input type="submit" value="Créer" onFocus={this.focusInput} onBlur={this.blurInput} className="btn" />
+            <button type="submit" onFocus={this.focusInput} onBlur={this.blurInput} className="btn-gold">Créer</button>
           </form>
         </div>
       </div>

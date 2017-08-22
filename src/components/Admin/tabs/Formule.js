@@ -61,52 +61,74 @@ class Formule extends Component {
   render() {
     const { bundles } = this.props;
     return (
-      <div className="columns" style={{ justifyContent: 'center' }}>
-        <div className="column">
+      <div>
+        <h2 className="admin__container-title">Mes formules</h2>
+        <div className="admin__container-list">
           {
             bundles.map(bundle => (
-              <div className="card" key={bundle._id} style={{ marginLeft: 30, marginBottom: 15 }}>
-                <header className="card-header">
-                  <p className="card-header-title">
-                    {bundle.name}
-                  </p>
-                </header>
-                <div className="card-content">
-                  <div className="content">
-                    { bundle.items.hasEntree && <p>Ce bundle possède une entrée</p> }
-                    { bundle.items.hasPlat && <p>Ce bundle possède un plat</p> }
-                    { bundle.items.hasDessert && <p>Ce bundle possède un dessert</p> }
-                    { bundle.items.hasBoisson && <p>Ce bundle possède une boisson</p> }
+              <div className="admin__formule-column" key={bundle._id}>
+                <div className="admin__formule">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                      {bundle.name}
+                    </p>
+                  </header>
+                  <div className="card-content">
+                    <div className="content">
+                      { bundle.items.hasEntree && <p>Ce bundle possède une entrée</p> }
+                      { bundle.items.hasPlat && <p>Ce bundle possède un plat</p> }
+                      { bundle.items.hasDessert && <p>Ce bundle possède un dessert</p> }
+                      { bundle.items.hasBoisson && <p>Ce bundle possède une boisson</p> }
+                    </div>
                   </div>
+                  <footer className="card-footer">
+                    <a className="card-footer-item"><strong>{bundle.price}€</strong></a>
+                    <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : ''}</strong></a>
+                    <a className="card-footer-item" onClick={() => this.props.deleteBundles(bundle._id)}>Delete</a>
+                  </footer>
                 </div>
-                <footer className="card-footer">
-                  <a className="card-footer-item"><strong>{bundle.price}€</strong></a>
-                  <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : ''}</strong></a>
-                  <a className="card-footer-item" onClick={() => this.props.deleteBundles(bundle._id)}>Delete</a>
-                </footer>
               </div>
             ))
           }
         </div>
-        <div className="column">
+        <div>
+          <h2 className="admin__container-title">Ajouter une formule</h2>
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
-            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-            <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-            <Input type="number" name="price" placeholder="Prix" onChange={this.handleChange} />
-            <Input type="number" name="reduction" placeholder="Reduction (en %)" onChange={this.handleChange} max="100" min="0" />
-            <CheckBox name="hasEntree" onChange={this.handleChange}>
-              Ce bundle possède une entrée
-            </CheckBox>
-            <CheckBox name="hasPlat" onChange={this.handleChange}>
-              Ce bundle possède un plat
-            </CheckBox>
-            <CheckBox name="hasDessert" onChange={this.handleChange}>
-              Ce bundle possède un dessert
-            </CheckBox>
-            <CheckBox name="hasBoisson" onChange={this.handleChange}>
-              Ce bundle possède une boisson
-            </CheckBox>
-            <Input type="submit" value="Créer" className="btn" />
+            <div className="admin__container-list">
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="number" name="price" placeholder="Prix" onChange={this.handleChange} />
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="number" name="reduction" placeholder="Reduction (en %)" onChange={this.handleChange} max="100" min="0" />
+              </div>
+              <div className="admin__field-column admin__field-column-4">
+                <CheckBox name="hasEntree" onChange={this.handleChange}>
+                  Ce bundle possède une entrée
+                </CheckBox>
+              </div>
+              <div className="admin__field-column admin__field-column-4">
+                <CheckBox name="hasPlat" onChange={this.handleChange}>
+                  Ce bundle possède un plat
+                </CheckBox>
+              </div>
+              <div className="admin__field-column admin__field-column-4">
+                <CheckBox name="hasDessert" onChange={this.handleChange}>
+                  Ce bundle possède un dessert
+                </CheckBox>
+              </div>
+              <div className="admin__field-column admin__field-column-4">
+                <CheckBox name="hasBoisson" onChange={this.handleChange}>
+                  Ce bundle possède une boisson
+                </CheckBox>
+              </div>
+              <button type="submit" className="btn-gold">Créer</button>
+            </div>
           </form>
         </div>
       </div>

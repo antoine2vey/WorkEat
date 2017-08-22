@@ -1,4 +1,22 @@
 .admin {
+  &__container {
+    background: $white;
+    margin-bottom: 200px;
+    padding: 200px 20px 0;
+
+    &-title {
+      font-size: 30px;
+      font-family: $primary-font;
+      font-weight: bold;
+    }
+
+    &-list {
+      @include flex(flex-start, flex-start, row);
+      flex-wrap: wrap;
+      width: 100%;
+    }
+  }
+
   &__form {
     @include flex;
     flex-wrap: wrap;
@@ -7,6 +25,9 @@
   &__field-column {
     padding: 20px;
     box-sizing: border-box;
+    @include screenMd {
+      padding: 10px;
+    };
 
     &-1 {
       flex-basis: 100%;
@@ -14,14 +35,35 @@
 
     &-2 {
       flex-basis: 50%;
+      @include screenMd {
+        flex-basis: 100%;
+      };
     }
 
     &-3 {
       flex-basis: calc(100% / 3);
+      @include screenMd {
+        flex-basis: 50%;
+      };
+      @include screenSm {
+        flex-basis: 100%;
+      };
+
+      &:nth-of-type(3) {
+        @include screenMd {
+          flex-basis: 100%;
+        };
+      }
     }
 
     &-4 {
       flex-basis: 25%;
+      @include screenMd {
+        flex-basis: 50%;
+      };
+      @include screenSm {
+        flex-basis: 100%;
+      };
     }
   }
 
@@ -37,14 +79,19 @@
 
   &__file {
     width: 100%;
-    height: 100%;
     opacity: 0;
     overflow: hidden;
 
     &-container {
       @include flex(center, flex-start, row);
+      flex-wrap: wrap;
       padding: 0;
     }
+  }
+
+  &__preview {
+    width: 100%;
+    max-width: 400px;
   }
 
   &__tabs {

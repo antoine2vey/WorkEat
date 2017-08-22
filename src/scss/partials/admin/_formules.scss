@@ -1,0 +1,22 @@
+.admin {
+  &__formule {
+    height: auto;
+    padding: 10px;
+    @include material-shadow(box, 1);
+
+    &-column {
+      flex-basis: calc(100% / 3);
+      align-self: stretch;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      @include screenDefault {
+        flex-basis: 100%;
+      };
+    }
+  }
+
+  &__add-formules {
+    margin-top: 20px;
+  }
+}

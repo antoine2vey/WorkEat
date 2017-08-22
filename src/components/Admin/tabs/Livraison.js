@@ -50,33 +50,33 @@ class Livraison extends Component {
     const [lat, lng] = this.state.geolocation;
     return (
       <div>
-        <div className="columns">
-          <div className="column">
-            <form method="POST" onSubmit={this.handleSubmit}>
-              <div className="column">
-                <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-                <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-                <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
-                <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
-                <Input type="submit" value="Créer" className="btn" />
-              </div>
-            </form>
-
-            <div>
+        <h2 className="admin__container-title">Points de livraison</h2>
+          <div className="admin__container-list">
+            <div className="admin__container-list admin__field-column-2">
               {
                 places.map(place => (
-                  <span className="tag is-danger is-large" key={place._id} style={{ marginRight: 10, marginBottom: 10 }}>
-                    {place.name}
-                    <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(place._id)} />
-                  </span>
+                  <div className="admin__livraison-column" key={place._id}>
+                    <div className="admin__livraison">
+                      {place.name}
+                      <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(place._id)} />
+                    </div>
+                  </div>
                 ))
               }
             </div>
+            <div className="admin__livraison-gmap admin__field-column-2">
+              <GMap loadedPlaces={places} handlePosition={this.handlePosition} />
+            </div>
           </div>
-          <div className="column">
-            <GMap loadedPlaces={places} handlePosition={this.handlePosition} />
-            <br />
-          </div>
+        <div>
+          <h2 className="admin__container-title">Ajouter un point de livraison</h2>
+          <form method="POST" onSubmit={this.handleSubmit}>
+            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+            <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
+            <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
+            <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
+            <button type="submit" className="btn-gold">Créer</button>
+          </form>
         </div>
       </div>
     );
