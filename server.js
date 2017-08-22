@@ -257,7 +257,11 @@ app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_
 
 // LIVREURS
 app.post('/api/livreurs', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.create);
+// API TELEPHONE
+// On utilise un token différent pour éviter qu'un user hack une route via forge/crsf
 app.post('/livreur/login', livreurApi.login);
+app.get('/livreur/commands', jwtExpress({ secret: process.env.JWT_MOBILE_SECRET }), livreurApi.getCommands);
+app.post('/livreur/check/:commandId', jwtExpress({ secret: process.env.JWT_MOBILE_SECRET }), livreurApi.check);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
