@@ -68,24 +68,24 @@ class Formule extends Component {
             bundles.map(bundle => (
               <div className="admin__formule-column" key={bundle._id}>
                 <div className="admin__formule">
-                  <header className="card-header">
-                    <p className="card-header-title">
+                  <div className="admin__formule-header">
+                    <h3 className="admin__formule-title">
                       {bundle.name}
-                    </p>
-                  </header>
-                  <div className="card-content">
-                    <div className="content">
-                      { bundle.items.hasEntree && <p>Ce bundle possède une entrée</p> }
-                      { bundle.items.hasPlat && <p>Ce bundle possède un plat</p> }
-                      { bundle.items.hasDessert && <p>Ce bundle possède un dessert</p> }
-                      { bundle.items.hasBoisson && <p>Ce bundle possède une boisson</p> }
-                    </div>
+                    </h3>
+                    <span className="admin__formule-price">
+                      {bundle.price}€
+                    </span>
                   </div>
-                  <footer className="card-footer">
-                    <a className="card-footer-item"><strong>{bundle.price}€</strong></a>
-                    <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : ''}</strong></a>
-                    <a className="card-footer-item" onClick={() => this.props.deleteBundles(bundle._id)}>Delete</a>
-                  </footer>
+                  <div className="admin__formule-body">
+                    { bundle.items.hasEntree && <p className="admin__formule-type">Ce bundle possède une entrée</p> }
+                    { bundle.items.hasPlat && <p className="admin__formule-type">Ce bundle possède un plat</p> }
+                    { bundle.items.hasDessert && <p className="admin__formule-type">Ce bundle possède un dessert</p> }
+                    { bundle.items.hasBoisson && <p className="admin__formule-type">Ce bundle possède une boisson</p> }
+                  </div>
+                  <div className="card-footer">
+                    <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : 'Pas de réduction pour le bundle'}</strong></a>
+                    <button className="btn-red" onClick={() => this.props.deleteBundles(bundle._id)}>Supprimer</button>
+                  </div>
                 </div>
               </div>
             ))

@@ -61,16 +61,25 @@ class Livreur extends Component {
   render() {
     const { places } = this.props;
     return (
-      <div className="admin__products">
-        <div className="admin__add-product">
-          <h2 className="admin__products-title">Créer un livreur</h2>
-          <form onSubmit={this.handleSubmit} noValidate>
-            <Input type="email" name="email" placeholder="Nom" onChange={this.handleChange} />
-            <Input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange} />
-            <Select label="Endroits" name="placesToGo" multiple data={places} onChange={this.handleChange} />
-            <Input type="submit" value="Créer" className="btn" />
-          </form>
-        </div>
+      <div>
+        <h2 className="admin__container-title">Mes livreurs</h2>
+        <h2 className="admin__container-title">Ajouter un livreur</h2>
+        <form onSubmit={this.handleSubmit} noValidate>
+          <div className="admin__container-list">
+            <div className="admin__field-column admin__field-column-2">
+              <Input type="email" name="email" placeholder="Nom" onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-2">
+              <Input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-1">
+              <Select label="Endroits" name="placesToGo" multiple data={places} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column">
+              <button type="submit" className="btn-gold">Créer</button>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }

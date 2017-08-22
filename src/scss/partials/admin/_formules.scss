@@ -10,9 +10,34 @@
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
-      @include screenDefault {
+      @include screenMd {
         flex-basis: 100%;
       };
+    }
+
+    &-header {
+      @include flex;
+      margin-bottom: 20px;
+    }
+
+    &-title {
+      width: 100%;
+      flex: 1;
+      margin: 0;
+      font-family: $primary-font;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    &-price {
+      width: 100%;
+      text-align: right;
+      font-family: $primary-font;
+    }
+
+    &-type {
+      margin: 0;
+      font-family: $primary-font;
     }
   }
 
