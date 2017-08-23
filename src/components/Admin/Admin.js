@@ -31,8 +31,8 @@ const Admin = () => (
             <span>Formules</span>
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/admin/livreurs" activeClassName="is-active">
+        <li className="admin__tabs-item">
+          <NavLink to="/admin/livreurs" className="admin__tabs-link" activeClassName="is-active">
             <span>Livreurs</span>
           </NavLink>
         </li>
