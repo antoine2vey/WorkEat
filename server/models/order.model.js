@@ -51,6 +51,10 @@ const orderSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isDistribued: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('Order', orderSchema);
