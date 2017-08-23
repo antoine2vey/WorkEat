@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { trashBlanc } from '../../../images';
 
 class ProductList extends Component {
   componentDidMount() {
@@ -26,7 +27,9 @@ class ProductList extends Component {
                   {/* <div className="admin__product-desc">
                     {product.description}
                   </div> */}
-                  <button className="admin__product-delete btn__delete" onClick={() => this.deleteProduct(product)}>Supprimer</button>
+                  <div className="admin__delete-btn" onClick={() => this.deleteProduct(product)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                  </div>
                 </div>
               </article>
             </div>

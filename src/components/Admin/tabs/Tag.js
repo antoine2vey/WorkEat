@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTagsIfNeeded, createTags, deleteTags } from '../../../actions/tags';
 import { Input } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Tag extends Component {
   constructor() {
@@ -41,8 +42,10 @@ class Tag extends Component {
             tags.map(tag => (
               <div className="admin__tag-column" key={tag._id}>
                 <div className="admin__tag">
-                  {tag.name}
-                  <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(tag)} />
+                  <p className="admin__tag-text">{tag.name}</p>
+                  <div className="admin__delete-btn" onClick={() => this.handleDelete(tag)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                  </div>
                 </div>
               </div>
             ))
@@ -51,10 +54,8 @@ class Tag extends Component {
         <div className="admin__add-tag">
           <h2 className="admin__container-title">Nouveau tag</h2>
           <form method="POST" onSubmit={this.handleSubmit}>
-            <div className="column">
-              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-              <button type="submit" className="btn-gold">Créer</button>
-            </div>
+            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+            <button type="submit" className="btn-gold">Créer</button>
           </form>
         </div>
       </div>

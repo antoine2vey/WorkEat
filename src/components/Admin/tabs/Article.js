@@ -98,10 +98,12 @@ class Article extends Component {
             <div className="admin__field-column">
               <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             </div>
-            <RichTextEditor
-              value={this.state.text}
-              onChange={this.onChange}
-            />
+            <div className="admin__field-column">
+              <RichTextEditor
+                value={this.state.text}
+                onChange={this.onChange}
+              />
+            </div>
             <button type="submit" onFocus={this.focusInput} onBlur={this.blurInput} className="btn-gold">Créer</button>
           </form>
         </div>
