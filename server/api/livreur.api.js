@@ -1,9 +1,11 @@
-const mongoose = require('mongoose');
+/* eslint newline-per-chained-call: "off" */
+
 const Livreur = require('../models/livreur.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Order = require('../models/order.model');
 const moment = require('moment');
+const jwtDecode = require('jwt-decode');
 // const Places = require('../models/places.model');
 
 exports.create = async (req, res) => {
@@ -76,6 +78,11 @@ exports.login = async (req, res) => {
 };
 
 exports.getCommands = async (req, res) => {
+  // Decode the passed token to get livreur possible destination, so ww
+  // can send him the right places to go
+  const token = req.headers.authorization.replace('Bearer ', '');
+  const { positions } = jwtDecode(token);
+
   try {
     const date = moment().subtract('1', 'day').toISOString();
 
@@ -83,6 +90,7 @@ exports.getCommands = async (req, res) => {
     const commands =
       await Order
         .find({})
+        .where('placeToShip').in(positions.map(pos => pos._id))
         .where('finished').equals(true)
         .where('orderedAt').gt(date)
         .populate('placeToShip', 'name')
