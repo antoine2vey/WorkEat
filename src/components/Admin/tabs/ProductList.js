@@ -15,7 +15,7 @@ class ProductList extends Component {
       stock: '',
       types: [],
       tags: [],
-      places: [],
+      availableAt: [],
       isUpdatePanelShown: false,
     };
   }
@@ -30,15 +30,9 @@ class ProductList extends Component {
 
   showUpdatePanel(product) {
     document.body.classList.toggle('dont-scroll');
-    this.setState({ isUpdatePanelShown: !this.state.isUpdatePanelShown });
-
-    const { name, description, preparation, price, stock } = product;
     this.setState({
-      name,
-      description,
-      preparation,
-      price,
-      stock,
+      isUpdatePanelShown: !this.state.isUpdatePanelShown,
+      ...product,
     });
   }
 
@@ -49,6 +43,7 @@ class ProductList extends Component {
 
   render() {
     const { products, tags, places, types } = this.props;
+    const { state } = this;
     return (
       <div>
         <div className={`admin__product-panel ${this.state.isUpdatePanelShown ? ' admin__product-panel--open' : ''}`}>
@@ -56,22 +51,22 @@ class ProductList extends Component {
             <h2 className="admin__container-title">Modification de {this.state.name}</h2>
             <form className="admin__form" encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
               <div className="admin__field-column admin__field-column-2">
-                <Input type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.name} type="text" name="name" placeholder="Nom" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input type="text" name="description" placeholder="Description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.description} type="text" name="description" placeholder="Description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.preparation} type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.allergics.join(', ')} type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.price} type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input type="number" name="stock" placeholder="Stock" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.stock} type="number" name="stock" placeholder="Stock" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column admin__field-column-3">
                 <Select label="Tags" name="tags" multiple data={tags} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
@@ -91,7 +86,7 @@ class ProductList extends Component {
                   </div>
                 </div>
                 <div className="admin__field-column admin__field-column-2">
-                  <img src="" id="preview" className="admin__preview" alt="Preview" />
+                  <img src={state.file} id="preview" className="admin__preview" alt="Preview" />
                 </div>
               </div>
               <button type="submit" className="btn-gold" onClick={() => this.updateProduct()}>Modifier</button>
