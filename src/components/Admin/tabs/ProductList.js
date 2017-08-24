@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { trashBlanc } from '../../../images';
+import { trashBlanc, edit } from '../../../images';
 
 class ProductList extends Component {
   componentDidMount() {
@@ -23,12 +23,17 @@ class ProductList extends Component {
                   <img className="admin__product-image" src={product.file} alt={product.name} />
                 </div>
                 <div className="admin__product-content">
-                  <h2 className="admin__product-title">{product.name}</h2> <span className="admin__product-price">{product.price}€</span>
+                  <h2 className="admin__product-title">{product.name}</h2> <span className="admin__product-price">{product.price}€</span> <span className="admin__product-stock">{product.stock}</span>
                   {/* <div className="admin__product-desc">
                     {product.description}
                   </div> */}
-                  <div className="admin__delete-btn" onClick={() => this.deleteProduct(product)}>
-                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                  <div className="admin__button-container">
+                    <div className="admin__delete-btn" onClick={() => this.deleteProduct(product)}>
+                      <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                    </div>
+                    <div className="admin__update-btn" onClick={() => this.updateProduct(product)}>
+                      <img src={edit} alt="Modifier" className="admin__update-btn-icon" />
+                    </div>
                   </div>
                 </div>
               </article>

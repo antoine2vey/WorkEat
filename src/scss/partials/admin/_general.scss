@@ -17,11 +17,30 @@
     }
   }
 
+  &__button-container {
+    @include flex(center, center, row);
+    height: 100%;
+  }
+
   &__delete-btn {
     @include flex;
     align-self: stretch;
-    width: 35px;
+    width: 50px;
+    height: 100%;
     background: $red;
+    cursor: pointer;
+
+    &-icon {
+      height: 20px;
+    }
+  }
+
+  &__update-btn {
+    @include flex;
+    align-self: stretch;
+    width: 50px;
+    height: 100%;
+    background: $green;
     cursor: pointer;
 
     &-icon {

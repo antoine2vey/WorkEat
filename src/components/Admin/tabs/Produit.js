@@ -17,6 +17,7 @@ class Product extends Component {
       preparation: '',
       allergics: [],
       price: '',
+      stock: '',
       types: [],
       tags: [],
       places: [],
@@ -93,8 +94,11 @@ class Product extends Component {
             <div className="admin__field-column  admin__field-column-2">
               <Input type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             </div>
-            <div className="admin__field-column  admin__field-column-1">
+            <div className="admin__field-column  admin__field-column-2">
               <Input type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column  admin__field-column-2">
+              <Input type="number" name="stock" placeholder="Stock" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
             </div>
             <div className="admin__field-column admin__field-column-3">
               <Select label="Tags" name="tags" multiple data={tags} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />

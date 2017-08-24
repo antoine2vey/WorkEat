@@ -1,14 +1,17 @@
 .admin {
   &__product {
     @include flex;
-    height: 100px;
+    height: 60px;
     @include material-shadow(box, 1);
+    @include screenSm {
+      height: auto;
+    };
 
     &-column {
-      flex-basis: 50%;
+      flex-basis: 100%;
       align-self: stretch;
       width: 100%;
-      padding: 10px;
+      padding: 5px;
       box-sizing: border-box;
       @include screenDefault {
         flex-basis: 100%;
@@ -16,15 +19,13 @@
     }
 
     &-image {
+      width: auto;
       height: 100%;
 
       &-container {
-        width: 100px;
-        height: 100%;
+        width: 60px;
+        height: 60px;
         overflow: hidden;
-        @include screenSm {
-          display: none;
-        };
       }
     }
 
@@ -32,22 +33,23 @@
       @include flex(flex-start, center, row);
       flex: 1;
       height: 100%;
-      padding: 10px 0 10px 10px;
+      padding-left: 10px;
+      box-sizing: border-box;
     }
 
     &-title {
       flex: 1;
       margin-bottom: 0;
       margin-right: 15px;
-      font-size: 24px;
+      font-size: 16px;
       font-family: $primary-font;
-      font-weight: bold;
     }
 
-    &-price {
+    &-price,
+    &-stock {
       flex: 1;
       margin-bottom: 0;
-      font-size: 22px;
+      font-size: 16px;
       font-family: $primary-font;
     }
 
