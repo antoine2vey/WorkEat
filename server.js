@@ -210,7 +210,7 @@ app.get('/protected', authorizeRequest, (req, res) => {
 // PRODUCT API
 app.get('/api/products', productsApi.list);
 app.post('/api/products', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.create);
-// app.post('/api/products/:id', productsApi.update);
+app.put('/api/products/:id', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.update);
 app.delete('/api/products/:id', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.delete);
 
 // TAG API

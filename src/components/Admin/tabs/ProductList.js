@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
+import omit from 'lodash/omit';
 import { trashBlanc, edit } from '../../../images';
-import { Input, Select } from './FormFields';
+import { Input } from './FormFields';
 
 class ProductList extends Component {
   constructor() {
     super();
     this.state = {
-      file: '',
       name: '',
       description: '',
       preparation: '',
       allergics: [],
       price: '',
       stock: '',
-      types: [],
-      tags: [],
-      availableAt: [],
       isUpdatePanelShown: false,
     };
   }
@@ -36,6 +33,12 @@ class ProductList extends Component {
     });
   }
 
+  handleChange = (event) => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
+  }
+
   updateProduct() {
     document.body.classList.toggle('dont-scroll');
     this.setState({ isUpdatePanelShown: !this.state.isUpdatePanelShown });
@@ -44,11 +47,12 @@ class ProductList extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
 
-    this.props.updateProduct(this.state);
+    this.props.updateProduct(omit(this.state, ['isUpdatePanelShown']));
+    this.setState({ isUpdatePanelShown: !this.state.isUpdatePanelShown });
   }
 
   render() {
-    const { products, tags, places, types } = this.props;
+    const { products } = this.props;
     const { state } = this;
     return (
       <div>
@@ -66,34 +70,13 @@ class ProductList extends Component {
                 <Input value={state.preparation} type="text" name="preparation" placeholder="Preparation" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
-                <Input value={state.allergics.join(', ')} type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input value={state.allergics} type="text" name="allergics" placeholder="Allergènes" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
                 <Input value={state.price} type="number" name="price" placeholder="Prix" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column  admin__field-column-2">
                 <Input value={state.stock} type="number" name="stock" placeholder="Stock" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-3">
-                <Select label="Tags" name="tags" multiple data={tags} onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-3">
-                <Select label="Endroits" name="places" multiple data={places} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-3">
-                <Select label="Type" name="types" multiple flat data={types} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-1 admin__file-container">
-                <div className="admin__field-column admin__field-column-2">
-                  <div className="material-field has-label">
-                    <label htmlFor="file" className="material__label">Photo</label>
-                    {/* <span className="admin__file-name">{this.state.file.name}</span> */}
-                    <input className="material__input admin__file" type="file" id="file" name="file" onChange={this.handleChange} />
-                  </div>
-                </div>
-                <div className="admin__field-column admin__field-column-2">
-                  <img src={state.file} id="preview" className="admin__preview" alt="Preview" />
-                </div>
               </div>
               <button type="submit" className="btn-gold">Modifier</button>
             </form>

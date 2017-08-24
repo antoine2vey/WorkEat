@@ -3,6 +3,7 @@ import {
   REQUEST_PRODUCTS,
   DELETE_PRODUCT,
   CREATE_PRODUCT,
+  UPDATE_PRODUCT,
   SHOW_DETAIL,
   HIDE_DETAIL,
   TRIGGER_FILTER,
@@ -88,10 +89,24 @@ const products = (state = initialState, action) => {
         ...state,
         products: [...state.products, action.product],
       };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product._id !== action.product._id) {
+            return product;
+          }
+
+          return {
+            ...product,
+            ...action.product,
+          };
+        }),
+      };
     case TRIGGER_FILTER:
       return {
         ...state,
-        products: state.products.map(product => {
+        products: state.products.map((product) => {
           if (product.name.toUpperCase().includes(action.str.toUpperCase())) {
             return {
               ...product,

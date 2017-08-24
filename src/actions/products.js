@@ -5,6 +5,7 @@ export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const HIDE_DETAIL = 'HIDE_DETAIL';
 export const TRIGGER_FILTER = 'TRIGGER_FILTER';
@@ -60,6 +61,11 @@ const increment = (id, quantity) => ({
   quantity,
 });
 
+const update = product => ({
+  type: UPDATE_PRODUCT,
+  product,
+});
+
 // API call to fetch products
 const fetchProducts = () => (dispatch) => {
   dispatch(requestProducts());
@@ -69,7 +75,7 @@ const fetchProducts = () => (dispatch) => {
 };
 
 const deleteProducts = productId => (dispatch) => {
-  console.log('tried to delete product');
+
   axios.delete(`/api/products/${productId}`, {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,
@@ -134,8 +140,16 @@ const addListener = key => (dispatch) => {
   });
 };
 
-const updateProduct = product => {
-  console.log(product);
-}
+const updateProduct = product => (dispatch) => {
+  axios.put(`api/products/${product._id}`, product, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  }).then(({ data }) => {
+    dispatch(update(data));
+  }).catch((err) => {
+    console.log(err);
+  });
+};
 
 export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct };

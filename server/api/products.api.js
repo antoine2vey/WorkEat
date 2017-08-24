@@ -7,33 +7,6 @@ const genId = require('shortid');
 mongoose.Promise = Promise;
 
 exports.list = (req, res) => {
-  /**
-   * In case we enable caching on product,
-   * this is the right strategy to adopt
-   *
-  client.hgetall(PRODUCT_HASH, (err, hash) => {
-    //If we get hash from redis
-    if(hash != null) {
-      const mappedProducts = Object.keys(hash).map(key => JSON.parse(hash[key]));
-      return res.status(200).send(mappedProducts);
-    } else {
-      Product
-      .find({})
-      .populate('tags')
-      .exec((err, products) => {
-        if (err) {
-          return res.status(500).send('Database error.');
-        }
-
-        products.forEach((product, i) => {
-          client.hset(PRODUCT_HASH, product._id.toString(), JSON.stringify(product), redis.print);
-        });
-
-        return res.status(200).send(products);
-      })
-    }
-  })
-  **/
   Product
     .find({})
     .populate('availableAt')
@@ -45,6 +18,15 @@ exports.list = (req, res) => {
 
       return res.status(200).send(products);
     });
+};
+
+exports.update = async (req, res) => {
+  const { allergics } = req.body;
+  const shouldMap = !Array.isArray(allergics);
+  req.body.allergics = shouldMap ? allergics.split(',').map(t => t.trim()) : allergics;
+
+  const product = await Product.findByIdAndUpdate(req.body._id, req.body, { new: true });
+  res.send(product);
 };
 
 exports.create = (req, res) => {
