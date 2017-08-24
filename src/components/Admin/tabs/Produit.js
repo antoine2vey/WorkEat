@@ -17,7 +17,7 @@ class Product extends Component {
       preparation: '',
       allergics: [],
       price: '',
-      stock: '',
+      stock: 0,
       types: [],
       tags: [],
       places: [],

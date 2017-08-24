@@ -40,6 +40,7 @@ exports.create = (req, res) => {
     tags,
     types,
     places,
+    stock,
   } = req.body;
 
   req.checkBody('file', 'Image is required').notEmpty();
@@ -70,6 +71,7 @@ exports.create = (req, res) => {
   const product = new Product({
     file: fileName,
     name,
+    stock,
     description,
     preparation,
     allergics: allergics.split(',').map(t => t.trim()),
