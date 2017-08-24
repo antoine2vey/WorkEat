@@ -39,13 +39,8 @@ class InfoGenerale extends Component {
     parentNode.classList.remove('is-focused');
   }
 
-  formatUserInformations(state) {
-    console.log(state);
-    return state;
-  }
-
   render() {
-    const { user, deleteUser, places } = this.props;
+    const { deleteUser, places } = this.props;
     return (
       <div className="container-fluid">
         <div className="compteInfo-bloc">
@@ -106,7 +101,7 @@ class InfoGenerale extends Component {
                 <button
                   type="button"
                   className="btn-red compteInfo-submit"
-                  onClick={() => this.props.updateUser(this.formatUserInformations(this.state))}
+                  onClick={() => this.props.updateUser(this.state)}
                   disabled={this.state.password === '' || this.state.password !== this.state.confirmPassword}
                 >
                   MODIFIER

@@ -47,7 +47,7 @@ class UserNav extends Component {
 
   render() {
     const { logoutUser, itemsNumber, solde, token } = this.props;
-    const { isCartShown, isNavShown, isSearchShown, tstamp } = this.state;
+    const { isCartShown, isNavShown, isSearchShown } = this.state;
     return (
       <div className="container-fluid">
         <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />

@@ -1,6 +1,5 @@
 import values from 'lodash/values';
 import omit from 'lodash/omit';
-import isEmpty from 'lodash/isEmpty';
 import {
   ADD_TO_CART,
   CHECKOUT_SUCCESS,
