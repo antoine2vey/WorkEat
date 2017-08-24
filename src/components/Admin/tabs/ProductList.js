@@ -41,6 +41,12 @@ class ProductList extends Component {
     this.setState({ isUpdatePanelShown: !this.state.isUpdatePanelShown });
   }
 
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    this.props.updateProduct(this.state);
+  }
+
   render() {
     const { products, tags, places, types } = this.props;
     const { state } = this;
@@ -89,7 +95,7 @@ class ProductList extends Component {
                   <img src={state.file} id="preview" className="admin__preview" alt="Preview" />
                 </div>
               </div>
-              <button type="submit" className="btn-gold" onClick={() => this.updateProduct()}>Modifier</button>
+              <button type="submit" className="btn-gold">Modifier</button>
             </form>
           </div>
         </div>

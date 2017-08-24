@@ -84,7 +84,7 @@ exports.getCommands = async (req, res) => {
   const { positions } = jwtDecode(token);
 
   try {
-    const date = moment().subtract('1', 'day').toISOString();
+    const date = moment().subtract('2', 'day').toISOString();
 
     const articleFields = 'name price';
     const commands =

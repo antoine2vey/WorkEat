@@ -134,4 +134,8 @@ const addListener = key => (dispatch) => {
   });
 };
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener };
+const updateProduct = product => {
+  console.log(product);
+}
+
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct };

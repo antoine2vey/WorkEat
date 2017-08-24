@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTagsIfNeeded } from '../../../actions/tags';
 import { fetchPlacesIfNeeded } from '../../../actions/livraison';
-import { createProduct, fetchProductsIfNeeded, deleteProducts } from '../../../actions/products';
+import { createProduct, fetchProductsIfNeeded, deleteProducts, updateProduct } from '../../../actions/products';
 import { Input, Select } from './FormFields';
 import ProductList from './ProductList';
 // import { download } from '../../../images';
@@ -143,4 +143,5 @@ export default connect(mapStateToProps, {
   fetchProductsIfNeeded,
   createProduct,
   deleteProducts,
+  updateProduct,
 })(Product);
