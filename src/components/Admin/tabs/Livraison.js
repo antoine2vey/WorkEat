@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchPlacesIfNeeded, createPlaces, deletePlaces } from '../../../actions/livraison';
 import GMap from './GoogleMap';
 import { Input } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Livraison extends Component {
   constructor() {
@@ -51,32 +52,34 @@ class Livraison extends Component {
     return (
       <div>
         <h2 className="admin__container-title">Points de livraison</h2>
-          <div className="admin__container-list">
-            <div className="admin__container-list admin__field-column-2">
-              {
-                places.map(place => (
-                  <div className="admin__livraison-column" key={place._id}>
-                    <div className="admin__livraison">
-                      {place.name}
-                      <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(place._id)} />
-                    </div>
+        <div className="admin__container-list">
+          {
+            places.map(place => (
+              <div className="admin__livraison-column" key={place._id}>
+                <div className="admin__livraison">
+                  <p className="admin__livraison-text">{place.name}</p>
+                  <div className="admin__delete-btn" onClick={() => this.handleDelete(place._id)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
                   </div>
-                ))
-              }
-            </div>
-            <div className="admin__livraison-gmap admin__field-column-2">
-              <GMap loadedPlaces={places} handlePosition={this.handlePosition} />
-            </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <h2 className="admin__container-title">Ajouter un point de livraison</h2>
+        <div className="admin__container-list">
+          <div className="admin__field-column admin__field-column-2">
+            <form method="POST" onSubmit={this.handleSubmit}>
+              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+              <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
+              <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
+              <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
+              <button type="submit" className="btn-gold">Créer</button>
+            </form>
           </div>
-        <div>
-          <h2 className="admin__container-title">Ajouter un point de livraison</h2>
-          <form method="POST" onSubmit={this.handleSubmit}>
-            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-            <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-            <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
-            <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
-            <button type="submit" className="btn-gold">Créer</button>
-          </form>
+          <div className="admin__livraison-gmap admin__field-column admin__field-column-2">
+            <GMap loadedPlaces={places} handlePosition={this.handlePosition} />
+          </div>
         </div>
       </div>
     );

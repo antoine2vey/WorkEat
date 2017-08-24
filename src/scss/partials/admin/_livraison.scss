@@ -5,12 +5,15 @@
     @include material-shadow(box, 1);
 
     &-column {
-      flex-basis: 50%;
+      flex-basis: 25%;
       align-self: stretch;
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
       @include screenDefault {
+        flex-basis: 50%;
+      };
+      @include screenMd {
         flex-basis: 100%;
       };
     }
@@ -18,6 +21,12 @@
     &-gmap {
       width: 100%;
       display: inline-block;
+    }
+
+    &-text {
+      margin: 0 0 0 10px;
+      flex: 1;
+      font-family: $primary-font;
     }
   }
 
