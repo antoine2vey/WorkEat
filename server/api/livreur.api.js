@@ -96,11 +96,7 @@ exports.getCommands = async (req, res) => {
         .populate('placeToShip', 'name')
         .populate('orderedBy', 'name surname phoneNumber')
         .populate('articles', articleFields)
-        .populate('bundles.bundle', articleFields)
-        .populate('bundles.entree', articleFields)
-        .populate('bundles.plat', articleFields)
-        .populate('bundles.dessert', articleFields)
-        .populate('bundles.boisson', articleFields);
+        .populate('bundles.bundle', articleFields);
 
     if (!commands.length) {
       // Does not work on Postman.. ??
@@ -119,7 +115,7 @@ exports.check = async (req, res) => {
   const { commandId } = req.params;
 
   try {
-    const updatedOrder = await Order.findByIdAndUpdate(commandId, { isDistribued: true }, { new: true });
+    const updatedOrder = await Order.findByIdAndUpdate(commandId, { isDistribued: req.body.value }, { new: true });
 
     if (!updatedOrder) {
       return res.status(404).send({
