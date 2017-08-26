@@ -114,9 +114,9 @@ exports.login = (req, res, next) => {
       const payload = {
         id: user._id,
         isAdmin: user.isAdmin,
-        isLivreur: user.isLivreur,
         isPrestataire: user.isPrestataire,
       };
+      
       const token = jwt.sign(payload, process.env.JWT_SECRET);
       return res.status(200).send({
         token,

@@ -39,7 +39,7 @@ const accountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isLivreur: {
+  isPrestataire: {
     type: Boolean,
     default: false,
   },
