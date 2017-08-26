@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart } from '../../actions/cart';
 
-const Entree = ({ entree: { file, description, price, tags, types, name, stock, isHidden }, addToCart, showProduct, isVisible, hideProduct }) => (
+const Entree = ({ entree: { file, price, tags, name, stock, isHidden }, addToCart, showProduct, isVisible, hideProduct }) => (
   <div className={`${stock > 0 ? 'products__product-container' : 'products__product-container is-outOfStock'} ${isHidden ? 'products__product-container__hidden' : ''}`}>
     <div className="products__product">
       <div className="products__product__options">
@@ -26,11 +26,11 @@ const Entrees = ({ ...props }) => {
 
   return (
     <div className="products__products-list">
-      { entrees.map(entree => (
+      { entrees.map((entree, i) => (
         <Entree
           entree={entree}
           key={entree._id}
-          addToCart={() => addToCart(entree)}
+          addToCart={() => addToCart(entree, false, i)}
           showProduct={() => showProduct(entree)}
           hideProduct={() => hideProduct(entree)}
           isVisible={isVisible}
