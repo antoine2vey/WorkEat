@@ -14,7 +14,7 @@ const Nav = ({ shown, switcher, logout, solde, token }) => {
   return (
     <nav className={shown ? 'nav nav--js-open' : 'nav'}>
       <img src={close} alt="Fermer le menu" className="nav-close" onClick={switcher} />
-      <Link to="/home">
+      <Link to={token ? '/' : '/home'}>
         <img src={logoBlanc} alt="logo" className="nav-logo" />
       </Link>
       <ul className="nav-list">

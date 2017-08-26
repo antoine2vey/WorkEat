@@ -57,7 +57,7 @@ class UserNav extends Component {
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <Link to="/home">
+            <Link to={token ? '/' : '/home'}>
               <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
             </Link>
             <Timer />
