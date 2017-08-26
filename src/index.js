@@ -71,11 +71,15 @@ if (instanciateCartAt !== null) {
   const after = moment(instanciateCartAt).add('10', 'minutes').unix();
   const tstamp = ((after - now) * 1000);
 
+  if (tstamp < 0) {
+    clearTimeout(timer);
+  }
+
+  console.log(tstamp);
+
   timer = setTimeout(() => {
     store.dispatch({ type: 'DELETE_CART' });
   }, tstamp);
-
-  console.log(timer);
 }
 
 store.subscribe(handleChange);
