@@ -681,7 +681,10 @@ a:hover {
 
     &-button {
       position: relative;
-      width: 45px;
+      width: 47px;
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
       height: 50%;
       text-align: center;
       font-size: 13px;
