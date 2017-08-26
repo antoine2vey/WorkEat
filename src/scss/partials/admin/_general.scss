@@ -161,4 +161,8 @@
       @include reset($white, none, none);
     }
   }
+
+  &__reset {
+    padding: 120px 20px 0;
+  }
 }
