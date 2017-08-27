@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NotificationManager } from 'react-notifications';
 import Slider from 'react-slick';
 import * as images from '../../images';
 
@@ -19,11 +20,11 @@ class LoginBox extends Component {
   }
 
   handleAction(event) {
-    const { email, password, isResettingPassword } = this.state;
+    const { email, password, isResettingPassword, resetEmail } = this.state;
     event.preventDefault();
 
     if (isResettingPassword) {
-      this.props.resetPassword({ email });
+      this.props.resetPassword({ email: resetEmail });
     } else {
       this.props.loginUser({ email, password });
     }
@@ -36,7 +37,7 @@ class LoginBox extends Component {
 
   switchInnerView() {
     this.setState({
-      isResettingPassword: !this.state.isResettingPassword
+      isResettingPassword: !this.state.isResettingPassword,
     });
   }
 
@@ -156,8 +157,6 @@ class ConnectionBox extends Component {
     } = this.state;
     e.preventDefault();
 
-    console.log(this.state);
-
     axios.post('/account/create', {
       username: email,
       password,
@@ -170,9 +169,11 @@ class ConnectionBox extends Component {
       phoneNumber,
     })
     .then(() => {
-      console.log('compte crée');
+      NotificationManager.success('Votre compte à été crée!', 'Compte', 3000);
     })
-    .catch(err => console.error(err));
+    .catch((err) => {
+      NotificationManager.error('Une erreur est survenue...', 'Compte', 3000);
+    });
   }
 
   nextClick(e) {
