@@ -1,6 +1,5 @@
 const Order = require('../models/order.model');
 const mailer = require('../mailing').interface;
-const createPdf = require('../pdf');
 
 exports.getOne = (req, res) => {
   const { id } = req.params;
@@ -88,19 +87,6 @@ exports.create = (req, res) => {
         return res.status(500).send('Database error');
       }
 
-      const fields = 'name price';
-      Order.findById(order._id)
-        .populate('articles', fields)
-        .populate('bundles.bundle', fields)
-        .populate('bundles.entree', fields)
-        .populate('bundles.plat', fields)
-        .populate('bundles.dessert', fields)
-        .populate('bundles.boisson', fields)
-        .populate('placeToShip', 'name description')
-        .populate('orderedBy', 'name address codePostal town surname username phoneNumber')
-        .exec((err, data) => {
-          createPdf(data, res);
-        });
       return res.send({ id: order._id });
     });
   });

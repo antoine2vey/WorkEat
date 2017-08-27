@@ -1,14 +1,13 @@
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// const nodemailer = require('nodemailer');
+const genPDF = require('../pdf');
 
 function getStripeAmount(amount) {
   return amount * 100;
 }
 
-exports.send = (req, res) => {
-  console.log(req.query);
+exports.send = (req, res, next) => {
   const { id } = req.params;
   const { token } = req.body;
 
@@ -23,7 +22,8 @@ exports.send = (req, res) => {
   .populate('bundles.plat', 'file name price')
   .populate('bundles.dessert', 'file name price')
   .populate('bundles.boisson', 'file name price')
-  .populate('placeToShip', 'name')
+  .populate('placeToShip', 'name description')
+  .populate('orderedBy', 'name address codePostal town surname username phoneNumber')
   .exec((err, order) => {
     if (err) {
       return res.status(400).send({
@@ -59,9 +59,8 @@ exports.send = (req, res) => {
               return console.log('Erreur update order');
             }
 
-            console.log(order.bundles[0]);
-
-            return res.status(200).send({ order });
+            genPDF(order, res, next);
+            res.status(200).send({ order });
           });
         });
       }
@@ -74,6 +73,7 @@ exports.send = (req, res) => {
             console.log('Database error @ save order', err);
           }
 
+          genPDF(order, res, next);
           res.status(200).send({ order });
         });
       }
@@ -109,6 +109,7 @@ exports.send = (req, res) => {
                 console.log('Database error @ save order', err);
               }
 
+              genPDF(order, res, next);
               res.status(200).send({ order });
             });
           });
@@ -129,6 +130,7 @@ exports.send = (req, res) => {
             console.log('Database error @ save order', err);
           }
 
+          genPDF(order, res, next);
           res.status(200).send({ order });
         });
       }

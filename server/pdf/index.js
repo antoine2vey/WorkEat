@@ -6,17 +6,17 @@ const moment = require('moment');
 
 moment.locale('fr');
 
-function createPdf(data, res) {
+function createPdf(data, res, next) {
   const filePath = `pdf/workeat-${data._id}.pdf`;
   const writeFilePath = `public/${filePath}`;
   fs.readFile(path.join(__dirname, 'recap.hbs'), (err, html) => {
     if (err) {
-      return console.log('Error at creating PDF', err);
+      return next(err);
     }
 
     // If file already exists, dont need to block the thread
     if (fs.existsSync(writeFilePath)) {
-      return res.download(writeFilePath);
+      return next(true);
     }
 
     const formattedDate = moment(data.orderedAt).format('Do MMMM YYYY');
@@ -28,9 +28,20 @@ function createPdf(data, res) {
     });
 
     pdf.create(__html).toFile(writeFilePath, () => {
-      res.download(writeFilePath);
+      next(true);
     });
   });
 }
 
-module.exports = createPdf;
+function init(data, res, next) {
+  const csvDir = path.join(__dirname, '..', '..', 'public', 'pdf');
+  fs.stat(csvDir, (err) => {
+    if (err) {
+      fs.mkdirSync(csvDir, () => fs.close());
+    }
+  });
+
+  createPdf(data, res, next);
+}
+
+module.exports = init;
