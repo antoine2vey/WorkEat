@@ -311,10 +311,9 @@ exports.forgot = async (req, res) => {
   const { email } = req.body;
   // Génération random de token
   const token = await crypto.randomBytes(20).toString('hex');
-  console.log(email);
   User.findOne({ username: email }, (err, user) => {
     if (!user) {
-      return false;
+      return res.status(400).send('Cet email n\'existe pas');
     }
 
     // Assign token and expire
@@ -379,6 +378,15 @@ exports.reset = async (req, res) => {
 
 exports.resetPwd = async (req, res) => {
   const { token } = req.params;
+  const { password, confirmPassword } = req.body;
+
+  if (!password) {
+    return res.status(400).send('Veuillez fournir un mot de passe.');
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).send('Les mots de passe ne correspondent pas.');
+  }
 
   try {
     const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }).select('username');
@@ -391,7 +399,7 @@ exports.resetPwd = async (req, res) => {
     }
 
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+    const hash = bcrypt.hashSync(password, salt);
 
     user.password = hash;
     user.resetPasswordExpires = undefined;
