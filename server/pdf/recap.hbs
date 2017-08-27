@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>A simple, clean, and responsive HTML invoice template</title>
+
+  <style>
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #555;
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+      text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+      padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+      border-top: 2px solid #eee;
+      font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    #Calque_1 {
+      max-width: 300px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="3">
+          <table>
+            <tr>
+              <td class="title">
+                <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  viewBox="-925 1313 880 107" style="enable-background:new -925 1313 880 107;" xml:space="preserve">
+                  <style type="text/css">
+                    .st0 {
+                      display: none;
+                    }
+
+                    .st1 {
+                      display: inline;
+                    }
+
+                    .st2 {
+                      clip-path: url(#SVGID_2_);
+                    }
+
+                    .st3 {
+                      display: none;
+                      fill: #1D1D1B;
+                    }
+
+                    .st4 {
+                      fill: #1D1D1B;
+                    }
+
+                    .st5 {
+                      clip-path: url(#SVGID_4_);
+                    }
+
+                    .st6 {
+                      fill: none;
+                      stroke: #000000;
+                    }
+
+                    .st7 {
+                      clip-path: url(#SVGID_6_);
+                    }
+
+                    .st8 {
+                      display: inline;
+                      fill: none;
+                    }
+                  </style>
+                  <g id="logo_noir" class="st0">
+                    <g class="st1">
+                      <path d="M-895.8,988.8h30.4l10.9,57.9l16-57.9h30.3l16,57.8l10.9-57.8h30.2l-22.8,103.4h-31.3l-18.1-65.1l-18.1,65.1h-31.4
+			L-895.8,988.8z" />
+                      <path d="M-747.1,1040.5c0-16.9,4.7-30,14.1-39.4c9.4-9.4,22.5-14.1,39.3-14.1c17.2,0,30.5,4.6,39.8,13.9c9.3,9.2,14,22.2,14,38.8
+			c0,12.1-2,22-6.1,29.7c-4.1,7.7-9.9,13.8-17.6,18.1c-7.7,4.3-17.3,6.5-28.8,6.5c-11.7,0-21.3-1.9-29-5.6
+			c-7.6-3.7-13.8-9.6-18.6-17.6C-744.7,1062.7-747.1,1052.6-747.1,1040.5z M-715.1,1040.7c0,10.4,1.9,17.9,5.8,22.5
+			c3.9,4.6,9.2,6.8,15.8,6.8c6.9,0,12.2-2.2,15.9-6.7c3.8-4.5,5.6-12.5,5.6-24.1c0-9.7-2-16.9-5.9-21.3c-3.9-4.5-9.3-6.7-16-6.7
+			c-6.4,0-11.6,2.3-15.5,6.8C-713.2,1022.6-715.1,1030.2-715.1,1040.7z" />
+                      <path d="M-622.3,1092.2V988.8h53.3c9.9,0,17.4,0.8,22.7,2.5c5.2,1.7,9.4,4.8,12.6,9.4c3.2,4.6,4.8,10.2,4.8,16.8
+			c0,5.7-1.2,10.7-3.7,14.9c-2.4,4.2-5.8,7.5-10.1,10.1c-2.7,1.6-6.5,3-11.2,4.1c3.8,1.3,6.6,2.5,8.3,3.8c1.2,0.8,2.9,2.7,5.1,5.4
+			c2.2,2.8,3.7,4.9,4.5,6.4l15.5,30h-36.1l-17.1-31.6c-2.2-4.1-4.1-6.7-5.8-8c-2.3-1.6-4.9-2.4-7.8-2.4h-2.8v42H-622.3
+			L-622.3,1092.2z M-590.2,1030.7h13.5c1.5,0,4.3-0.5,8.5-1.4c2.1-0.4,3.8-1.5,5.2-3.2c1.3-1.7,2-3.7,2-6c0-3.3-1.1-5.9-3.2-7.7
+			c-2.1-1.8-6.1-2.7-11.9-2.7h-14v21H-590.2z" />
+                      <path d="M-510.2,988.8h32v39.1l33.5-39.1h42.5l-37.7,39l39.4,64.4h-39.4l-21.8-42.5l-16.5,17.3v25.2h-32V988.8z" />
+                      <path d="M-341.8,988.8h85.7v22.1h-53.6v16.4h49.7v21.1h-49.7v20.4h55.2v23.4h-87.2L-341.8,988.8L-341.8,988.8z" />
+                      <path d="M-173.8,1075.1H-210l-5,17.1h-32.6l38.9-103.4h34.7l38.9,103.4h-33.5L-173.8,1075.1z M-180.4,1052.8l-11.4-37.2
+			l-11.3,37.2H-180.4z" />
+                      <path d="M-142.2,988.8H-45v25.5h-32.6v77.9h-32v-77.9h-32.6L-142.2,988.8L-142.2,988.8z" />
+                    </g>
+                    <g class="st1">
+                      <g>
+                        <defs>
+                          <rect id="SVGID_1_" x="-925" y="1036.4" width="540.1" height="6.6" />
+                        </defs>
+                        <clipPath id="SVGID_2_">
+                          <use xlink:href="#SVGID_1_" style="overflow:visible;" />
+                        </clipPath>
+                        <g class="st2">
+
+                          <image style="overflow:visible;enable-background:new    ;" width="1200" height="800" xlink:href="B5B0451280CC35F0.jpeg" transform="matrix(1.2084 0 0 3.2836 -1184.8033 54.6199)">
+                          </image>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g id="logo_blanc">
+                    <rect x="-985" y="1201" class="st3" width="1000" height="330" />
+                    <g>
+                      <path class="st4" d="M-895.8,1314.8h30.4l10.9,57.9l16-57.9h30.3l16,57.8l10.9-57.8h30.2l-22.8,103.4h-31.3l-18.1-65.1l-18.1,65.1
+			h-31.4L-895.8,1314.8z" />
+                      <path class="st4" d="M-747.1,1366.5c0-16.9,4.7-30,14.1-39.4s22.5-14.1,39.3-14.1c17.2,0,30.5,4.6,39.8,13.9
+			c9.3,9.2,14,22.2,14,38.8c0,12.1-2,22-6.1,29.7c-4.1,7.7-9.9,13.8-17.6,18.1c-7.7,4.3-17.3,6.5-28.8,6.5c-11.7,0-21.3-1.9-29-5.6
+			c-7.6-3.7-13.8-9.6-18.6-17.6C-744.7,1388.7-747.1,1378.6-747.1,1366.5z M-715.1,1366.7c0,10.4,1.9,17.9,5.8,22.5
+			c3.9,4.6,9.2,6.8,15.8,6.8c6.9,0,12.2-2.2,15.9-6.7c3.8-4.5,5.6-12.5,5.6-24.1c0-9.7-2-16.9-5.9-21.3c-3.9-4.5-9.3-6.7-16-6.7
+			c-6.4,0-11.6,2.3-15.5,6.8C-713.2,1348.6-715.1,1356.2-715.1,1366.7z" />
+                      <path class="st4" d="M-622.3,1418.2v-103.4h53.3c9.9,0,17.4,0.8,22.7,2.5c5.2,1.7,9.4,4.8,12.6,9.4c3.2,4.6,4.8,10.2,4.8,16.8
+			c0,5.7-1.2,10.7-3.7,14.9c-2.4,4.2-5.8,7.5-10.1,10.1c-2.7,1.6-6.5,3-11.2,4.1c3.8,1.3,6.6,2.5,8.3,3.8c1.2,0.8,2.9,2.7,5.1,5.4
+			c2.2,2.8,3.7,4.9,4.5,6.4l15.5,30h-36.1l-17.1-31.6c-2.2-4.1-4.1-6.7-5.8-8c-2.3-1.6-4.9-2.4-7.8-2.4h-2.8v42H-622.3z
+			 M-590.2,1356.7h13.5c1.5,0,4.3-0.5,8.5-1.4c2.1-0.4,3.8-1.5,5.2-3.2c1.3-1.7,2-3.7,2-6c0-3.3-1.1-5.9-3.2-7.7
+			c-2.1-1.8-6.1-2.7-11.9-2.7h-14v21H-590.2z" />
+                      <path class="st4" d="M-510.2,1314.8h32v39.1l33.5-39.1h42.5l-37.7,39l39.4,64.4h-39.4l-21.8-42.5l-16.5,17.3v25.2h-32V1314.8z"
+                      />
+                      <path class="st4" d="M-341.8,1314.8h85.7v22.1h-53.6v16.4h49.7v21.1h-49.7v20.4h55.2v23.4h-87.2L-341.8,1314.8L-341.8,1314.8z"
+                      />
+                      <path class="st4" d="M-173.8,1401.1H-210l-5,17.1h-32.6l38.8-103.4h34.8l38.9,103.4h-33.5L-173.8,1401.1z M-180.4,1378.8
+			l-11.4-37.2l-11.3,37.2H-180.4z" />
+                      <path class="st4" d="M-142.2,1314.8H-45v25.5h-32.6v77.9h-32v-77.9h-32.6L-142.2,1314.8L-142.2,1314.8z" />
+                    </g>
+                    <g>
+                      <g>
+                        <defs>
+                          <rect id="SVGID_3_" x="-925" y="1362.4" width="540.1" height="6.6" />
+                        </defs>
+                        <use xlink:href="#SVGID_3_" style="overflow:visible;fill:#1D1D1B;" />
+                        <clipPath id="SVGID_4_">
+                          <use xlink:href="#SVGID_3_" style="overflow:visible;" />
+                        </clipPath>
+                        <g transform="matrix(1 0 0 1 0 -6.103516e-05)" class="st5">
+
+                          <image style="overflow:visible;enable-background:new    ;" width="1200" height="800" xlink:href="B5B0451280CC35F0.jpeg" transform="matrix(1.2084 0 0 3.2836 -1184.8033 380.6198)">
+                          </image>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g id="logo_fill" class="st0">
+                    <g class="st1">
+                      <path class="st6" d="M-895.8,1645.8h30.4l10.9,57.9l16-57.9h30.3l16,57.8l10.9-57.8h30.2l-22.8,103.4h-31.3l-18.1-65.1l-18.1,65.1
+			h-31.4L-895.8,1645.8z" />
+                      <path class="st6" d="M-747.1,1697.5c0-16.9,4.7-30,14.1-39.4s22.5-14.1,39.3-14.1c17.2,0,30.5,4.6,39.8,13.9
+			c9.3,9.2,14,22.2,14,38.8c0,12.1-2,22-6.1,29.7c-4.1,7.7-9.9,13.8-17.6,18.1c-7.7,4.3-17.3,6.5-28.8,6.5c-11.7,0-21.3-1.9-29-5.6
+			c-7.6-3.7-13.8-9.6-18.6-17.6C-744.7,1719.7-747.1,1709.6-747.1,1697.5z M-715.1,1697.7c0,10.4,1.9,17.9,5.8,22.5
+			c3.9,4.6,9.2,6.8,15.8,6.8c6.9,0,12.2-2.2,15.9-6.7c3.8-4.5,5.6-12.5,5.6-24.1c0-9.7-2-16.9-5.9-21.3c-3.9-4.5-9.3-6.7-16-6.7
+			c-6.4,0-11.6,2.3-15.5,6.8C-713.2,1679.6-715.1,1687.2-715.1,1697.7z" />
+                      <path class="st6" d="M-622.3,1749.2v-103.4h53.3c9.9,0,17.4,0.8,22.7,2.5c5.2,1.7,9.4,4.8,12.6,9.4c3.2,4.6,4.8,10.2,4.8,16.8
+			c0,5.7-1.2,10.7-3.7,14.9c-2.4,4.2-5.8,7.5-10.1,10.1c-2.7,1.6-6.5,3-11.2,4.1c3.8,1.3,6.6,2.5,8.3,3.8c1.2,0.8,2.9,2.7,5.1,5.4
+			c2.2,2.8,3.7,4.9,4.5,6.4l15.5,30h-36.1l-17.1-31.6c-2.2-4.1-4.1-6.7-5.8-8c-2.3-1.6-4.9-2.4-7.8-2.4h-2.8v42H-622.3
+			L-622.3,1749.2z M-590.2,1687.7h13.5c1.5,0,4.3-0.5,8.5-1.4c2.1-0.4,3.8-1.5,5.2-3.2c1.3-1.7,2-3.7,2-6c0-3.3-1.1-5.9-3.2-7.7
+			c-2.1-1.8-6.1-2.7-11.9-2.7h-14v21H-590.2z" />
+                      <path class="st6" d="M-510.2,1645.8h32v39.1l33.5-39.1h42.5l-37.7,39l39.4,64.4h-39.4l-21.8-42.5l-16.5,17.3v25.2h-32V1645.8z"
+                      />
+                      <path class="st6" d="M-341.8,1645.8h85.7v22.1h-53.6v16.4h49.7v21.1h-49.7v20.4h55.2v23.4h-87.2L-341.8,1645.8L-341.8,1645.8z"
+                      />
+                      <path class="st6" d="M-173.8,1732.1H-210l-5,17.1h-32.6l38.9-103.4h34.7l38.9,103.4h-33.5L-173.8,1732.1z M-180.4,1709.8
+			l-11.4-37.2l-11.3,37.2H-180.4z" />
+                      <path class="st6" d="M-142.2,1645.8H-45v25.5h-32.6v77.9h-32v-77.9h-32.6L-142.2,1645.8L-142.2,1645.8z" />
+                    </g>
+                    <g class="st1">
+                      <g>
+                        <defs>
+                          <rect id="SVGID_5_" x="-925" y="1693.4" width="540.1" height="6.6" />
+                        </defs>
+                        <clipPath id="SVGID_6_">
+                          <use xlink:href="#SVGID_5_" style="overflow:visible;" />
+                        </clipPath>
+                        <g class="st7">
+
+                          <image style="overflow:visible;enable-background:new    ;" width="1200" height="800" xlink:href="B5B0451280CC35F0.jpeg" transform="matrix(1.2084 0 0 3.2836 -1184.8033 711.6198)">
+                          </image>
+                        </g>
+                      </g>
+                    </g>
+                    <rect id="_x3C_Tranche_x3E_" x="-1185" y="1420" class="st8" width="260" height="1918" />
+                    <rect id="_x3C_Tranche_x3E__1_" x="-925" y="1420" class="st8" width="880" height="1918" />
+                    <rect id="_x3C_Tranche_x3E__2_" x="-45" y="1420" class="st8" width="310" height="1918" />
+                    <rect id="_x3C_Tranche_x3E__3_" x="-1185" y="1313" class="st8" width="260" height="107" />
+                    <rect id="_x3C_Tranche_x3E__4_" x="-925" y="1313" class="st8" width="880" height="107" />
+                    <rect id="_x3C_Tranche_x3E__5_" x="-45" y="1313" class="st8" width="310" height="107" />
+                    <rect id="_x3C_Tranche_x3E__6_" x="-1185" y="55" class="st8" width="260" height="1258" />
+                    <rect id="_x3C_Tranche_x3E__7_" x="-925" y="55" class="st8" width="880" height="1258" />
+                    <rect id="_x3C_Tranche_x3E__8_" x="-45" y="55" class="st8" width="310" height="1258" />
+                  </g>
+                </svg>
+              </td>
+
+              <td>
+                Commande #: {{order.position}}<br> Acheté le {{date}}<br>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="information">
+        <td colspan="3">
+          <table>
+            <tr>
+              <td>
+                WorkEat.<br> 
+                Livré à : {{order.placeToShip.name}}<br>
+              </td>
+
+              <td>
+                {{order.orderedBy.surname}} {{order.orderedBy.name}}<br>{{order.orderedBy.username}}<br> {{order.orderedBy.phoneNumber}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="heading">
+        <td>
+          Méthode de payment
+        </td>
+
+        <td colspan="2">
+        </td>
+      </tr>
+
+      <tr class="details">
+        <td>
+          {{order.method}}
+        </td>
+      </tr>
+
+      {{#if order.articles}}
+        <tr class="heading">
+          <td>
+            Articles
+          </td>
+
+          <td>
+            Quantité
+          </td>
+          <td>
+            Prix
+          </td>
+        </tr>
+
+        {{#each order.articles}}
+          <tr class="item">
+            <td>
+              {{name}}
+            </td>
+
+            <td>
+              {{lookup ../order.quantitiesById this._id}}
+            </td>
+            <td>
+              {{price}}€
+            </td>
+          </tr>
+        {{/each}}
+      {{/if}}
+
+       {{#if order.bundles}}
+        <tr class="heading">
+          <td>
+            Formules
+          </td>
+
+          <td>
+            Quantité
+          </td>
+          <td>
+            Prix
+          </td>
+        </tr>
+
+        {{#each order.bundles}}
+          <tr class="item">
+            <td>
+              {{bundle.name}} <br>
+              <div style="
+                margin-left: 15px;
+                font-size: 12px;
+                font-style: italic;
+                line-height: 18px;
+              ">
+                {{#if entree}}
+                  - {{entree.name}} <br>
+                {{/if}}
+                {{#if plat}}
+                  - {{plat.name}} <br>
+                {{/if}}
+                {{#if dessert}}
+                  - {{dessert.name}} <br>
+                {{/if}}
+                {{#if boisson}}
+                  - {{boisson.name}} <br>
+                {{/if}}
+              </div>
+            </td>
+
+            <td>
+              {{lookup ../order.quantitiesById bundle._id}}
+            </td>
+            <td>
+              {{bundle.price}}€
+            </td>
+          </tr>
+        {{/each}} 
+      {{/if}}
+
+      <tr class="total">
+        <td></td>
+
+        <td colspan="2">
+          Total: {{order.amount}}€
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
