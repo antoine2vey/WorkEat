@@ -116,7 +116,7 @@ exports.login = (req, res, next) => {
         isAdmin: user.isAdmin,
         isPrestataire: user.isPrestataire,
       };
-      
+
       const token = jwt.sign(payload, process.env.JWT_SECRET);
       return res.status(200).send({
         token,
@@ -160,13 +160,15 @@ exports.create = (req, res) => {
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('surname', 'Surname is required').notEmpty();
-  req.checkBody('codePostal', 'Code postal is required').notEmpty().isInt();
+  req.checkBody('codePostal', 'Code postal is required').notEmpty();
   req.checkBody('town', 'Town is required').notEmpty();
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('phoneNumber', 'Phone number is required').notEmpty();
 
   const errors = req.validationErrors();
   if (errors) {
+    console.log(req.body)
+    console.log(errors);
     res.status(400).send(errors);
     return;
   }
