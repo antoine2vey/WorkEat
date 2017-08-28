@@ -75,8 +75,6 @@ if (instanciateCartAt !== null) {
     clearTimeout(timer);
   }
 
-  console.log(tstamp);
-
   timer = setTimeout(() => {
     store.dispatch({ type: 'DELETE_CART' });
   }, tstamp);

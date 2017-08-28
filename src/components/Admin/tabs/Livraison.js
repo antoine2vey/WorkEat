@@ -20,7 +20,6 @@ class Livraison extends Component {
 
   componentDidMount() {
     this.props.fetchPlacesIfNeeded();
-    console.log(this.props);
   }
 
   handleSubmit(event) {
@@ -30,7 +29,7 @@ class Livraison extends Component {
 
   handleChange(event) {
     const { value, name } = event.target;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value });
   }
 
   handleDelete(id) {

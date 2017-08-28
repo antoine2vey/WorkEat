@@ -6,31 +6,8 @@ mongoose.Promise = Promise;
 exports.list = (req, res) => {
   Tag.find({}, (err, tags) => {
     if (err) {
-      throw new Error(err);
+      console.log('tags create', err);
     }
-
-    // client.lrange('tags', 0, -1, (err, reply) => {
-    //   if (err) {
-    //     throw new Error(err);
-    //   }
-    //
-    //   if(reply.length) {
-    //     console.log('In redis!');
-    //     let tagsArray = [];
-    //     reply.forEach((tag) => {
-    //       tagsArray.push(JSON.parse(tag));
-    //     });
-    //
-    //     return res.status(200).send(tagsArray);
-    //   } else {
-    //     console.log('Not in redis!');
-    //     res.status(200).send(tags);
-    //     return tags.forEach((tag) => {
-    //       client.rpush('tags', JSON.stringify(tag));
-    //     });
-    //     console.log('Pushed all tags');
-    //   }
-    // });
     return res.status(200).send(tags);
   });
 };

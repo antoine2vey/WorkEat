@@ -19,7 +19,6 @@ class Livreur extends Component {
   }
 
   componentDidMount() {
-    //this.fetchLivreurs();
     this.props.fetchPlacesIfNeeded();
   }
 
@@ -35,8 +34,6 @@ class Livreur extends Component {
         this.setState({ [name]: value });
       }
     }
-
-    console.log(this.state);
   }
 
   fetchLivreurs() {
