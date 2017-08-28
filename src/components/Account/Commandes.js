@@ -15,8 +15,14 @@ class Commandes extends Component {
     axios.get('/api/orders', {
       headers: { Authorization: `Bearer ${localStorage._token}` },
     })
-      .then(res => this.setState({ orders: res.data }))
+      .then(({ data }) => this.setState({ orders: data }))
       .catch(err => console.error(err));
+  }
+
+  getProductQuantities(currentOrder) {
+    return Object.keys(currentOrder.quantitiesById).reduce((prev, key) => (
+      prev + currentOrder.quantitiesById[key]
+    ), 0);
   }
 
   render() {
@@ -67,7 +73,7 @@ class Commandes extends Component {
                         {order.method}
                       </td>
                       <td className="compteCommand-tab-cellule">
-                        {order.amount}€ pour {Object.keys(order.quantitiesById).length} {Object.keys(order.quantitiesById).length === 1 ? 'produit' : 'produits'}
+                        {order.amount}€ pour {this.getProductQuantities(order)} {this.getProductQuantities(order) === 1 ? 'produit' : 'produits'}
                       </td>
                     </tr>
                   ))
@@ -79,7 +85,6 @@ class Commandes extends Component {
                     </tr>
                   )
                 }
-
               </tbody>
             </table>
           </div>

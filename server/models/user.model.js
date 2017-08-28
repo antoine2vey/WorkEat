@@ -39,10 +39,6 @@ const accountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isLivreur: {
-    type: Boolean,
-    default: false,
-  },
   isPrestataire: {
     type: Boolean,
     default: false,
@@ -58,6 +54,8 @@ const accountSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 accountSchema.methods.validatePassword = (password, hash) => bcrypt.compareSync(password, hash);

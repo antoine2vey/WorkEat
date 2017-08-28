@@ -20,8 +20,8 @@
   align-items: $align;
   flex-direction: $direction;
   -webkit-flex-direction: $direction;
-  -webkit-align-items: center; /* Safari 7.0+ */
-
+  -webkit-align-items: $align;
+  /* Safari 7.0+ */
 }
 // =============================================================================
 // Images

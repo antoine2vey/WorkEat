@@ -115,3 +115,9 @@ export const updateSolde = (amount, token) => (dispatch) => {
     .then(res => dispatch(increaseSolde(parseInt(res.data.amount, 10))))
     .catch(err => console.error(err));
 };
+
+export const resetPassword = email => () => (
+  axios.post('/account/forgot', email)
+    .then(res => console.log('forgot success', res.data))
+    .catch(err => console.error('fuck', err.response))
+);

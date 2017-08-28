@@ -17,7 +17,7 @@ exports.getOne = (req, res) => {
     .populate('bundles.plat')
     .populate('bundles.dessert')
     .populate('bundles.boisson')
-    .populate('placeToShip')
+    .populate('placeToShip', 'name -_id')
     .populate('orderedBy', 'name address codePostal town surname username')
     .exec((err, order) => {
       if (!order) {
@@ -44,13 +44,15 @@ exports.getOne = (req, res) => {
           articles: order.articles,
           bundles: order.bundles,
           quantitiesById: order.quantitiesById,
+          where: order.placeToShip,
         },
       }, (err, response) => {
         if (err) {
           return console.log(err);
         }
 
-        return console.log('mail sent!', response.response);
+        console.log('mail sent!', response.response);
+        return mailer.close();
       });
 
       return res.send(order);
@@ -68,8 +70,6 @@ exports.create = (req, res) => {
     boisson: bundle.boisson._id ? bundle.boisson._id : null,
   }));
 
-  console.log(req.user);
-
   Order.count({}).exec((err, len) => {
     const order = new Order({
       position: len + 1,
@@ -78,6 +78,7 @@ exports.create = (req, res) => {
       bundles,
       quantitiesById: quantites,
       amount: cart.reduce((curr, next) => curr + (next.quantity * next.price), 0),
+      placeToShip: req.body.placeId,
     });
 
     order.save((err) => {

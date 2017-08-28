@@ -1,17 +1,24 @@
 import axios from 'axios';
+import * as io from 'socket.io-client';
 import history from '../utils/history';
+
+const socket = io.connect('http://localhost:3005');
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_ORDER = 'GET_ORDER';
 export const INCREMENT_QUANTITY = 'INCREMENT_QUANTITY';
-export const DECREMENT_QUANTITY = 'UNINCREMENT_QUANTITY';
+export const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const DELETE_CART = 'DELETE_CART';
 export const CHECKOUT_REQUEST = 'CHECKOUT_REQUEST';
 export const CHECKOUT_HANDSHAKE = 'CHECKOUT_HANDSHAKE';
 export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';
 
 const addToCartUnsafe = (product, isBundle, index) => {
+  // In any case, update cart to server.
+  socket.emit('CART_UPDATE', { product });
+
   if (isBundle === true) {
     return {
       type: ADD_TO_CART,
@@ -20,15 +27,48 @@ const addToCartUnsafe = (product, isBundle, index) => {
     };
   }
 
+  // But if our product is not a bundle, connect stock to
+  // streaming pipeline
+  socket.emit('DECREMENT_QUANTITY', product._id);
   return {
     type: ADD_TO_CART,
     index,
     product,
   };
 };
-const increment = productId => ({ type: INCREMENT_QUANTITY, productId });
-const decrement = productId => ({ type: DECREMENT_QUANTITY, productId });
-const deleteFromCart = productId => ({ type: DELETE_ITEM, productId });
+const increment = (productId) => {
+  socket.emit('DECREMENT_QUANTITY', productId);
+
+  return {
+    type: INCREMENT_QUANTITY,
+    productId,
+  };
+};
+const decrement = (productId) => {
+  socket.emit('INCREMENT_QUANTITY', {
+    id: productId,
+    quantity: 1,
+  });
+
+  return {
+    type: DECREMENT_QUANTITY,
+    productId,
+  };
+};
+const deleteFromCart = (product) => {
+  const { _id, quantity } = product;
+
+  socket.emit('CART_UPDATE', { product, deleted: true });
+  socket.emit('INCREMENT_QUANTITY', {
+    id: _id,
+    quantity,
+  });
+
+  return {
+    type: DELETE_ITEM,
+    productId: _id,
+  };
+};
 const checkoutRequest = id => ({ type: CHECKOUT_REQUEST, id });
 const checkoutHandshake = () => ({ type: CHECKOUT_HANDSHAKE });
 const checkoutSuccess = (method, order) => ({ type: CHECKOUT_SUCCESS, method, order });
@@ -44,7 +84,6 @@ export const addToCart = (product, isBundle, index) => (dispatch) => {
 export const incrementQuantity = productId => dispatch => (
   dispatch(increment(productId))
 );
-
 export const decrementQuantity = productId => dispatch => (
   dispatch(decrement(productId))
 );
@@ -53,8 +92,8 @@ export const deleteProduct = productId => dispatch => (
   dispatch(deleteFromCart(productId))
 );
 
-export const checkoutReq = (cart, quantites) => (dispatch) => {
-  axios.post('/api/orders', { cart, quantites }, {
+export const checkoutReq = (cart, quantites, placeId) => (dispatch) => {
+  axios.post('/api/orders', { cart, quantites, placeId }, {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,
     },

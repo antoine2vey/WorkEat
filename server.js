@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const passportJWT = require('passport-jwt');
+const LocalStrategy = require('passport-local').Strategy;
 const jwtExpress = require('express-jwt');
 const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
@@ -15,11 +15,10 @@ const mongoose = require('mongoose');
 const User = require('./server/models/user.model');
 const env = require('dotenv');
 const pmx = require('pmx');
+const bootstrapSockets = require('./server/sockets');
 const exphbs = require('express-handlebars');
 
-const ExtractJwt = passportJWT.ExtractJwt;
 const app = express();
-const JwtStrategy = passportJWT.Strategy;
 const DEV = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3001;
 const sessionDB = 'mongodb://localhost:27017/WorkEat';
@@ -41,6 +40,8 @@ if (!DEV) {
 process.setMaxListeners(0);
 mongoose.connect(sessionDB);
 
+bootstrapSockets();
+
 /**
 * APP CONFIG
 * Passport for secure authentication + session
@@ -51,64 +52,34 @@ mongoose.connect(sessionDB);
 * bodyParser for objects
 * validators, parsers, session
 */
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  store: new MongoStore({
-    url: sessionDB,
-    autoReconnect: true,
-  }),
-  saveUninitialized: false,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser((user, done) => {
-  User.findById(user.id, (err, user) => {
-    done(err, user);
-  });
-});
-
-
-const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  secretOrKey: process.env.JWT_SECRET || 'ChangeThisKeyPlease',
-};
-passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
-  console.log('got some payload', payload);
-  User.findOne({ username }, (err, user) => {
-    if (err) {
-      return done(err);
-    }
-    if (!user) {
-      return done(null, false, {
-        message: 'Incorrect username.',
-      });
-    }
-
-    if (!user.validatePassword(password, user.password)) {
-      return done(null, false, {
-        message: 'Incorrect password.',
-      });
-    }
-
-    return done(null, user);
-  });
-}));
-app.use(logger('dev'));
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('*/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(cookieParser());
+app.use(bodyParser.json({
+  limit: '50mb',
+}));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: false,
 }));
-app.use(bodyParser.json({
-  limit: '50mb',
+app.use(logger('dev'));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  store: new MongoStore({
+    url: sessionDB,
+    autoReconnect: true,
+  }),
+  saveUninitialized: true,
+  cookie: {
+    secure: DEV,
+  },
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(expressValidator({
   customValidators: {
     isArray(value) {
@@ -116,8 +87,35 @@ app.use(expressValidator({
     },
   },
 }));
-app.use(cookieParser('secretKey!'));
-app.use(require('prerender-node'));
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(
+  (username, password, done) => {
+    User
+      .findOne({ username })
+      .populate('position')
+      .exec((err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false);
+        }
+        if (!user.validatePassword(password, user.password)) {
+          return done(null, false);
+        }
+
+        return done(null, user);
+      });
+  }));
 
 const userRoute = require('./server/api/users.api');
 const productsApi = require('./server/api/products.api');
@@ -129,9 +127,11 @@ const bundle = require('./server/api/bundle.api');
 const article = require('./server/api/article.api');
 const csv = require('./server/api/csv.api');
 const cart = require('./server/api/cart.api.js');
+const messageApi = require('./server/api/contact.api.js');
+const livreurApi = require('./server/api/livreur.api.js');
 
 const authorizeRequest = (req, res, next) => {
-  if (req.isAuthenticated() || process.env.NODE_ENV !== 'production') {
+  if (req.isAuthenticated()) {
     next();
   } else {
     res.status(401).send('Unauthorized. Please login.');
@@ -193,6 +193,9 @@ app.post('/account/logout', userRoute.logout);
 app.get('/account/list', userRoute.list);
 app.post('/account/login', userRoute.login);
 app.post('/account/create', userRoute.create);
+app.post('/account/forgot', userRoute.forgot);
+app.get('/reset/:token', userRoute.reset);
+app.post('/reset/:token', userRoute.resetPwd);
 app.delete('/account/delete', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.delete);
 app.put('/account/update', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.update);
 app.put('/account/update/solde', jwtExpress({ secret: process.env.JWT_SECRET }), userRoute.updateAmount);
@@ -207,7 +210,7 @@ app.get('/protected', authorizeRequest, (req, res) => {
 // PRODUCT API
 app.get('/api/products', productsApi.list);
 app.post('/api/products', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.create);
-// app.post('/api/products/:id', productsApi.update);
+app.put('/api/products/:id', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.update);
 app.delete('/api/products/:id', jwtExpress({ secret: process.env.JWT_SECRET }), productsApi.delete);
 
 // TAG API
@@ -243,11 +246,22 @@ app.delete('/api/bundles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), b
 // ARTICLES
 app.post('/api/articles', jwtExpress({ secret: process.env.JWT_SECRET }), article.create);
 app.get('/api/articles', article.list);
+app.get('/api/articles/:id', article.getOne);
 app.delete('/api/articles/:id', jwtExpress({ secret: process.env.JWT_SECRET }), article.delete);
 
 // EXPORT CSV
-app.post('/api/csv', isPresta, csv.createFile);
-app.get('/api/csv', isPresta, csv.download);
+app.post('/api/csv', isPresta, jwtExpress({ secret: process.env.JWT_SECRET }), csv.createFile);
+
+// MAIL
+app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);
+
+// LIVREURS
+app.post('/api/livreurs', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.create);
+// API TELEPHONE
+// On utilise un token différent pour éviter qu'un user hack une route via forge/crsf
+app.post('/livreur/login', livreurApi.login);
+app.get('/livreur/commands', jwtExpress({ secret: process.env.JWT_MOBILE_SECRET }), livreurApi.getCommands);
+app.post('/livreur/check/:commandId', jwtExpress({ secret: process.env.JWT_MOBILE_SECRET }), livreurApi.check);
 
 app.all('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

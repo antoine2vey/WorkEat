@@ -1,0 +1,86 @@
+.admin {
+  &__product {
+    @include flex;
+    height: 60px;
+    @include material-shadow(box, 1);
+    @include screenSm {
+      height: auto;
+    };
+
+    &-column {
+      flex-basis: 100%;
+      align-self: stretch;
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+      @include screenDefault {
+        flex-basis: 100%;
+      };
+    }
+
+    &-image {
+      width: auto;
+      height: 100%;
+
+      &-container {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+      }
+    }
+
+    &-content {
+      @include flex(flex-start, center, row);
+      flex: 1;
+      height: 100%;
+      padding-left: 10px;
+      box-sizing: border-box;
+    }
+
+    &-title {
+      flex: 1;
+      margin-bottom: 0;
+      margin-right: 15px;
+      font-size: 16px;
+      font-family: $primary-font;
+    }
+
+    &-price,
+    &-stock {
+      flex: 1;
+      margin-bottom: 0;
+      font-size: 16px;
+      font-family: $primary-font;
+    }
+
+    &-desc {
+      font-size: 16px;
+      font-family: $secondary-font;
+    }
+
+    &-delete {
+      margin: 0;
+    }
+
+    &-panel {
+      position: fixed;
+      z-index: 700;
+      bottom: -500px;
+      left: 0;
+      width: 100%;
+      height: 500px;
+      background: $white;
+      transition: all 0.3s $transition;
+      overflow: scroll;
+
+      &--open {
+        bottom: 0;
+        @include material-shadow(box, 2);
+      }
+    }
+  }
+
+  &__add-product {
+    margin-top: 50px;
+  }
+}

@@ -3,8 +3,11 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Places = require('../models/places.model');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 mongoose.Promise = Promise;
 
@@ -25,7 +28,6 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
-  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
@@ -88,7 +90,7 @@ exports.updateAmount = (req, res) => {
   });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
 
@@ -97,51 +99,41 @@ exports.login = (req, res) => {
     return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
-  User
-    .findOne({ username: req.body.username })
-    .populate('position')
-    .exec((err, user) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(404).send('Utilisateur non existant');
+    }
+    req.logIn(user, (err) => {
       if (err) {
-        throw new Error(err);
+        return res.status(500).send('Error saving session.');
       }
 
-      if (!user) {
-        return res.status(401).send('User not found. Please check your entry and try again.');
-      }
-
-      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-        if (isMatch) {
-          req.logIn(user, (err) => {
-            if (err) {
-              return res.status(500).send('Error saving session.');
-            }
-            const payload = {
-              id: user._id,
-              isAdmin: user.isAdmin,
-              isLivreur: user.isLivreur,
-              isPrestataire: user.isPrestataire,
-            };
-            const token = jwt.sign(payload, process.env.JWT_SECRET);
-            return res.status(200).send({
-              token,
-              user: {
-                username: user.username,
-                name: user.name,
-                surname: user.surname,
-                codePostal: user.codePostal,
-                address: user.address,
-                phoneNumber: user.phoneNumber,
-                town: user.town,
-                solde: user.solde,
-                position: user.position,
-              },
-            });
-          });
-        } else {
-          res.status(401).send({ success: false, message: 'Auth fail' });
-        }
+      const payload = {
+        id: user._id,
+        isAdmin: user.isAdmin,
+        isPrestataire: user.isPrestataire,
+      };
+      
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      return res.status(200).send({
+        token,
+        user: {
+          username: user.username,
+          name: user.name,
+          surname: user.surname,
+          codePostal: user.codePostal,
+          address: user.address,
+          phoneNumber: user.phoneNumber,
+          town: user.town,
+          solde: user.solde,
+          position: user.position,
+        },
       });
     });
+  })(req, res, next);
 };
 
 exports.create = (req, res) => {
@@ -236,7 +228,8 @@ exports.create = (req, res) => {
             return console.log(err);
           }
 
-          return console.log('mail sent!', response.response);
+          console.log('mail sent!', response.response);
+          return mailer.close();
         });
 
         return res.status(200).send('Account created! Please login with your new account.');
@@ -279,17 +272,22 @@ exports.update = (req, res) => {
   };
 
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
-    if (err) {
-      return res.status(500).send({
-        error: 'Email already exists',
-      });
-    }
+  User
+    .findByIdAndUpdate(req.user.id, query, { new: true })
+    .populate('position')
+    .select('-password -tokens')
+    .exec((err, updatedUser) => {
+      if (err) {
+        return res.status(500).send({
+          error: 'Email already exists',
+        });
+      }
 
-    res.status(200).send({
-      status: 'Account updated',
+      res.status(200).send({
+        user: updatedUser,
+        status: 'Account updated',
+      });
     });
-  });
 };
 exports.logout = (req, res) => {
   console.log(req.user);
@@ -306,5 +304,108 @@ exports.logout = (req, res) => {
 
       res.status(200).send('Success logging user out!');
     });
+  }
+};
+
+exports.forgot = async (req, res) => {
+  const { email } = req.body;
+  // Génération random de token
+  const token = await crypto.randomBytes(20).toString('hex');
+  console.log(email);
+  User.findOne({ username: email }, (err, user) => {
+    if (!user) {
+      return false;
+    }
+
+    // Assign token and expire
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000;
+
+    user.save((err) => {
+      if (err) {
+        res.status(500).send('Erreur du serveur');
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: process.env.GMAIL_ADDRESS,
+          pass: process.env.GMAIL_PWD,
+        },
+      }, {
+        from: 'WorkEat <noreply@workeat.io>',
+      });
+
+      const message = {
+        from: 'WorkEat',
+        to: user.username,
+        subject: 'Reset password',
+        text: `http://${req.headers.host}/reset/${token}`,
+      };
+
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
+          console.log('Error', err);
+          return res.status(500).send('Un problème est survenu');
+        }
+
+        console.log('Message sent', info);
+        transporter.close();
+
+        res.status(200).send('Mail envoyé!');
+      });
+    });
+  });
+};
+
+exports.reset = async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }).select('username');
+    if (!user) {
+      return res
+        .status(404)
+        .send({
+          message: 'Votre lien à expiré, veuillez réessayer',
+        });
+    }
+
+    res.status(200).send({ user: user.username });
+  } catch (e) {
+    res.status(500).send('Serveur error');
+  }
+};
+
+exports.resetPwd = async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }).select('username');
+    if (!user) {
+      return res
+        .status(404)
+        .send({
+          message: 'Votre lien à expiré, veuillez réessayer',
+        });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
+    user.password = hash;
+    user.resetPasswordExpires = undefined;
+    user.resetPasswordToken = undefined;
+
+    user.save((err) => {
+      if (err) {
+        return res.status(500).send('Server error');
+      }
+
+      res.status(200).send('Compte update');
+      // should send mail;
+    });
+  } catch (e) {
+    res.status(500).send('Serveur error');
   }
 };

@@ -20,8 +20,6 @@
 @import "./partials/account/infos";
 @import "./partials/account/command";
 @import "./partials/account/solde";
-
-
 /* payment */
 @import "./partials/payment/partOne";
 @import "./partials/payment/partTwo";
@@ -32,4 +30,6 @@
 @import "./partials/products/products-general";
 @import "./partials/products/carte";
 @import "./partials/products/formules";
-@import "./partials/products/panel"
+@import "./partials/products/panel";
+/* admin */
+@import "./partials/admin/products";

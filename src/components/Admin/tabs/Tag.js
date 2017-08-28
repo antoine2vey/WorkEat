@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/tags';
+import { fetchTagsIfNeeded, createTags, deleteTags } from '../../../actions/tags';
 import { Input } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Tag extends Component {
   constructor() {
@@ -35,24 +35,28 @@ class Tag extends Component {
   render() {
     const { tags } = this.props;
     return (
-      <div className="columns" style={{ justifyContent: 'center' }}>
-        <div className="column">
-          <form method="POST" onSubmit={this.handleSubmit}>
-            <div className="column">
-              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-              <Input type="submit" value="Créer" className="btn" />
-            </div>
-          </form>
-        </div>
-        <div className="column">
+      <div>
+        <h2 className="admin__container-title">Mes tags</h2>
+        <div className="admin__container-list">
           {
             tags.map(tag => (
-              <span className="tag is-danger is-large" key={tag._id} style={{ marginRight: 10, marginBottom: 10 }}>
-                {tag.name}
-                <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(tag)} />
-              </span>
+              <div className="admin__tag-column" key={tag._id}>
+                <div className="admin__tag">
+                  <p className="admin__tag-text">{tag.name}</p>
+                  <div className="admin__delete-btn" onClick={() => this.handleDelete(tag)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                  </div>
+                </div>
+              </div>
             ))
           }
+        </div>
+        <div className="admin__add-tag">
+          <h2 className="admin__container-title">Nouveau tag</h2>
+          <form method="POST" onSubmit={this.handleSubmit}>
+            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+            <button type="submit" className="btn-gold">Créer</button>
+          </form>
         </div>
       </div>
     );
@@ -63,6 +67,8 @@ const mapStateToProps = state => ({
   tags: state.tags.tags,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tag);
+export default connect(mapStateToProps, {
+  fetchTagsIfNeeded,
+  createTags,
+  deleteTags,
+})(Tag);

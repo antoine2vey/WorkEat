@@ -1,77 +1,107 @@
 const fs = require('fs');
 const json2csv = require('json2csv');
+const moment = require('moment');
+const path = require('path');
 const Order = require('../models/order.model');
+
+/**
+ * @description Check if given fields exists in a given array for CSV file
+ * @param {*} array
+ * @param {*} field
+ */
+const doesFieldExists = (array, field) => {
+  return array.some(fields => fields.produit === field);
+};
 
 exports.createFile = (req, res) => {
   const { date } = req.body;
+  const formattedDate = moment(date).format('DD-MM-YYYY');
+  const fileName = `commandes_${formattedDate}.csv`;
   const limit = new Date(date);
+
   limit.setHours(limit.getHours() + 11);
 
   Order
   .find({ orderedAt: {
-    $gt: req.body.date,
-    //$lte: limit
+    $gt: date,
+    $lte: limit,
   } })
-  .populate('articlesId', 'name -_id')
-  // Moyen clean pour faire une deep populate (Bundle qui a des items qui ont des articles)
-  .populate({
-    path: 'bundlesId',
-    model: 'Bundle',
-    select: 'name itemsId -_id',
-    populate: {
-      path: 'itemsId',
-      model: 'Product',
-      select: 'name -_id',
-    },
-  })
-  .select('bundlesNumber bundlesId articlesNumber articlesId -_id')
+  .populate('articles', 'name')
+  .populate('bundles.entree', 'name')
+  .populate('bundles.plat', 'name')
+  .populate('bundles.dessert', 'name')
+  .populate('bundles.boisson', 'name')
+  .select('articles bundles quantitiesById -_id')
   .exec((err, orders) => {
     if (err) {
       return console.log('ERR %s', err);
     }
 
     if (orders.length) {
-      const fields = ['name', 'amount'];
+      const fields = ['produit', 'montant'];
       const data = [];
-      console.log(orders);
       orders.forEach((order) => {
         // Articles
-        order.articlesId.forEach((article, i) => {
+        order.articles.forEach((article) => {
+          if (doesFieldExists(data, article.name)) {
+            const index = data.findIndex(obj => obj.produit === article.name);
+            return (data[index].montant += order.quantitiesById[article._id]);
+          }
+
           data.push({
-            name: article.name,
-            amount: order.articlesNumber[i],
+            produit: article.name,
+            montant: order.quantitiesById[article._id],
           });
         });
 
         // Bundles
-        order.bundlesId.forEach((bundle) => {
-          bundle.itemsId.forEach((item) => {
+        order.bundles.forEach((bundle) => {
+          const keys = ['entree', 'plat', 'dessert', 'boisson'];
+
+          keys.forEach((key) => {
+            // If no boisson or plat or ....
+            if (bundle[key] === null) {
+              return;
+            }
+
+            if (doesFieldExists(data, bundle[key].name)) {
+              const index = data.findIndex(obj => obj.produit === bundle[key].name);
+              return (data[index].montant += 1);
+            }
+
             data.push({
-              name: item.name,
-              amount: 1,
+              produit: bundle[key].name,
+              montant: 1,
             });
           });
         });
       });
 
       const csv = json2csv({ data, fields });
-      fs.writeFile('file.csv', csv, (err) => {
-        if (err) throw err;
-        res.send('Created file');
+      const csvDir = path.join(__dirname, '..', '..', 'csv');
+
+      // If directory doesnt exist, we create it
+      fs.stat(csvDir, (err) => {
+        // We can write to dir
+        if (err) {
+          // On doit bloquer le thread sinon il writefile avant
+          // de mkdir
+          fs.mkdirSync(csvDir, () => fs.close());
+        }
+      });
+
+      fs.writeFile(`${csvDir}/${fileName}`, csv, (err) => {
+        if (err) {
+          res.status(500).send('Quelque chose s\'est mal déroulé, veuillez réessayer');
+        }
+
+        res.status(200).send({
+          fileContent: csv,
+          fileName,
+        });
       });
     } else {
-      console.log('nothing..');
-      res.status(400).send('Pas de commandes aujourd\'hui');
+      res.status(404).send('Pas de commandes aujourd\'hui');
     }
-  });
-};
-
-exports.download = (req, res) => {
-  res.download('file.csv', 'file.csv', (err) => {
-    if (err) {
-      throw new Error(err);
-    }
-
-    res.end();
   });
 };

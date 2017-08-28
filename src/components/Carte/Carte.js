@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { fetchProductsIfNeeded, showProduct, hideProduct } from '../../actions/products';
+import { fetchProductsIfNeeded, showProduct, hideProduct, addListener } from '../../actions/products';
+import { fetchPlacesIfNeeded } from '../../actions/livraison';
 import { getEntrees, getPlats, getDesserts, getBoissons } from '../../reducers/products';
 import Entrees from '../Products/Entrees';
 import Plats from '../Products/Plats';
@@ -12,7 +13,10 @@ import ProductDetail from './ProductDetail';
 
 class Carte extends Component {
   componentDidMount() {
-    this.props.getProducts();
+    this.props.fetchProductsIfNeeded();
+    this.props.fetchPlacesIfNeeded();
+    this.props.addListener('INCREMENT_QUANTITY');
+    this.props.addListener('DECREMENT_QUANTITY');
   }
 
   render() {
@@ -79,16 +83,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  getProducts() {
-    dispatch(fetchProductsIfNeeded());
-  },
-  showProduct(product) {
-    dispatch(showProduct(product));
-  },
-  hideProduct(product) {
-    dispatch(hideProduct(product));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Carte);
+export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener })(Carte);

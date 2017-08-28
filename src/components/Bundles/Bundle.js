@@ -94,6 +94,7 @@ class Bundle extends React.Component {
                     </label>
                     <div name="entree" id="entree" className={'formules__select' + (this.state.entree.active ? ' current' : '')}>
                       { entrees.map(entree => (
+                        entree.stock > 0 &&
                         <div id={entree._id} key={entree._id} className="formules__item" onClick={() => this.toggleEntree(entree)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={entree.file} alt={entree.name} />
@@ -124,6 +125,7 @@ class Bundle extends React.Component {
                     </label>
                     <div name="plat" id="plat" className={'formules__select' + (this.state.plat.active ? ' current' : '')}>
                       { plats.map(plat => (
+                        plat.stock > 0 &&
                         <div id={plat._id} key={plat._id} className="formules__item" onClick={() => this.togglePlat(plat)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={plat.file} alt={plat.name} />
@@ -154,6 +156,7 @@ class Bundle extends React.Component {
                     </label>
                     <div name="dessert" id="dessert" className={'formules__select' + (this.state.dessert.active ? ' current' : '')}>
                       { desserts.map(dessert => (
+                        dessert.stock > 0 &&
                         <div id={dessert._id} key={dessert._id} className="formules__item" onClick={() => this.toggleDessert(dessert)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={dessert.file} alt={dessert.name} />
@@ -184,6 +187,7 @@ class Bundle extends React.Component {
                     </label>
                     <div name="boisson" id="boisson" className={'formules__select' + (this.state.boisson.active ? ' current' : '')}>
                       { boissons.map(boisson => (
+                        boisson.stock > 0 &&
                         <div id={boisson._id} key={boisson._id} className="formules__item" onClick={() => this.toggleBoisson(boisson)}>
                           <div className="formules__item-container">
                             <img className="formules__item-image" src={boisson.file} alt={boisson.name} />

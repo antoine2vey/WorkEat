@@ -8,6 +8,7 @@ import {
   DECREMENT_QUANTITY,
   DELETE_ITEM,
   GET_ORDER,
+  DELETE_CART,
 } from '../actions/cart';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   },
   productsById: {},
   order: {},
+  instanciateCartAt: null,
 };
 
 const addedIds = (state = initialState.addedIds, action) => {
@@ -171,12 +173,27 @@ const map = (state = initialState, action) => {
   }
 };
 
+const handleExpiration = (state = initialState, action) => {
+  switch (action.type) {
+    // If any type of action concerning cart is fired, we update
+    // instanciation timestamp
+    case ADD_TO_CART:
+    case DELETE_ITEM:
+    case INCREMENT_QUANTITY:
+    case DECREMENT_QUANTITY:
+      return +new Date();
+    default:
+      return state.instanciateCartAt;
+  }
+};
+
 const cart = (state = initialState, action) => {
   switch (action.type) {
+    case CHECKOUT_FAILURE:
     case CHECKOUT_SUCCESS:
       return state;
-    case CHECKOUT_FAILURE:
-      return state;
+    case DELETE_CART:
+      return initialState;
     case GET_ORDER:
       return {
         ...initialState,
@@ -189,6 +206,7 @@ const cart = (state = initialState, action) => {
         addedIds: addedIds(state.addedIds, action),
         quantityById: quantityById(state.quantityById, action),
         order: {},
+        instanciateCartAt: handleExpiration(state, action),
       };
   }
 };
