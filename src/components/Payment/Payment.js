@@ -53,7 +53,7 @@ class Payment extends Component {
                       <input type="number" value={item.quantity} min="0" readOnly className="partOne__quantity-input js--quantity-input" />
                       <div className="partOne__quantity-button partOne__quantity-down js--down" onClick={() => decrementQuantity(item._id)}>-</div>
                     </div>
-                    <div className="partOne__delete" onClick={() => deleteProduct(item._id)}>
+                    <div className="partOne__delete" onClick={() => deleteProduct(item)}>
                       <img src={trashBlanc} alt="Supprimer" className="partOne__delete-icon" />
                     </div>
                   </div>

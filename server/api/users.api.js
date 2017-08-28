@@ -104,8 +104,9 @@ exports.login = (req, res) => {
     .populate('position')
     .exec((err, user) => {
       if (err) {
-        throw new Error(err);
+        return console.log('account>update', err);
       }
+
       const payload = {
         id: user._id,
         isAdmin: user.isAdmin,
@@ -161,14 +162,10 @@ exports.create = (req, res) => {
 
   const errors = req.validationErrors();
   if (errors) {
-    console.log(req.body)
-    console.log(errors);
     res.status(400).send(errors);
     return;
   }
 
-  console.log(req.body.position);
-  // TODO: optimize this
   Places.find({}, (err, places) => {
     places.forEach((place, i) => {
       const [lat, lng] = place.geolocation;
