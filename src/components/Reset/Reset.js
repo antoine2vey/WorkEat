@@ -89,7 +89,6 @@ class Reset extends Component {
             </div>
             <button className="btn-gold" type="submit" disabled={displayError}>Modifier le mot de passe</button>
           </form>
-          { displayError && 'ne correspond pas' }
         </div>
         <NotificationContainer />
       </div>

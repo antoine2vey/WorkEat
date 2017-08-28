@@ -42,10 +42,10 @@ const mapStateToProps = (state) => {
   return {
     bundles,
     isFetching,
-    entrees: getEntrees(products),
-    plats: getPlats(products),
-    desserts: getDesserts(products),
-    boissons: getBoissons(products),
+    entrees: getEntrees(products, state),
+    plats: getPlats(products, state),
+    desserts: getDesserts(products, state),
+    boissons: getBoissons(products, state),
   };
 };
 

@@ -41,13 +41,15 @@ class Prestataire extends Component {
 
   render() {
     return (
-      <div style={{ paddingTop: 100 }}>
-        <input type="date" onChange={this.changeDate} defaultValue={this.state.date} />
-        <button onClick={this.downloadCSV}>downloadCSV</button>
+      <div className="Prestataire">
+      <h2 className="Prestataire-title">Prestataire</h2>
+      <div className="Prestataire-content">
+        <input type="date" onChange={this.changeDate} defaultValue={this.state.date} className="Prestataire-content-input"/>
+        <button onClick={this.downloadCSV} className="btn-gold">Télécharger les commandes</button>
+      </div>
       </div>
     );
   }
 }
 
 export default Prestataire;
-

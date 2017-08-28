@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Cookie extends Component {
   cookieValid() {
-    document.cookie += ' workEat_cookie=off';
+    document.cookie = ' workEat_cookie=off';
     const element = document.getElementById('cookie-valider');
     element.classList.add('fadeOut');
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const ProductDetail = ({ isDetailVisible, product, hideProduct }) => (
   <div className={isDetailVisible ? 'products__desc products__desc--active' : 'products__desc'}>
     <button className="cancel-btn-gold" type="button" onClick={() => hideProduct(product)} />

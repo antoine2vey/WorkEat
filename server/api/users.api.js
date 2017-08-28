@@ -116,7 +116,7 @@ exports.login = (req, res, next) => {
         isAdmin: user.isAdmin,
         isPrestataire: user.isPrestataire,
       };
-      
+
       const token = jwt.sign(payload, process.env.JWT_SECRET);
       return res.status(200).send({
         token,
@@ -160,7 +160,7 @@ exports.create = (req, res) => {
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('surname', 'Surname is required').notEmpty();
-  req.checkBody('codePostal', 'Code postal is required').notEmpty().isInt();
+  req.checkBody('codePostal', 'Code postal is required').notEmpty();
   req.checkBody('town', 'Town is required').notEmpty();
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('phoneNumber', 'Phone number is required').notEmpty();
@@ -171,8 +171,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  console.log(req.body.position);
-  // TODO: optimize this
   Places.find({}, (err, places) => {
     places.forEach((place, i) => {
       const [lat, lng] = place.geolocation;
@@ -290,8 +288,6 @@ exports.update = (req, res) => {
     });
 };
 exports.logout = (req, res) => {
-  console.log(req.user);
-  console.log(req.session);
   if (!req.user) {
     res.status(400).send('User not logged in.');
   } else {
@@ -311,6 +307,7 @@ exports.forgot = async (req, res) => {
   const { email } = req.body;
   // Génération random de token
   const token = await crypto.randomBytes(20).toString('hex');
+  console.log(email);
   User.findOne({ username: email }, (err, user) => {
     if (!user) {
       return res.status(400).send('Cet email n\'existe pas');
@@ -378,7 +375,7 @@ exports.reset = async (req, res) => {
 
 exports.resetPwd = async (req, res) => {
   const { token } = req.params;
-  const { password, confirmPassword } = req.body;
+  const { password, confirmPassword } = req.body;
 
   if (!password) {
     return res.status(400).send('Veuillez fournir un mot de passe.');
@@ -399,7 +396,7 @@ exports.resetPwd = async (req, res) => {
     }
 
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password, salt);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
     user.password = hash;
     user.resetPasswordExpires = undefined;

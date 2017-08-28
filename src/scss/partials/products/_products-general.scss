@@ -130,6 +130,7 @@
     &__option {
       width: 150px;
       height: 45px;
+      float: left;
 
       &:first-child {
         margin-bottom: 20px;
@@ -226,6 +227,7 @@
       font-family: $primary-font;
       font-style: italic;
     }
+
     &__allerg{
       color: $white;
       font-family: $primary-font;
@@ -237,6 +239,8 @@
         margin-right: 5px;
       }
     }
+
+
 
     &__price {
       flex-basis: 50%;
@@ -255,7 +259,7 @@
       display: block;
       width: 100%;
     }
-  }
+    }
 }
 
 .products__product__image{
@@ -274,7 +278,5 @@
     height: 72vw;
 
   };
-
-
 
 }

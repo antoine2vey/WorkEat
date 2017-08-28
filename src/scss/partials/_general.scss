@@ -884,3 +884,28 @@ input:-webkit-autofill:hover {
     border: none;
   }
 }
+.Prestataire{
+  left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    &-title{
+      color: #ECD785;
+      //border-bottom: 1px solid #ECD785;
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    &-content{
+      padding: 20px;
+      text-align: center;
+      &-input{
+        width: 60%;
+        border: 0px;
+        border-bottom: 1px solid #757575;
+        margin-bottom: 30px;
+    }
+}
+}
