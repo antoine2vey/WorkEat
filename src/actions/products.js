@@ -90,9 +90,7 @@ const createProduct = product => (dispatch) => {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,
     },
-  })
-    .then(product => dispatch(addProduct(product.data)))
-    .catch(err => console.log(err));
+  }).then(product => dispatch(addProduct(product.data)));
 };
 
 // If nothing in store, fetch products
@@ -147,8 +145,6 @@ const updateProduct = product => (dispatch) => {
     },
   }).then(({ data }) => {
     dispatch(update(data));
-  }).catch((err) => {
-    console.log(err);
   });
 };
 

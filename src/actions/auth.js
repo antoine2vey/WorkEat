@@ -78,7 +78,6 @@ export const deleteUser = () => (dispatch) => {
   })
     .then((res) => {
       dispatch(deleteAccount());
-      console.log('Acc deleted', res);
     })
     .catch(err => console.error('Cannot delete account', err));
 };
@@ -101,7 +100,7 @@ export const updateSolde = (amount, token) => (dispatch) => {
         Authorization: `Bearer ${localStorage._token}`,
       },
     })
-      .then(res => {
+      .then((res) => {
         dispatch(increaseSolde(parseInt(res.data.amount, 10)));
       })
       .catch(err => console.error(err));
@@ -118,6 +117,10 @@ export const updateSolde = (amount, token) => (dispatch) => {
 
 export const resetPassword = email => () => (
   axios.post('/account/forgot', email)
-    .then(res => console.log('forgot success', res.data))
-    .catch(err => console.error('fuck', err.response))
+    .then(() => {
+      NotificationManager.success('L\'email vous à été envoyé', 'Compte', 3000);
+    })
+    .catch((err) => {
+      NotificationManager.error(`${err.response.data}`, 'Compte', 3000);
+    })
 );

@@ -102,10 +102,6 @@ class GMap extends Component {
     this._mapComponent = map;
   }
 
-  handleMarkerClick(markerId) {
-    console.log(markerId);
-  }
-
   handleMapClick(event) {
     const nextMarkers = [
       {
@@ -138,7 +134,6 @@ class GMap extends Component {
         onMapClick={this.handleMapClick}
         markers={this.state.markers}
         places={this.props.loadedPlaces}
-        onMarkerClick={this.handleMarkerClick}
       />
     );
   }

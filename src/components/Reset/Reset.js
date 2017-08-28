@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NotificationManager, NotificationContainer } from 'react-notifications';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../Admin/tabs/FormFields';
 import Header from '../Header/Header';
-import Nav from '../Header/Nav';
 
 class Reset extends Component {
   constructor(props) {
@@ -52,9 +52,15 @@ class Reset extends Component {
     event.preventDefault();
 
     if (password === confirmPassword) {
-      axios.post(`/reset/${this.token}`, { password })
-        .then(() => this.setState({ shouldRedirect: true }))
-        .catch(({ response }) => console.log(response));
+      axios.post(`/reset/${this.token}`, { password, confirmPassword })
+        .then(() => {
+          this.setState({ shouldRedirect: true }, () => {
+            NotificationManager.error('Vous pouvez vous connecter!', 'Compte', 3000);
+          });
+        })
+        .catch(({ response }) => {
+          NotificationManager.error(response.data, 'Compte', 3000);
+        });
     }
   }
 
@@ -71,20 +77,21 @@ class Reset extends Component {
         <Header />
         <div className="admin__reset">
           <h2 className="admin__container-title">Nouveau mot de passe</h2>
-            <form noValidate onSubmit={this.changePassword} className="admin__form">
-              <div className="admin__field-column admin__field-column-1">
-                <Input name="username" type="text" value={username} placeholder="Email" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-2">
-                <Input name="password" type="password" placeholder="Nouveau mot de passe" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-              </div>
-              <div className="admin__field-column admin__field-column-2">
-                <Input name="confirmPassword" type="password" placeholder="Confirmez" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
-              </div>
-              <button className="btn-gold" type="submit">Modifier le mot de passe</button>
-            </form>
-          {displayError && 'ne correspond pas'}
+          <form noValidate onSubmit={this.changePassword} className="admin__form">
+            <div className="admin__field-column admin__field-column-1">
+              <Input name="username" type="text" value={username} placeholder="Email" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-2">
+              <Input name="password" type="password" placeholder="Nouveau mot de passe" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <div className="admin__field-column admin__field-column-2">
+              <Input name="confirmPassword" type="password" placeholder="Confirmez" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+            </div>
+            <button className="btn-gold" type="submit" disabled={displayError}>Modifier le mot de passe</button>
+          </form>
+          { displayError && 'ne correspond pas' }
         </div>
+        <NotificationContainer />
       </div>
     );
   }
