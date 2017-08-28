@@ -106,42 +106,26 @@ exports.login = (req, res) => {
       if (err) {
         throw new Error(err);
       }
+      const payload = {
+        id: user._id,
+        isAdmin: user.isAdmin,
+        isPrestataire: user.isPrestataire,
+      };
 
-      if (!user) {
-        return res.status(401).send('User not found. Please check your entry and try again.');
-      }
-
-      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-        if (isMatch) {
-          req.logIn(user, (err) => {
-            if (err) {
-              return res.status(500).send('Error saving session.');
-            }
-            const payload = {
-              id: user._id,
-              isAdmin: user.isAdmin,
-              isLivreur: user.isLivreur,
-              isPrestataire: user.isPrestataire,
-            };
-            const token = jwt.sign(payload, process.env.JWT_SECRET);
-            return res.status(200).send({
-              token,
-              user: {
-                username: user.username,
-                name: user.name,
-                surname: user.surname,
-                codePostal: user.codePostal,
-                address: user.address,
-                phoneNumber: user.phoneNumber,
-                town: user.town,
-                solde: user.solde,
-                position: user.position,
-              },
-            });
-          });
-        } else {
-          res.status(401).send({ success: false, message: 'Auth fail' });
-        }
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      return res.status(200).send({
+        token,
+        user: {
+          username: user.username,
+          name: user.name,
+          surname: user.surname,
+          codePostal: user.codePostal,
+          address: user.address,
+          phoneNumber: user.phoneNumber,
+          town: user.town,
+          solde: user.solde,
+          position: user.position,
+        },
       });
     });
 };
@@ -170,13 +154,15 @@ exports.create = (req, res) => {
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('name', 'Name is required').notEmpty();
   req.checkBody('surname', 'Surname is required').notEmpty();
-  req.checkBody('codePostal', 'Code postal is required').notEmpty().isInt();
+  req.checkBody('codePostal', 'Code postal is required').notEmpty();
   req.checkBody('town', 'Town is required').notEmpty();
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('phoneNumber', 'Phone number is required').notEmpty();
 
   const errors = req.validationErrors();
   if (errors) {
+    console.log(req.body)
+    console.log(errors);
     res.status(400).send(errors);
     return;
   }
