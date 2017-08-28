@@ -10,6 +10,8 @@ class Tag extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.focusInput = this.focusInput.bind(this);
+    this.blurInput = this.blurInput.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +32,16 @@ class Tag extends Component {
   handleDelete(tag) {
     const { _id } = tag;
     this.props.deleteTags(_id);
+  }
+
+  focusInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.remove('is-focused');
   }
 
   render() {
@@ -54,7 +66,7 @@ class Tag extends Component {
         <div className="admin__add-tag">
           <h2 className="admin__container-title">Nouveau tag</h2>
           <form method="POST" onSubmit={this.handleSubmit}>
-            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+            <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
             <button type="submit" className="btn-gold">Créer</button>
           </form>
         </div>

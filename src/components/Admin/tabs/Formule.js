@@ -18,6 +18,8 @@ class Formule extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.focusInput = this.focusInput.bind(this);
+    this.blurInput = this.blurInput.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +33,16 @@ class Formule extends Component {
       return this.setState({ [name]: !this.state[name] });
     }
     this.setState({ [name]: value });
+  }
+
+  focusInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.remove('is-focused');
   }
 
   handleSubmit(event) {
@@ -96,16 +108,16 @@ class Formule extends Component {
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>
             <div className="admin__container-list">
               <div className="admin__field-column admin__field-column-2">
-                <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+                <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
               </div>
               <div className="admin__field-column admin__field-column-2">
-                <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
+                <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
               </div>
               <div className="admin__field-column admin__field-column-2">
-                <Input type="number" name="price" placeholder="Prix" onChange={this.handleChange} />
+                <Input type="number" name="price" placeholder="Prix" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
               </div>
               <div className="admin__field-column admin__field-column-2">
-                <Input type="number" name="reduction" placeholder="Reduction (en %)" onChange={this.handleChange} max="100" min="0" />
+                <Input type="number" name="reduction" placeholder="Reduction (en %)" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} max="100" min="0" />
               </div>
               <div className="admin__field-column admin__field-column-4">
                 <CheckBox name="hasEntree" onChange={this.handleChange}>

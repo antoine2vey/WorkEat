@@ -16,6 +16,8 @@ class Livraison extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handlePosition = this.handlePosition.bind(this);
+    this.focusInput = this.focusInput.bind(this);
+    this.blurInput = this.blurInput.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +47,16 @@ class Livraison extends Component {
     });
   }
 
+  focusInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.add('is-focused');
+  }
+
+  blurInput(event) {
+    const { parentNode } = event.target;
+    parentNode.classList.remove('is-focused');
+  }
+
   render() {
     const { places } = this.props;
     const [lat, lng] = this.state.geolocation;
@@ -69,10 +81,10 @@ class Livraison extends Component {
         <div className="admin__container-list">
           <div className="admin__field-column admin__field-column-2">
             <form method="POST" onSubmit={this.handleSubmit}>
-              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-              <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-              <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
-              <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
+              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
+              <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} onFocus={this.focusInput} onBlur={this.blurInput} />
+              <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} onFocus={this.focusInput} onBlur={this.blurInput} />
+              <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} onFocus={this.focusInput} onBlur={this.blurInput} />
               <button type="submit" className="btn-gold">Créer</button>
             </form>
           </div>
