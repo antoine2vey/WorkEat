@@ -138,6 +138,10 @@ const addListener = key => (dispatch) => {
   });
 };
 
+const removeListeners = () => () => {
+  return socket.removeAllListeners();
+};
+
 const updateProduct = product => (dispatch) => {
   axios.put(`api/products/${product._id}`, product, {
     headers: {
@@ -148,4 +152,4 @@ const updateProduct = product => (dispatch) => {
   });
 };
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct };
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct, removeListeners };
