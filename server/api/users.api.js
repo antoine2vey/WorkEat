@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Places = require('../models/places.model');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');
@@ -27,7 +28,6 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
-  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
@@ -90,7 +90,7 @@ exports.updateAmount = (req, res) => {
   });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
 
@@ -99,12 +99,16 @@ exports.login = (req, res) => {
     return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
-  User
-    .findOne({ username: req.body.username })
-    .populate('position')
-    .exec((err, user) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(404).send('Utilisateur non existant');
+    }
+    req.logIn(user, (err) => {
       if (err) {
-        return console.log('account>update', err);
+        return res.status(500).send('Error saving session.');
       }
 
       const payload = {
@@ -129,6 +133,7 @@ exports.login = (req, res) => {
         },
       });
     });
+  })(req, res, next);
 };
 
 exports.create = (req, res) => {
@@ -221,7 +226,8 @@ exports.create = (req, res) => {
             return console.log(err);
           }
 
-          return console.log('mail sent!', response.response);
+          console.log('mail sent!', response.response);
+          return mailer.close();
         });
 
         return res.status(200).send('Account created! Please login with your new account.');
@@ -264,21 +270,24 @@ exports.update = (req, res) => {
   };
 
   // We do pass the session userId
-  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
-    if (err) {
-      return res.status(500).send({
-        error: 'Email already exists',
-      });
-    }
+  User
+    .findByIdAndUpdate(req.user.id, query, { new: true })
+    .populate('position')
+    .select('-password -tokens')
+    .exec((err, updatedUser) => {
+      if (err) {
+        return res.status(500).send({
+          error: 'Email already exists',
+        });
+      }
 
-    res.status(200).send({
-      status: 'Account updated',
+      res.status(200).send({
+        user: updatedUser,
+        status: 'Account updated',
+      });
     });
-  });
 };
 exports.logout = (req, res) => {
-  console.log(req.user);
-  console.log(req.session);
   if (!req.user) {
     res.status(400).send('User not logged in.');
   } else {
@@ -298,6 +307,7 @@ exports.forgot = async (req, res) => {
   const { email } = req.body;
   // Génération random de token
   const token = await crypto.randomBytes(20).toString('hex');
+  console.log(email);
   User.findOne({ username: email }, (err, user) => {
     if (!user) {
       return res.status(400).send('Cet email n\'existe pas');
@@ -386,7 +396,7 @@ exports.resetPwd = async (req, res) => {
     }
 
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password, salt);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
     user.password = hash;
     user.resetPasswordExpires = undefined;

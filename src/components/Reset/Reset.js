@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { NotificationManager, NotificationContainer } from 'react-notifications';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../Admin/tabs/FormFields';
 import Header from '../Header/Header';
+import Nav from '../Header/Nav';
 
 class Reset extends Component {
   constructor(props) {
@@ -52,15 +52,9 @@ class Reset extends Component {
     event.preventDefault();
 
     if (password === confirmPassword) {
-      axios.post(`/reset/${this.token}`, { password, confirmPassword })
-        .then(() => {
-          this.setState({ shouldRedirect: true }, () => {
-            NotificationManager.error('Vous pouvez vous connecter!', 'Compte', 3000);
-          });
-        })
-        .catch(({ response }) => {
-          NotificationManager.error(response.data, 'Compte', 3000);
-        });
+      axios.post(`/reset/${this.token}`, { password })
+        .then(() => this.setState({ shouldRedirect: true }))
+        .catch(({ response }) => console.log(response));
     }
   }
 
@@ -90,7 +84,6 @@ class Reset extends Component {
             <button className="btn-gold" type="submit" disabled={displayError}>Modifier le mot de passe</button>
           </form>
         </div>
-        <NotificationContainer />
       </div>
     );
   }
