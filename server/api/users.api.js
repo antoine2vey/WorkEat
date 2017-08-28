@@ -322,31 +322,21 @@ exports.forgot = async (req, res) => {
         res.status(500).send('Erreur du serveur');
       }
 
-      const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: process.env.GMAIL_ADDRESS,
-          pass: process.env.GMAIL_PWD,
-        },
-      }, {
-        from: 'WorkEat <noreply@workeat.io>',
-      });
-
-      const message = {
+      mailer.sendMail({
         from: 'WorkEat',
         to: user.username,
-        subject: 'Reset password',
-        text: `http://${req.headers.host}/reset/${token}`,
-      };
-
-      transporter.sendMail(message, (err, info) => {
+        subject: 'Remise à zéro du mot de passe',
+        template: 'forgot',
+        context: {
+          resetUrl: `http://localhost:3000/reset/${token}`,
+        },
+      }, (err, response) => {
         if (err) {
-          console.log('Error', err);
-          return res.status(500).send('Un problème est survenu');
+          return console.log(err);
         }
 
-        console.log('Message sent', info);
-        transporter.close();
+        console.log('mail sent!', response.response);
+        mailer.close();
 
         res.status(200).send('Mail envoyé!');
       });

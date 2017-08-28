@@ -53,7 +53,7 @@ class Contact extends Component {
       <div className="container-fluid">
         <Helmet>
           <title>Workeat - Contact</title>
-          <meta name="description" content="Workeat, livraison " />
+          <meta name="description" content="Workeat, livraison de plats en entreprise, contactez-nous pour toute information ou renseignement supplémentaire" />
         </Helmet>
         <div className="partContact">
           <div className="partContact-banner">

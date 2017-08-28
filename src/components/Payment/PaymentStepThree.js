@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { getOrderById } from '../../actions/cart';
@@ -15,6 +16,9 @@ class PaymentStepThree extends Component {
     const place = order.placeToShip && order.placeToShip.name;
     return (
       <div className="partFive">
+        <Helmet>
+          <title>Workeat - Merci !</title>
+        </Helmet>
         <div className="container">
           <div className="partFive-title">
             <h1>Merci pour votre commande</h1>

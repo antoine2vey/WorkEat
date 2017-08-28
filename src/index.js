@@ -8,6 +8,7 @@ import Home from './components/Home/Home';
 import App from './components/App/App';
 import About from './components/About/About';
 import Reset from './components/Reset/Reset';
+import NotFound from './components/NotFound/NotFound';
 import store from './store';
 import history from './utils/history';
 import { saveState } from './utils/persistState';
@@ -95,7 +96,7 @@ ReactDOM.render(
                 <PrivateRoute path="/" component={App} />
                 <Route path="/about" component={About} />
                 <Route exact path="/reset/:token" component={Reset} />
-                <Route path="*" render={() => <h1>404</h1>} />
+                <Route path="*" render={() => <NotFound isOffline={false} />} />
               </Switch>
             ) : (
               <Switch>
@@ -103,7 +104,7 @@ ReactDOM.render(
                 <PrivateRoute path="/app" component={App} />
                 <Route path="/about" component={About} />
                 <Route exact path="/reset/:token" component={Reset} />
-                <Route path="*" render={() => <h1>404</h1>} />
+                <Route path="*" render={() => <NotFound isOffline />} />
               </Switch>
             )
           )}
