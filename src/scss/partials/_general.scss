@@ -123,8 +123,13 @@ input::placeholder {
   overflow: hidden;
   @include reset($white, inherit, $gold);
 
-  &:focus {
-    color: inherit;
+  &:active, &:focus{
+    color: $gold;
+    border-color: $gold;
+  }
+
+  &:hover{
+    color: $white;
   }
 
   &:disabled {
@@ -155,11 +160,6 @@ input::placeholder {
     background: $gold;
     transition: all 0.6s $transition;
   }
-
-  &:active {
-    color: inherit;
-  }
-
   &:hover {
     &::before {
       left: 0;
