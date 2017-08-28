@@ -72,12 +72,12 @@ class Carte extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { products } = state;
+  const { products, auth } = state;
   return {
-    entrees: getEntrees(products),
-    plats: getPlats(products),
-    desserts: getDesserts(products),
-    boissons: getBoissons(products),
+    entrees: getEntrees(products, state),
+    plats: getPlats(products, state),
+    desserts: getDesserts(products, state),
+    boissons: getBoissons(products, state),
     isDetailVisible: products.isDetailVisible,
     product: products.product,
   };
