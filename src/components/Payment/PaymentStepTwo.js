@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import Payment from 'payment';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { getTotalPrice, getProducts } from '../../reducers/cart';
 import { checkoutCart } from '../../actions/cart';
@@ -101,6 +102,9 @@ class PaymentStepTwo extends Component {
   render() {
     return (
       <div className="partTwo">
+        <Helmet>
+          <title>Workeat - Paiement</title>
+        </Helmet>
         <div className="partTwo__container">
           <div className="container-fluid">
             <h2 className="partTwo__title">Total de votre commande : <span className="bold">{this.props.total}€</span></h2>

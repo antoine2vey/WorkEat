@@ -6,10 +6,14 @@ import { fetchPlacesIfNeeded } from '../../actions/livraison';
 import InfoGenerale from './InfoGenerale';
 import Commandes from './Commandes';
 import Solde from './Solde';
+import { Helmet } from 'react-helmet';
 
 
 const Account = ({ ...props }) => (
   <div>
+    <Helmet>
+      <title>Workeat - Mon compte</title>
+    </Helmet>
     <div className="tabs-container">
       <div className="container-fluid">
         <div className="compteInfo-submenu">

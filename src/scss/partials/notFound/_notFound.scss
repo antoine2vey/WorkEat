@@ -1,0 +1,37 @@
+.notFound {
+  @include flex(center, center, column);
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../assets/images/404.jpg');
+  background-position: cover;
+  background-repeat: no-repeat;
+  @include screenMd {
+    background-position: contain;
+  };
+  @include screenSm {
+    background-image: url('../../assets/images/404-tablet.jpg');
+  };
+
+  &__text,
+  &__title {
+    color: $white;
+    font-family: $primary-font;
+    @include material-shadow(text, 2);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 75px;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    font-size: 20px;
+  }
+
+  &__link {
+    text-decoration: none;
+    padding: 0 15px;
+    line-height: 40px;
+  }
+}

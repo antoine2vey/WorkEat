@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { getTotalPrice, getProducts, getAllQuantities } from '../../reducers/cart';
 import { incrementQuantity, decrementQuantity, deleteProduct, checkoutReq } from '../../actions/cart';
 import { fetchPlacesIfNeeded } from '../../actions/livraison';
@@ -29,6 +30,9 @@ class Payment extends Component {
 
     return (
       <div className="partOne">
+        <Helmet>
+          <title>Workeat - Récapitulatif</title>
+        </Helmet>
         <div className="partOne__container">
           <div className="container-fluid">
             <div className="partOne__recap">
