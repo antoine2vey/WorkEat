@@ -125,30 +125,28 @@ const products = (state = initialState, action) => {
   }
 };
 
-export const getEntrees = (products, state) => {
+function getFood(products, state, type) {
+  if (!state.auth.user.position) {
+    return products.products
+      .filter(product => product.types.indexOf(type) > -1);
+  }
   const id = state.auth.user.position._id;
   return products.products
-    .filter(product => product.types.indexOf('entree') > -1)
+    .filter(product => product.types.indexOf(type) > -1)
     .filter(product => product.availableAt.some(place => place._id === id));
-};
-export const getPlats = (products, state) => {
-  console.log(products);
-  const id = state.auth.user.position._id;
-  return products.products
-    .filter(product => product.types.indexOf('plat') > -1)
-    .filter(product => product.availableAt.some(place => place._id === id));
-};
-export const getDesserts = (products, state) => {
-  const id = state.auth.user.position._id;
-  return products.products
-    .filter(product => product.types.indexOf('dessert') > -1)
-    .filter(product => product.availableAt.some(place => place._id === id));
-};
-export const getBoissons = (products, state) => {
-  const id = state.auth.user.position._id;
-  return products.products
-    .filter(product => product.types.indexOf('boisson') > -1)
-    .filter(product => product.availableAt.some(place => place._id === id));
-};
+}
+
+export const getEntrees = (products, state) => (
+  getFood(products, state, 'entree')
+);
+export const getPlats = (products, state) => (
+  getFood(products, state, 'plat')
+);
+export const getDesserts = (products, state) => (
+  getFood(products, state, 'dessert')
+);
+export const getBoissons = (products, state) => (
+  getFood(products, state, 'boisson')
+);
 
 export default products;
