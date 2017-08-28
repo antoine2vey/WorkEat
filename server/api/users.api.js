@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Places = require('../models/places.model');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');
@@ -28,6 +27,7 @@ exports.list = (req, res) => {
 
 exports.updateAmount = (req, res) => {
   const { amount, token } = req.body;
+  console.log(req.user.id);
 
   User.findById(req.user.id, (err, user) => {
     if (err) {
@@ -90,7 +90,7 @@ exports.updateAmount = (req, res) => {
   });
 };
 
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   req.checkBody('username', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
 
@@ -99,18 +99,13 @@ exports.login = (req, res, next) => {
     return res.status(401).send('Username or password was left empty. Please complete both fields and re-submit.');
   }
 
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(404).send('Utilisateur non existant');
-    }
-    req.logIn(user, (err) => {
+  User
+    .findOne({ username: req.body.username })
+    .populate('position')
+    .exec((err, user) => {
       if (err) {
-        return res.status(500).send('Error saving session.');
+        throw new Error(err);
       }
-
       const payload = {
         id: user._id,
         isAdmin: user.isAdmin,
@@ -133,7 +128,6 @@ exports.login = (req, res, next) => {
         },
       });
     });
-  })(req, res, next);
 };
 
 exports.create = (req, res) => {
@@ -230,8 +224,7 @@ exports.create = (req, res) => {
             return console.log(err);
           }
 
-          console.log('mail sent!', response.response);
-          return mailer.close();
+          return console.log('mail sent!', response.response);
         });
 
         return res.status(200).send('Account created! Please login with your new account.');
@@ -274,22 +267,17 @@ exports.update = (req, res) => {
   };
 
   // We do pass the session userId
-  User
-    .findByIdAndUpdate(req.user.id, query, { new: true })
-    .populate('position')
-    .select('-password -tokens')
-    .exec((err, updatedUser) => {
-      if (err) {
-        return res.status(500).send({
-          error: 'Email already exists',
-        });
-      }
-
-      res.status(200).send({
-        user: updatedUser,
-        status: 'Account updated',
+  User.findByIdAndUpdate(req.user.id, query, (err, doc) => {
+    if (err) {
+      return res.status(500).send({
+        error: 'Email already exists',
       });
+    }
+
+    res.status(200).send({
+      status: 'Account updated',
     });
+  });
 };
 exports.logout = (req, res) => {
   console.log(req.user);
@@ -380,7 +368,7 @@ exports.reset = async (req, res) => {
 
 exports.resetPwd = async (req, res) => {
   const { token } = req.params;
-  const { password, confirmPassword } = req.body;
+  const { password, confirmPassword } = req.body;
 
   if (!password) {
     return res.status(400).send('Veuillez fournir un mot de passe.');
