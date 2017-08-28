@@ -41,7 +41,6 @@ class UserNav extends Component {
     this.setState({
       isNavShown: false,
       isCartShown: false,
-      isSearchShown: false,
     });
   }
 

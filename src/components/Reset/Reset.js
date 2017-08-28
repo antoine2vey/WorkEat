@@ -4,6 +4,10 @@ import { NotificationManager, NotificationContainer } from 'react-notifications'
 import { Redirect } from 'react-router-dom';
 import { Input } from '../Admin/tabs/FormFields';
 import Header from '../Header/Header';
+<<<<<<< HEAD
+=======
+import Nav from '../Header/Nav';
+>>>>>>> 7b2f72735c0d5ddd2974ff1855b7411c0ae45aad
 
 class Reset extends Component {
   constructor(props) {
@@ -89,7 +93,6 @@ class Reset extends Component {
             </div>
             <button className="btn-gold" type="submit" disabled={displayError}>Modifier le mot de passe</button>
           </form>
-          { displayError && 'ne correspond pas' }
         </div>
         <NotificationContainer />
       </div>
