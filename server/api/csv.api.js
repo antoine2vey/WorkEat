@@ -60,7 +60,7 @@ exports.createFile = (req, res) => {
 
           keys.forEach((key) => {
             // If no boisson or plat or ....
-            if (bundle[key] === null) {
+            if (!bundle[key]) {
               return;
             }
 
