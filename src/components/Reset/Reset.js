@@ -55,7 +55,7 @@ class Reset extends Component {
       axios.post(`/reset/${this.token}`, { password, confirmPassword })
         .then(() => {
           this.setState({ shouldRedirect: true }, () => {
-            NotificationManager.error('Vous pouvez vous connecter!', 'Compte', 3000);
+            NotificationManager.success('Vous pouvez vous connecter!', 'Compte', 3000);
           });
         })
         .catch(({ response }) => {
