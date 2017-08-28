@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/href-no-hash: "off" */
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { entree, plat, dessert, boisson } from '../../images';
 
 class Bundle extends React.Component {
@@ -81,6 +82,10 @@ class Bundle extends React.Component {
     const { bundle, entrees, plats, desserts, boissons } = this.props;
     return (
             <div className="formules__container">
+              <Helmet>
+                <title>Workeat - Formules</title>
+                <meta name="description" content="Optez pour les formules Workeat, de la plus économe à la plus gourmande." />
+              </Helmet>
               <div className="formules__content">
                 <p className="formules__title is-4">{ bundle.name }</p>
                 <p className="formules__price is-6">{ bundle.price }€</p>

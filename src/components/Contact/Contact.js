@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 class Contact extends Component {
   constructor() {
@@ -50,6 +51,10 @@ class Contact extends Component {
   render() {
     return (
       <div className="container-fluid">
+        <Helmet>
+          <title>Workeat - Contact</title>
+          <meta name="description" content="Workeat, livraison " />
+        </Helmet>
         <div className="partContact">
           <div className="partContact-banner">
             <h1 className="partContact-banner-title">Contact</h1>

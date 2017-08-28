@@ -9,6 +9,7 @@ class Article extends Component {
     super();
     this.state = {
       title: '',
+      metaDesc: '',
       thumbnail: '',
       text: RichTextEditor.createEmptyValue(),
     };
@@ -91,12 +92,15 @@ class Article extends Component {
                   <input className="material__input admin__file" type="file" id="thumbnail" name="thumbnail" onChange={this.handleChange} />
                 </div>
               </div>
-              <div className="admin__field-column">
+              <div className="admin__field-column admin__field-column-1">
                 <img src="" id="preview" className="admin__preview" alt="Preview" />
               </div>
-            </div>
-            <div className="admin__field-column">
-              <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+              </div>
+              <div className="admin__field-column admin__field-column-2">
+                <Input type="text" name="meta-desc" placeholder="Meta description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+              </div>
             </div>
             <div className="admin__field-column">
               <RichTextEditor

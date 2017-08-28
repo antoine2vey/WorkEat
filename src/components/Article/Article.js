@@ -14,8 +14,8 @@ class Article extends Component {
     return (
       <div>
         <Helmet>
-          <title>WorkEat - Article de blog</title>
-          <meta name="description" content="Article lol ptdr xd viagra porno" />
+          <title>Workeat - {article.title}</title>
+          <meta name="description" content={article.metaDesc} />
         </Helmet>
         <div className="article">
           <div className="article__header" style={{ backgroundImage: `url(${article.banner})` }}>

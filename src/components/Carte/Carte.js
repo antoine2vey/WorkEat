@@ -28,7 +28,7 @@ class Carte extends Component {
       <div id="carte" className="products-carte tab tab--current">
         <Helmet>
           <title>WorkEat - Produits</title>
-          <meta name="description" content="WorkEat produits luxe haut de gamme livraison de nourriture" />
+          <meta name="description" content="Découvrez une large selection d'entrées, de plats, de desserts et de boisson ainsi que différentes formules." />
         </Helmet>
         <div className="products-carte__choise">
           <NavLink to="/carte/entrees" className="products-carte__choise__type select-tab-2" activeClassName="select-tab-2--current">

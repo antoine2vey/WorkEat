@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { fetchArticlesIfNeeded } from '../../actions/articles';
 
 class Blog extends Component {
@@ -12,6 +13,10 @@ class Blog extends Component {
     const { articles } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>Workeat - Actualités</title>
+          <meta name="description" content="Retrouvez toute l'actualité de Workeat" />
+        </Helmet>
         <div className="blog">
           <div className="blog__header">
             <h1 className="blog__title">Actualités</h1>
