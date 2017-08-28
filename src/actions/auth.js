@@ -57,7 +57,7 @@ export const increaseSolde = (amount) => {
 export const logoutUser = () => (dispatch) => {
   axios.post('/account/logout')
     .then(() => dispatch(logout()))
-    .catch(err => console.error(err));
+    .catch(() => dispatch(logout()));
 };
 
 export const loginUser = ({ email, password }) => (dispatch) => {

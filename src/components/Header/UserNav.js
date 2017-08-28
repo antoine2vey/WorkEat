@@ -36,12 +36,10 @@ class UserNav extends Component {
     this.setState({
       isNavShown: false,
       isCartShown: false,
-      isSearchShown: false,
     });
   }
 
   showSearch() {
-    document.body.classList.toggle('dont-scroll');
     this.setState({ isSearchShown: !this.state.isSearchShown });
   }
 
@@ -50,14 +48,14 @@ class UserNav extends Component {
     const { isCartShown, isNavShown, isSearchShown } = this.state;
     return (
       <div className="container-fluid">
-        <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown || this.state.isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
+        <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown  ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} token={token} />
         <header className="main-header">
           <div className="main-header-menu">
             <span className="main-header-menu-item" onClick={this.showNav}>Menu</span>
           </div>
           <div className="main-header-timer">
-            <Link to="/home">
+            <Link to={token ? '/' : '/home'}>
               <img src={images.logoBlanc} alt="Work Eat" className="main-header-logo" />
             </Link>
             <Timer />

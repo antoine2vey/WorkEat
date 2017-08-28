@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getFilteredProducts } from '../../actions/products';
+import { closeBlack } from '../../images';
 
 class Search extends Component {
   constructor(props) {
@@ -25,17 +26,15 @@ class Search extends Component {
   }
 
   render() {
-    const { shown } = this.props;
+    const { shown, switcher } = this.props;
     return (
       <div>
         <div className={shown ? 'search-panel search-panel--open' : 'search-panel'}>
           <div className="material-field search-panel__input has-label">
-            <div className="material-field__label">Quel produit recherchez-vous</div>
+            <div className="material-field__label">Quel produit recherchez-vous ?</div>
             <input type="text" className="material-field__input" onFocus={this.focusInput} onBlur={this.blurInput} onChange={(event) => this.filterStore(event)} />
           </div>
-          <button className="btn-gold search-panel__submit">
-            Rechercher
-          </button>
+          <img alt="" src={closeBlack} className="" />
         </div>
       </div>
     );

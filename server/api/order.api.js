@@ -64,10 +64,10 @@ exports.create = (req, res) => {
   const products = cart.filter(item => !item.isBundle);
   const bundles = cart.filter(item => item.isBundle).map(bundle => ({
     bundle: bundle._id,
-    entree: bundle.entree._id ? bundle.entree._id : null,
-    plat: bundle.plat._id ? bundle.plat._id : null,
-    dessert: bundle.dessert._id ? bundle.dessert._id : null,
-    boisson: bundle.boisson._id ? bundle.boisson._id : null,
+    entree: bundle.entree._id || undefined,
+    plat: bundle.plat._id || undefined,
+    dessert: bundle.dessert._id || undefined,
+    boisson: bundle.boisson._id || undefined,
   }));
 
   Order.count({}).exec((err, len) => {
@@ -81,7 +81,7 @@ exports.create = (req, res) => {
       placeToShip: req.body.placeId,
     });
 
-    order.save((err) => {
+    order.save((err, order) => {
       if (err) {
         console.log(err);
         return res.status(500).send('Database error');

@@ -9,20 +9,26 @@ class Commandes extends Component {
     this.state = {
       orders: [],
     };
+
+    this.downloadPDF = this.downloadPDF.bind(this);
   }
 
   componentDidMount() {
     axios.get('/api/orders', {
       headers: { Authorization: `Bearer ${localStorage._token}` },
     })
-      .then(({ data }) => this.setState({ orders: data }))
-      .catch(err => console.error(err));
+    .then(({ data }) => this.setState({ orders: data }))
+    .catch(err => console.error(err));
   }
 
   getProductQuantities(currentOrder) {
     return Object.keys(currentOrder.quantitiesById).reduce((prev, key) => (
       prev + currentOrder.quantitiesById[key]
     ), 0);
+  }
+
+  downloadPDF(id) {
+    window.open(`pdf/workeat-${id}.pdf`);
   }
 
   render() {
@@ -54,6 +60,10 @@ class Commandes extends Component {
                     Total
                     <img src={arrowBottom} alt="arrow" className="arrow" />
                   </th>
+                  <th className="compteCommand-tab-label">
+                    Télécharger
+                    <img src={arrowBottom} alt="arrow" className="arrow" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -74,6 +84,9 @@ class Commandes extends Component {
                       </td>
                       <td className="compteCommand-tab-cellule">
                         {order.amount}€ pour {this.getProductQuantities(order)} {this.getProductQuantities(order) === 1 ? 'produit' : 'produits'}
+                      </td>
+                      <td className="compteCommand-tab-cellule">
+                        <button onClick={() => this.downloadPDF(order._id)}>Télécharger</button>
                       </td>
                     </tr>
                   ))

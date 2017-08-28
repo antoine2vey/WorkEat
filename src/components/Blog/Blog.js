@@ -9,7 +9,7 @@ class Blog extends Component {
   }
 
   render() {
-    const { articles } = this.props;
+    const { articles } = this.props;
     return (
       <div>
         <div className="blog">
@@ -18,10 +18,10 @@ class Blog extends Component {
           </div>
           <div className="blog__container">
             <div className="blog__column">
-              { articles.map(({ _id, title, thumbnail }) => (
+              { articles.map(({ _id, title, thumbnail, slug }) => (
                 <div className="blog__article" key={_id}>
                   <h2 className="blog__article-title">{title}</h2>
-                  <NavLink to={`/article/${_id}`} className="blog__article-link">Lire</NavLink>
+                  <NavLink to={`/article/${slug}`} className="blog__article-link">Lire</NavLink>
                   <img className="blog__article-thumb" src={thumbnail} alt="Nom de l'article" />
                 </div>
               )) }

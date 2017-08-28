@@ -72,8 +72,8 @@ const fetchArticlesIfNeeded = () => (dispatch, getState) => {
   return Promise.resolve();
 };
 
-const getArticleById = id => (dispatch) => {
-  axios.get(`/api/articles/${id}`, {
+const getArticleBySlug = slug => (dispatch) => {
+  axios.get(`/api/articles/${slug}`, {
     headers: {
       Authorization: `Bearer ${localStorage._token}`,
     },
@@ -82,4 +82,4 @@ const getArticleById = id => (dispatch) => {
   .catch(err => console.error(err));
 };
 
-export { fetchArticlesIfNeeded, deleteArticles, createArticles, getArticleById };
+export { fetchArticlesIfNeeded, deleteArticles, createArticles, getArticleBySlug };

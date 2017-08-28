@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchPlacesIfNeeded, createPlaces, deletePlaces } from '../../../actions/livraison';
+import * as actions from '../../../actions/livraison';
 import GMap from './GoogleMap';
 import { Input } from './FormFields';
-import { trashBlanc } from '../../../images';
 
 class Livraison extends Component {
   constructor() {
@@ -51,34 +51,32 @@ class Livraison extends Component {
     const [lat, lng] = this.state.geolocation;
     return (
       <div>
-        <h2 className="admin__container-title">Points de livraison</h2>
-        <div className="admin__container-list">
-          {
-            places.map(place => (
-              <div className="admin__livraison-column" key={place._id}>
-                <div className="admin__livraison">
-                  <p className="admin__livraison-text">{place.name}</p>
-                  <div className="admin__delete-btn" onClick={() => this.handleDelete(place._id)}>
-                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-        <h2 className="admin__container-title">Ajouter un point de livraison</h2>
-        <div className="admin__container-list">
-          <div className="admin__field-column admin__field-column-2">
+        <div className="columns">
+          <div className="column">
             <form method="POST" onSubmit={this.handleSubmit}>
-              <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
-              <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
-              <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
-              <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
-              <button type="submit" className="btn-gold">Créer</button>
+              <div className="column">
+                <Input type="text" name="name" placeholder="Nom" onChange={this.handleChange} />
+                <Input type="text" name="description" placeholder="Description" onChange={this.handleChange} />
+                <Input type="text" name="lat" placeholder="Latitude" onChange={this.handlePosition} readOnly value={lat} />
+                <Input type="text" name="lng" placeholder="Longitude" onChange={this.handlePosition} readOnly value={lng} />
+                <Input type="submit" value="Créer" className="btn" />
+              </div>
             </form>
+
+            <div>
+              {
+                places.map(place => (
+                  <span className="tag is-danger is-large" key={place._id} style={{ marginRight: 10, marginBottom: 10 }}>
+                    {place.name}
+                    <button className="delete" style={{ padding: 0 }} onClick={() => this.handleDelete(place._id)} />
+                  </span>
+                ))
+              }
+            </div>
           </div>
-          <div className="admin__livraison-gmap admin__field-column admin__field-column-2">
+          <div className="column">
             <GMap loadedPlaces={places} handlePosition={this.handlePosition} />
+            <br />
           </div>
         </div>
       </div>
@@ -90,8 +88,6 @@ const mapStateToProps = state => ({
   places: state.places.places,
 });
 
-export default connect(mapStateToProps, {
-  fetchPlacesIfNeeded,
-  deletePlaces,
-  createPlaces,
-})(Livraison);
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Livraison);

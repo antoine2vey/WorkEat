@@ -7,6 +7,15 @@ const genId = require('shortid');
 
 mongoose.Promise = Promise;
 
+const createSlug = title => (
+  title.toString().toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
+);
+
 exports.list = (req, res) => {
   Article.find({}).populate('author', 'name surname -_id').exec((err, articles) => {
     if (err) {
@@ -17,8 +26,8 @@ exports.list = (req, res) => {
 };
 
 exports.getOne = async (req, res) => {
-  const { id } = req.params;
-  const article = await Article.findById(id);
+  const { slug } = req.params;
+  const article = await Article.findOne({ slug });
 
   res.status(200).send(article);
 };
@@ -52,6 +61,7 @@ exports.create = (req, res) => {
     banner: backgroundFileName,
     text: sanitizeHtml(text),
     author: req.user.id,
+    slug: createSlug(title),
   });
 
   Article.findOne({ title }, (err, existingArticle) => {

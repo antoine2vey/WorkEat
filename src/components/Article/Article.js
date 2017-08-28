@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { getArticleById, fetchArticlesIfNeeded } from '../../actions/articles';
+import { getArticleBySlug, fetchArticlesIfNeeded } from '../../actions/articles';
 
 class Article extends Component {
   componentDidMount() {
-    const { articleId } = this.props.match.params;
-    this.props.getArticleById(articleId);
+    const { slug } = this.props.match.params;
+    this.props.getArticleBySlug(slug);
   }
 
   render() {
@@ -33,4 +33,4 @@ const mapStateToProps = state => ({
   article: state.articles.currentArticle,
 });
 
-export default connect(mapStateToProps, { getArticleById, fetchArticlesIfNeeded })(Article);
+export default connect(mapStateToProps, { getArticleBySlug, fetchArticlesIfNeeded })(Article);
