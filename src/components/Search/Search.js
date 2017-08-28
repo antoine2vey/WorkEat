@@ -34,7 +34,7 @@ class Search extends Component {
             <div className="material-field__label">Quel produit recherchez-vous ?</div>
             <input type="text" className="material-field__input" onFocus={this.focusInput} onBlur={this.blurInput} onChange={(event) => this.filterStore(event)} />
           </div>
-          <img alt="" src={closeBlack} className="" />
+          <img alt="" src={closeBlack} className="search-panel__cross" onClick={() => switcher()} />
         </div>
       </div>
     );

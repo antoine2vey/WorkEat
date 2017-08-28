@@ -498,6 +498,11 @@ a:hover {
   &__submit {
     margin: 0 !important;
   }
+
+  &__cross {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .cart-panel {
