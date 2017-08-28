@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addToCart } from '../../actions/cart';
-
 
 const ProductDetail = ({ isDetailVisible, product, hideProduct }) => (
   <div className={isDetailVisible ? 'products__desc products__desc--active' : 'products__desc'}>
@@ -13,14 +10,10 @@ const ProductDetail = ({ isDetailVisible, product, hideProduct }) => (
         <p className="products__desc__price">{product.price}€</p>
         <p className="products__desc__tag">{product.tags.map(tag => <span key={tag._id}>{tag.name}, </span>)}</p>
         <p className="products__desc__desc">{product.description}</p>
-            <p className="products__desc__allerg">Allergènes : {product.allergics ? product.allergics.map((allergic, i) => <span key={i}>{allergic}{allergic.length === i ? ',' : ''}</span>) : ''}</p><br/>
-            <div className="add">
-                <button className="products__product__option btn-gold" onClick={addToCart}>Ajouter</button>
-            </div>
+        <p className="products__desc__allerg">Allergènes : {product.allergics ? product.allergics.map((allergic, i) => <span key={i}>{allergic}{allergic.length === i ? ',' : ''}</span>) : ''}</p>
       </div>
     </div>
   </div>
-
 );
 
 export default ProductDetail;

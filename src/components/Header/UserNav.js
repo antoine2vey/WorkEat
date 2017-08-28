@@ -41,6 +41,7 @@ class UserNav extends Component {
     this.setState({
       isNavShown: false,
       isCartShown: false,
+      isSearchShown: false,
     });
   }
 
@@ -49,7 +50,7 @@ class UserNav extends Component {
     const { isCartShown, isNavShown, isSearchShown } = this.state;
     return (
       <div className="container-fluid">
-        <div className={`panel-shadow ${this.state.isCartShown || this.state.isNavShown || isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
+        <div className={`panel-shadow ${isCartShown || isNavShown || isSearchShown ? ' panel-shadow--active' : ''}`} onClick={this.hideEverything} />
         <Nav shown={isNavShown} switcher={this.showNav} logout={logoutUser} solde={solde} token={token} />
         <header className="main-header">
           <div className="main-header-menu">
