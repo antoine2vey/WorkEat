@@ -16,6 +16,8 @@ import About from '../About/About';
 import Payment from '../Payment/Payment';
 import PaymentStepTwo from '../Payment/PaymentStepTwo';
 import PaymentStepThree from '../Payment/PaymentStepThree';
+import CGV from '../CGV/CGV';
+import Mention from '../Mention/Mention';
 
 import './App.css';
 
@@ -37,6 +39,9 @@ const App = () => (
 
         <Route path="/blog" component={Blog} />
         <Route path="/article/:slug" component={Article} />
+        <Route path="/cgv" component={CGV}/>
+        <Route path="/mentions-legales" component={Mention}/>
+
 
         <Route path="/" component={GlobalProducts} />
       </Switch>

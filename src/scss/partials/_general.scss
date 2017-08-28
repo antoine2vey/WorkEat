@@ -909,3 +909,35 @@ input:-webkit-autofill:hover {
     }
 }
 }
+.CGV{
+  &-container{
+    background: #FFFFFF;
+    margin-bottom: 200px;
+    padding: 200px 20px 0;
+
+    & b{
+      color: $gold;
+    }
+  }
+  &-title{
+    color: $gold;
+margin-bottom: 50px;
+  }
+}
+.CGV-container div{
+  margin-bottom: 20px;
+}
+.center{
+  text-align: center
+}
+.Mention{
+  &-container{
+    background: #FFFFFF;
+    margin-bottom: 200px;
+    padding: 200px 20px 0;
+  }
+  &-title{
+    color: $gold;
+    margin-bottom: 5%;
+  }
+}

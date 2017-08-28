@@ -1,6 +1,7 @@
 import React from 'react';
 import { logoBlanc } from '../../images';
 import Cookie from '../Cookie/Cookie';
+import {Link} from 'react-router-dom';
 
 const Footer = () => (
   <div>
@@ -17,9 +18,9 @@ const Footer = () => (
           <li className="footer-list-social-item"><a href="#" className="footer-list-social-item-link"><i className="icon-instagrem footer-list-social-item-link-icon"></i></a></li>
         </ul>
         <ul className="footer-list-mentions">
-          <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Mentions légales</a></li>
+          <li className="footer-list-mentions-item"><Link to="/mentions-legales" className="footer-list-mentions-item-link">Mentions légales</Link></li>
           <li className="footer-list-mentions-item">•</li>
-          <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">CGV</a></li>
+          <li className="footer-list-mentions-item"><Link to="/cgv" className="footer-list-mentions-item-link">CGV</Link></li>
           <li className="footer-list-mentions-item">•</li>
           <li className="footer-list-mentions-item"><a href="#" className="footer-list-mentions-item-link">Plan du site</a></li>
         </ul>
