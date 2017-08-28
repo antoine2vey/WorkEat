@@ -125,13 +125,30 @@ const products = (state = initialState, action) => {
   }
 };
 
-export const getEntrees = state =>
-  state.products.filter(product => product.types.indexOf('entree') > -1);
-export const getPlats = state =>
-  state.products.filter(product => product.types.indexOf('plat') > -1);
-export const getDesserts = state =>
-  state.products.filter(product => product.types.indexOf('dessert') > -1);
-export const getBoissons = state =>
-  state.products.filter(product => product.types.indexOf('boisson') > -1);
+export const getEntrees = (products, state) => {
+  const id = state.auth.user.position._id;
+  return products.products
+    .filter(product => product.types.indexOf('entree') > -1)
+    .filter(product => product.availableAt.some(place => place._id === id));
+};
+export const getPlats = (products, state) => {
+  console.log(products);
+  const id = state.auth.user.position._id;
+  return products.products
+    .filter(product => product.types.indexOf('plat') > -1)
+    .filter(product => product.availableAt.some(place => place._id === id));
+};
+export const getDesserts = (products, state) => {
+  const id = state.auth.user.position._id;
+  return products.products
+    .filter(product => product.types.indexOf('dessert') > -1)
+    .filter(product => product.availableAt.some(place => place._id === id));
+};
+export const getBoissons = (products, state) => {
+  const id = state.auth.user.position._id;
+  return products.products
+    .filter(product => product.types.indexOf('boisson') > -1)
+    .filter(product => product.availableAt.some(place => place._id === id));
+};
 
 export default products;

@@ -121,7 +121,7 @@ const hideProduct = product => dispatch => (
   dispatch(hideProductDetail(product))
 );
 
-const getFilteredProducts = str => (dispatch, getState) => (
+const getFilteredProducts = str => dispatch => (
   dispatch(triggerFilter(str))
 );
 
