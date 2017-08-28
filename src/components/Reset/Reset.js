@@ -4,6 +4,7 @@ import { NotificationManager, NotificationContainer } from 'react-notifications'
 import { Redirect } from 'react-router-dom';
 import { Input } from '../Admin/tabs/FormFields';
 import Header from '../Header/Header';
+import { Helmet } from 'react-helmet';
 
 class Reset extends Component {
   constructor(props) {
@@ -75,6 +76,9 @@ class Reset extends Component {
     return (
       <div>
         <Header />
+        <Helmet>
+          <title>Workeat - Modification du mot de passe</title>
+        </Helmet>
         <div className="admin__reset">
           <h2 className="admin__container-title">Nouveau mot de passe</h2>
           <form noValidate onSubmit={this.changePassword} className="admin__form">

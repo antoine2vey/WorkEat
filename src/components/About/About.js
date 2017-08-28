@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/href-no-hash: "off" */
 
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
 class About extends Component {
   componentDidMount() {
@@ -10,6 +11,10 @@ class About extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>Workeat - Nous, Workeat</title>
+          <meta name="description" content="Workeat vous propose de nombreux plats disponibles en livraison près de votre lieu de travail" />
+        </Helmet>
         <div className="about">
           <div className="container-fluid">
             <div className="header">

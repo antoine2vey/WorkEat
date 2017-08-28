@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { NotificationContainer } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import RenderLoginBox from './RenderLoginBox';
@@ -35,6 +36,10 @@ class Home extends Component {
 
     return (
       <div className="home">
+        <Helmet>
+          <title>Workeat</title>
+          <meta name="description" content="Chez Workeat, avec des produits de qualités, de grands cuisiniers confectionnent de bons plats que vous pouvez recevoir directement sur votre lieu de travail" />
+        </Helmet>
         <div className="container-fluid">
           <div className="header-home">
             <video autoPlay loop className="header-home-video">
