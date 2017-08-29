@@ -13,10 +13,12 @@ class Article extends Component {
     const { article } = this.props;
     return (
       <div>
-        <Helmet>
-          <title>Workeat - {article.title}</title>
-          <meta name="description" content={article.metaDesc} />
-        </Helmet>
+        <Helmet
+          title={`Workeat - ${article.title}`}
+          meta={[
+            { property: 'description', content: article.metaDesc },
+          ]}
+        />
         <div className="article">
           <div className="article__header" style={{ backgroundImage: `url(${article.banner})` }}>
             <h1 className="article__title">{article.title}</h1>

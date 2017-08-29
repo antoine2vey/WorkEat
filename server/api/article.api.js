@@ -33,10 +33,11 @@ exports.getOne = async (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const { title, thumbnail, banner, text } = req.body;
+  const { title, thumbnail, banner, text, metaDesc } = req.body;
 
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('thumbnail', 'Thumbnail is required').notEmpty();
+  req.checkBody('metaDesc', 'Meta description is required').notEmpty();
   req.checkBody('banner', 'Banner is required').notEmpty();
   req.checkBody('text', 'Text is required').notEmpty();
 
@@ -60,6 +61,7 @@ exports.create = (req, res) => {
     thumbnail: fileName,
     banner: backgroundFileName,
     text: sanitizeHtml(text),
+    metaDesc,
     author: req.user.id,
     slug: createSlug(title),
   });

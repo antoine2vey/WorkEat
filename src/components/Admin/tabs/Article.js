@@ -112,7 +112,7 @@ class Article extends Component {
                 <Input type="text" name="title" placeholder="Titre" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
               <div className="admin__field-column admin__field-column-2">
-                <Input type="text" name="meta-desc" placeholder="Meta description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
+                <Input type="text" name="metaDesc" placeholder="Meta description" onFocus={this.focusInput} onBlur={this.blurInput} onChange={this.handleChange} />
               </div>
             </div>
             <div className="admin__field-column">
