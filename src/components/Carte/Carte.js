@@ -13,14 +13,11 @@ import ProductDetail from './ProductDetail';
 
 class Carte extends Component {
   componentDidMount() {
+    this.props.removeListeners();
     this.props.fetchProductsIfNeeded();
     this.props.fetchPlacesIfNeeded();
     this.props.addListener('INCREMENT_QUANTITY');
     this.props.addListener('DECREMENT_QUANTITY');
-  }
-
-  componentWillUnmount() {
-    this.props.removeListeners();
   }
 
   render() {
