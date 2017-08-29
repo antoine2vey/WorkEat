@@ -84,7 +84,7 @@ class LoginBox extends Component {
                 </div>
               )}
               <div className="twelve columns">
-                <button type="submit" className="header-home-form-content-btn btn-gold">{ this.state.isResettingPassword ? 'Envoyer' : 'Connexion'}</button>
+                <button type="submit" style={{ marginRight: 15 }} className="header-home-form-content-btn btn-gold">{ this.state.isResettingPassword ? 'Envoyer' : 'Connexion'}</button>
                 <button type="submit" className="header-home-form-content-btn btn-gold" onClick={this.switchInnerView}>{ this.state.isResettingPassword ? 'Se connecter' : 'Mot de passe perdu'}</button>
               </div>
             </div>
