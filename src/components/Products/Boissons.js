@@ -26,7 +26,8 @@ const Boissons = ({ ...props }) => {
 
   return (
     <div className="products__products-list">
-      { boissons.map((boisson, i) => (
+
+      { boissons.some(boisson => !boisson.isHidden) ? boissons.map((boisson, i) => (
         <Boisson
           boisson={boisson}
           key={boisson._id}
@@ -35,7 +36,10 @@ const Boissons = ({ ...props }) => {
           hideProduct={() => hideProduct(boisson)}
           isVisible={isVisible}
         />
-      )) }
+      )) : (
+        <p className="products__product-notFound">Aucune boisson disponible avec ces critères.</p>
+      )
+    }
     </div>
   );
 };

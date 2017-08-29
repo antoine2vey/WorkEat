@@ -26,7 +26,7 @@ const Entrees = ({ ...props }) => {
 
   return (
     <div className="products__products-list">
-      { entrees.map((entree, i) => (
+      { entrees.some(entrees => !entrees.isHidden) ? entrees.map((entree, i) => (
         <Entree
           entree={entree}
           key={entree._id}
@@ -35,7 +35,10 @@ const Entrees = ({ ...props }) => {
           hideProduct={() => hideProduct(entree)}
           isVisible={isVisible}
         />
-      )) }
+      )) : (
+        <p className="products__product-notFound">Aucune entrée disponible avec ces critères.</p>
+      )
+    }
     </div>
   );
 };

@@ -26,7 +26,7 @@ const Plats = ({ ...props }) => {
 
   return (
     <div className="products__products-list">
-      { plats.map((plat, i) => (
+      { plats.some(plats => !plats.isHidden) ? plats.map((plat, i) => (
         <Plat
           plat={plat}
           key={plat._id}
@@ -35,7 +35,10 @@ const Plats = ({ ...props }) => {
           hideProduct={() => hideProduct(plat)}
           isVisible={isVisible}
         />
-      )) }
+      )) : (
+        <p className="products__product-notFound">Aucun plat disponible avec ces critères.</p>
+      )
+    }
     </div>
   );
 };
