@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import { createArticles, deleteArticles, fetchArticlesIfNeeded } from '../../../actions/articles';
 import { Input } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Article extends Component {
   constructor() {
@@ -71,11 +72,23 @@ class Article extends Component {
     return (
       <div>
         <h2 className="admin__container-title">Mes articles</h2>
-        <ul>
+        <div className="admin__container-list">
           { articles.map(article => (
-            <li key={article._id}>{article.title} - <button onClick={() => this.props.deleteArticles(article._id)}>X</button></li>
+            <div className="admin__article-column" key={article._id}>
+              <div className="admin__article">
+                <div className="admin__article-header">
+                  <h3 className="admin__article-title">{article.title}</h3>
+                </div>
+                <div className="admin__article-body">
+                  <img src={article.thumbnail} alt="thumbnail" className="admin__article-thumbnail" />
+                </div>
+                <div className="admin__delete-btn admin__article-deleteButton" onClick={() => this.props.deleteArticles(article._id)}>
+                  <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                </div>
+              </div>
+            </div>
           )) }
-        </ul>
+        </div>
         <div>
           <h2 className="admin__container-title">Ajouter un article</h2>
           <form encType="multipart/form-data" method="POST" onSubmit={this.handleSubmit}>

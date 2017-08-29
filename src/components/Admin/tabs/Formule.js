@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchBundlesIfNeeded, deleteBundles, createBundles } from '../../../actions/bundles';
 import { Input, CheckBox } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Formule extends Component {
   constructor() {
@@ -93,10 +94,10 @@ class Formule extends Component {
                     { bundle.items.hasPlat && <p className="admin__formule-type">Ce bundle possède un plat</p> }
                     { bundle.items.hasDessert && <p className="admin__formule-type">Ce bundle possède un dessert</p> }
                     { bundle.items.hasBoisson && <p className="admin__formule-type">Ce bundle possède une boisson</p> }
+                    <span className="admin__formule-type">{bundle.reduction ? `${bundle.reduction}% de réduction` : 'Pas de réduction pour le bundle'}</span>
                   </div>
-                  <div className="card-footer">
-                    <a className="card-footer-item"><strong>{bundle.reduction ? `${bundle.reduction}% de réduction` : 'Pas de réduction pour le bundle'}</strong></a>
-                    <button className="btn-red" onClick={() => this.props.deleteBundles(bundle._id)}>Supprimer</button>
+                  <div className="admin__delete-btn admin__formule-deleteButton" onClick={() => this.props.deleteBundles(bundle._id)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
                   </div>
                 </div>
               </div>

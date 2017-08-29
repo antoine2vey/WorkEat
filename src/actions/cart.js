@@ -84,9 +84,12 @@ export const addToCart = (product, isBundle, index) => (dispatch) => {
 export const incrementQuantity = productId => dispatch => (
   dispatch(increment(productId))
 );
-export const decrementQuantity = productId => dispatch => (
-  dispatch(decrement(productId))
-);
+export const decrementQuantity = product => (dispatch) => {
+  if (product.quantity === 1) {
+    return dispatch(deleteFromCart(product));
+  }
+  dispatch(decrement(product._id));
+};
 
 export const deleteProduct = productId => dispatch => (
   dispatch(deleteFromCart(productId))

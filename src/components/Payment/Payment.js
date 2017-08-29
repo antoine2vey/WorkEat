@@ -94,7 +94,6 @@ class Payment extends Component {
                 <div className="partOne__livraison">
                   <div className="partOne__category">
                     <p>Endroits à livrer</p>
-                    <hr />
                     <div className="material-field compteInfo-field has-label fullInput">
                       <label className="material-field__label" htmlFor="livraison">Point de livraison</label>
                       <select id="livraison" name="position" value={this.state.choosenPlace} onChange={this.handleChange}>
@@ -106,6 +105,7 @@ class Payment extends Component {
                         })}
                       </select>
                     </div>
+                    <hr />
                   </div>
                 </div>
                 <div className="partOne-recap-btn">
