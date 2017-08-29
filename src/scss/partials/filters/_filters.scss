@@ -1,0 +1,61 @@
+.filters {
+  @include flex(flex-end, center, row);
+
+  &__select {
+    @include flex;
+    width: 100%;
+    height: 43px !important;
+    line-height: 43px;
+    font-family: $primary-font;
+  }
+
+  &__chosenItem {
+    flex: 1;
+  }
+
+  &__dropdownIcon {
+    width: 10px;
+  }
+
+  &__list {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    opacity: 0;
+    visibility: hidden;
+    @include material-shadow(box, 2);
+    transition: all 0.1s ease;
+
+    &-container {
+      max-width: 400px;
+      padding-right: 20px;
+    }
+
+    &--open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__item {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+    margin: 0;
+    background: $white;
+    font-family: $primary-font;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.1s ease;
+
+    &:hover {
+      background: $grey;
+    }
+  }
+}

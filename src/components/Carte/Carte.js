@@ -10,6 +10,8 @@ import Plats from '../Products/Plats';
 import Desserts from '../Products/Desserts';
 import Boissons from '../Products/Boissons';
 import ProductDetail from './ProductDetail';
+import Filters from '../Filters/Filters';
+import { fetchTagsIfNeeded } from '../../actions/tags';
 
 class Carte extends Component {
   componentDidMount() {
@@ -18,10 +20,11 @@ class Carte extends Component {
     this.props.fetchPlacesIfNeeded();
     this.props.addListener('INCREMENT_QUANTITY');
     this.props.addListener('DECREMENT_QUANTITY');
+    this.props.fetchTagsIfNeeded();
   }
 
   render() {
-    const { entrees, plats, desserts, boissons, isDetailVisible, showProduct, hideProduct, product } = this.props;
+    const { entrees, plats, desserts, boissons, isDetailVisible, showProduct, hideProduct, product, tags } = this.props;
     if (!product.tags) {
       product.tags = [];
     }
@@ -45,6 +48,7 @@ class Carte extends Component {
             <p className="products-carte__choise__title">Boissons</p>
           </NavLink>
         </div>
+        <Filters tags={tags} />
 
         <ProductDetail product={product} isDetailVisible={isDetailVisible} hideProduct={hideProduct} />
 
@@ -81,7 +85,8 @@ const mapStateToProps = (state) => {
     boissons: getBoissons(products, state),
     isDetailVisible: products.isDetailVisible,
     product: products.product,
+    tags: state.tags.tags,
   };
 };
 
-export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener, removeListeners })(Carte);
+export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener, removeListeners, fetchTagsIfNeeded })(Carte);
