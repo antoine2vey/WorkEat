@@ -7,7 +7,6 @@ const passport = require('passport');
 const mailer = require('../mailing').interface;
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 
 mongoose.Promise = Promise;
 
