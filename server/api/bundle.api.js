@@ -52,3 +52,17 @@ exports.delete = (req, res) => {
     return res.status(200).send(`Bundle ${bundle.name} deleted!`);
   });
 };
+
+exports.update = async (req, res) => {
+  const { id } = req.params;
+
+  console.log(req.body);
+
+  try {
+    const bundle = await Bundle.findByIdAndUpdate(id, req.body, { new: true });
+    console.log(bundle);
+    res.status(200).send(bundle);
+  } catch (e) {
+    res.status(400).send('Erreur dans vos paramètres');
+  }
+};

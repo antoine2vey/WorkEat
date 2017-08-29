@@ -77,11 +77,11 @@ exports.update = (req, res) => {
     name,
   };
 
-  Tag.findByIdAndUpdate(id, query, (err, tag) => {
+  Tag.findByIdAndUpdate(id, query, { new: true }, (err, tag) => {
     if (err) {
       return res.status(400).send('Database error');
     }
 
-    return res.status(200).send({ tag });
+    return res.status(200).send(tag);
   });
 };

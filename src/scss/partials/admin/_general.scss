@@ -20,6 +20,14 @@
   &__button-container {
     @include flex(center, center, row);
     height: 100%;
+    
+    &.isHoriz {
+      .admin__delete-btn,
+      .admin__update-btn {
+        flex: 1;
+        padding: 10px 0;
+      }
+    }
   }
 
   &__delete-btn {

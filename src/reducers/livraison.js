@@ -1,4 +1,4 @@
-import { RECEIVE_PLACES, REQUEST_PLACES, DELETE_PLACE, CREATE_PLACE } from '../actions/livraison';
+import { RECEIVE_PLACES, REQUEST_PLACES, DELETE_PLACE, CREATE_PLACE, UPDATE_PLACE } from '../actions/livraison';
 
 const initialState = {
   isFetching: false,
@@ -30,6 +30,20 @@ const places = (state = initialState, action) => {
           ...state.places,
           action.place,
         ],
+      };
+    case UPDATE_PLACE:
+      return {
+        ...state,
+        places: state.places.map((place) => {
+          if (place._id !== action.place._id) {
+            return place;
+          }
+
+          return {
+            ...place,
+            ...action.place,
+          };
+        }),
       };
     default:
       return state;

@@ -53,3 +53,15 @@ exports.delete = (req, res) => {
     return res.status(200).send(`Place ${place.name} deleted`);
   });
 };
+
+exports.update = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const place = await Place.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.status(200).send(place);
+  } catch (e) {
+    res.status(400).send('Erreur dans vos paramètres');
+  }
+};

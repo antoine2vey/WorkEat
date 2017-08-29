@@ -4,6 +4,7 @@ export const RECEIVE_BUNDLES = 'RECEIVE_BUNDLES';
 export const REQUEST_BUNDLES = 'REQUEST_BUNDLES';
 export const DELETE_BUNDLE = 'DELETE_BUNDLE';
 export const CREATE_BUNDLE = 'CREATE_BUNDLE';
+export const UPDATE_BUNDLE = 'UPDATE_BUNDLE';
 
 const receiveBundles = bundles => ({
   type: RECEIVE_BUNDLES,
@@ -21,6 +22,11 @@ const deleteBundle = bundleId => ({
 
 const createBundle = bundle => ({
   type: CREATE_BUNDLE,
+  bundle,
+});
+
+const update = bundle => ({
+  type: UPDATE_BUNDLE,
   bundle,
 });
 
@@ -67,4 +73,14 @@ const fetchBundlesIfNeeded = () => (dispatch, getState) => {
   return Promise.resolve();
 };
 
-export { fetchBundlesIfNeeded, deleteBundles, createBundles };
+const updateBundle = bundle => (dispatch) => {
+  axios.put(`api/bundles/${bundle._id}`, bundle, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  }).then(({ data }) => {
+    dispatch(update(data));
+  }).catch(err => console.log(err));
+};
+
+export { fetchBundlesIfNeeded, deleteBundles, createBundles, updateBundle };

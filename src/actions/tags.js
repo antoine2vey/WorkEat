@@ -4,6 +4,7 @@ export const RECEIVE_TAGS = 'RECEIVE_TAGS';
 export const REQUEST_TAGS = 'REQUEST_TAGS';
 export const DELETE_TAG = 'DELETE_TAG';
 export const CREATE_TAG = 'CREATE_TAG';
+export const UPDATE_TAG = 'UPDATE_TAG';
 
 const receiveTags = tags => ({
   type: RECEIVE_TAGS,
@@ -21,6 +22,11 @@ const deleteTag = tagId => ({
 
 const createTag = tag => ({
   type: CREATE_TAG,
+  tag,
+});
+
+const update = tag => ({
+  type: UPDATE_TAG,
   tag,
 });
 
@@ -67,4 +73,14 @@ const fetchTagsIfNeeded = () => (dispatch, getState) => {
   return Promise.resolve();
 };
 
-export { fetchTagsIfNeeded, deleteTags, createTags };
+const updateTag = tag => (dispatch) => {
+  axios.put(`api/tags/${tag._id}`, tag, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  }).then(({ data }) => {
+    dispatch(update(data));
+  }).catch(err => console.log(err));
+};
+
+export { fetchTagsIfNeeded, deleteTags, createTags, updateTag };

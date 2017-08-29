@@ -1,4 +1,4 @@
-import { RECEIVE_BUNDLES, REQUEST_BUNDLES, DELETE_BUNDLE, CREATE_BUNDLE } from '../actions/bundles';
+import { RECEIVE_BUNDLES, REQUEST_BUNDLES, DELETE_BUNDLE, CREATE_BUNDLE, UPDATE_BUNDLE } from '../actions/bundles';
 
 const initialState = {
   isFetching: false,
@@ -31,6 +31,20 @@ const bundles = (state = initialState, action) => {
           ...state.bundles,
           action.bundle,
         ],
+      };
+    case UPDATE_BUNDLE:
+      return {
+        ...state,
+        bundles: state.bundles.map((bundle) => {
+          if (bundle._id !== action.bundle._id) {
+            return bundle;
+          }
+
+          return {
+            ...bundle,
+            ...action.bundle,
+          };
+        }),
       };
     default:
       return state;

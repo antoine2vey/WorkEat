@@ -29,6 +29,18 @@ exports.delete = async (req, res) => {
   }
 };
 
+exports.update = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const livreur = await Livreur.findByIdAndUpdate(id, req.body).select('-password');
+
+    res.status(200).send(livreur);
+  } catch (e) {
+    res.status(500).send(`Server error ${e}`);
+  }
+};
+
 exports.create = async (req, res) => {
   req.checkBody('email', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();
@@ -61,7 +73,12 @@ exports.create = async (req, res) => {
       if (err) {
         return res.status(500).send('Server error');
       }
-      res.status(200).send(`Livreur crée! ${newLivreur.email}`);
+
+      Livreur.findById(newLivreur._id)
+        .select('-password')
+        .exec((err, livreur) => {
+          res.status(200).send(livreur);
+        });
     });
   } catch (e) {
     return res.status(500).send(`Server error : ${e}`);

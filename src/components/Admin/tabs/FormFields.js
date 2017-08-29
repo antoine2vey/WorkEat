@@ -39,6 +39,7 @@ const CheckBox = ({ ...props }) => (
           name={props.name}
           type="checkbox"
           onChange={props.onChange}
+          checked={props.selected || undefined}
         />
         {props.children}
       </label>

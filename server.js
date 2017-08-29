@@ -216,6 +216,7 @@ app.put('/api/tags/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET })
 app.get('/api/places', authorizeRequest, placeApi.list);
 app.post('/api/places', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.create);
 app.delete('/api/places/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.delete);
+app.put('/api/places/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), placeApi.update);
 
 // STRIPE
 app.post('/payment/:id', authorizeRequest, payment.send);
@@ -229,6 +230,7 @@ app.get('/api/orders', jwtExpress({ secret: process.env.JWT_SECRET }), order.for
 app.get('/api/bundles', authorizeRequest, bundle.list);
 app.post('/api/bundles', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), bundle.create);
 app.delete('/api/bundles/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), bundle.delete);
+app.put('/api/bundles/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), bundle.update);
 
 // ARTICLES
 app.post('/api/articles', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), article.create);
@@ -246,6 +248,7 @@ app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_
 app.get('/api/livreurs', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.list);
 app.post('/api/livreurs', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.create);
 app.delete('/api/livreurs/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.delete);
+app.put('/api/livreurs/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.update);
 // API TELEPHONE
 // On utilise un token différent pour éviter qu'un user hack une route via forge/crsf
 app.post('/livreur/login', livreurApi.login);

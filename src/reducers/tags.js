@@ -1,4 +1,4 @@
-import { RECEIVE_TAGS, REQUEST_TAGS, DELETE_TAG, CREATE_TAG } from '../actions/tags';
+import { RECEIVE_TAGS, REQUEST_TAGS, DELETE_TAG, CREATE_TAG, UPDATE_TAG } from '../actions/tags';
 
 const initialState = {
   isFetching: false,
@@ -30,6 +30,20 @@ const tags = (state = initialState, action) => {
           ...state.tags,
           action.tag,
         ],
+      };
+    case UPDATE_TAG:
+      return {
+        ...state,
+        tags: state.tags.map((tag) => {
+          if (tag._id !== action.tag._id) {
+            return tag;
+          }
+
+          return {
+            ...tag,
+            ...action.tag,
+          };
+        }),
       };
     default:
       return state;

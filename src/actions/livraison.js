@@ -4,6 +4,7 @@ export const RECEIVE_PLACES = 'RECEIVE_PLACES';
 export const REQUEST_PLACES = 'REQUEST_PLACES';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const CREATE_PLACE = 'CREATE_PLACE';
+export const UPDATE_PLACE = 'UPDATE_PLACE';
 
 const receivePlaces = places => ({
   type: RECEIVE_PLACES,
@@ -20,6 +21,11 @@ const deletePlace = placeId => ({
 
 const createPlace = place => ({
   type: CREATE_PLACE,
+  place,
+});
+
+const update = place => ({
+  type: UPDATE_PLACE,
   place,
 });
 
@@ -59,11 +65,21 @@ const shouldFetchPlaces = (state) => {
 };
 
 const fetchPlacesIfNeeded = () => (dispatch, getState) => {
-  if (shouldFetchPlaces(getState())) {    
+  if (shouldFetchPlaces(getState())) {
     return dispatch(fetchPlaces());
   }
 
   return Promise.resolve();
 };
 
-export { fetchPlacesIfNeeded, deletePlaces, createPlaces };
+const updatePlace = place => (dispatch) => {
+  axios.put(`api/places/${place._id}`, place, {
+    headers: {
+      Authorization: `Bearer ${localStorage._token}`,
+    },
+  }).then(({ data }) => {
+    dispatch(update(data));
+  }).catch(err => console.log(err));
+};
+
+export { fetchPlacesIfNeeded, deletePlaces, createPlaces, updatePlace };

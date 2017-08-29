@@ -25,8 +25,12 @@ exports.update = async (req, res) => {
   const shouldMap = !Array.isArray(allergics);
   req.body.allergics = shouldMap ? allergics.split(',').map(t => t.trim()) : allergics;
 
-  const product = await Product.findByIdAndUpdate(req.body._id, req.body, { new: true });
-  res.send(product);
+  try {
+    const product = await Product.findByIdAndUpdate(req.body._id, req.body, { new: true });
+    res.status(200).send(product);
+  } catch (e) {
+    res.status(400).send('Vérifiez vos champs');
+  }
 };
 
 exports.create = (req, res) => {
