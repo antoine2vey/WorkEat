@@ -1,13 +1,13 @@
 /* home */
 .home {
-  position:relative;
+  position: relative;
   margin-bottom: 200px;
   background: $white;
 }
 
 .header-home {
   position: relative;
-  z-index:100;
+  z-index: 100;
   width: 100%;
   height: 100%;
   padding: 25px 0 50px;
@@ -48,11 +48,11 @@
 
       &-item {
         display: block;
-        width:600px;
+        width: 600px;
         height: auto;
         margin: 0 auto;
         @include screenSm {
-          width:400px;
+          width: 400px;
         };
       }
     }
@@ -118,7 +118,8 @@
         margin: 0;
       }
 
-      &-puce, &-puce--active {
+      &-puce,
+      &-puce--active {
         display: inline-block;
         width: 17px;
         height: 4px;
@@ -132,18 +133,20 @@
           box-shadow: 0 0 3px $gold;
         }
       }
+
       &-nav {
         @include flex;
       }
+
       &-arrow {
-        flex:1;
-        position:relative;
-        width:100px;
-        color:$white;
+        flex: 1;
+        position: relative;
+        width: 100px;
+        color: $white;
         font-family: $primary-font;
-        font-size:14px;
+        font-size: 14px;
         text-transform: uppercase;
-        outline:none;
+        outline: none;
         cursor: pointer;
         visibility: hidden;
         opacity: 0;
@@ -151,14 +154,13 @@
 
         &--active {
           visibility: visible;
-          opacity:1;
+          opacity: 1;
         }
       }
     }
 
     &-content {
       margin: 0;
-
 
       .btn-gold {
         margin-top: 15px;
@@ -172,48 +174,52 @@
       &-input {
         flex: 1;
         position: relative;
-        margin:0 10px;
-          @include screenMd {
-            flex-basis: 100%;
-          }
-
-          &-icon {
-            position: absolute;
-            bottom: 27px;
-            left: 10px;
-            width: 15px;
-          }
-        };
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-          width: 100%;
-          padding: 0 10px 0 35px;
-          color: $white;
-          background: none;
-          border: 1px solid $white;
-          border-radius: 3px;
+        margin: 0 10px;
+        @include screenMd {
+          flex-basis: 100%;
         }
-      }
 
-      &-btn {
-        font-family: $primary-font;
+        &-icon {
+          position: absolute;
+          bottom: 27px;
+          left: 10px;
+          width: 15px;
+        }
+
+        &-item::placeholder {
+          color: $dark-grey !important;
+        }
+      };
+
+      input[type="email"],
+      input[type="password"],
+      input[type="text"] {
+        width: 100%;
+        padding: 0 10px 0 35px;
         color: $white;
+        background: none;
         border: 1px solid $white;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
         border-radius: 3px;
-        transition: all 0.3s ease;
-        @include reset($write, $white, $white);
       }
     }
+
+    &-btn {
+      font-family: $primary-font;
+      color: $white;
+      border: 1px solid $white;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      @include reset($write, $white, $white);
+    }
   }
+}
 
 .instructions {
   max-width: 100%;
   height: auto;
-  padding:20px 0;
+  padding: 20px 0;
   background: $write;
   box-shadow: inset 0 0 5px $black;
   @include screenSm {
@@ -254,39 +260,43 @@
 }
 
 .right {
-  position:relative;
+  position: relative;
+
   &::before {
     content: '';
     position: absolute;
-    top:8px;
-    left:-55px;
-    width:50px;
-    height:3px;
-    background:$gold;
+    top: 8px;
+    left: -55px;
+    width: 50px;
+    height: 3px;
+    background: $gold;
     transition: left 0.3s $transition;
   }
+
   &:hover {
     &::before {
-      left:-30px;
+      left: -30px;
     }
   }
 }
 
 .left {
-  position:relative;
+  position: relative;
+
   &::after {
     content: '';
     position: absolute;
-    top:8px;
-    right:-55px;
-    width:50px;
-    height:3px;
-    background:$gold;
+    top: 8px;
+    right: -55px;
+    width: 50px;
+    height: 3px;
+    background: $gold;
     transition: right 0.3s $transition;
   }
+
   &:hover {
     &::after {
-      right:-30px;
+      right: -30px;
     }
   }
 }
