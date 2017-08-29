@@ -613,21 +613,22 @@ input::placeholder {
     }
 
     &-image {
-      height: 100px;
+      height: 100%;
 
       &-container {
         width: 100px;
-        height: 100px;
+        height: 105px;
         overflow: hidden;
       }
     }
 
     &-text {
-      padding: 0 0 0 20px;
+      padding: 0 0 0 10px;
       font-family: $primary-font;
       visibility: visible;
       opacity: 1;
       transition: all 0.3s ease;
+      flex: 1;
     }
 
     &-title,
@@ -644,10 +645,10 @@ input::placeholder {
     }
 
     &-title {
-      font-size: 22px;
+      font-size: 20px;
       color: $gold;
       font-weight: 500;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       @include screenSm {
         font-size: 18px;
       };
