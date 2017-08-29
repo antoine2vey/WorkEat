@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { fetchPlacesIfNeeded } from '../../../actions/livraison';
 import { Input, Select } from './FormFields';
+import { trashBlanc } from '../../../images';
 
 class Livreur extends Component {
   constructor() {
@@ -12,6 +13,7 @@ class Livreur extends Component {
       email: '',
       password: '',
       placesToGo: [],
+      livreurs: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +22,7 @@ class Livreur extends Component {
 
   componentDidMount() {
     this.props.fetchPlacesIfNeeded();
+    this.fetchLivreurs();
   }
 
   handleChange(event) {
@@ -42,7 +45,7 @@ class Livreur extends Component {
         headers: { Authorization: `Bearer ${localStorage._token}` },
       })
       .then(({ data }) => this.setState({ livreurs: data }))
-      .catch(err => console.error(err.response));
+      .catch(err => console.error(err));
   }
 
   handleSubmit(event) {
@@ -55,16 +58,43 @@ class Livreur extends Component {
       .catch(err => console.error(err.response));
   }
 
+  handleDelete(id) {
+    axios
+      .delete(`/api/livreurs/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage._token}` },
+      })
+      .then(({ data }) => {
+        this.setState({
+          livreurs: this.state.livreurs.filter(livreur => livreur._id !== data),
+        });
+      })
+      .catch(err => console.error(err.response));
+  }
+
   render() {
     const { places } = this.props;
     return (
       <div>
         <h2 className="admin__container-title">Mes livreurs</h2>
+        <div className="admin__container-list">
+          {
+            this.state.livreurs.map(livreur => (
+              <div className="admin__livraison-column" key={livreur._id}>
+                <div className="admin__livraison">
+                  <p className="admin__livraison-text">{livreur.email}</p>
+                  <div className="admin__delete-btn" onClick={() => this.handleDelete(livreur._id)}>
+                    <img src={trashBlanc} alt="Supprimer" className="admin__delete-btn-icon" />
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
         <h2 className="admin__container-title">Ajouter un livreur</h2>
         <form onSubmit={this.handleSubmit} noValidate>
           <div className="admin__container-list">
             <div className="admin__field-column admin__field-column-2">
-              <Input type="email" name="email" placeholder="Nom" onChange={this.handleChange} />
+              <Input type="email" name="email" placeholder="Email" onChange={this.handleChange} />
             </div>
             <div className="admin__field-column admin__field-column-2">
               <Input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange} />

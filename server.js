@@ -243,7 +243,9 @@ app.post('/api/csv', isPresta, jwtExpress({ secret: process.env.JWT_SECRET }), c
 app.post('/api/contact', authorizeRequest, jwtExpress({ secret: process.env.JWT_SECRET }), messageApi.contact);
 
 // LIVREURS
+app.get('/api/livreurs', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.list);
 app.post('/api/livreurs', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.create);
+app.delete('/api/livreurs/:id', isAdmin, jwtExpress({ secret: process.env.JWT_SECRET }), livreurApi.delete);
 // API TELEPHONE
 // On utilise un token différent pour éviter qu'un user hack une route via forge/crsf
 app.post('/livreur/login', livreurApi.login);

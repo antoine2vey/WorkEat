@@ -8,6 +8,27 @@ const moment = require('moment');
 const jwtDecode = require('jwt-decode');
 // const Places = require('../models/places.model');
 
+exports.list = async (req, res) => {
+  try {
+    const livreurs = await Livreur.find({}).select('-password');
+    res.status(200).send(livreurs);
+  } catch (e) {
+    res.status(500).send(`Server error ${e}`);
+  }
+};
+
+exports.delete = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const livreur = await Livreur.findByIdAndRemove(id);
+
+    res.status(200).send(livreur._id);
+  } catch (e) {
+    res.status(500).send(`Server error ${e}`);
+  }
+};
+
 exports.create = async (req, res) => {
   req.checkBody('email', 'Email is required').notEmpty().isEmail();
   req.checkBody('password', 'Password is required').notEmpty();

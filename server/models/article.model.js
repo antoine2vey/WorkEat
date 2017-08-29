@@ -29,6 +29,10 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  metaDesc: {
+    type: String,
+    require: true,
+  },
 });
 
 module.exports = mongoose.model('Article', articleSchema);
