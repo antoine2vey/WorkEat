@@ -9,6 +9,8 @@ import {
   TRIGGER_FILTER,
   DECREMENT_PRODUCT_QUANTITY,
   INCREMENT_PRODUCT_QUANTITY,
+  TRIGGER_FILTER_TAG,
+  CLEAR_FILTER_TAGS,
 } from '../actions/products';
 
 const initialState = {
@@ -117,6 +119,33 @@ const products = (state = initialState, action) => {
           return {
             ...product,
             isHidden: true,
+          };
+        }),
+      };
+    case TRIGGER_FILTER_TAG:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.tags.some(tag => tag._id === action.tagId)) {
+            return {
+              ...product,
+              isHidden: false,
+            };
+          }
+
+          return {
+            ...product,
+            isHidden: true,
+          };
+        }),
+      };
+    case CLEAR_FILTER_TAGS:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          return {
+            ...product,
+            isHidden: false,
           };
         }),
       };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { fetchProductsIfNeeded, showProduct, hideProduct, addListener, removeListeners } from '../../actions/products';
+import { fetchProductsIfNeeded, showProduct, hideProduct, addListener, removeListeners, filterOnTags, clearFilterTag } from '../../actions/products';
 import { fetchPlacesIfNeeded } from '../../actions/livraison';
 import { getEntrees, getPlats, getDesserts, getBoissons } from '../../reducers/products';
 import Entrees from '../Products/Entrees';
@@ -24,7 +24,7 @@ class Carte extends Component {
   }
 
   render() {
-    const { entrees, plats, desserts, boissons, isDetailVisible, showProduct, hideProduct, product, tags } = this.props;
+    const { entrees, plats, desserts, boissons, isDetailVisible, showProduct, hideProduct, product, tags, filterOnTags, clearFilterTag } = this.props;
     if (!product.tags) {
       product.tags = [];
     }
@@ -48,7 +48,8 @@ class Carte extends Component {
             <p className="products-carte__choise__title">Boissons</p>
           </NavLink>
         </div>
-        <Filters tags={tags} />
+
+        <Filters tags={tags} filter={filterOnTags} clearFilterTag={clearFilterTag} />
 
         <ProductDetail product={product} isDetailVisible={isDetailVisible} hideProduct={hideProduct} />
 
@@ -89,4 +90,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener, removeListeners, fetchTagsIfNeeded })(Carte);
+export default connect(mapStateToProps, { hideProduct, showProduct, fetchPlacesIfNeeded, fetchProductsIfNeeded, addListener, removeListeners, fetchTagsIfNeeded, filterOnTags, clearFilterTag })(Carte);

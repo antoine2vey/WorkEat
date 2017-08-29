@@ -9,6 +9,8 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const HIDE_DETAIL = 'HIDE_DETAIL';
 export const TRIGGER_FILTER = 'TRIGGER_FILTER';
+export const TRIGGER_FILTER_TAG = 'TRIGGER_FILTER_TAG';
+export const CLEAR_FILTER_TAGS = 'CLEAR_FILTER_TAGS';
 export const DECREMENT_PRODUCT_QUANTITY = 'DECREMENT_PRODUCT_QUANTITY';
 export const INCREMENT_PRODUCT_QUANTITY = 'INCREMENT_PRODUCT_QUANTITY';
 const socket = io.connect('http://localhost:3005');
@@ -48,6 +50,15 @@ const hideProductDetail = product => ({
 const triggerFilter = str => ({
   type: TRIGGER_FILTER,
   str,
+});
+
+const triggerFilterTag = tagId => ({
+  type: TRIGGER_FILTER_TAG,
+  tagId,
+});
+
+const clearTag = () => ({
+  type: CLEAR_FILTER_TAGS,
 });
 
 const decrement = id => ({
@@ -125,6 +136,14 @@ const getFilteredProducts = str => dispatch => (
   dispatch(triggerFilter(str))
 );
 
+const filterOnTags = tagId => dispatch => (
+  dispatch(triggerFilterTag(tagId))
+);
+
+const clearFilterTag = () => dispatch => (
+  dispatch(clearTag())
+);
+
 const addListener = key => (dispatch) => {
   socket.on(key, ({ id, quantity }) => {
     switch (key) {
@@ -152,4 +171,4 @@ const updateProduct = product => (dispatch) => {
   });
 };
 
-export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct, removeListeners };
+export { fetchProductsIfNeeded, deleteProducts, createProduct, showProduct, hideProduct, getFilteredProducts, addListener, updateProduct, removeListeners, filterOnTags, clearFilterTag };
