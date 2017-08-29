@@ -1,6 +1,10 @@
 .filters {
   @include flex(flex-end, center, row);
 
+  @include screenXs {
+    padding-left: 15px;
+  }
+
   &__select {
     @include flex;
     width: 100%;
@@ -20,7 +24,7 @@
   &__list {
     position: absolute;
     z-index: 1;
-    top: 32px;
+    top: 78px;
     left: 0;
     width: 100%;
     height: auto;
